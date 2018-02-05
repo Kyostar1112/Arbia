@@ -1469,7 +1469,7 @@ HRESULT clsMain::ReadMesh()
 
 	//•¶š( Å‰‚Ì“z‚Íì‚ç‚È‚¢{ MOVIE—p } ).
 	m_pCheck = new clsCheckPointMgr;
-	m_pCheck->Create( m_hWnd, m_pDevice, m_pDeviceContext ); 
+	m_pCheck->Create( m_hWnd, m_pDevice, m_pDeviceContext );
 	m_pCheck->Init();
 
 
@@ -2869,6 +2869,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpWall[i]->DetatchModel();
 		}
 		m_vsmpWall.clear();
+		m_vsmpWall.shrink_to_fit();
 	}
 	//°•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpFloor.empty())
@@ -2878,6 +2879,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpFloor[i]->DetatchModel();
 		}
 		m_vsmpFloor.clear();
+		m_vsmpFloor.shrink_to_fit();
 	}
 	//“G•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpEnemyMgr.empty())
@@ -2887,6 +2889,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpEnemyMgr[i]->DetatchModel();
 		}
 		m_vsmpEnemyMgr.clear();
+		m_vsmpEnemyMgr.shrink_to_fit();
 	}
 	//ˆÚ“®°ŠÛ•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpStepCil.empty())
@@ -2896,6 +2899,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpStepCil[i]->DetatchModel();
 		}
 		m_vsmpStepCil.clear();
+		m_vsmpStepCil.shrink_to_fit();
 	}
 	//ˆÚ“®°lŠp•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpStepBox.empty())
@@ -2905,6 +2909,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpStepBox[i]->DetatchModel();
 		}
 		m_vsmpStepBox.clear();
+		m_vsmpStepBox.shrink_to_fit();
 	}
 	//ƒyƒ“ƒfƒ…ƒ‰ƒ€•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpPend.empty())
@@ -2914,6 +2919,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpPend[i]->DetatchModel();
 		}
 		m_vsmpPend.clear();
+		m_vsmpPend.shrink_to_fit();
 	}
 	//ƒhƒA•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpDoorMgr.empty())
@@ -2923,6 +2929,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpDoorMgr[i]->DetatchModel();
 		}
 		m_vsmpDoorMgr.clear();
+		m_vsmpDoorMgr.shrink_to_fit();
 	}
 	//°‘„•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpSpiaFloorMgr.empty())
@@ -2932,6 +2939,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpSpiaFloorMgr[i]->DetatchModel();
 		}
 		m_vsmpSpiaFloorMgr.clear();
+		m_vsmpTest.shrink_to_fit();
 	}
 	//•Ç‘„•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpSpiaWallMgr.empty())
@@ -2941,6 +2949,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpSpiaWallMgr[i]->DetatchModel();
 		}
 		m_vsmpSpiaWallMgr.clear();
+		m_vsmpSpiaWallMgr.shrink_to_fit();
 	}
 	//—‚Æ‚µŒŠ‚ÌŠW•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpCoverMgr.empty())
@@ -2950,6 +2959,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpCoverMgr[i]->DetatchModel();
 		}
 		m_vsmpCoverMgr.clear();
+		m_vsmpTest.shrink_to_fit();
 	}
 	//ƒS[ƒ‹•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpGoalMgr.empty())
@@ -2959,6 +2969,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpGoalMgr[i]->DetatchModel();
 		}
 		m_vsmpGoalMgr.clear();
+		m_vsmpTest.shrink_to_fit();
 	}
 
 	//‰®ª•R‚Ã‚¯‰ğœ.
@@ -2969,6 +2980,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpCeiling[i]->DetatchModel();
 		}
 		m_vsmpCeiling.clear();
+		m_vsmpTest.shrink_to_fit();
 	}
 
 	//ƒ‚ƒfƒ‹ƒeƒXƒg•R‚Ã‚¯‰ğœ.
@@ -2979,6 +2991,7 @@ void clsMain::StageDetatchModelSet()
 			m_vsmpTest[i]->DetatchModel();
 		}
 		m_vsmpTest.clear();
+		m_vsmpTest.shrink_to_fit();
 	}
 
 }
@@ -4612,7 +4625,6 @@ void clsMain::LoadRender()
 	m_pLoadTxt->Render();
 
 	SetDepth(true);
-
 
 	//ÚİÀŞØİ¸Ş‚³‚ê‚½²Ò°¼Ş‚ğ•\¦.
 	m_pSwapChain->Present(0, 0);
