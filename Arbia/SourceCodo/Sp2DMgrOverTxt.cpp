@@ -13,13 +13,13 @@ clsSp2dMgrOverTxt::~clsSp2dMgrOverTxt()
 {
 }
 
-void clsSp2dMgrOverTxt::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
+void clsSp2dMgrOverTxt::Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
 	m_smpOverTxt = make_unique<clsSprite2D>();
 	m_smpOverTxt->Init(pDevice11, pContext11, "Data\\Image\\GameOver.png");
 }
 
-void clsSp2dMgrOverTxt::InitSetPos()
+void clsSp2dMgrOverTxt::Init()
 {
 	m_smpOverTxt->InitSetPos();
 	m_smpOverTxt->SetPosX(ConstantOver::CENTER_POS.w - m_smpOverTxt->GetCenterDisp().w);

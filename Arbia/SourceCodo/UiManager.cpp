@@ -37,7 +37,7 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 
 	//ゲームオーバ用.
 	m_smpOverScene = make_unique<clsSp2dMgrOver>();
-	m_smpOverScene->Init( pDevice11, pContext11 );
+	m_smpOverScene->Create( pDevice11, pContext11 );
 
 	//リザルト用.
 	m_smpResult = make_unique<clsSp2dMgrReslt>();
@@ -50,10 +50,10 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	m_smpWhite->Init(pDevice11, pContext11, "Data\\Image\\White.png");
 
 	//タイトルシーン.
-	m_smpTitleScene->Init(pDevice11, pContext11);
+	m_smpTitleScene->Create(pDevice11, pContext11);
 
 	//メインシーン.
-	m_smpMainScene->Init( hWnd, pDevice11, pContext11);
+	m_smpMainScene->Create( hWnd, pDevice11, pContext11);
 
 	m_smpActTxt->Init(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
 
@@ -122,7 +122,7 @@ void clsUiManagar::SceneEnding()
 }
 void clsUiManagar::ChangeTitleInit()
 {
-	m_smpTitleScene->InitSetPos();
+	m_smpTitleScene->Init();
 	m_smpMainScene->ActTxtMoveOut();
 
 #ifdef Tahara
@@ -135,7 +135,7 @@ void clsUiManagar::ChangeTitleInit()
 }
 void clsUiManagar::ChangeMainInit()
 {
-	m_smpMainScene->InitSetPos();
+	m_smpMainScene->Init();
 	m_smpMainScene->ActTxtMoveIn();
 
 }
@@ -256,14 +256,14 @@ void clsUiManagar::InitPos()
 	m_smpBlack->InitSetPos();	//暗転用.
 	m_smpActTxt->InitSetPos();
 
-	m_smpTitleScene->InitSetPos();	//タイトル用.
+	m_smpTitleScene->Init();	//タイトル用.
 
 	m_smpActTxt->InitSetPos();	//ジャンプ、攻撃ねぇでやんす.
 	m_smpXButton->InitSetPos();	//Xボタンねぇでやんす.
 	m_smpAButton->InitSetPos();	//Aボタン.
 	//ゲームオーバ用.
 //	m_smpGameOverTxt->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
-	m_smpOverScene->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
+	m_smpOverScene->Init();	//ゲームオーバーテキストねぇでやんす.
 
 	//リザルト用.
 	m_smpResult->InitSetPos();	//リザルトテキストねぇでやんす.

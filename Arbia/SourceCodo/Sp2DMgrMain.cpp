@@ -32,7 +32,7 @@ clsSp2dMgrMain::~clsSp2dMgrMain()
 	Release();
 }
 
-void clsSp2dMgrMain::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
+void clsSp2dMgrMain::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
 
 	m_smpActTxt->Init(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
@@ -50,7 +50,7 @@ void clsSp2dMgrMain::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceConte
 }
 
 //–ˆ‰ñ’Ê‚é.
-void clsSp2dMgrMain::InitSetPos()
+void clsSp2dMgrMain::Init()
 {
 	m_smpActTxt->InitSetPos();
 
