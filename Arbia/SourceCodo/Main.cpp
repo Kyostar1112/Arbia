@@ -8,7 +8,7 @@
 
 
 //ｸﾞﾛｰﾊﾞﾙ変数.
-clsMain* g_pClsMain = nullptr;
+clsMain* g_pClsMain = NULL;
 
 
 //-----振動-----//.
@@ -194,7 +194,7 @@ INT WINAPI WinMain(
 	g_pClsMain = new clsMain;	//初期化&ｸﾗｽの宣言.
 
 	//ｸﾗｽが存在しているかﾁｪｯｸ.
-	if( g_pClsMain != nullptr ){
+	if( g_pClsMain != NULL ){
 		//ｳｨﾝﾄﾞｳ作成成功.
 		if( SUCCEEDED(
 			g_pClsMain->InitWindow(
@@ -1707,7 +1707,6 @@ bool clsMain::Intersect(
 	}
 	return false;
 }
-
 //============================================================
 //	交差位置のﾎﾟﾘｺﾞﾝの頂点を見つける.
 //		※頂点座標はﾛｰｶﾙ座標.
@@ -2445,7 +2444,7 @@ void clsMain::CameraLookSet()
 
 	m_Camera.vLook = m_vLookTarget;
 }
-float clsMain::CameraLengthComp( float Attker, float Target )
+ float clsMain::CameraLengthComp( float Attker, float Target )
  {
 	float Langth = Target - Attker;
 
@@ -3028,7 +3027,7 @@ void clsMain::SceneTitle()
 
 
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
@@ -3858,7 +3857,7 @@ void clsMain::SceneResult()
 
 	//決定ボタン.
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
@@ -3924,13 +3923,13 @@ void clsMain::SceneEnding()
 
 	//短押し.
 	bool bPushEnterEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnterEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnterEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnterEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnterEnter = true;
 
 	//長押し.
 	bool bPushEnterStay = false;
-	if( m_pXInput->IsPressStay( XINPUT_A ) )bPushEnterStay = true;
+	if( m_pXInput->IsPressStay( XINPUT_GAMEPAD_A ) )bPushEnterStay = true;
 	GETKEY_STAY( 'Z' ) bPushEnterStay = true;
 	GETKEY_STAY( 'A' ) bPushEnterStay = true;
 
@@ -3960,7 +3959,7 @@ void clsMain::SceneOver()
 
 
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 

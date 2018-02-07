@@ -51,16 +51,8 @@ const float fEFFECT_SPD = 1.0f;
 const int iEFFECT_PLAY_RAG = 20;//蹴ってから発生するまでのラグ.
 
 
-
-
 clsDoorMgr::clsDoorMgr()
 {
-	m_pGate = nullptr;
-	m_pDoor = nullptr;
-	m_pColWall = nullptr;
-
-	m_pSe = nullptr;
-
 	m_pEffect = nullptr;
 }
 
@@ -73,15 +65,6 @@ clsDoorMgr::~clsDoorMgr()
 
 void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext, int iNo )
 {
-	if( m_pGate != nullptr ||
-		m_pDoor != nullptr ||
-		m_pColWall != nullptr ||
-		m_pSe != nullptr ||
-		m_pEffect != nullptr )
-	{	
-		return;
-	}
-
 	//門.
 	m_pGate = new clsCharaStatic;
 	m_pGate->AttachModel(
@@ -112,6 +95,8 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_SPIA_WALL ) );
 
+
+
 	//蹴られ判定用.
 	ColState.fRange = fCOL_RANGE;
 	ColState.fHeight = fCOL_HEIGHT;
@@ -139,7 +124,6 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 
 	Init();
 }
-
 void clsDoorMgr::Init()
 {
 	ReStart();
@@ -165,24 +149,24 @@ void clsDoorMgr::Release()
 {
 	m_pEffect = nullptr;
 
-	if( m_pSe != nullptr ){
+	if( m_pSe != NULL ){
 		delete m_pSe;
-		m_pSe = nullptr;
+		m_pSe = NULL;
 	}
 
-	if( m_pColWall!= nullptr ){
+	if( m_pColWall!= NULL ){
 		delete m_pColWall;
-		m_pColWall = nullptr;
+		m_pColWall = NULL;
 	}
 
-	if( m_pDoor != nullptr ){
+	if( m_pDoor != NULL ){
 		delete m_pDoor;
-		m_pDoor = nullptr;
+		m_pDoor = NULL;
 	}
 
-	if( m_pGate != nullptr ){
+	if( m_pGate != NULL ){
 		delete m_pGate;
-		m_pGate = nullptr;
+		m_pGate = NULL;
 	}
 }
 
@@ -192,16 +176,12 @@ void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 {
 	//.
 //	m_pColWall->Render( mView, mProj, vLight, vEye );
+	//扉.
+	m_pDoor->Render( mView, mProj, vLight, vEye );
+	//門.
+	m_pGate->Render( mView, mProj, vLight, vEye,
+		D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
 
-	if( m_pDoor != nullptr ){
-		//扉.
-		m_pDoor->Render( mView, mProj, vLight, vEye );
-	}
-	if( m_pGate != nullptr ){
-		//門.
-		m_pGate->Render( mView, mProj, vLight, vEye,
-			D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
-	}
 }
 
 
@@ -210,13 +190,11 @@ void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 	m_vPos = vPos;
 
 	//子分.
-	if( m_pGate != nullptr )	m_pGate->SetPosition( m_vPos );
-	if( m_pDoor != nullptr )	m_pDoor->SetPosition( m_vPos );
+	m_pGate->SetPosition( m_vPos );
+	m_pDoor->SetPosition( m_vPos );
 
-	if( m_pColWall != nullptr ){
-		m_pColWall->SetPosition( m_vPos );
-		m_pColWall->AddPosition( vWALL_OFFSET );
-	}
+	m_pColWall->SetPosition( m_vPos );
+	m_pColWall->AddPosition( vWALL_OFFSET );
 
 	Init();
 }
@@ -228,6 +206,7 @@ void clsDoorMgr::Move( float fEarZ )
 	Animation();
 	SetAlpha();
 
+
 	//エフェクト再生.
 	if( m_bEffTimer ){
 		m_iEffTimer ++;
@@ -237,6 +216,8 @@ void clsDoorMgr::Move( float fEarZ )
 			PlayEff();
 		}
 	}
+
+
 }
 
 
@@ -325,8 +306,6 @@ void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 //==================================================
 void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 {
-	if( m_pSe == nullptr ) return;
-
 	m_pSe->SeekToStart();
 	m_pSe->SetVolume( iVOL );
 	m_pSe->Play();
@@ -337,8 +316,6 @@ void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 //============================================================
 void clsDoorMgr::Animation()
 {
-	if( m_pDoor == nullptr ) return;
-
 	//ループしないアニメ.
 	if( m_enAnimNo == enANIM_BREAK ){
 		m_dAnimTimer += m_pDoor->m_pModel->GetAnimSpeed();
@@ -356,10 +333,7 @@ void clsDoorMgr::Animation()
 //============================================================
 //	アニメーションモードを変更.
 //============================================================
-void clsDoorMgr::ChangeAnimMode( enAnimation anim )
-{
-	if( m_pDoor == nullptr ) return;
-
+void clsDoorMgr::ChangeAnimMode( enAnimation anim ){
 	m_enAnimNo = anim;
 	m_pDoor->ChangeAnimSet( m_enAnimNo );//アニメセット.
 	m_dAnimTimer = 0.0;
@@ -369,8 +343,6 @@ void clsDoorMgr::ChangeAnimMode( enAnimation anim )
 //エフェクト再生.
 void clsDoorMgr::PlayEff()
 {
-	if( m_pEffect == nullptr ) return;
-
 	if( !m_pEffect->PlayCheck( m_ehDust ) ){
 			D3DXVECTOR3 vEffPos = m_vPos;
 			vEffPos.z += fEFFECT_Z_OFFSET;
