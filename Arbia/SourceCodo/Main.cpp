@@ -8,7 +8,7 @@
 
 
 //ｸﾞﾛｰﾊﾞﾙ変数.
-clsMain* g_pClsMain = NULL;
+clsMain* g_pClsMain = nullptr;
 
 
 //-----振動-----//.
@@ -194,7 +194,7 @@ INT WINAPI WinMain(
 	g_pClsMain = new clsMain;	//初期化&ｸﾗｽの宣言.
 
 	//ｸﾗｽが存在しているかﾁｪｯｸ.
-	if( g_pClsMain != NULL ){
+	if( g_pClsMain != nullptr ){
 		//ｳｨﾝﾄﾞｳ作成成功.
 		if( SUCCEEDED(
 			g_pClsMain->InitWindow(
@@ -1707,6 +1707,7 @@ bool clsMain::Intersect(
 	}
 	return false;
 }
+
 //============================================================
 //	交差位置のﾎﾟﾘｺﾞﾝの頂点を見つける.
 //		※頂点座標はﾛｰｶﾙ座標.
@@ -2444,7 +2445,7 @@ void clsMain::CameraLookSet()
 
 	m_Camera.vLook = m_vLookTarget;
 }
- float clsMain::CameraLengthComp( float Attker, float Target )
+float clsMain::CameraLengthComp( float Attker, float Target )
  {
 	float Langth = Target - Attker;
 

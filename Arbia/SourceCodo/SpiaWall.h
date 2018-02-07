@@ -13,6 +13,7 @@ public:
 	clsSpiaWall();
 	virtual ~clsSpiaWall();
 
+	//“®‚«‚Ìí—Ş.
 	enum enSpeaWallMode
 	{
 		enSWM_STOP = 0,		//~‚Ü‚Á‚Ä‚¢‚éiˆø‚Á‚ñ‚Å‚éoro‚Ä‚¢‚éj.
@@ -49,9 +50,6 @@ public:
 		m_enMode = enSWM_DOWN;
 	}
 
-	D3DXVECTOR3 GetTest(){
-		return ColState.vRangeHalf;
-	}
 
 private:
 

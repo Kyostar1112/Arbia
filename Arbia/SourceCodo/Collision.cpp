@@ -45,12 +45,11 @@ const	  int iVOL_DROP_DOWN = 250;//250.
 
 
 
-
-
-
 //ÓÃÞÙ‚Ì“s‡.
 const float fMODEL_BACK_TURN = (float)M_PI;//TestPlusTheta
 
+//‰ñ“]’l‚ÌãŒÀ.
+#define THETA_MAX (float)( M_PI * 2.0 )
 
 
 
@@ -244,7 +243,6 @@ bool clsCollision::HitSect( COL_STATE* Attacker, COL_STATE* Target )
 //============================================================
 void clsCollision::ThetaOverGuard( float& theta )
 {
-#define THETA_MAX (float)( M_PI * 2.0 )
 	if( theta > THETA_MAX ){
 		theta -= THETA_MAX;
 	}
@@ -254,7 +252,6 @@ void clsCollision::ThetaOverGuard( float& theta )
 }
 void clsCollision::ThetaOverGuard( double& theta )
 {
-#define THETA_MAX ( M_PI * 2.0 )
 	if( theta > THETA_MAX ){
 		theta -= THETA_MAX;
 	}
@@ -351,13 +348,5 @@ void clsCollision::CreateSe( HWND hWnd )
 		m_ppSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
 }
-
-
-
-
-
-
-
-
 
 
