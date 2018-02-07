@@ -1,6 +1,13 @@
 #include "Common.h"
 
 
+clsCommon::clsCommon()
+{
+	m_pDevice11 = nullptr;
+	m_pDeviceContext11 = nullptr;
+	m_pBlendState = nullptr;
+}
+
 //============================================================
 //“§‰ß(±ÙÌ§ÌŞÚİÄŞ)İ’è‚ÌØ‚è‘Ö‚¦.
 //============================================================
