@@ -30,18 +30,16 @@ clsJewerSet::clsJewerSet()
 	m_vMove = { 0.0f, 0.0f, 0.0f };
 	m_fAcc = 0.0f;
 
-	m_pSe = nullptr;
+		m_pSe = NULL;
 }
 
 clsJewerSet::~clsJewerSet()
 {
 //	for( int i=0; i<enS_MAX; i++ ){
-		if( m_pSe != nullptr ){
-			m_pSe->Stop();
-			m_pSe->Close();
-			delete m_pSe;
-			m_pSe = nullptr;
-		}
+		m_pSe->Stop();
+		m_pSe->Close();
+		delete m_pSe;
+		m_pSe = NULL;
 //	}
 
 	m_smpModel.reset();
@@ -52,8 +50,6 @@ void clsJewerSet::Create( HWND hWnd,
 	ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 	int iNo )
 {
-	if( m_smpModel ) return;
-
 	m_smpModel = make_unique<clsJewel>();
 	m_smpModel->Init( pDevice11, pContext11, sFILE_PATH_JEWEL );
 	m_smpModel->MulDisp( fMUL_DISP_JEWEL );
@@ -63,10 +59,7 @@ void clsJewerSet::Create( HWND hWnd,
 }
 
 
-void clsJewerSet::Move()
-{
-	if( !m_smpModel ) return;
-
+void clsJewerSet::Move(){
 	m_smpModel->AddPos( m_vMove );
 
 	m_vMove.y += m_fAcc;
@@ -79,8 +72,6 @@ void clsJewerSet::Move()
 
 void clsJewerSet::AddScale( float fScale )
 {
-	if( !m_smpModel ) return;
-
 	m_fScale += fScale;
 
 	if		( m_fScale < 0.0f )			m_fScale = 0.0f;
@@ -103,8 +94,6 @@ void clsJewerSet::ReSet()
 
 void clsJewerSet::SetSe( HWND hWnd, int iNo )
 {
-	if( m_pSe != nullptr ) return;
-
 #if 0
 	//サウンド構造体.
 	clsSound::SOUND_DATA tmpSData[enS_MAX] =

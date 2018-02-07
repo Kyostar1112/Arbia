@@ -5,6 +5,7 @@
 
 
 
+
 class clsSpiaFloor
 	: public clsCharaStatic
 {
