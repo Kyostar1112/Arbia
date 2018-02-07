@@ -23,7 +23,7 @@ struct WHSIZE_FLOAT
 class clsCommon
 {
 public:
-	clsCommon(){};
+	clsCommon();
 	virtual ~clsCommon(){};
 
 	//“§‰ß(±ÙÌ§ÌŞÚİÄŞ)İ’è‚ÌØ‚è‘Ö‚¦.
