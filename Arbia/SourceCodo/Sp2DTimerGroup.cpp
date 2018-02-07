@@ -77,13 +77,11 @@ void clsTimerGrp::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContex
 	}
 	for( char i=0; i<cCOLON_NUM; i++ ){
 		m_Colon[i] = new clsSprite2D;
-		m_Colon[i]->Init( pDevice11, pContext11, FILE_PATH_SCOLON );
+		m_Colon[i]->Create( pDevice11, pContext11, FILE_PATH_SCOLON );
 		m_Colon[i]->SetSs(
 			m_Colon[i]->GetSs().Base.w,
 			m_Colon[i]->GetSs().Base.h,
 			fCOLON_DISP, fCOLON_DISP );
-
-		m_Colon[i]->UpDateSpriteSs();
 	}
 
 	//Œø‰Ê‰¹.

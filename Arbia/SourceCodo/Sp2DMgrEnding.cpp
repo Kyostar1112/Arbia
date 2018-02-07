@@ -29,10 +29,10 @@ void clsSp2dMgrEnding::Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pCon
 	m_smpPushTxt->Create(pDevice11, pContext11);
 
 	m_smpEndRoll = make_unique<clsSprite2D>();
-	m_smpEndRoll->Init(pDevice11, pContext11, "Data\\Image\\StaffLool.png");
+	m_smpEndRoll->Create(pDevice11, pContext11, "Data\\Image\\StaffLool.png");
 
 	m_smpThank = make_unique<clsSprite2D>();
-	m_smpThank->Init(pDevice11, pContext11, "Data\\Image\\EndingThankYou.png");
+	m_smpThank->Create(pDevice11, pContext11, "Data\\Image\\EndingThankYou.png");
 }
 void clsSp2dMgrEnding::Init()
 {
@@ -42,10 +42,8 @@ void clsSp2dMgrEnding::Init()
 	m_bEndingEnd = false;
 	m_bPushButtun= false;
 	m_smpEndRoll->MulDisp(0.5f);
-	m_smpEndRoll->UpDateSpriteSs();
 
 	m_smpThank->MulDisp(0.5f);
-	m_smpThank->UpDateSpriteSs();
 
 	m_smpEndRoll->SetPos(WND_W/2 - m_smpEndRoll->GetSs().Disp.w/2,WND_H);
 

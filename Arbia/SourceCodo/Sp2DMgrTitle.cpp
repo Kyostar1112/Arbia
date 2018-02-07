@@ -26,14 +26,13 @@ void clsSp2dMgrTitle::Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pCont
 	m_smpPushTxt->Create(pDevice11, pContext11);
 
 	//ƒƒSƒTƒCƒY‚ð2”{‚É‚·‚é.
-	m_smpTitleLogo->Init(pDevice11, pContext11, "Data\\Image\\TitleLogo.png");
+	m_smpTitleLogo->Create(pDevice11, pContext11, "Data\\Image\\TitleLogo.png");
 	m_smpTitleLogo->MulDisp(2.0f);
-	m_smpTitleLogo->UpDateSpriteSs();
 }
 
 void clsSp2dMgrTitle::Init()
 {
-	m_smpTitleLogo->InitSetPos();
+	m_smpTitleLogo->Init();
 	m_smpPushTxt->Init();
 	m_smpTitleLogo->SetAlpha(1.0f);
 	m_bTransmissionFlg = false;

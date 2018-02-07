@@ -45,9 +45,9 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	//エンディング.
 	m_smpEndingScene = make_unique<clsSp2dMgrEnding>();
 
-	m_smpBlack->Init(pDevice11, pContext11, "Data\\Image\\Black.png");
+	m_smpBlack->Create(pDevice11, pContext11, "Data\\Image\\Black.png");
 
-	m_smpWhite->Init(pDevice11, pContext11, "Data\\Image\\White.png");
+	m_smpWhite->Create(pDevice11, pContext11, "Data\\Image\\White.png");
 
 	//タイトルシーン.
 	m_smpTitleScene->Create(pDevice11, pContext11);
@@ -55,10 +55,10 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	//メインシーン.
 	m_smpMainScene->Create( hWnd, pDevice11, pContext11);
 
-	m_smpActTxt->Init(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
+	m_smpActTxt->Create(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
 
-	m_smpXButton->Init(pDevice11, pContext11, "Data\\Image\\XButtun.png");
-	m_smpAButton->Init(pDevice11, pContext11, "Data\\Image\\AButtun.png");
+	m_smpXButton->Create(pDevice11, pContext11, "Data\\Image\\XButtun.png");
+	m_smpAButton->Create(pDevice11, pContext11, "Data\\Image\\AButtun.png");
 
 
 	//リザルト用.
@@ -66,7 +66,7 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 
 	//エンディング用.
 	m_smpEndingScene->Create(pDevice11, pContext11);
-	InitPos();
+	Init();
 
 }
 void clsUiManagar::RenderTitle()
@@ -142,14 +142,14 @@ void clsUiManagar::ChangeMainInit()
 
 void clsUiManagar::ChangeResultInit()
 {
-	InitPos();
+	Init();
 	m_smpResult->StartSet();
 
 	m_smpAButton->SetAlpha(1.0f);
 }
 void clsUiManagar::ChangeOverInit()
 {
-	InitPos();
+	Init();
 
 //	m_smpGameOverTxt->SetPosX(CENTER_POS.w - m_smpGameOverTxt->GetCenterDisp().w);
 //	m_smpGameOverTxt->SetPosY(-1 * (m_smpGameOverTxt->GetSs().Disp.h));
@@ -158,7 +158,7 @@ void clsUiManagar::ChangeOverInit()
 }
 void clsUiManagar::ChangeEndingInit()
 {
-	InitPos();
+	Init();
 }
 
 void clsUiManagar::BlackStart(float ChaAmo, bool Color)
@@ -207,7 +207,7 @@ void clsUiManagar::BlackOut()
 					else
 					{
 						m_smpBlack->m_BlackMode = Idle;
-						m_smpBlack->InitSetPos();
+						m_smpBlack->Init();
 					}
 				}
 			}
@@ -242,7 +242,7 @@ void clsUiManagar::BlackOut()
 					else
 					{
 						m_smpWhite->m_BlackMode = Idle;
-						m_smpWhite->InitSetPos();
+						m_smpWhite->Init();
 					}
 				}
 			}
@@ -251,22 +251,21 @@ void clsUiManagar::BlackOut()
 	}
 }
 
-void clsUiManagar::InitPos()
+void clsUiManagar::Init()
 {
-	m_smpBlack->InitSetPos();	//暗転用.
-	m_smpActTxt->InitSetPos();
+	m_smpBlack->Init();	//暗転用.
+	m_smpActTxt->Init();
 
 	m_smpTitleScene->Init();	//タイトル用.
 
-	m_smpActTxt->InitSetPos();	//ジャンプ、攻撃ねぇでやんす.
-	m_smpXButton->InitSetPos();	//Xボタンねぇでやんす.
-	m_smpAButton->InitSetPos();	//Aボタン.
+	m_smpActTxt->Init();	//ジャンプ、攻撃ねぇでやんす.
+	m_smpXButton->Init();	//Xボタンねぇでやんす.
+	m_smpAButton->Init();	//Aボタン.
 	//ゲームオーバ用.
-//	m_smpGameOverTxt->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
 	m_smpOverScene->Init();	//ゲームオーバーテキストねぇでやんす.
 
 	//リザルト用.
-	m_smpResult->InitSetPos();	//リザルトテキストねぇでやんす.
+	m_smpResult->Init();	//リザルトテキストねぇでやんす.
 
 	//エンディング.
 	m_smpEndingScene->Init();
