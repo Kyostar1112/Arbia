@@ -51,7 +51,7 @@ const D3DXVECTOR3 vSTEAL_POS = { 450.0f, 100.0f, 0.0f };
 //各文字の最終座標.
 const float vOTHER_POS_Y = 200.0f;
 const float vOTHER_POS_PARFECT_Y = vOTHER_POS_Y + 225.0f;
-const D3DXVECTOR3 vRESULT_POS[cSTEAL_RESULT_MAX] = 
+const D3DXVECTOR3 vRESULT_POS[cSTEAL_RESULT_MAX] =
 {
 	{ 90.0f,	vOTHER_POS_Y,			0.0f },
 	{ 520.0f,	vOTHER_POS_Y,			0.0f },
@@ -62,8 +62,8 @@ const D3DXVECTOR3 vRESULT_POS[cSTEAL_RESULT_MAX] =
 const float vJEWEL_OFFSET_Y = 125.0f;
 const float vJEWEL_OFFSET_FIN_Y = 225.0f;
 const float vJEWEL_OFFSET_FIN_X = 100.0f;
-const D3DXVECTOR3 vJEWEL_POS[sJEWEL_NUM_MAX] = 
-{								   	
+const D3DXVECTOR3 vJEWEL_POS[sJEWEL_NUM_MAX] =
+{
 	{ 110.0f, 325.0f, 0.0f },
 	{ vJEWEL_POS[0] + D3DXVECTOR3{ vJEWEL_OFFSET_FIN_X,	0.0f,	0.0f } },
 	{ vJEWEL_POS[1] + D3DXVECTOR3{ vJEWEL_OFFSET_FIN_X,	0.0f,	0.0f } },
@@ -131,29 +131,25 @@ void clsSp2dMgrReslt::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceCont
 {
 	//半暗転.
 	m_smpBlack = make_unique<clsSprite2D>();
-	m_smpBlack->Init( pDevice11, pContext11, sFILE_PATH_BLACK );
-	m_smpBlack->UpDateSpriteSs();
+	m_smpBlack->Create( pDevice11, pContext11, sFILE_PATH_BLACK );
 
 	//盗んだ成果.
-	m_smpSteal = make_unique<clsSprite2D>();	
-	m_smpSteal->Init( pDevice11, pContext11, sFILE_PATH_STEAL );
+	m_smpSteal = make_unique<clsSprite2D>();
+	m_smpSteal->Create( pDevice11, pContext11, sFILE_PATH_STEAL );
 //	//サイズを変更する.
 	m_smpSteal->MulDisp( fMUL_DISP_STEAL );
-	m_smpSteal->UpDateSpriteSs();
 
 	//項目.
-	LPSTR tmpFilePath[] = 
+	LPSTR tmpFilePath[] =
 	{
 		sFILE_PATH_RESULT_TIME, sFILE_PATH_RESULT_DISCOVER, sFILE_PATH_RESULT_LIVES, sFILE_PATH_RESULT_PARFECT
 	};
 	for( char i=0; i<cSTEAL_RESULT_MAX; i++ ){
 		m_smpResult[i] = make_unique<clsSprite2D>();
-		m_smpResult[i]->Init( pDevice11, pContext11, tmpFilePath[i] );
+		m_smpResult[i]->Create( pDevice11, pContext11, tmpFilePath[i] );
 		m_smpResult[i]->MulDisp( fMUL_DISP_OTHER );
-		m_smpResult[i]->UpDateSpriteSs();
 	}
 	m_smpResult[ cSTEAL_RESULT_MAX - 1 ]->MulDisp( fMUL_DISP_OTHER * fPARFECT_SIZE_RATE );
-	m_smpResult[ cSTEAL_RESULT_MAX - 1 ]->UpDateSpriteSs();
 
 
 	//宝石.
@@ -172,16 +168,16 @@ void clsSp2dMgrReslt::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceCont
 }
 
 
-void clsSp2dMgrReslt::InitSetPos()
+void clsSp2dMgrReslt::Init()
 {
-	m_smpBlack->InitSetPos();
-	m_smpSteal->InitSetPos();
+	m_smpBlack->Init();
+	m_smpSteal->Init();
 	for( char i=0; i<cSTEAL_RESULT_MAX; i++ ){
-		m_smpResult[i]->InitSetPos();
+		m_smpResult[i]->Init();
 	}
 
 	for( char i=0; i<sJEWEL_NUM_MAX; i++ ){
-		m_smpJewel[i]->InitSetPos();
+		m_smpJewel[i]->Init();
 	}
 
 	m_smpPushTxt->Init();
@@ -424,7 +420,7 @@ void clsSp2dMgrReslt::JewelMove()
 
 		//光る効果音.
 //		m_smpJewel[m_iJewelCnt]->PlaySe( clsJewerSet::enS_SHINE );
-		
+
 		NextJewerSet();
 		if( m_iJewelCnt < sJEWEL_NUM_MAX - 1 ){
 			//音鳴らすかの判断.
@@ -436,7 +432,7 @@ void clsSp2dMgrReslt::JewelMove()
 				}
 			}
 			//次に音鳴らす奴があるなら.
-			if( bSound ){ 
+			if( bSound ){
 				//効果音.
 				m_smpJewel[m_iJewelCnt - 1]->PlaySe(  );
 			}
@@ -464,7 +460,7 @@ void clsSp2dMgrReslt::NextJewerSet()
 	if( m_iJewelCnt < sJEWEL_NUM_MAX ){
 		//座標セット & 初動.
 		D3DXVECTOR3 vMove = { 0.0f, 10.0f, 0.0f };
-		float fAcc = 0.0f;	
+		float fAcc = 0.0f;
 
 		//初動.
 		MakeParbPower( vMove, fAcc, m_vJewelAppPos, vJEWEL_POS[m_iJewelCnt] );
@@ -472,8 +468,8 @@ void clsSp2dMgrReslt::NextJewerSet()
 		m_smpJewel[m_iJewelCnt]->SetPos( m_vJewelAppPos );
 		m_smpJewel[m_iJewelCnt]->SetMove( vMove, fAcc );
 
-		
-		
+
+
 	}
 }
 
@@ -489,7 +485,7 @@ void clsSp2dMgrReslt::ParfeMove()
 	if( m_enParFlg == enPM_SOUND ){
 		m_pSeBox[enS_OTHER]->Stop();
 		m_pSeBox[enS_OTHER]->SeekToStart();
-		m_pSeBox[enS_OTHER]->Play();	
+		m_pSeBox[enS_OTHER]->Play();
 		m_enParFlg = enPM_PARFECT;
 	}
 	//文字.
@@ -602,7 +598,7 @@ void clsSp2dMgrReslt::JewelSetReSet()
 	for( char i=0; i<sJEWEL_NUM_MAX; i++ ){
 		m_smpJewel[i]->ReSet();
 	}
-	
+
 
 }
 

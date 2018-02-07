@@ -47,13 +47,18 @@ clsSprite2D::~clsSprite2D()
 //============================================================
 //	èâä˙âª.
 //============================================================
-HRESULT clsSprite2D::Init( ID3D11Device* pDevice11,
+HRESULT clsSprite2D::Create( ID3D11Device* pDevice11,
 	ID3D11DeviceContext* pContext11,
-	LPSTR fileName )
+	LPSTR fileName,
+	float SetStrideW,
+	float SetStrideH)
 {
 	m_sFileName = fileName;
 	m_pDevice11 = pDevice11;
 	m_pDeviceContext11 = pContext11;
+
+	m_SState.Stride.w = SetStrideW;
+	m_SState.Stride.h = SetStrideH;
 
 	SetPos( -WND_W, -WND_H );
 
@@ -438,11 +443,6 @@ void clsSprite2D::Render()
 
 	//±ŸÃßÃﬁ⁄›ƒﬁÇñ≥å¯Ç…Ç∑ÇÈ.
 	SetBlend( false );
-
-}
-
-void clsSprite2D::UpDateSpriteSs()
-{
 
 }
 

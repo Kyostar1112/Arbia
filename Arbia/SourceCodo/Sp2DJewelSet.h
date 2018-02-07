@@ -11,9 +11,9 @@ public:
 	clsJewerSet();
 	~clsJewerSet();
 
-	void Create( HWND hWnd, 
+	void Create( HWND hWnd,
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
-		int iNo ); 
+		int iNo );
 
 	void Move();
 
@@ -39,8 +39,8 @@ public:
 	}
 
 	//----- ƒ‰ƒbƒv -----//.
-	void InitSetPos(){
-		m_smpModel->InitSetPos();
+	void Init(){
+		m_smpModel->Init();
 	};
 
 
@@ -103,7 +103,7 @@ private:
 
 
 	//Œø‰Ê‰¹.
-	clsSound*	m_pSe;	
+	clsSound*	m_pSe;
 	void SetSe( HWND hWnd, int iNo );
 
 

@@ -35,10 +35,10 @@ clsSp2dMgrMain::~clsSp2dMgrMain()
 void clsSp2dMgrMain::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
 
-	m_smpActTxt->Init(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
+	m_smpActTxt->Create(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
 
-	m_smpXButton->Init(pDevice11, pContext11, "Data\\Image\\XButtun.png");
-	m_smpAButton->Init(pDevice11, pContext11, "Data\\Image\\AButtun.png");
+	m_smpXButton->Create(pDevice11, pContext11, "Data\\Image\\XButtun.png");
+	m_smpAButton->Create(pDevice11, pContext11, "Data\\Image\\AButtun.png");
 
 #ifdef Tahara
 	//”Žš.
@@ -52,7 +52,7 @@ void clsSp2dMgrMain::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceCon
 //–ˆ‰ñ’Ê‚é.
 void clsSp2dMgrMain::Init()
 {
-	m_smpActTxt->InitSetPos();
+	m_smpActTxt->Init();
 
 	//ƒAƒNƒVƒ‡ƒ“
 	m_smpActTxt->SetDispH(m_smpActTxt->GetSs().Base.h / 2);
@@ -61,9 +61,6 @@ void clsSp2dMgrMain::Init()
 	m_smpXButton->SetDispW(m_smpActTxt->GetCenterDisp().h);
 	m_smpAButton->SetDispH(m_smpActTxt->GetCenterDisp().h);
 	m_smpAButton->SetDispW(m_smpActTxt->GetCenterDisp().h);
-	m_smpActTxt->UpDateSpriteSs();
-	m_smpXButton->UpDateSpriteSs();
-	m_smpAButton->UpDateSpriteSs();
 
 	m_smpActTxt->SetPos(0.0f, MainScene::CENTER_POS.h - m_smpActTxt->GetCenterDisp().h);
 	m_smpXButton->SetPos(m_smpActTxt->GetPos().x + m_smpActTxt->GetSs().Disp.w, m_smpActTxt->GetCenterDisp().h + m_smpActTxt->GetPos().y);
