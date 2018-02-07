@@ -19,11 +19,11 @@ clsSp2dMgrTitle::~clsSp2dMgrTitle()
 	Release();
 }
 
-void clsSp2dMgrTitle::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
+void clsSp2dMgrTitle::Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
 	m_smpTitleLogo = make_unique<clsSprite2D>();	//タイトルロゴねぇでやんす.
 	m_smpPushTxt = make_unique<clsPushTxt>();	//PUSH KETねぇでやんす.
-	m_smpPushTxt->Init(pDevice11, pContext11);
+	m_smpPushTxt->Create(pDevice11, pContext11);
 
 	//ロゴサイズを2倍にする.
 	m_smpTitleLogo->Init(pDevice11, pContext11, "Data\\Image\\TitleLogo.png");
@@ -31,10 +31,10 @@ void clsSp2dMgrTitle::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContex
 	m_smpTitleLogo->UpDateSpriteSs();
 }
 
-void clsSp2dMgrTitle::InitSetPos()
+void clsSp2dMgrTitle::Init()
 {
 	m_smpTitleLogo->InitSetPos();
-	m_smpPushTxt->InitSetPos();
+	m_smpPushTxt->Init();
 	m_smpTitleLogo->SetAlpha(1.0f);
 	m_bTransmissionFlg = false;
 }

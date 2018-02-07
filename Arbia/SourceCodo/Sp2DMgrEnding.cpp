@@ -26,7 +26,7 @@ clsSp2dMgrEnding::~clsSp2dMgrEnding()
 void clsSp2dMgrEnding::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
 	m_smpPushTxt = make_unique<clsPushTxt>();
-	m_smpPushTxt->Init(pDevice11, pContext11);
+	m_smpPushTxt->Create(pDevice11, pContext11);
 
 	m_smpEndRoll = make_unique<clsSprite2D>();
 	m_smpEndRoll->Init(pDevice11, pContext11, "Data\\Image\\StaffLool.png");

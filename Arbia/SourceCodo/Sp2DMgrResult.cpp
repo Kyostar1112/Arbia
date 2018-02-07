@@ -163,7 +163,7 @@ void clsSp2dMgrReslt::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceCont
 	}
 
 	m_smpPushTxt = make_unique<clsPushTxt>();	//.
-	m_smpPushTxt->Init( pDevice11, pContext11 );
+	m_smpPushTxt->Create( pDevice11, pContext11 );
 
 
 	//Œø‰Ê‰¹.
@@ -184,7 +184,7 @@ void clsSp2dMgrReslt::InitSetPos()
 		m_smpJewel[i]->InitSetPos();
 	}
 
-	m_smpPushTxt->InitSetPos();
+	m_smpPushTxt->Init();
 }
 
 
@@ -566,7 +566,7 @@ void clsSp2dMgrReslt::FinalPos( bool bInit )
 		}
 	}
 
-	m_smpPushTxt->InitSetPos();
+	m_smpPushTxt->Init();
 
 	if( !bInit ){
 		m_bEndFlg = true;
