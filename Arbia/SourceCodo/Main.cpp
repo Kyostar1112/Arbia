@@ -3028,7 +3028,7 @@ void clsMain::SceneTitle()
 
 
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
@@ -3858,7 +3858,7 @@ void clsMain::SceneResult()
 
 	//Œˆ’èƒ{ƒ^ƒ“.
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
@@ -3924,13 +3924,13 @@ void clsMain::SceneEnding()
 
 	//’Z‰Ÿ‚µ.
 	bool bPushEnterEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnterEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnterEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnterEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnterEnter = true;
 
 	//’·‰Ÿ‚µ.
 	bool bPushEnterStay = false;
-	if( m_pXInput->IsPressStay( XINPUT_A ) )bPushEnterStay = true;
+	if( m_pXInput->IsPressStay( XINPUT_GAMEPAD_A ) )bPushEnterStay = true;
 	GETKEY_STAY( 'Z' ) bPushEnterStay = true;
 	GETKEY_STAY( 'A' ) bPushEnterStay = true;
 
@@ -3960,7 +3960,7 @@ void clsMain::SceneOver()
 
 
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
