@@ -57,6 +57,7 @@ const float fMODEL_BACK_TURN = (float)M_PI;//TestPlusTheta
 clsCollision::clsCollision()
 {
 	m_pRay = new clsCollisionRay;
+	m_ppSe = nullptr;
 }
 
 clsCollision::~clsCollision()
@@ -66,19 +67,19 @@ clsCollision::~clsCollision()
 
 void clsCollision::Release()
 {
-	if( m_ppSe != NULL ){
+	if( m_ppSe != nullptr ){
 		for( int i=0; i<enSOUND_MAX; i++ ){
 			delete m_ppSe[i];
-			m_ppSe[i] = NULL;
+			m_ppSe[i] = nullptr;
 		}
 		delete[] m_ppSe;
-		m_ppSe = NULL;
+		m_ppSe = nullptr;
 	}
 
 
-	if( m_pRay != NULL ){
+	if( m_pRay != nullptr ){
 		delete m_pRay;
-		m_pRay = NULL;
+		m_pRay = nullptr;
 	}
 }
 
@@ -306,7 +307,7 @@ bool clsCollision::CeilingJudge(
 //Œø‰Ê‰¹Ä¶.
 void clsCollision::PlaySe( enSound enSe )
 {
-	if( m_ppSe == NULL ){
+	if( m_ppSe == nullptr ){
 		return;
 	}
 	int vol = 1000;
@@ -319,6 +320,8 @@ void clsCollision::PlaySe( enSound enSe )
 
 void clsCollision::CreateSe( HWND hWnd )
 {
+	if( m_ppSe != nullptr ) return;
+
 	clsSound::SOUND_DATA tmpSData[enSOUND_MAX] =
 	{
 		{ ALIAS_NAME_ARBIA_KICK,	FILE_PATH_ARBIA_KICK,	iVOL_ARBIA_KICK	},
