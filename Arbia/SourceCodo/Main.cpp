@@ -242,15 +242,15 @@ clsMain::clsMain()
 {
 	ZeroMemory( this, sizeof( clsMain ) );
 
-	m_hWnd = NULL;
+	m_hWnd = nullptr;
 
-	m_pDevice		= NULL;	//ﾃﾞﾊﾞｲｽｵﾌﾞｼﾞｪｸﾄ.
-	m_pDeviceContext= NULL;	//ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
-	m_pSwapChain	= NULL;	//ｽﾜｯﾌﾟﾁｪｰﾝ.
+	m_pDevice		= nullptr;	//ﾃﾞﾊﾞｲｽｵﾌﾞｼﾞｪｸﾄ.
+	m_pDeviceContext= nullptr;	//ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
+	m_pSwapChain	= nullptr;	//ｽﾜｯﾌﾟﾁｪｰﾝ.
 
-	m_pBackBuffer_TexRTV	= NULL;//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ.
-	m_pBackBuffer_DSTex		= NULL;//ﾊﾞｯｸﾊﾞｯﾌｧ.
-	m_pBackBuffer_DSTexDSV	= NULL;//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ.
+	m_pBackBuffer_TexRTV	= nullptr;//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ.
+	m_pBackBuffer_DSTex		= nullptr;//ﾊﾞｯｸﾊﾞｯﾌｧ.
+	m_pBackBuffer_DSTexDSV	= nullptr;//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ.
 
 //	//ｶﾒﾗ(視点)位置.
 //	m_Camera.vEye	= D3DXVECTOR3( 0.0f, 2.0f, -10.0f );
@@ -265,11 +265,24 @@ clsMain::clsMain()
 
 	m_fAlphaPoint = 1.0f;
 
-	m_pEffect = nullptr;
 
+	m_pXInput = nullptr;
+	m_pCollision = nullptr;
+#if _DEBUG
+	m_pExplosion = nullptr;
+	m_pText = nullptr;
+	m_pParticle = nullptr;
+	m_pRayV = nullptr;	
+	m_pRayFB = nullptr;	
+	m_pRayH = nullptr;	
+	m_iBlkAryMax = 0;
+	m_ppBlkAry = nullptr;
+#endif //#if _DEBUG
+	m_pPlayer = nullptr;
+	m_pResource = nullptr;
 	m_pEndEnemy = nullptr;
-
 	m_pCheck = nullptr;
+	m_pEffect = nullptr;
 
 }
 
@@ -371,9 +384,9 @@ LRESULT clsMain::MsgProc(
 		hDrop = (HDROP)wParam;
 		uFileNo = DragQueryFile( (HDROP)wParam, 0xFFFFFFFF, NULL, 0 );
 		char Path[MAX_PATH];
-		for (int i = 0; i < (int)uFileNo; i++){
-			DragQueryFile(hDrop, i, Path, sizeof(Path));
-			g_vsFilePath.push_back(Path);
+		for ( int i = 0; i < (int)uFileNo; i++ ){
+			DragQueryFile( hDrop, i, Path, sizeof( Path ) );
+			g_vsFilePath.push_back( Path );
 		}
 		DragFinish( hDrop );
 		break;
@@ -409,16 +422,12 @@ void clsMain::Loop()
 	//起動音再生.
 	m_pBgm[enBGM_START_UP]->Play();
 
-
 #ifdef START_LOADING_DISPLAY
 	//メッシュやスプライトなどの読込.
 	NowLoading();
 #endif//#ifdef START_LOADING_DISPLAY.
 
-
 	m_pXInput = new clsXInput;
-
-
 
 	//あたり判定.
 	m_pCollision = new clsCollision;
@@ -816,7 +825,7 @@ HRESULT clsMain::InitD3D()
 	//	D3D_FEATURE_LEVEL列挙体の配列.
 	//	D3D_FEATURE_LEVEL_10_1:Direct3D 10.1のGPUﾚﾍﾞﾙ.
 	D3D_FEATURE_LEVEL	pFeatureLevels	= D3D_FEATURE_LEVEL_11_0;
-	D3D_FEATURE_LEVEL*	pFeatureLevel	= NULL;	//配列の要素数.
+	D3D_FEATURE_LEVEL*	pFeatureLevel	= nullptr;	//配列の要素数.
 
 
 	//ﾃﾞﾊﾞｲｽとｽﾜｯﾌﾟﾁｪｰﾝの作成.
@@ -856,7 +865,7 @@ HRESULT clsMain::InitD3D()
 					&m_pSwapChain, &m_pDevice,
 					pFeatureLevel, &m_pDeviceContext ) ) )
 			{
-				MessageBox(NULL,
+				MessageBox( NULL,
 					"ﾃﾞﾊﾞｲｽとｽﾜｯﾌﾟﾁｪｰﾝの作成に失敗",
 					"error(main.cpp)", MB_OK );
 				return E_FAIL;
@@ -964,7 +973,7 @@ HRESULT clsMain::InitD3D()
 								//FALSE:↑の逆になる.
 	rdc.DepthClipEnable	= FALSE;	//距離についてのｸﾘｯﾋﾟﾝｸﾞ有効.
 
-	ID3D11RasterizerState* pIr	= NULL;
+	ID3D11RasterizerState* pIr	= nullptr;
 	m_pDevice->CreateRasterizerState( &rdc, &pIr );
 	m_pDeviceContext->RSSetState( pIr );
 	SAFE_RELEASE( pIr );
@@ -979,58 +988,7 @@ void clsMain::DestroyD3D()
 {
 //作ったのとは逆順.
 
-	if( m_pEndEnemy != nullptr ){
-		delete m_pEndEnemy;
-		m_pEndEnemy = nullptr;
-	}
-
-	////Effekseerの破棄.
-	//clsEffects::GetInstance()->Destroy();
-	m_pEffect = nullptr;
-
-	//音声ﾌｧｲﾙを閉じる.
-	if( m_pBgm != NULL ){
-		for( int i=0; i<enBGM_MAX; i++){
-			m_pBgm[i]->Close();
-			delete m_pBgm[i];
-			m_pBgm[i] = NULL;
-		}
-	}
-
-	//SEを閉じる.
-	if( m_pSe != NULL ){
-		for( int i=0; i<enSe_MAX; i++ ){
-			m_pSe[i]->Close();
-			delete m_pSe[i];
-			m_pSe[i] = NULL;
-		}
-	}
-
-
-#if _DEBUG
-	//定規の削除.
-	for( int i=0; i<m_iBlkAryMax; i++ ){
-		//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
-		m_ppBlkAry[i]->DetatchModel();
-		//破棄.
-		delete m_ppBlkAry[i];
-		m_ppBlkAry[i] = NULL;
-	}
-	//ﾎﾟｲﾝﾀ配列破棄.
-	delete[] m_ppBlkAry;
-	m_ppBlkAry = NULL;
-
-	//最大数初期化.
-	m_iBlkAryMax = 0;
-
-#endif //#if _DEBUG
-
-
 #ifdef Inoue
-
-
-
-
 	//ステージ(壁)の削除.
 	if(!m_vsmpWall.empty()){
 		for( int i=0; i<m_vsmpWall.size(); i++ ){
@@ -1155,13 +1113,11 @@ void clsMain::DestroyD3D()
 		m_vsmpSpriteTest.shrink_to_fit();
 	}
 
-
 	//ﾌｧｲﾙ読込ｸﾗｽ解放.
 	if( m_smpStageData != NULL ){
 		m_smpStageData.reset();
 		m_smpStageData = NULL;
 	}
-
 
 	//Excel.
 	if( m_smpStageDataExcel != NULL ){
@@ -1169,46 +1125,105 @@ void clsMain::DestroyD3D()
 		m_smpStageDataExcel = NULL;
 	}
 
-
 	//UiManager.
 	if( m_smpUiManagar != NULL ){
 		m_smpUiManagar.reset();
 		m_smpUiManagar = NULL;
 	}
-
-
 #endif //ifdef Inoue.
+
+#ifdef Tahara
+#if _DEBUG
+	if( m_pRayH != nullptr ){
+		delete m_pRayH;
+		m_pRayH = nullptr;
+	}
+	if( m_pRayFB != nullptr ){
+		delete m_pRayFB;
+		m_pRayFB = nullptr;
+	}
+	if( m_pRayV != nullptr ){
+		delete m_pRayV;
+		m_pRayV = nullptr;
+	}
+
+	if( m_pParticle != nullptr ){
+		delete m_pParticle;
+		m_pParticle = nullptr;
+	}
+
+	if( m_ppBlkAry != nullptr ){
+		//定規の削除.
+		for( int i=0; i<m_iBlkAryMax; i++ ){
+			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
+			m_ppBlkAry[i]->DetatchModel();
+			//破棄.
+			delete m_ppBlkAry[i];
+			m_ppBlkAry[i] = nullptr;
+		}
+		delete[] m_ppBlkAry;
+		m_ppBlkAry = nullptr;
+	}
+
+	//最大数初期化.
+	m_iBlkAryMax = 0;
+
+#endif //#if _DEBUG
+
+	if( m_pEndEnemy != nullptr ){
+		delete m_pEndEnemy;
+		m_pEndEnemy = nullptr;
+	}
+
 	if( m_pCheck != nullptr ){
 		delete m_pCheck;
 		m_pCheck = nullptr;
 	}
 
-
-	//NEW_ARBIA.
-	if( m_pPlayer != NULL ){
+	//ARBIA.
+	if( m_pPlayer != nullptr ){
 		m_pPlayer->DetatchModel();
 		delete m_pPlayer;
-		m_pPlayer = NULL;
+		m_pPlayer = nullptr;
 	}
 
-
+	m_pEffect = nullptr;
 
 	//あたり判定.
-	if( m_pCollision != NULL ){
+	if( m_pCollision != nullptr ){
 		delete m_pCollision;
-		m_pCollision = NULL;
+		m_pCollision = nullptr;
 	}
 
 	//ｺﾝﾄﾛｰﾗ入力.
-	if( m_pXInput != NULL ){
+	if( m_pXInput != nullptr ){
 		m_pXInput->EndProc();
 		XInputEnable( false );
 		delete m_pXInput;
-		m_pXInput = NULL;
+		m_pXInput = nullptr;
 	}
 
+	//SEを閉じる.
+	if( m_pSe != nullptr ){
+		for( int i=0; i<enSe_MAX; i++ ){
+			m_pSe[i]->Stop();
+			m_pSe[i]->Close();
+			delete m_pSe[i];
+			m_pSe[i] = nullptr;
+		}
+	}
 
-	//Direct3Dｵﾌﾞｼﾞｪｸﾄを解放.
+	//BGMを閉じる.
+	if( m_pBgm != nullptr ){
+		for( int i=0; i<enBGM_MAX; i++){
+			m_pBgm[i]->Stop();
+			m_pBgm[i]->Close();
+			delete m_pBgm[i];
+			m_pBgm[i] = nullptr;
+		}
+	}
+#endif //#ifdef Tahara
+
 	SAFE_RELEASE( m_pBackBuffer_DSTexDSV );
 	SAFE_RELEASE( m_pBackBuffer_DSTex );
 	SAFE_RELEASE( m_pBackBuffer_TexRTV );
@@ -1226,8 +1241,8 @@ void clsMain::DestroyD3D()
 ////============================================================
 HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
 {
-	LPDIRECT3DVERTEXBUFFER9 pVB = NULL;	//頂点ﾊﾞｯﾌｧ.
-	void*	pVertices = NULL;	//頂点.
+	LPDIRECT3DVERTEXBUFFER9 pVB = nullptr;	//頂点ﾊﾞｯﾌｧ.
+	void*	pVertices = nullptr;	//頂点.
 	D3DXVECTOR3	vCenter;		//中心.
 	float	fRadius;			//半径.
 
@@ -1266,8 +1281,8 @@ HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
 ////============================================================
 HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
 {
-	LPDIRECT3DVERTEXBUFFER9 pVB = NULL;
-	VOID* pVertices = NULL;
+	LPDIRECT3DVERTEXBUFFER9 pVB = nullptr;
+	VOID* pVertices = nullptr;
 	D3DXVECTOR3 Max, Min;
 
 	//ﾒｯｼｭの頂点ﾊﾞｯﾌｧをﾛｯｸする.
@@ -1473,23 +1488,6 @@ HRESULT clsMain::ReadMesh()
 	m_pCheck->Init();
 
 
-#if _DEBUG
-	//ﾘｿｰｽ定規.
-	//ｷｬﾗｸﾀｰｸﾗｽ.
-	m_iBlkAryMax = 100;
-	m_ppBlkAry = new clsCharaStatic*[m_iBlkAryMax];
-	//ｷｬﾗｸﾗｽのﾎﾟｲﾝﾀの配列を作る.
-	for( int i=0; i<m_iBlkAryMax; i++ ){
-		m_ppBlkAry[i] = new clsCharaStatic;
-
-		//ﾓﾃﾞﾙﾃﾞｰﾀ関連付け.
-		m_ppBlkAry[i]->AttachModel(
-			m_pResource->GetStaticModels( clsResource::enST_MODEL_BLOCK ) );
-
-		m_ppBlkAry[i]->SetPosition(
-			D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
-	}
-#endif //#if _DEBUG
 
 
 	//エンディングシーンでの敵表示クラス.
@@ -1507,8 +1505,23 @@ HRESULT clsMain::ReadMesh()
 
 
 
-
 #if _DEBUG
+	//ﾘｿｰｽ定規.
+	//ｷｬﾗｸﾀｰｸﾗｽ.
+	m_iBlkAryMax = 100;
+	m_ppBlkAry = new clsCharaStatic*[m_iBlkAryMax];
+	//ｷｬﾗｸﾗｽのﾎﾟｲﾝﾀの配列を作る.
+	for( int i=0; i<m_iBlkAryMax; i++ ){
+		m_ppBlkAry[i] = new clsCharaStatic;
+
+		//ﾓﾃﾞﾙﾃﾞｰﾀ関連付け.
+		m_ppBlkAry[i]->AttachModel(
+			m_pResource->GetStaticModels( clsResource::enST_MODEL_BLOCK ) );
+
+		m_ppBlkAry[i]->SetPosition(
+			D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
+	}
+
 	//ﾊﾟｰﾃｨｸﾙの初期化500個.
 //	m_pParticle = new clsParticle;	//元はこうして使っていたよ.
 	m_pParticle = new clsParticle( PAT_SMOK_MAX, D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
@@ -1723,14 +1736,14 @@ HRESULT clsMain::FindVerticesOnPoly(
 	//面数を取得.
 	DWORD dwPolyAmt = pTarget->GetNumFaces();
 
-	WORD* pwPoly = NULL;
+	WORD* pwPoly = nullptr;
 
 	//ｲﾝﾃﾞｯｸｽﾊﾞｯﾌｧをﾛｯｸ(読込ﾓｰﾄﾞ).
 	pTarget->LockIndexBuffer(
 		D3DLOCK_READONLY, (VOID**)&pwPoly );
-	BYTE*	pbVertices = NULL;	//頂点(ﾊﾞｲﾄ型)
-	FLOAT*	pfVertices = NULL;	//頂点(float型)
-	LPDIRECT3DVERTEXBUFFER9 VB = NULL;	//頂点ﾊﾞｯﾌｧ.
+	BYTE*	pbVertices = nullptr;	//頂点(ﾊﾞｲﾄ型)
+	FLOAT*	pfVertices = nullptr;	//頂点(float型)
+	LPDIRECT3DVERTEXBUFFER9 VB = nullptr;	//頂点ﾊﾞｯﾌｧ.
 	pTarget->GetVertexBuffer( &VB );	//頂点情報の取得.
 
 	//頂点ﾊﾞｯﾌｧのﾛｯｸ.
@@ -2316,7 +2329,7 @@ void clsMain::InitEndroll()
 //============================================================
 void clsMain::CameraMgr()
 {
-	if( m_pPlayer != NULL ){
+	if( m_pPlayer != nullptr ){
 		CameraTargetSet();
 		Stoker( m_Camera.vEye, m_vCameraTarget );
 		CameraLookSet();
@@ -4255,7 +4268,7 @@ void clsMain::RenderDebugText()
 
 
 	//NULLﾁｪｯｸ.
-	if (m_pText != NULL){
+	if ( m_pText != nullptr ){
 		char strDbgTxt[256];
 		int dbgtxty = 50;
 		int dbgTxtX = 20;

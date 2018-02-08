@@ -80,6 +80,8 @@ void clsSpiaFlorMgr::Release()
 void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 {
 	if( m_ppSpia != nullptr || m_iSpiaMax ) return;
+	if( m_pSpiaWall != nullptr ) return;
+	if( m_ppSe != nullptr ) return;
 
 	//----- モデル -----//
 	//槍.
@@ -94,7 +96,6 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 	}
 
 	//槍壁.
-	if( m_pSpiaWall != nullptr ) return;
 	m_pSpiaWall = new clsCharaStatic;
 	m_pSpiaWall->AttachModel(
 		clsResource::GetInstance()->GetStaticModels( 
@@ -102,7 +103,6 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 	//----- モデル 終了 -----//
 
 
-	if( m_ppSe != nullptr ) return;
 	//----- SE -----//
 	//サウンド構造体.
 	clsSound::SOUND_DATA tmpSData[clsSpiaFloor::enSOUND_MAX] =
