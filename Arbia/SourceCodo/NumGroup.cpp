@@ -11,7 +11,7 @@ const float fNUM_ONE_HEIGHT = 180.0f;
 
 
 
-const char cNUM_MAX = 2;//”š‚ÌŒ…”.
+const char cNUM_MAX = cNUM_GROUP_NUM_MAX;//”š‚ÌŒ…”.
 const int iTEN_DECIMAL = 10;//10i”.
 const int iSIX_DECIMAL = 6;	//6 i”.
 const int iMAX = 99;
@@ -29,15 +29,18 @@ const WHSIZE_FLOAT NUMSIZE  = { 64.0f, 64.0f };
 
 clsNumGrp::clsNumGrp()
 {
+	for( char i=0; i<cNUM_MAX; i++ ){
+		NumImage[i] = nullptr;
+	}
 }
 
 clsNumGrp::~clsNumGrp()
 {
-	if( NumImage != NULL ){
+	if( NumImage != nullptr ){
 		for( char i=0; i<cNUM_MAX; i++ ){
-			if( NumImage[i] != NULL ){
+			if( NumImage[i] != nullptr ){
 				delete NumImage[i];
-				NumImage[i] = NULL;
+				NumImage[i] = nullptr;
 			}
 		}
 	}

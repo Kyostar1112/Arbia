@@ -242,34 +242,46 @@ clsMain::clsMain()
 {
 	ZeroMemory( this, sizeof( clsMain ) );
 
-	m_hWnd = NULL;
+	m_hWnd = nullptr;
 
-	m_pDevice		= NULL;	//ﾃﾞﾊﾞｲｽｵﾌﾞｼﾞｪｸﾄ.
-	m_pDeviceContext= NULL;	//ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
-	m_pSwapChain	= NULL;	//ｽﾜｯﾌﾟﾁｪｰﾝ.
+	m_pDevice		= nullptr;	//ﾃﾞﾊﾞｲｽｵﾌﾞｼﾞｪｸﾄ.
+	m_pDeviceContext= nullptr;	//ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
+	m_pSwapChain	= nullptr;	//ｽﾜｯﾌﾟﾁｪｰﾝ.
 
-	m_pBackBuffer_TexRTV	= NULL;//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ.
-	m_pBackBuffer_DSTex		= NULL;//ﾊﾞｯｸﾊﾞｯﾌｧ.
-	m_pBackBuffer_DSTexDSV	= NULL;//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ.
+	m_pBackBuffer_TexRTV	= nullptr;//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ.
+	m_pBackBuffer_DSTex		= nullptr;//ﾊﾞｯｸﾊﾞｯﾌｧ.
+	m_pBackBuffer_DSTexDSV	= nullptr;//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ.
 
-//	//ｶﾒﾗ(視点)位置.
-//	m_Camera.vEye	= D3DXVECTOR3( 0.0f, 2.0f, -10.0f );
-//	//注視位置.
-//	m_Camera.vLook	= D3DXVECTOR3( 0.0f, 2.0f, 10.0f );
 
 	//ﾗｲﾄ方向.
 	m_vLight = vLIGHT_DIR;
 
 	//ステージ読込全速力.
 	g_bStageRead = false;
-
 	m_fAlphaPoint = 1.0f;
 
+	m_pXInput = nullptr;
+	m_pCollision = nullptr;
+	m_pPlayer = nullptr;
+	m_pCheck = nullptr;
+	m_pEndEnemy = nullptr;
 	m_pEffect = nullptr;
 
-	m_pEndEnemy = nullptr;
+	for( int i=0; i<enBGM_MAX; i++ ){
+		m_pBgm[i] = nullptr;
+	}
+	for( int i=0; i<enSe_MAX; i++ ){
+		m_pSe[i] = nullptr;
+	}
 
-	m_pCheck = nullptr;
+#if _DEBUG
+	m_pText = nullptr;
+	m_pParticle = nullptr;
+	m_pRayV = nullptr;
+	m_pRayFB = nullptr;
+	m_pRayH = nullptr;
+	m_ppBlkAry = nullptr;
+#endif // #if _DEBUG
 
 }
 
@@ -372,7 +384,7 @@ LRESULT clsMain::MsgProc(
 		uFileNo = DragQueryFile( (HDROP)wParam, 0xFFFFFFFF, NULL, 0 );
 		char Path[MAX_PATH];
 		for (int i = 0; i < (int)uFileNo; i++){
-			DragQueryFile(hDrop, i, Path, sizeof(Path));
+			DragQueryFile( hDrop, i, Path, sizeof( Path ) );
 			g_vsFilePath.push_back(Path);
 		}
 		DragFinish( hDrop );
@@ -409,40 +421,24 @@ void clsMain::Loop()
 	//起動音再生.
 	m_pBgm[enBGM_START_UP]->Play();
 
-
-#ifdef START_LOADING_DISPLAY
-	//メッシュやスプライトなどの読込.
-	NowLoading();
-#endif//#ifdef START_LOADING_DISPLAY.
-
-
+	//入力.
 	m_pXInput = new clsXInput;
-
-
 
 	//あたり判定.
 	m_pCollision = new clsCollision;
 	m_pCollision->CreateSe( m_hWnd );
 
-#ifndef START_LOADING_DISPLAY
+
+#ifdef START_LOADING_DISPLAY
+	//メッシュやスプライトなどの読込.
+	NowLoading();
+#else
 	//ﾒｯｼｭ読み込み関数をまとめたもの.
 	ReadMesh();
 	//メインシーン初期化(仮置き).
 	InitMain( true );
 #endif//#ifndef START_LOADING_DISPLAY
 
-#if _DEBUG
-	//ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄの初期化.
-	m_pText = new clsDebugText;
-	D3DXVECTOR4 vColor( 1.0f, 1.0f, 1.0f, 1.0f );
-	if( FAILED( m_pText->Init(
-		m_pDeviceContext,
-		WND_W, WND_H, 50.0f,
-		vColor ) ) )
-	{
-		MessageBox( NULL, "ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄ作成失敗", "clsMain::Loop", MB_OK );
-	}
-#endif //#if _DEBUG
 
 	//----------------------------------------------------------
 	//	ﾌﾚｰﾑﾚｰﾄ.
@@ -816,7 +812,7 @@ HRESULT clsMain::InitD3D()
 	//	D3D_FEATURE_LEVEL列挙体の配列.
 	//	D3D_FEATURE_LEVEL_10_1:Direct3D 10.1のGPUﾚﾍﾞﾙ.
 	D3D_FEATURE_LEVEL	pFeatureLevels	= D3D_FEATURE_LEVEL_11_0;
-	D3D_FEATURE_LEVEL*	pFeatureLevel	= NULL;	//配列の要素数.
+	D3D_FEATURE_LEVEL*	pFeatureLevel	= nullptr;	//配列の要素数.
 
 
 	//ﾃﾞﾊﾞｲｽとｽﾜｯﾌﾟﾁｪｰﾝの作成.
@@ -856,7 +852,7 @@ HRESULT clsMain::InitD3D()
 					&m_pSwapChain, &m_pDevice,
 					pFeatureLevel, &m_pDeviceContext ) ) )
 			{
-				MessageBox(NULL,
+				MessageBox( NULL,
 					"ﾃﾞﾊﾞｲｽとｽﾜｯﾌﾟﾁｪｰﾝの作成に失敗",
 					"error(main.cpp)", MB_OK );
 				return E_FAIL;
@@ -964,7 +960,7 @@ HRESULT clsMain::InitD3D()
 								//FALSE:↑の逆になる.
 	rdc.DepthClipEnable	= FALSE;	//距離についてのｸﾘｯﾋﾟﾝｸﾞ有効.
 
-	ID3D11RasterizerState* pIr	= NULL;
+	ID3D11RasterizerState* pIr	= nullptr;
 	m_pDevice->CreateRasterizerState( &rdc, &pIr );
 	m_pDeviceContext->RSSetState( pIr );
 	SAFE_RELEASE( pIr );
@@ -977,60 +973,53 @@ HRESULT clsMain::InitD3D()
 //============================================================
 void clsMain::DestroyD3D()
 {
-//作ったのとは逆順.
-
-	if( m_pEndEnemy != nullptr ){
-		delete m_pEndEnemy;
-		m_pEndEnemy = nullptr;
-	}
-
-	////Effekseerの破棄.
-	//clsEffects::GetInstance()->Destroy();
-	m_pEffect = nullptr;
-
-	//音声ﾌｧｲﾙを閉じる.
-	if( m_pBgm != NULL ){
-		for( int i=0; i<enBGM_MAX; i++){
-			m_pBgm[i]->Close();
-			delete m_pBgm[i];
-			m_pBgm[i] = NULL;
-		}
-	}
-
-	//SEを閉じる.
-	if( m_pSe != NULL ){
-		for( int i=0; i<enSe_MAX; i++ ){
-			m_pSe[i]->Close();
-			delete m_pSe[i];
-			m_pSe[i] = NULL;
-		}
-	}
-
-
 #if _DEBUG
-	//定規の削除.
-	for( int i=0; i<m_iBlkAryMax; i++ ){
-		//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
-		m_ppBlkAry[i]->DetatchModel();
-		//破棄.
-		delete m_ppBlkAry[i];
-		m_ppBlkAry[i] = NULL;
+	//デバッグテキスト.
+	if( m_pText != nullptr ){
+		delete m_pText;
+		m_pText = nullptr;
 	}
-	//ﾎﾟｲﾝﾀ配列破棄.
-	delete[] m_ppBlkAry;
-	m_ppBlkAry = NULL;
 
+	if( m_pRayH != nullptr ){
+		delete m_pRayH;
+		m_pRayH = nullptr;
+	}
+	if( m_pRayFB != nullptr ){
+		delete m_pRayFB;
+		m_pRayFB = nullptr;
+	}
+	if( m_pRayV != nullptr ){
+		delete m_pRayV;
+		m_pRayV = nullptr;
+	}
+	if( m_pParticle != nullptr ){
+		delete m_pParticle;
+		m_pParticle = nullptr;
+	}
+
+
+	//定規の削除.
+	if( m_ppBlkAry != nullptr ){
+		for( int i=0; i<m_iBlkAryMax; i++ ){
+			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
+			m_ppBlkAry[i]->DetatchModel();
+			//破棄.
+			delete m_ppBlkAry[i];
+			m_ppBlkAry[i] = nullptr;
+		}
+		//ﾎﾟｲﾝﾀ配列破棄.
+		delete[] m_ppBlkAry;
+		m_ppBlkAry = nullptr;
+	}
 	//最大数初期化.
 	m_iBlkAryMax = 0;
 
 #endif //#if _DEBUG
 
 
+
+//作ったのとは逆順.
 #ifdef Inoue
-
-
-
-
 	//ステージ(壁)の削除.
 	if(!m_vsmpWall.empty()){
 		for( int i=0; i<m_vsmpWall.size(); i++ ){
@@ -1178,33 +1167,62 @@ void clsMain::DestroyD3D()
 
 
 #endif //ifdef Inoue.
+
+
+	if( m_pEndEnemy != nullptr ){
+		delete m_pEndEnemy;
+		m_pEndEnemy = nullptr;
+	}
+
 	if( m_pCheck != nullptr ){
 		delete m_pCheck;
 		m_pCheck = nullptr;
 	}
 
 
-	//NEW_ARBIA.
-	if( m_pPlayer != NULL ){
+	//ARBIA.
+	if( m_pPlayer != nullptr ){
 		m_pPlayer->DetatchModel();
 		delete m_pPlayer;
-		m_pPlayer = NULL;
+		m_pPlayer = nullptr;
 	}
 
+	////Effekseerの破棄.
+	//clsEffects::GetInstance()->Destroy();
+	m_pEffect = nullptr;
 
 
 	//あたり判定.
-	if( m_pCollision != NULL ){
+	if( m_pCollision != nullptr ){
 		delete m_pCollision;
-		m_pCollision = NULL;
+		m_pCollision = nullptr;
 	}
 
 	//ｺﾝﾄﾛｰﾗ入力.
-	if( m_pXInput != NULL ){
+	if( m_pXInput != nullptr ){
 		m_pXInput->EndProc();
 		XInputEnable( false );
 		delete m_pXInput;
-		m_pXInput = NULL;
+		m_pXInput = nullptr;
+	}
+
+	//SEを閉じる.
+	for( int i=0; i<enSe_MAX; i++ ){
+		if( m_pSe[i] != nullptr ){
+			m_pSe[i]->Stop();
+			m_pSe[i]->Close();
+			delete m_pSe[i];
+			m_pSe[i] = nullptr;
+		}
+	}
+	//音声ﾌｧｲﾙを閉じる.
+	for( int i=0; i<enBGM_MAX; i++){
+		if( m_pBgm[i] != nullptr ){
+			m_pBgm[i]->Stop();
+			m_pBgm[i]->Close();
+			delete m_pBgm[i];
+			m_pBgm[i] = nullptr;
+		}
 	}
 
 
@@ -1226,8 +1244,8 @@ void clsMain::DestroyD3D()
 ////============================================================
 HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
 {
-	LPDIRECT3DVERTEXBUFFER9 pVB = NULL;	//頂点ﾊﾞｯﾌｧ.
-	void*	pVertices = NULL;	//頂点.
+	LPDIRECT3DVERTEXBUFFER9 pVB = nullptr;	//頂点ﾊﾞｯﾌｧ.
+	void*	pVertices = nullptr;	//頂点.
 	D3DXVECTOR3	vCenter;		//中心.
 	float	fRadius;			//半径.
 
@@ -1266,8 +1284,8 @@ HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
 ////============================================================
 HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
 {
-	LPDIRECT3DVERTEXBUFFER9 pVB = NULL;
-	VOID* pVertices = NULL;
+	LPDIRECT3DVERTEXBUFFER9 pVB = nullptr;
+	VOID* pVertices = nullptr;
 	D3DXVECTOR3 Max, Min;
 
 	//ﾒｯｼｭの頂点ﾊﾞｯﾌｧをﾛｯｸする.
@@ -1467,10 +1485,31 @@ HRESULT clsMain::ReadMesh()
 	}
 
 
-	//文字( 最初の奴は作らない{ MOVIE用 } ).
+	//チェックポイント文字( 最初の奴は作らない{ MOVIE用 } ).
 	m_pCheck = new clsCheckPointMgr;
 	m_pCheck->Create( m_hWnd, m_pDevice, m_pDeviceContext );
 	m_pCheck->Init();
+
+
+
+
+	//エンディングシーンでの敵表示クラス.
+	m_pEndEnemy = new clsEndEnemMgr;
+	m_pEndEnemy->Create( m_hWnd, m_pDevice, m_pDeviceContext );
+
+
+
+	//列挙体のステージの一番最初.
+	iWallModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_WALL_MIN );
+	iFloorModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_FLOOR_MIN );
+
+
+
+	//モデルの紐づけ.
+	StageModelSet();
+
+
+
 
 
 #if _DEBUG
@@ -1489,33 +1528,12 @@ HRESULT clsMain::ReadMesh()
 		m_ppBlkAry[i]->SetPosition(
 			D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
 	}
-#endif //#if _DEBUG
 
-
-	//エンディングシーンでの敵表示クラス.
-	m_pEndEnemy = new clsEndEnemMgr;
-	m_pEndEnemy->Create( m_hWnd, m_pDevice, m_pDeviceContext );
-
-
-
-	//列挙体のステージの一番最初.
-	iWallModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_WALL_MIN );
-	iFloorModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_FLOOR_MIN );
-
-
-
-
-
-
-
-#if _DEBUG
 	//ﾊﾟｰﾃｨｸﾙの初期化500個.
 //	m_pParticle = new clsParticle;	//元はこうして使っていたよ.
 	m_pParticle = new clsParticle( PAT_SMOK_MAX, D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
 	m_pParticle->Init( m_pDevice, m_pDeviceContext );
 	m_pParticle->m_bDispFlg = false;
-
-
 
 	//ﾚｲ表示の初期化(垂直).
 	m_pRayV = new clsRay;
@@ -1528,17 +1546,25 @@ HRESULT clsMain::ReadMesh()
 	m_pRayFB->m_Ray.vPoint[1] = D3DXVECTOR3( 0.0f, 0.0f, 5.0f);
 	m_pRayFB->Init( m_pDevice, m_pDeviceContext );
 	//ﾚｲ表示の初期化(左右).
-	m_pRayH = new clsRay;
-	m_pRayH->m_Ray.vPoint[0] = D3DXVECTOR3(-5.0f, 0.0f, 0.0f);
-	m_pRayH->m_Ray.vPoint[1] = D3DXVECTOR3( 5.0f, 0.0f, 0.0f);
-	m_pRayH->Init( m_pDevice, m_pDeviceContext );
+	if( m_pRayH == nullptr ){
+		m_pRayH = new clsRay;
+		int r = sizeof( clsRay );
+		m_pRayH->m_Ray.vPoint[0] = D3DXVECTOR3(-5.0f, 0.0f, 0.0f);
+		m_pRayH->m_Ray.vPoint[1] = D3DXVECTOR3( 5.0f, 0.0f, 0.0f);
+		m_pRayH->Init( m_pDevice, m_pDeviceContext );
+	}
 
+	//ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄの初期化.
+	m_pText = new clsDebugText;
+	D3DXVECTOR4 vColor( 1.0f, 1.0f, 1.0f, 1.0f );
+	if( FAILED( m_pText->Init(
+		m_pDeviceContext,
+		WND_W, WND_H, 50.0f,
+		vColor ) ) )
+	{
+		MessageBox( NULL, "ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄ作成失敗", "clsMain::Loop", MB_OK );
+	}
 #endif //#if _DEBUG
-
-
-	//モデルの紐づけ.
-	StageModelSet();
-
 
 
 	return S_OK;
@@ -1723,14 +1749,14 @@ HRESULT clsMain::FindVerticesOnPoly(
 	//面数を取得.
 	DWORD dwPolyAmt = pTarget->GetNumFaces();
 
-	WORD* pwPoly = NULL;
+	WORD* pwPoly = nullptr;
 
 	//ｲﾝﾃﾞｯｸｽﾊﾞｯﾌｧをﾛｯｸ(読込ﾓｰﾄﾞ).
 	pTarget->LockIndexBuffer(
 		D3DLOCK_READONLY, (VOID**)&pwPoly );
-	BYTE*	pbVertices = NULL;	//頂点(ﾊﾞｲﾄ型)
-	FLOAT*	pfVertices = NULL;	//頂点(float型)
-	LPDIRECT3DVERTEXBUFFER9 VB = NULL;	//頂点ﾊﾞｯﾌｧ.
+	BYTE*	pbVertices = nullptr;	//頂点(ﾊﾞｲﾄ型)
+	FLOAT*	pfVertices = nullptr;	//頂点(float型)
+	LPDIRECT3DVERTEXBUFFER9 VB = nullptr;	//頂点ﾊﾞｯﾌｧ.
 	pTarget->GetVertexBuffer( &VB );	//頂点情報の取得.
 
 	//頂点ﾊﾞｯﾌｧのﾛｯｸ.
@@ -2316,7 +2342,7 @@ void clsMain::InitEndroll()
 //============================================================
 void clsMain::CameraMgr()
 {
-	if( m_pPlayer != NULL ){
+	if( m_pPlayer != nullptr ){
 		CameraTargetSet();
 		Stoker( m_Camera.vEye, m_vCameraTarget );
 		CameraLookSet();
@@ -4121,55 +4147,6 @@ void clsMain::RenderMain()
 
 
 
-
-
-
-
-
-
-//	//ﾊﾟｰﾃｨｸﾙの表示.
-//	if( m_pParticle->m_bDispFlg ){
-//		SetDepth( false );	//Zﾃｽﾄ:OFF.
-//		//※ﾊﾟｰﾃｨｸﾙ1粒をﾎﾟｲﾝﾄｽﾌﾟﾗｲﾄ1枚として500枚描画.
-//		int particleMax = m_pParticle->GetMaxParticle();
-//		for( int i=0; i<particleMax; i++ ){
-//			//現在のi番目の粒の位置を取得.
-//			D3DXVECTOR3 vParticlePos = m_pParticle->GetParticlePos( i );
-//			//i番目の粒を表示.
-//			m_pParticle->Render( m_mView, m_mProj, m_Camera.vEye, vParticlePos );
-//		}
-//		//ﾊﾟｰﾃｨｸﾙの移動処理.
-//		m_pParticle->Run();
-//		SetDepth( true );	//Zﾃｽﾄ:ON.
-//	}
-
-
-
-
-	////------------------------------
-	////	Effekseerｸﾗｽのﾚﾝﾀﾞﾘﾝｸﾞ.
-	////------------------------------
-	//clsEffects* pEffects = clsEffects::GetInstance();
-	//if( pEffects ){
-	//	//確認用に変数を宣言.
-	//	static ::Effekseer::Handle handle = -1;
-	//	if( GetAsyncKeyState( 'R' ) & 0x1 ){
-	//		for( int i=0; i<clsEffects::enEfcType_Max; i++ ){
-	//			//ｴﾌｪｸﾄの再生.
-	//			handle =
-	//				pEffects->Play( (clsEffects::enEfcType)i ,
-	//				D3DXVECTOR3( -2.0f + (float)(i*2), 1.0f, 5.0f ) );
-	//			//回転.
-	//			pEffects->SetRotation( handle,
-	//				D3DXVECTOR3( 0.0f, D3DXToRadian( 90.0 ), 0.0f ) );
-	//			//ｽｹｰﾙ.
-	//			pEffects->SetScale( handle,
-	//				D3DXVECTOR3( 0.5f, 0.5f, 0.5f ) );
-	//		}
-	//	}
-	//	pEffects->Render( m_mView, m_mProj, m_Camera.vEye );
-	//}
-
 #ifdef _DEBUG
 	//定規.
 	for( int i=0; i<m_iBlkAryMax; i++ ){
@@ -4193,6 +4170,23 @@ void clsMain::RenderMain()
 	//回転値を自機に合わせる.
 	m_pRayH->m_Ray.fYaw = m_pPlayer->GetRotationY();
 		m_pRayH->Render( m_mView, m_mProj );
+
+
+//	//ﾊﾟｰﾃｨｸﾙの表示.
+//	if( m_pParticle->m_bDispFlg ){
+//		SetDepth( false );	//Zﾃｽﾄ:OFF.
+//		//※ﾊﾟｰﾃｨｸﾙ1粒をﾎﾟｲﾝﾄｽﾌﾟﾗｲﾄ1枚として500枚描画.
+//		int particleMax = m_pParticle->GetMaxParticle();
+//		for( int i=0; i<particleMax; i++ ){
+//			//現在のi番目の粒の位置を取得.
+//			D3DXVECTOR3 vParticlePos = m_pParticle->GetParticlePos( i );
+//			//i番目の粒を表示.
+//			m_pParticle->Render( m_mView, m_mProj, m_Camera.vEye, vParticlePos );
+//		}
+//		//ﾊﾟｰﾃｨｸﾙの移動処理.
+//		m_pParticle->Run();
+//		SetDepth( true );	//Zﾃｽﾄ:ON.
+//	}
 
 
 
@@ -4255,7 +4249,7 @@ void clsMain::RenderDebugText()
 
 
 	//NULLﾁｪｯｸ.
-	if (m_pText != NULL){
+	if ( m_pText != nullptr ){
 		char strDbgTxt[256];
 		int dbgtxty = 50;
 		int dbgTxtX = 20;

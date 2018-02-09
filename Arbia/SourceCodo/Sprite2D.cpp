@@ -13,13 +13,13 @@ clsSprite2D::clsSprite2D()
 	, m_AnimCount( 0 )
 	, m_bDispFlg( false )
 	, m_fAlpha( 1.0f )
-	, m_pTexture( NULL )
-	, m_pVertexShader( NULL )
-	, m_pVertexLayout( NULL )
-	, m_pPixelShader( NULL )
-	, m_pConstantBuffer( NULL )
-	, m_pVertexBuffer( NULL )
-	, m_pSampleLinear( NULL )
+	, m_pTexture( nullptr )
+	, m_pVertexShader( nullptr )
+	, m_pVertexLayout( nullptr )
+	, m_pPixelShader( nullptr )
+	, m_pConstantBuffer( nullptr )
+	, m_pVertexBuffer( nullptr )
+	, m_pSampleLinear( nullptr )
 {
 //	ZeroMemory( this, sizeof( clsSprite2D ) );
 //	m_fAlpha = 1.0f;
@@ -39,7 +39,6 @@ clsSprite2D::clsSprite2D()
 
 clsSprite2D::~clsSprite2D()
 {
-	// リリース関数をとりあえず、デストラクタに突っ込む.
 	Release();
 }
 
@@ -86,8 +85,8 @@ HRESULT clsSprite2D::Init( ID3D11Device* pDevice11,
 //============================================================
 HRESULT clsSprite2D::InitShader()
 {
-	ID3DBlob* pCompiledShader = NULL;
-	ID3DBlob* pErrors = NULL;
+	ID3DBlob* pCompiledShader = nullptr;
+	ID3DBlob* pErrors = nullptr;
 
 	UINT uCompileFlag = 0;
 
@@ -112,7 +111,7 @@ HRESULT clsSprite2D::InitShader()
 			&pErrors,		//ｴﾗｰと警告一覧を格納するﾒﾓﾘへのﾎﾟｲﾝﾀ.
 			NULL ) ) )		//戻り値へのﾎﾟｲﾝﾀ(未使用).
 	{
-		MessageBox(NULL, "hlsl(vs)読み込み失敗", "clsSprite2D::InitShader", MB_OK );
+		MessageBox( NULL, "hlsl(vs)読み込み失敗", "clsSprite2D::InitShader", MB_OK );
 		return E_FAIL;
 	}
 	SAFE_RELEASE( pErrors );
@@ -502,9 +501,6 @@ bool clsSprite2D::Release()
 	SAFE_RELEASE( m_pVertexBuffer );
 
 	SAFE_RELEASE( m_pConstantBuffer );
-
-	m_pDeviceContext11 = NULL;
-	m_pDevice11 = NULL;
 
 	return true;
 }
