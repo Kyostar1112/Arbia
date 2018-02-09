@@ -32,6 +32,11 @@ const D3DXVECTOR3 vEFF_SCALE = { 0.5f, 0.5f, 0.5f };
 
 clsGoalMgr::clsGoalMgr()
 {
+	m_pFloor = nullptr;
+	m_pTreasurer = nullptr;
+	m_pTrBoxCol = nullptr;
+	m_ppSe = nullptr;
+
 	m_pEffect = nullptr;
 
 }
@@ -43,6 +48,15 @@ clsGoalMgr::~clsGoalMgr()
 
 void clsGoalMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext )
 {
+	if( m_pFloor != nullptr ||
+		m_pTreasurer != nullptr ||
+		m_pTrBoxCol != nullptr ||
+		m_ppSe != nullptr ||
+		m_pEffect != nullptr )
+	{
+		return;
+	}
+
 	//床.
 	m_pFloor = new clsCharaStatic;
 	m_pFloor->AttachModel(
@@ -117,6 +131,7 @@ void clsGoalMgr::Init()
 	ChangeAnimMode( enANIM_IDLE );
 
 	//エフェクト止める.
+	if( m_pEffect == nullptr ) return;
 	m_pEffect->Stop( m_ehOpen );
 	m_pEffect->Stop( m_ehLoop );
 }
@@ -127,30 +142,30 @@ void clsGoalMgr::Release()
 	m_pEffect = nullptr;
 
 
-	if( m_ppSe != NULL ){
+	if( m_ppSe != nullptr ){
 		for( int i=0; i<m_iSeMax; i++ ){
 			m_ppSe[i]->Close();
 			delete m_ppSe[i];
-			m_ppSe[i] = NULL;
+			m_ppSe[i] = nullptr;
 		}
 		delete[] m_ppSe;
-		m_ppSe = NULL;
+		m_ppSe = nullptr;
 	}
 
-	if( m_pTreasurer != NULL ){
+	if( m_pTreasurer != nullptr ){
 		delete m_pTreasurer;
-		m_pTreasurer = NULL;
+		m_pTreasurer = nullptr;
 	}
 
-	if( m_pTrBoxCol!= NULL ){
+	if( m_pTrBoxCol!= nullptr ){
 		delete m_pTrBoxCol;
-		m_pTrBoxCol = NULL;
+		m_pTrBoxCol = nullptr;
 	}
 
 
-	if( m_pFloor!= NULL ){
+	if( m_pFloor!= nullptr ){
 		delete m_pFloor;
-		m_pFloor = NULL;
+		m_pFloor = nullptr;
 	}
 }
 
@@ -158,6 +173,8 @@ void clsGoalMgr::Release()
 void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
+	if( m_pFloor == nullptr || m_pTreasurer == nullptr ) return;
+
 	//床.
 	m_pFloor->Render( mView, mProj, vLight, vEye );
 	//箱.
@@ -169,6 +186,13 @@ void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 
 void clsGoalMgr::SetPosition( D3DXVECTOR3 vPos )
 {
+	if( m_pFloor == nullptr ||
+		m_pTreasurer == nullptr ||
+		m_pTrBoxCol == nullptr )
+	{
+		return;
+	}
+
 	m_vPos = vPos;
 
 	//子分.
@@ -186,6 +210,8 @@ void clsGoalMgr::SetPosition( D3DXVECTOR3 vPos )
 
 void clsGoalMgr::Move( float fEarZ )
 {
+	if( m_pEffect == nullptr ) return;
+
 //	m_fEarZ = fEarZ;
 	Animation();
 
@@ -208,6 +234,8 @@ void clsGoalMgr::Move( float fEarZ )
 //============================================================
 void clsGoalMgr::BoxBreak()
 {
+	if( m_pEffect == nullptr ) return;
+
 	m_bOpen = true;
 
 	PlaySe( enSOUND_OPEN );
@@ -232,6 +260,7 @@ void clsGoalMgr::BoxBreak()
 //============================================================
 void clsGoalMgr::PlaySe( enSound enSe )
 {
+	if( m_ppSe == nullptr ) return;
 #if 0
 	//再生する距離なら.
 	int vol = ChangeVolumeDistance( m_fEarZ, m_vPos.z );
@@ -269,6 +298,7 @@ void clsGoalMgr::SetColPos( D3DXVECTOR3 vPos )
 //============================================================
 void clsGoalMgr::Animation()
 {
+	if( m_pTreasurer == nullptr ) return;
 	//ループしないアニメ.
 	if( m_enAnimNo == enANIM_OPEN ){
 		m_dAnimTimer += m_pTreasurer->m_pModel->GetAnimSpeed();
@@ -288,6 +318,7 @@ void clsGoalMgr::Animation()
 //============================================================
 void clsGoalMgr::ChangeAnimMode( enAnimation anim )
 {
+	if( m_pTreasurer == nullptr ) return;
 	m_enAnimNo = anim;
 	m_pTreasurer->ChangeAnimSet( m_enAnimNo );//アニメセット.
 	m_dAnimTimer = 0.0;

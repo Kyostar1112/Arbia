@@ -379,8 +379,8 @@ void clsSprite2D::Render()
 		//UVÀ•W.
 		//1º±“–‚½‚è‚ÌŠ„‡‚ÉºÏ”Ô†‚ğŠ|‚¯‚ÄˆÊ’u‚ğİ’è‚·‚é.
 		WHSIZE_FLOAT wf;
-		wf.w = (m_SState.Base.w / m_SState.Stride.w)/m_SState.Base.w;
-		wf.h = (m_SState.Base.h / m_SState.Stride.h)/m_SState.Base.h;
+		wf.w = ( m_SState.Base.w / m_SState.Stride.w ) / m_SState.Base.w;
+		wf.h = ( m_SState.Base.h / m_SState.Stride.h ) / m_SState.Base.h;
 		cd.vUV.x = wf.w * m_fPatternNo.x;
 		cd.vUV.y = wf.h * m_fPatternNo.y;
 

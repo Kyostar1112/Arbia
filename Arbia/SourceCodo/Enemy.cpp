@@ -89,6 +89,8 @@ const D3DXVECTOR3 vEFFECT_SCALE_SLASH = { -0.25f, -0.25f, -0.25f };
 
 clsEnemy::clsEnemy()
 {
+	m_pCollision = nullptr;
+	m_ppSe = nullptr;
 	m_pEffect = nullptr;
 }
 
@@ -102,29 +104,37 @@ void clsEnemy::Release()
 {
 	m_pEffect = nullptr;
 
-	if( m_pShadow != NULL ){
+	if( m_pShadow != nullptr ){
 		delete m_pShadow;
-		m_pShadow = NULL;
-	}
-
-	if( m_pCollision != NULL ){
-		delete m_pCollision;
-		m_pCollision = NULL;
+		m_pShadow = nullptr;
 	}
 
 
-	if( m_ppSe != NULL ){
+	if( m_ppSe != nullptr ){
 		for( int i=0; i<enSOUND_MAX; i++ ){
 			delete m_ppSe[i];
-			m_ppSe[i] = NULL;
+			m_ppSe[i] = nullptr;
 		}
 		delete[] m_ppSe;
-		m_ppSe = NULL;
+		m_ppSe = nullptr;
+	}
+
+	if( m_pCollision != nullptr ){
+		delete m_pCollision;
+		m_pCollision = nullptr;
 	}
 }
 
 void clsEnemy::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11, int iNo, int jNo )
 {
+	if( m_pCollision != nullptr ||
+		m_pShadow != nullptr ||
+		m_ppSe != nullptr ||
+		m_pEffect != nullptr )
+	{
+
+	}
+
 	//当たり判定.
 	m_pCollision = new clsCollision;
 	//敵用.
@@ -274,11 +284,14 @@ void clsEnemy::Move( float fEarZ )
 	Animation();
 
 	//影.
+	if( m_pShadow == nullptr ) return;
 	m_pShadow->SetShadow( m_vPos, m_fFloorY );
 }
 
 void clsEnemy::Move_Walk()
 {
+	if( m_pCollision == nullptr ) return;
+
 	m_enDir = enDirection_Foward;
 	//自ﾀｰｹﾞｯﾄを向く.
 	m_fYawTarget = OpponentDirect( m_vPos, m_colTurn[m_iTarNo].vPos );
@@ -420,6 +433,7 @@ float clsEnemy::OpponentDirect( D3DXVECTOR3 Attker, D3DXVECTOR3 Target)
 //============================================================
 void clsEnemy::UpdateDir()
 {
+	if( m_pModel == nullptr ) return;
 	m_pModel->m_enDir = m_enDir;
 }
 
@@ -458,6 +472,8 @@ bool clsEnemy::Discover( bool bSoundFlg )
 //============================================================
 void clsEnemy::Back()
 {
+	if( m_pCollision == nullptr ) return;
+
 	m_enMove = enEM_WALK;
 	m_fSpd = WALK_SPD;
 
@@ -466,13 +482,13 @@ void clsEnemy::Back()
 	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_SARCH;
 
 	//一番近いﾎﾟｲﾝﾄを探す.
-	float RAnge = m_pCollision->LengthComp( m_vPos, m_colTurn[0].vPos );
+	float fRange = m_pCollision->LengthComp( m_vPos, m_colTurn[0].vPos );
 	m_iTarNo = 0;
 	for( char i=1; i<TURN_POS_NO_MAX; i++ )
 	{
-		if( RAnge > m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos ) )
+		if( fRange > m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos ) )
 		{
-			RAnge = m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos );
+			fRange = m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos );
 			m_iTarNo = i;
 		}
 	}
@@ -535,7 +551,6 @@ void clsEnemy::Winner()
 
 	//ｱﾆﾒｰｼｮﾝ.
 	ChangeAnimMode( enANIM_WIN );
-
 }
 
 //==================================================
@@ -590,6 +605,8 @@ void clsEnemy::UpdateColState()
 //アニメーション.
 void clsEnemy::Animation()
 {
+	if( m_pModel == nullptr ) return;
+
 	//ループしないモーション.
 	if( m_enAnimNo == enANIM_ATK ||
 		m_enAnimNo == enANIM_DEAD ||
@@ -598,7 +615,6 @@ void clsEnemy::Animation()
 		//アニメーション時間加算.
 		m_dAnimTimer += m_pModel->GetAnimSpeed();
 	}
-
 
 
 	//現在のアニメーションを終えたら.
@@ -623,19 +639,6 @@ void clsEnemy::Animation()
 			break;
 		}	
 	}
-
-//if( m_AnimNo == 1 ){
-//	if( m_pSkinMesh->GetAnimPeriod( m_AnimNo ) < m_AnimTime ){
-//		//1のﾓｰｼｮﾝの時間を終えた.
-//		m_AnimNo = 2;
-//	}
-//	m_AnimTime += m_pSkinMesh->GetAnimSpeed();//ｱﾆﾒｰｼｮﾝ時間加算.
-//}
-//else if( m_AnimNo == 2 ){
-//	m_AnimNo = 0;
-//	m_pSkinMesh->ChangeAnimSet( m_AnimNo );
-//}
-
 }
 
 //============================================================
@@ -651,6 +654,8 @@ void clsEnemy::ChangeAnimMode( enAnimation anim ){
 //効果音再生.
 void clsEnemy::PlaySe( enSound enSe )
 {
+	if( m_ppSe == nullptr ) return;
+
 	//再生する距離なら.
 	int vol = ChangeVolumeDistance( m_fEarZ, m_vPos.z );
 	if( vol ){
@@ -668,6 +673,8 @@ void clsEnemy::PlaySe( enSound enSe )
 //エフェクト再生.
 void clsEnemy::PlayEff()
 {
+	if( m_pEffect == nullptr ) return;
+
 	D3DXVECTOR3 vEffPos = m_vPos;
 	vEffPos.y += fEFFECT_OFFSET_POS_Y_SLASH;
 	D3DXVECTOR3 vEffRot = m_vRot;

@@ -8,7 +8,7 @@ clsCharaSkin::clsCharaSkin()
 	//m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	//m_vRot = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	//m_fScale = 1.0f;
-
+	m_pShadow = nullptr;
 
 
 }

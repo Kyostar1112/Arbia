@@ -37,7 +37,7 @@ public:
 	void CreateEnemy( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext, int mode, int iMgrID );
 	virtual void Init(){};//ˆø”‚ª•K—v‚É‚È‚Á‚½‚Ì‚Å‚¢‚ç‚È‚¢.
 	void Init( bool bFirst );
-	void UpDateModel();
+	void UpDateModel(){};
 
 
 	virtual void SetPosition( D3DXVECTOR3 vPos );

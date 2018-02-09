@@ -13,6 +13,7 @@ const int iDOR_DEAD_TIME = 24;//ドア死亡時差.
 
 clsEnemyMgr::clsEnemyMgr()
 {
+	m_ppEnemy = nullptr;
 }
 
 clsEnemyMgr::~clsEnemyMgr()
@@ -23,10 +24,6 @@ clsEnemyMgr::~clsEnemyMgr()
 
 
 
-//==================================================
-//	.
-//==================================================
-void clsEnemyMgr::UpDateModel(){}
 
 
 //==================================================
@@ -34,14 +31,14 @@ void clsEnemyMgr::UpDateModel(){}
 //==================================================
 void clsEnemyMgr::Release()
 {
-	if( m_ppEnemy != NULL ){
+	if( m_ppEnemy != nullptr ){
 		for( int i=0; i<m_iEnemyMax; i++ ){
 			m_ppEnemy[i]->DetatchModel();
 			delete m_ppEnemy[i];
-			m_ppEnemy[i] = NULL;
+			m_ppEnemy[i] = nullptr;
 		}
 		delete[] m_ppEnemy;
-		m_ppEnemy = NULL;
+		m_ppEnemy = nullptr;
 		m_iEnemyMax = 0;
 	}
 }
@@ -54,6 +51,8 @@ void clsEnemyMgr::Release()
 void clsEnemyMgr::CreateEnemy( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext,
 		 int mode, int iMgrID )
 {
+	if( m_ppEnemy != nullptr ) return;
+
 	m_enMode = enEMM_1X;
 	if( mode < enEMM_MAX ){
 		m_enMode = (enENEMY_MGR_MODE)mode;
@@ -72,6 +71,7 @@ void clsEnemyMgr::CreateEnemy( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceCon
 	else{
 		m_iEnemyMax = 0;
 	}
+
 
 	m_ppEnemy = new clsEnemy*[m_iEnemyMax];
 	for( int j=0; j<m_iEnemyMax; j++ ){
@@ -104,6 +104,8 @@ void clsEnemyMgr::CreateEnemy( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceCon
 //==================================================
 void clsEnemyMgr::Init( bool bFirst )
 {
+	if( m_ppEnemy == nullptr ) return;
+
 	//ステージの開始でないなら ドアで死んだ奴は 初期化しない.
 	if( !bFirst && m_bDoor ){
 		return;
@@ -126,6 +128,8 @@ void clsEnemyMgr::Init( bool bFirst )
 //==================================================
 void clsEnemyMgr::SetPosition( D3DXVECTOR3 vPos )
 {
+	if( m_ppEnemy == nullptr ) return;
+
 	m_vPos = vPos;
 
 	//敵の座標.
@@ -142,6 +146,8 @@ void clsEnemyMgr::SetPosition( D3DXVECTOR3 vPos )
 //==================================================
 void clsEnemyMgr::SetTurnPos( enENEMY_MGR_MODE mode, int i )
 {
+	if( m_ppEnemy == nullptr ) return;
+
 	float x, z;
 	x = z = 1.0f;
 	float fSecondX, fSecondZ;
@@ -222,14 +228,10 @@ void clsEnemyMgr::SetTurnPos( enENEMY_MGR_MODE mode, int i )
 	}
 
 
-
 //	//ドアで死ぬ.
 //	if( mode == enEMM_DOOR ){
 //	
 //	}
-
-
-
 
 	//ｾｯﾄ.
 	m_ppEnemy[i]->SetTurnPos( x, z,fSecondX, fSecondZ, bReverse, bSecond );
@@ -248,6 +250,7 @@ void clsEnemyMgr::SetTurnPos( enENEMY_MGR_MODE mode, int i )
 //==================================================
 COL_STATE* clsEnemyMgr::GetPointerEnemyCol( int i )
 {
+	if( m_ppEnemy == nullptr ) return nullptr;
 	return m_ppEnemy[i]->GetPointerCol();
 }
 
@@ -256,6 +259,7 @@ COL_STATE* clsEnemyMgr::GetPointerEnemyCol( int i )
 //==================================================
 COL_STATE* clsEnemyMgr::GetPointerEnemySubCol( int i )
 {
+	if( m_ppEnemy == nullptr ) return nullptr;
 	return &m_ppEnemy[i]->m_colSub;
 }
 
@@ -267,6 +271,7 @@ COL_STATE* clsEnemyMgr::GetPointerEnemySubCol( int i )
 void clsEnemyMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 				D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
+	if( m_ppEnemy == nullptr ) return;
 	for( int i=0; i<m_iEnemyMax; i++ ){
 		m_ppEnemy[i]->Render( mView, mProj, vLight, vEye );
 	}
@@ -278,6 +283,8 @@ void clsEnemyMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 //==================================================
 void clsEnemyMgr::Move( float fEarZ )
 {
+	if( m_ppEnemy == nullptr ) return;
+
 	for( int i=0; i<m_iEnemyMax; i++ ){
 		m_ppEnemy[i]->Move( fEarZ );
 	}

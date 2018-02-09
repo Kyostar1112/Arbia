@@ -1460,7 +1460,7 @@ HRESULT clsMain::ReadMesh()
 	//プレイヤー.
 	{
 		m_pPlayer = new clsPlayer;
-		m_pPlayer->Create( m_hWnd, m_pDevice, m_pDeviceContext );
+		m_pPlayer->Create( m_hWnd, m_pDevice, m_pDeviceContext, m_pXInput );
 		m_pPlayer->Init();
 
 		CD3DXSKINMESH_INIT si;//skin_Init.
@@ -3147,7 +3147,7 @@ void clsMain::SceneMain()
 	}
 
 	//----- 自機 -----//.
-	m_pPlayer->Input( m_pXInput );
+	m_pPlayer->Input();
 
 	m_pPlayer->Move( GetEar() );
 

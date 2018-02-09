@@ -9,7 +9,7 @@ const double fANIM_SPD = 0.01;
 //----- 音 -----//.
 const char sALIAS_NAME[] = "DoorBreak";
 const char sFILE_PATH[] = "SE\\300Trap\\900GateBreak.wav";
-const int iVOL = 1000;
+const int iVOL = 600;
 
 
 //----- 蹴られ判定用 -----//.
@@ -53,6 +53,10 @@ const int iEFFECT_PLAY_RAG = 20;//蹴ってから発生するまでのラグ.
 
 clsDoorMgr::clsDoorMgr()
 {
+	m_pGate = nullptr;
+	m_pDoor = nullptr;
+	m_pColWall = nullptr;
+	m_pSe = nullptr;
 	m_pEffect = nullptr;
 }
 
@@ -65,6 +69,15 @@ clsDoorMgr::~clsDoorMgr()
 
 void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext, int iNo )
 {
+	if( m_pGate != nullptr ||
+		m_pDoor != nullptr ||
+		m_pColWall != nullptr ||
+		m_pSe != nullptr ||
+		m_pEffect )
+	{
+		return;
+	}
+
 	//門.
 	m_pGate = new clsCharaStatic;
 	m_pGate->AttachModel(
@@ -149,24 +162,24 @@ void clsDoorMgr::Release()
 {
 	m_pEffect = nullptr;
 
-	if( m_pSe != NULL ){
+	if( m_pSe != nullptr ){
 		delete m_pSe;
-		m_pSe = NULL;
+		m_pSe = nullptr;
 	}
 
-	if( m_pColWall!= NULL ){
+	if( m_pColWall!= nullptr ){
 		delete m_pColWall;
-		m_pColWall = NULL;
+		m_pColWall = nullptr;
 	}
 
-	if( m_pDoor != NULL ){
+	if( m_pDoor != nullptr ){
 		delete m_pDoor;
-		m_pDoor = NULL;
+		m_pDoor = nullptr;
 	}
 
-	if( m_pGate != NULL ){
+	if( m_pGate != nullptr ){
 		delete m_pGate;
-		m_pGate = NULL;
+		m_pGate = nullptr;
 	}
 }
 
@@ -174,6 +187,7 @@ void clsDoorMgr::Release()
 void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
+	if( m_pDoor == nullptr || m_pGate == nullptr ) return;
 	//.
 //	m_pColWall->Render( mView, mProj, vLight, vEye );
 	//扉.
@@ -187,6 +201,12 @@ void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 
 void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 {
+	if( m_pDoor == nullptr ||
+		m_pGate == nullptr ||
+		m_pColWall == nullptr ){
+		return;
+	}
+
 	m_vPos = vPos;
 
 	//子分.
@@ -206,7 +226,6 @@ void clsDoorMgr::Move( float fEarZ )
 	Animation();
 	SetAlpha();
 
-
 	//エフェクト再生.
 	if( m_bEffTimer ){
 		m_iEffTimer ++;
@@ -216,8 +235,6 @@ void clsDoorMgr::Move( float fEarZ )
 			PlayEff();
 		}
 	}
-
-
 }
 
 
@@ -286,7 +303,6 @@ D3DXVECTOR3 clsDoorMgr::DoorBreak()
 
 	ChangeAnimMode( enANIM_BREAK );
 
-
 	m_bEffTimer = true;
 
 	return vReSpawnPos;
@@ -306,6 +322,8 @@ void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 //==================================================
 void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 {
+	if( m_pSe == nullptr ) return;
+
 	m_pSe->SeekToStart();
 	m_pSe->SetVolume( iVOL );
 	m_pSe->Play();
@@ -316,6 +334,8 @@ void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 //============================================================
 void clsDoorMgr::Animation()
 {
+	if( m_pDoor == nullptr ) return;
+
 	//ループしないアニメ.
 	if( m_enAnimNo == enANIM_BREAK ){
 		m_dAnimTimer += m_pDoor->m_pModel->GetAnimSpeed();
@@ -333,7 +353,10 @@ void clsDoorMgr::Animation()
 //============================================================
 //	アニメーションモードを変更.
 //============================================================
-void clsDoorMgr::ChangeAnimMode( enAnimation anim ){
+void clsDoorMgr::ChangeAnimMode( enAnimation anim )
+{
+	if( m_pDoor == nullptr ) return;
+
 	m_enAnimNo = anim;
 	m_pDoor->ChangeAnimSet( m_enAnimNo );//アニメセット.
 	m_dAnimTimer = 0.0;
@@ -343,6 +366,8 @@ void clsDoorMgr::ChangeAnimMode( enAnimation anim ){
 //エフェクト再生.
 void clsDoorMgr::PlayEff()
 {
+	if( m_pEffect ) return;
+
 	if( !m_pEffect->PlayCheck( m_ehDust ) ){
 			D3DXVECTOR3 vEffPos = m_vPos;
 			vEffPos.z += fEFFECT_Z_OFFSET;
