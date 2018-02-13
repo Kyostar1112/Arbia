@@ -484,7 +484,7 @@ void clsSp2dMgrReslt::ParfeMove()
 
 	//‰¹.
 	if( m_enParFlg == enPM_SOUND ){
-		m_pSeBox[enS_OTHER]->Stop();
+//		m_pSeBox[enS_OTHER]->Stop();
 		m_pSeBox[enS_OTHER]->SeekToStart();
 		m_pSeBox[enS_OTHER]->Play();	
 		m_enParFlg = enPM_PARFECT;
