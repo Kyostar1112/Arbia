@@ -70,7 +70,7 @@ void clsSpiaWall::Init( D3DXVECTOR3 vInitPos, bool bRightFlg )
 	m_vInitPos = vInitPos;
 }
 
-bool clsSpiaWall::Move()
+bool clsSpiaWall::Update()
 {
 	bool bSoundTop = false;//îÚÇ—èoÇµâπÉtÉâÉO.
 	switch( m_enMode )

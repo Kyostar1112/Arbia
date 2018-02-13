@@ -1,12 +1,12 @@
 #include "Resource.h"
 #include "EnemyManager.h"
 
-const float MODEL_SCALE = 1.0f / 20.0f;//初期化用.
+const float fMODEL_SCALE = 1.0f / 20.0f;//初期化用.
 
-const float WALK_RANGE_MAX = 6.0f / 2.0f;//歩く幅(中心からの距離).
-const float WALK_RANGE_MIN = 0.5f / 2.0f;//歩く幅(中心からの距離).
+const float fWALK_RANGE_MAX = 6.0f / 2.0f;//歩く幅大(中心からの距離).
+const float fWALK_RANGE_MIN = 0.5f / 2.0f;//歩く幅小(中心からの距離).
 
-const float TWINS_OFFSET = 4.0f / 2.0f;//並ぶ二人の中央からの距離(二倍すると二人の距離).
+const float fTWINS_OFFSET = 4.0f / 2.0f;//並ぶ二人の中央からの距離(二倍すると二人の距離).
 
 
 const int iDOR_DEAD_TIME = 24;//ドア死亡時差.
@@ -91,7 +91,7 @@ void clsEnemyMgr::CreateEnemy( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceCon
 			clsResource::GetInstance()->GetSkinModels(
 				clsResource::enSK_MODEL_ENEMY ) );
 
-		m_ppEnemy[j]->SetScale( MODEL_SCALE );
+		m_ppEnemy[j]->SetScale( fMODEL_SCALE );
 //		m_ppEnemy[j]->SetAnimSpeed( 0.01 );
 	}
 
@@ -161,30 +161,30 @@ void clsEnemyMgr::SetTurnPos( enENEMY_MGR_MODE mode, int i )
 		mode == enEMM_2X_RE	||
 		mode == enEMM_2SQ_L  )
 	{
-		x = WALK_RANGE_MAX;
+		x = fWALK_RANGE_MAX;
 	}
 	else if( 
 		mode == enEMM_1SQ_R ||
 		mode == enEMM_2SQ_R )
 	{
 		//逆回転(R).
-		x = -WALK_RANGE_MAX;
+		x = -fWALK_RANGE_MAX;
 		bReverse = true;
 	}
 	else if( mode == enEMM_2X ){
-		if( i == 0 )x = WALK_RANGE_MAX;
-		else		x = -WALK_RANGE_MAX;
+		if( i == 0 )x = fWALK_RANGE_MAX;
+		else		x = -fWALK_RANGE_MAX;
 	}
 	else if( mode == enEMM_1Z ){
-		x = WALK_RANGE_MIN;
+		x = fWALK_RANGE_MIN;
 	}
 	else if( 
 		mode == enEMM_2Z ||
 		mode == enEMM_2Z_RE )
 	{
-		x = WALK_RANGE_MIN;
-		if( i == 0 )fSecondX = +TWINS_OFFSET;
-		else		fSecondX = -TWINS_OFFSET;
+		x = fWALK_RANGE_MIN;
+		if( i == 0 )fSecondX = +fTWINS_OFFSET;
+		else		fSecondX = -fTWINS_OFFSET;
 	}
 
 
@@ -194,30 +194,30 @@ void clsEnemyMgr::SetTurnPos( enENEMY_MGR_MODE mode, int i )
 		mode == enEMM_2Z_RE	||
 		mode == enEMM_2SQ_L )
 	{
-		z = WALK_RANGE_MAX;
+		z = fWALK_RANGE_MAX;
 	}
 	else if( 
 		mode == enEMM_1SQ_R ||
 		mode == enEMM_2SQ_R )
 	{
 		//逆回転(R).
-		z = -WALK_RANGE_MAX;
+		z = -fWALK_RANGE_MAX;
 		bReverse = true;
 	}
 	else if( mode == enEMM_2Z ){
-		if( i == 0 )z = WALK_RANGE_MAX;
-		else		z = -WALK_RANGE_MAX;
+		if( i == 0 )z = fWALK_RANGE_MAX;
+		else		z = -fWALK_RANGE_MAX;
 	}
 	else if( mode == enEMM_1X ){
-		z = WALK_RANGE_MIN;
+		z = fWALK_RANGE_MIN;
 	}
 	else if( 
 		mode == enEMM_2X	||
 		mode == enEMM_2X_RE )
 	{
-		z = WALK_RANGE_MIN;
-		if( i == 0 )fSecondZ = +TWINS_OFFSET;
-		else		fSecondZ = -TWINS_OFFSET;
+		z = fWALK_RANGE_MIN;
+		if( i == 0 )fSecondZ = +fTWINS_OFFSET;
+		else		fSecondZ = -fTWINS_OFFSET;
 	}
 
 
@@ -281,12 +281,12 @@ void clsEnemyMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 //==================================================
 //	.
 //==================================================
-void clsEnemyMgr::Move( float fEarZ )
+void clsEnemyMgr::Update( float fEarZ )
 {
 	if( m_ppEnemy == nullptr ) return;
 
 	for( int i=0; i<m_iEnemyMax; i++ ){
-		m_ppEnemy[i]->Move( fEarZ );
+		m_ppEnemy[i]->Update( fEarZ );
 	}
 
 	//ドアで死ぬ人.
@@ -320,5 +320,5 @@ void clsEnemyMgr::Move( float fEarZ )
 //==================================================
 int clsEnemyMgr::GetWalkRangeMax()
 {
-	return (int)( WALK_RANGE_MAX * 2.0f );//定数は中心からの距離なので全長を出すために二倍する.
+	return (int)( fWALK_RANGE_MAX * 2.0f );//定数は中心からの距離なので全長を出すために二倍する.
 }

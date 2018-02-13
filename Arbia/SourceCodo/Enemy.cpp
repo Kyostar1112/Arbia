@@ -28,30 +28,32 @@ const	  int iVOL_DOWN = 1000;
 
 
 //===== Ç†ÇΩÇËîªíË =====//.
-const float COL_ENEMY_RANGE = 0.5f;
+const float fCOL_ENEMY_RANGE = 0.5f;
 
-const float COL_ENEMY_BOX_X = 0.5f / 2.0f;
-const float COL_ENEMY_BOX_Y = 2.0f;
-const float COL_ENEMY_BOX_Z = 1.0f / 2.0f;
-const float COL_ENEMY_BOX_CENTER = 1.0f;
+const float fCOL_ENEMY_BOX_X = 0.5f / 2.0f;
+const float fCOL_ENEMY_BOX_Y = 2.0f;
+const float fCOL_ENEMY_BOX_Z = 1.0f / 2.0f;
+const float fCOL_ENEMY_BOX_CENTER = 1.0f;
 
 //===== ìGÇÃ¿∞›ãíì_ =====//.
 //===== Box =====//.
-const float COL_ENEMY_TURN_POS_BOX_X = 0.5f / 2.0f;
-const float COL_ENEMY_TURN_POS_BOX_Y = 1.0f / 2.0f;
-const float COL_ENEMY_TURN_POS_BOX_Z = 0.5f / 2.0f;
-const float COL_ENEMY_TURN_POS_BOX_CENTER = 1.0f;
+const float fCOL_ENEMY_TURN_POS_BOX_X = 0.5f / 2.0f;
+const float fCOL_ENEMY_TURN_POS_BOX_Y = 1.0f / 2.0f;
+const float fCOL_ENEMY_TURN_POS_BOX_Z = 0.5f / 2.0f;
+const float fCOL_ENEMY_TURN_POS_BOX_CENTER = 1.0f;
 
 //===== ìGÇÃçıìG,çUåÇ =====//.
-const float COL_ENEMY_SUB_HEIGHT = 1.0f;	//çÇÇ≥.
+const float fCOL_ENEMY_SUB_HEIGHT = 1.0f;	//çÇÇ≥.
 
-const float COL_ENEMY_SUB_RANGE_SARCH = 6.0f;		//çıìGãóó£.
-const int COL_ENEMY_SUB_THETA_SARCH = 90;			//çıìGäpìx.
+const float fCOL_ENEMY_SUB_RANGE_SARCH = 6.0f;		//çıìGãóó£.
+const int iCOL_ENEMY_SUB_THETA_SARCH = 90;			//çıìGäpìx.
 
-const float COL_ENEMY_SUB_RANGE_ATK_START = 1.75f;	//çUåÇäJénãóó£.
-const float COL_ENEMY_SUB_RANGE_ATK_AREA = 2.0f;	//çUåÇîÕàÕãóó£.
-const int COL_ENEMY_SUB_THETA_ATK_AREA = 140;		//çUåÇîÕàÕäpìx. 
+const float fCOL_ENEMY_SUB_RANGE_ATK_START = 1.75f;	//çUåÇäJénãóó£.
+const float fCOL_ENEMY_SUB_RANGE_ATK_AREA = 2.0f;	//çUåÇîÕàÕãóó£.
+const int iCOL_ENEMY_SUB_THETA_ATK_AREA = 140;		//çUåÇîÕàÕäpìx. 
 
+const float fENEMY_HEIGHT = 2.0f;
+const int iENEMY_SARCH_THETA = 90;
 //===== Ç†ÇΩÇËîªíË èIÇÌÇË =====//.
 
 
@@ -65,21 +67,18 @@ const float fWORKING_RANGE = 6.0f - 1.0f;//ëOå„6É}ÉXï™í«Ç¢Ç©ÇØÇÈ.
 //”√ﬁŸÇÃìsçá.
 const float fMODEL_BACK_TURN = (float)M_PI;//TestPlusTheta
 
-const float ENEMY_HEIGHT = 2.0f;
-const int ENEMY_SARCH_THETA = 90;
 
-const float WALK_SPD = 1.0f / 6.5f;
-const float RUN_SPD = 1.0f / 2.0f;
-const float TURN_SPD = 0.1f;
+
+//ë¨ìx.
+const float fWALK_SPD = 1.0f / 6.5f;
+const float fRUN_SPD = 1.0f / 2.0f;
+const float fTURN_SPD = 0.1f;
 
 //Timer.
-const int STOP_TIME = 60;
-const int ATK_TIME = 50;
+const int iSTOP_TIME = 60;
+const int iATK_TIME = 50;
 const int iATK_IMPACT_TIME = 25;//30.
 const int iRE_DISCOVER_TIME = 30;//çƒî≠å©Ç‹Ç≈ÇÃéûä‘.
-
-
-const double fANIM_SPD = 0.025 + 0.002;
 
 
 //ÉGÉtÉFÉNÉg.
@@ -139,28 +138,28 @@ void clsEnemy::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* 
 	m_pCollision = new clsCollision;
 	//ìGóp.
 	ColState.vPos = m_vPos;
-	ColState.fRange = COL_ENEMY_RANGE;
+	ColState.fRange = fCOL_ENEMY_RANGE;
 	ColState.fYaw = m_vRot.y;
-	ColState.fHeight = ENEMY_HEIGHT;
-	ColState.iSarchTheta = ENEMY_SARCH_THETA;
+	ColState.fHeight = fENEMY_HEIGHT;
+	ColState.iSarchTheta = iENEMY_SARCH_THETA;
 
 	//Box.
 	ColState.vRangeHalf = D3DXVECTOR3( 
-		COL_ENEMY_BOX_X, COL_ENEMY_BOX_Y, COL_ENEMY_BOX_Z );
-	ColState.fCenterY = COL_ENEMY_BOX_CENTER;
+		fCOL_ENEMY_BOX_X, fCOL_ENEMY_BOX_Y, fCOL_ENEMY_BOX_Z );
+	ColState.fCenterY = fCOL_ENEMY_BOX_CENTER;
 
 
 	//Sub.
-	m_colSub.fRange = COL_ENEMY_SUB_RANGE_SARCH;
-	m_colSub.fHeight = COL_ENEMY_SUB_HEIGHT;
-	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_SARCH;
+	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_SARCH;
+	m_colSub.fHeight = fCOL_ENEMY_SUB_HEIGHT;
+	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_SARCH;
 
 
 	//TurnPos.
 	for( char i=0; i<TURN_POS_NO_MAX; i++ ){
 		m_colTurn[i].vRangeHalf =
-			D3DXVECTOR3( COL_ENEMY_TURN_POS_BOX_X, COL_ENEMY_TURN_POS_BOX_Y, COL_ENEMY_TURN_POS_BOX_Z );
-		m_colTurn[i].fCenterY = COL_ENEMY_TURN_POS_BOX_CENTER;
+			D3DXVECTOR3( fCOL_ENEMY_TURN_POS_BOX_X, fCOL_ENEMY_TURN_POS_BOX_Y, fCOL_ENEMY_TURN_POS_BOX_Z );
+		m_colTurn[i].fCenterY = fCOL_ENEMY_TURN_POS_BOX_CENTER;
 	}
 
 	//âπ.
@@ -207,7 +206,7 @@ void clsEnemy::Init( float fStartZ )
 {
 	m_bDead = false;
 	m_enMove = enEM_WALK;
-	m_fSpd = WALK_SPD;
+	m_fSpd = fWALK_SPD;
 	m_bWin = false;
 
 	m_fFloorY = m_vPos.y;
@@ -218,9 +217,9 @@ void clsEnemy::Init( float fStartZ )
 	m_fStartZ = fStartZ;
 
 	//Sub.
-	m_colSub.fRange = COL_ENEMY_SUB_RANGE_SARCH;
-	m_colSub.fHeight = COL_ENEMY_SUB_HEIGHT;
-	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_SARCH;
+	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_SARCH;
+	m_colSub.fHeight = fCOL_ENEMY_SUB_HEIGHT;
+	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_SARCH;
 
 	//TurnPos.
 	for( int i=0; i<TURN_POS_NO_MAX; i++ ){
@@ -236,26 +235,26 @@ void clsEnemy::Init( float fStartZ )
 //==================================================
 //	ìGìÆÇ´.
 //==================================================
-void clsEnemy::Move( float fEarZ )
+void clsEnemy::Update( float fEarZ )
 {
 	m_fEarZ = fEarZ;
 
 	switch( m_enMove )
 	{
 		case enEM_WALK:
-			Move_Walk();
+			MoveWalk();
 			break;
 		case enEM_RUN:
-			Move_Run();
+			MoveRun();
 			break;
 		case enEM_ATK:
-			Move_Atk();
+			MoveAtk();
 			break;
 		case enEM_STOP:
-			Move_Stop();
+			MoveStop();
 			break;
 		case enEM_DEATH:
-			Move_Death();
+			MoveDeath();
 			break;
 		case enEM_WIN:
 			break;
@@ -268,7 +267,7 @@ void clsEnemy::Move( float fEarZ )
 	ThetaOverGuard( m_vRot.y );
 
 	//âÒì].
-	YawSpnToTarg( m_vRot.y, m_fYawTarget, TURN_SPD );
+	YawSpnToTarg( m_vRot.y, m_fYawTarget, fTURN_SPD );
 
 
 	SetSpeed();
@@ -288,7 +287,7 @@ void clsEnemy::Move( float fEarZ )
 	m_pShadow->SetShadow( m_vPos, m_fFloorY );
 }
 
-void clsEnemy::Move_Walk()
+void clsEnemy::MoveWalk()
 {
 	if( m_pCollision == nullptr ) return;
 
@@ -313,7 +312,7 @@ void clsEnemy::Move_Walk()
 		m_iReDiscTimer --;
 	}
 }
-void clsEnemy::Move_Run()
+void clsEnemy::MoveRun()
 {
 	//é©¿∞πﬁØƒÇå¸Ç≠.
 	m_fYawTarget = OpponentDirect( m_vPos, m_vTargetPos );
@@ -324,7 +323,7 @@ void clsEnemy::Move_Run()
 		Lost();
 	}
 }
-void clsEnemy::Move_Atk()
+void clsEnemy::MoveAtk()
 {
 	m_bAtkImpact = false;//çUåÇÇÃèuä‘îªífÉtÉâÉOèâä˙âª.
 	m_iAtkTimer ++;
@@ -336,15 +335,15 @@ void clsEnemy::Move_Atk()
 		PlayEff();
 	}
 }
-void clsEnemy::Move_Stop()
+void clsEnemy::MoveStop()
 {
 	m_iStopTimer ++;
-	if( m_iStopTimer > STOP_TIME ){
+	if( m_iStopTimer > iSTOP_TIME ){
 		Back();
 	}
 }
 //éÄñSÇÃìÆÇ´.
-void clsEnemy::Move_Death()
+void clsEnemy::MoveDeath()
 {
 }////éÄñSÇÃìÆÇ´èIÇÌÇË.
 
@@ -364,7 +363,7 @@ void clsEnemy::Turn( int TargetNo )
 
 
 //==================================================
-//	.
+//	à⁄ìÆÇÃäpÉZÉbÉg.
 //==================================================
 void clsEnemy::SetTurnPos( float x, float z, float SecondX, float SecondZ, bool bReverse, bool bSecond )
 {
@@ -451,11 +450,11 @@ bool clsEnemy::Discover( bool bSoundFlg )
 	}
 
 	m_enMove = enEM_RUN;
-	m_fSpd = RUN_SPD;
+	m_fSpd = fRUN_SPD;
 
 	//Sub(çUåÇäJénîÕàÕ).
-	m_colSub.fRange = COL_ENEMY_SUB_RANGE_ATK_START;
-	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_ATK_AREA;
+	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_ATK_START;
+	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_ATK_AREA;
 
 	//±∆“∞ºÆ›.
 	ChangeAnimMode( enANIM_RUNING );
@@ -475,11 +474,11 @@ void clsEnemy::Back()
 	if( m_pCollision == nullptr ) return;
 
 	m_enMove = enEM_WALK;
-	m_fSpd = WALK_SPD;
+	m_fSpd = fWALK_SPD;
 
 	//Sub.
-	m_colSub.fRange = COL_ENEMY_SUB_RANGE_SARCH;
-	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_SARCH;
+	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_SARCH;
+	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_SARCH;
 
 	//àÍî‘ãﬂÇ¢Œﬂ≤›ƒÇíTÇ∑.
 	float fRange = m_pCollision->LengthComp( m_vPos, m_colTurn[0].vPos );
@@ -524,8 +523,8 @@ void clsEnemy::Attack()
 	m_iAtkTimer = 0;
 
 	//Sub.
-	m_colSub.fRange = COL_ENEMY_SUB_RANGE_ATK_AREA;
-	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_ATK_AREA;
+	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_ATK_AREA;
+	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_ATK_AREA;
 
 	//±∆“∞ºÆ›.
 	ChangeAnimMode( enANIM_ATK );

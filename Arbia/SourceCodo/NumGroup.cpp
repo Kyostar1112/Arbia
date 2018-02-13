@@ -100,7 +100,7 @@ void clsNumGrp::AddPos( D3DXVECTOR3 vPos )
 	SetPos( m_vPos );
 }
 
-void clsNumGrp::Move()
+void clsNumGrp::Update()
 {
 //	GETKEY_DOWN('G')PlusNum();
 //	GETKEY_DOWN('T')PlusNum();

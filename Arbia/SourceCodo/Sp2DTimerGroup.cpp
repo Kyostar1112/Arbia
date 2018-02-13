@@ -148,7 +148,7 @@ void clsTimerGrp::AddPosY( float fPos )
 }
 
 
-void clsTimerGrp::Move()
+void clsTimerGrp::Update()
 {
 	//ƒJƒEƒ“ƒg.
 	if( !m_bRimitFlg && !m_bStop ){
@@ -176,7 +176,7 @@ void clsTimerGrp::Move()
 				}
 			}
 		}
-		m_Timer[i]->Move();
+		m_Timer[i]->Update();
 	}
 }
 

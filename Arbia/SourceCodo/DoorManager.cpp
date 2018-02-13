@@ -220,7 +220,7 @@ void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 }
 
 
-void clsDoorMgr::Move( float fEarZ )
+void clsDoorMgr::Update( float fEarZ )
 {
 	m_fEarZ = fEarZ;
 	Animation();

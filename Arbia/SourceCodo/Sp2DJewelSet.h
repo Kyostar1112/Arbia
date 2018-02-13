@@ -15,7 +15,7 @@ public:
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 		int iNo ); 
 
-	void Move();
+	void Update();
 
 
 

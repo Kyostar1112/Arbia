@@ -263,7 +263,7 @@ void clsPlayer::Input()
 		m_enMove != enPM_DEAD )
 	{
 		//ˆÚ“®.
-		Input_Move();
+		Input_Walk();
 		//±¸¼®Ý.
 		Input_Action();
 	}
@@ -276,7 +276,7 @@ void clsPlayer::Input()
 //------------------------------.
 //	“ü—ÍiˆÚ“®j.
 //------------------------------.
-void clsPlayer::Input_Move()
+void clsPlayer::Input_Walk()
 {
 	if( m_pXInput == nullptr ) return;
 	//“ü—Í‚³‚ê‚Ä‚¢‚é‚©.
@@ -410,12 +410,12 @@ void clsPlayer::Input_Move()
 void clsPlayer::Input_Action()
 {
 	//¼Þ¬ÝÌß.
-	Input_Action_Jump();
+	Input_ActionJump();
 	//UŒ‚.
-	Input_Action_Atk();
+	Input_ActionAtk();
 }
 //	“ü—Ío ±¸¼®Ý i¼Þ¬ÝÌßjp.
-void clsPlayer::Input_Action_Jump()
+void clsPlayer::Input_ActionJump()
 {
 	if( m_pXInput == nullptr ) return;
 	//¼Þ¬ÝÌßŠJŽn.
@@ -436,7 +436,7 @@ void clsPlayer::Input_Action_Jump()
 	}
 }
 //	“ü—Ío ±¸¼®Ý iUŒ‚jp.
-void clsPlayer::Input_Action_Atk()
+void clsPlayer::Input_ActionAtk()
 {
 	if( m_pXInput == nullptr ) return;
 	if( m_pXInput->IsPressEnter( XINPUT_X ) ||
@@ -469,7 +469,7 @@ void clsPlayer::Input_Action_Atk()
 //============================================================
 //	Ž©“®‹““®.
 //============================================================
-void clsPlayer::Move( float fEarZ )
+void clsPlayer::Update( float fEarZ )
 {
 	if( m_pEffect == nullptr || m_pShadow == nullptr ) return;
 
@@ -486,8 +486,8 @@ void clsPlayer::Move( float fEarZ )
 	//‚©‚©‚Æ—Ž‚Æ‚µ—p.
 	m_fOldY = m_vPos.y;
 
-	Move_Move();
-	Move_Action();
+	MoveWalk();
+	MoveAction();
 
 	SetSpeed();
 	UpdateDir();
@@ -504,7 +504,7 @@ void clsPlayer::Move( float fEarZ )
 //------------------------------.
 //	Ž©“®‹““®iˆÚ“®j.
 //------------------------------.
-void clsPlayer::Move_Move()
+void clsPlayer::MoveWalk()
 {
 
 	//–kŒü‚«Ì×¸Þ(·¬×‚ª–k‚Æ“ì‚Ç‚¿‚ç‚ðŒü‚¢‚Ä‚é‚©).
@@ -569,17 +569,17 @@ void clsPlayer::Move_Move()
 //------------------------------.
 //	Ž©“®‹““®i±¸¼®Ýj.
 //------------------------------.
-void clsPlayer::Move_Action()
+void clsPlayer::MoveAction()
 {
 	//¼Þ¬ÝÌß.
 	if( m_enMove != enPM_JUM_ATK ){
-		Move_Action_Jump();
+		MoveActionJump();
 	}
 	//UŒ‚.
-	Move_Action_Atk();
+	MoveActionAtk();
 }
 //	Ž©“®‹““®o ±¸¼®Ý i¼Þ¬ÝÌßjp.
-void clsPlayer::Move_Action_Jump()
+void clsPlayer::MoveActionJump()
 {	
 	//•’Ê¼Þ¬ÝÌßs“®“r’†.
 	if( m_bJump ){
@@ -614,7 +614,7 @@ void clsPlayer::Move_Action_Jump()
 	}
 }
 //	Ž©“®‹““®o ±¸¼®Ý iUŒ‚jp.
-void clsPlayer::Move_Action_Atk()
+void clsPlayer::MoveActionAtk()
 {
 	if( m_pXInput == nullptr ) return;
 
@@ -1083,7 +1083,7 @@ void clsPlayer::MoveTitleScene()
 			}
 		}
 	}
-	Move( m_vPos.z );
+	Update( m_vPos.z );
 }
 
 
@@ -1106,7 +1106,7 @@ void clsPlayer::MoveOverScene()
 
 void clsPlayer::MoveResultScene()
 {
-	Move( m_vPos.z );
+	Update( m_vPos.z );
 	Animation();
 	if( m_enAnimNo == enANIM_RUNNING_L ){
 		m_enAnimNo = enANIM_RUN_END_L;
@@ -1148,48 +1148,36 @@ bool clsPlayer::InputUp  ()
 {
 	if( m_pXInput == nullptr ) return false;
 
-	bool bFlg = false;
-	if( m_pXInput->IsPressStay( XINPUT_UP ) ) bFlg = true;
+	if( m_pXInput->IsPressStay( XINPUT_UP ) ) return true;
+	if( GetAsyncKeyState( VK_UP ) & 0x8000 ) return true;
 
-	if( bFlg || GetAsyncKeyState( VK_UP ) & 0x8000 ){
-		return true;
-	}
 	return false;
 }
 bool clsPlayer::InputDown()
 {
 	if( m_pXInput == nullptr ) return false;
 
-	bool bFlg = false;
-	if( m_pXInput->IsPressStay( XINPUT_DOWN ) ) bFlg = true;
+	if( m_pXInput->IsPressStay( XINPUT_DOWN ) ) return true;
+	if( GetAsyncKeyState( VK_DOWN ) & 0x8000 ) return true;
 
-	if( bFlg || GetAsyncKeyState( VK_DOWN ) & 0x8000 ){
-		return true;
-	}
 	return false;
 }
 bool clsPlayer::InputLeft()
 {
 	if( m_pXInput == nullptr ) return false;
 
-	bool bFlg = false;
-	if( m_pXInput->IsPressStay( XINPUT_LEFT ) ) bFlg = true;
+	if( m_pXInput->IsPressStay( XINPUT_LEFT ) ) return true;
+	if( GetAsyncKeyState( VK_LEFT ) & 0x8000 ) return true;
 
-	if( bFlg || GetAsyncKeyState( VK_LEFT ) & 0x8000 ){
-		return true;
-	}
 	return false;
 }
 bool clsPlayer::InputRight()
 {
 	if( m_pXInput == nullptr ) return false;
 
-	bool bFlg = false;
-	if( m_pXInput->IsPressStay( XINPUT_RIGHT ) ) bFlg = true;
+	if( m_pXInput->IsPressStay( XINPUT_RIGHT ) ) return true;
+	if( GetAsyncKeyState( VK_RIGHT ) & 0x8000 ) return true;
 
-	if( bFlg || GetAsyncKeyState( VK_RIGHT ) & 0x8000 ){
-		return true;
-	}
 	return false;
 }
 

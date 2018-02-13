@@ -3071,6 +3071,7 @@ void clsMain::SceneTitle()
 			}
 		}
 		break;
+
 	case en_TSM_BREAK_DOOR:
 		{
 			//カメラ追いかける.
@@ -3109,7 +3110,7 @@ void clsMain::SceneTitle()
 			}
 			//床.
 			bool bGroundFlg = false;
-			m_vsmpDoorMgr[0]->Move( m_pPlayer->GetPositionZ() );
+			m_vsmpDoorMgr[0]->Update( m_pPlayer->GetPositionZ() );
 			for( int i=0; i<m_vsmpFloor.size(); i++ ){
 				if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ() ) ){
 					if( m_pCollision->FloorJudge(
@@ -3125,11 +3126,13 @@ void clsMain::SceneTitle()
 			m_pPlayer->SetGroundFlg( bGroundFlg );
 		}
 		break;
+
 	case en_TSM_GO_MAIN:
 		//メインへ.
 		InitMain( true );
 		m_enTitleSceneMode = en_TSM_IDLE;
 		break;
+
 	default:
 		m_enTitleSceneMode = en_TSM_GO_MAIN;
 		break;
@@ -3149,7 +3152,7 @@ void clsMain::SceneMain()
 	//----- 自機 -----//.
 	m_pPlayer->Input();
 
-	m_pPlayer->Move( GetEar() );
+	m_pPlayer->Update( GetEar() );
 
 	//手前ガード.
 	if( m_pPlayer->GetPositionZ() < fPLAYER_BACK_LIMIT ){
@@ -3174,7 +3177,7 @@ void clsMain::SceneMain()
 	//----- 敵 -----//.
 	for( int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
 		//動く.
-		m_vsmpEnemyMgr[i]->Move( GetEar() );
+		m_vsmpEnemyMgr[i]->Update( GetEar() );
 
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpEnemyMgr[i]->GetPositionZ() ) ){
 			//ﾌﾟﾚｲﾔｰのPosをﾀｰｹﾞｯﾄにｾｯﾄ.
@@ -3308,7 +3311,7 @@ void clsMain::SceneMain()
 	//----- 床槍 -----//.
 	for( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
 		//動き.
-		m_vsmpSpiaFloorMgr[i]->Move( GetEar() );
+		m_vsmpSpiaFloorMgr[i]->Update( GetEar() );
 
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpSpiaFloorMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
 			//生きてるとき.
@@ -3337,7 +3340,7 @@ void clsMain::SceneMain()
 	//----- 壁槍 -----//.
 	for ( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
 		//動き.
-		m_vsmpSpiaWallMgr[i]->Move( GetEar() );
+		m_vsmpSpiaWallMgr[i]->Update( GetEar() );
 
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpSpiaWallMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
 			//生きてるとき.
@@ -3380,7 +3383,7 @@ void clsMain::SceneMain()
 	char* cPendBoneName = (char*)PEND_BONE_NAME;//ﾎﾞｰﾝ名.
 	for( int i=0; i<m_vsmpPend.size(); i++ ){
 		//振り子動き.
-		m_vsmpPend[i]->Move( GetEar() );
+		m_vsmpPend[i]->Update( GetEar() );
 		//透過基準設定.
 		m_vsmpPend[i]->SetAlphaFlg( m_pPlayer->GetPositionZ() );
 
@@ -3455,7 +3458,7 @@ void clsMain::SceneMain()
 					}
 				}
 			}
-			m_vsmpGoalMgr[i]->Move( GetEar() );
+			m_vsmpGoalMgr[i]->Update( GetEar() );
 		}
 	}
 
@@ -3569,7 +3572,7 @@ void clsMain::SceneMain()
 			//透過.
 			m_vsmpDoorMgr[i]->SetAlphaFlg( GetEar() );
 			//動作.
-			m_vsmpDoorMgr[i]->Move( GetEar() );
+			m_vsmpDoorMgr[i]->Update( GetEar() );
 		}
 	}
 
@@ -3593,7 +3596,7 @@ void clsMain::SceneMain()
 		//落とし穴の数分回す.
 		for( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
 			//動作.
-			m_vsmpCoverMgr[i]->Move( GetEar() );
+			m_vsmpCoverMgr[i]->Update( GetEar() );
 			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpCoverMgr[i]->GetPositionZ() ) ){
 				//開いている時は乗れない.
 				if( m_vsmpCoverMgr[i]->isCanStmp() )
@@ -3650,7 +3653,7 @@ void clsMain::SceneMain()
 
 	//----- 動く丸足場 -----//.
 	for( int i=0; i<m_vsmpStepCil.size(); i++ ){
-		m_vsmpStepCil[i]->Move();	//こいつは外に出しておかないとbreakのせいで乗っている足場以外が止まってしまう.
+		m_vsmpStepCil[i]->Update();	//こいつは外に出しておかないとbreakのせいで乗っている足場以外が止まってしまう.
 	}
 	if( !bCutGroundCheck ){
 		for( int i=0; i<m_vsmpStepCil.size(); i++ ){
@@ -3677,7 +3680,7 @@ void clsMain::SceneMain()
 
 	//----- 動く四角足場 -----//.
 	for( int i=0; i<m_vsmpStepBox.size(); i++ ){
-		m_vsmpStepBox[i]->Move();	//こいつは外に出しておかないとbreakのせいで乗っている足場以外が止まってしまう.
+		m_vsmpStepBox[i]->Update();	//こいつは外に出しておかないとbreakのせいで乗っている足場以外が止まってしまう.
 	}
 	if( !bCutGroundCheck ){
 		for( int i=0; i<m_vsmpStepBox.size(); i++ ){
@@ -3839,7 +3842,7 @@ void clsMain::SceneResult()
 	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 		m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetFloorColPointer() );
 		m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetTrBoxColPointer() );
-		m_vsmpGoalMgr[i]->Move( GetEar() );
+		m_vsmpGoalMgr[i]->Update( GetEar() );
 	}
 	//----- ゴール床 -----//.
 	bool bGroundFlg = false;

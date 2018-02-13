@@ -27,7 +27,7 @@ public:
 	void SetPos( D3DXVECTOR3 vPos );
 	void AddPos( D3DXVECTOR3 vPos );
 
-	void Move();
+	void Update();
 
 	void Render();
 

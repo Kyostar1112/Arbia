@@ -25,7 +25,7 @@ public:
 	virtual void ReSet();
 
 
-	void Move();
+	void Update();
 
 	void Render();
 

@@ -51,7 +51,8 @@ public:
 
 	void Input();
 
-	void Move( float fEarZ );
+	void Update( float fEarZ );
+
 	void Rerease();
 
 	void Dead();
@@ -155,15 +156,15 @@ private:
 
 
 	//Žq•ª.
-	void Input_Move();
+	void Input_Walk();
 	void Input_Action();
-	void Input_Action_Jump();
-	void Input_Action_Atk();
+	void Input_ActionJump();
+	void Input_ActionAtk();
 
-	void Move_Move();
-	void Move_Action();
-	void Move_Action_Jump();
-	void Move_Action_Atk();
+	void MoveWalk();
+	void MoveAction();
+	void MoveActionJump();
+	void MoveActionAtk();
 
 
 	clsXInput* m_pXInput;

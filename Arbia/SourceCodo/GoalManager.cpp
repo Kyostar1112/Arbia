@@ -208,7 +208,7 @@ void clsGoalMgr::SetPosition( D3DXVECTOR3 vPos )
 }
 
 
-void clsGoalMgr::Move( float fEarZ )
+void clsGoalMgr::Update( float fEarZ )
 {
 	if( m_pEffect == nullptr ) return;
 

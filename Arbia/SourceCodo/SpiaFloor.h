@@ -33,7 +33,7 @@ public:
 
 	virtual void Init( bool bFlg = false );//true = ‚‚¢‚â‚Â.
 
-	enSound Move();
+	enSound Update();
 
 	enSpeaFloorMode GetMode(){
 		return m_Mode;
