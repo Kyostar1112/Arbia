@@ -8,11 +8,10 @@ clsCharaSkin::clsCharaSkin()
 	//m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	//m_vRot = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	//m_fScale = 1.0f;
-
 	m_pShadow = nullptr;
 
-}
 
+}
 
 clsCharaSkin::~clsCharaSkin()
 {
@@ -78,7 +77,7 @@ void clsCharaSkin::DetatchModel()
 	if( m_pModel != NULL ){
 		m_pModel = NULL;
 
-
+	
 		if( m_pAnimCtrl != NULL ){
 			m_pAnimCtrl->Release();
 			m_pAnimCtrl = NULL;
@@ -216,7 +215,7 @@ void clsCharaSkin::UpdatePos()
 	D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
 
 	//Z²ÍŞ¸ÄÙ‚»‚Ì‚à‚Ì‚ğ‰ñ“]ó‘Ô‚É‚æ‚è•ÏŠ·‚·‚é.
-	D3DXVec3TransformCoord(
+	D3DXVec3TransformCoord( 
 		&vecAxisZ,	//(out).
 		&vecAxisZ,	//.
 		&mYaw );	//Y²‰ñ“]s—ñ.

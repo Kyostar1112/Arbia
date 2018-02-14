@@ -27,13 +27,20 @@ clsDiscover::~clsDiscover()
 void clsDiscover::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 )
 {
 	m_smpIcon = make_unique<clsSprite2D>();
-	m_smpIcon->Create(pDevice11, pContext11, FILE_PATH_ICON, 2 );
+	m_smpIcon->Init(pDevice11, pContext11, FILE_PATH_ICON );
 	m_smpIcon->SetDispW( MainSceneDisc::ICONSIZE.w );
 	m_smpIcon->SetDispH( MainSceneDisc::ICONSIZE.h );
+	m_smpIcon->UpDateSpriteSs();
+	m_smpIcon->SetSs(
+		m_smpIcon->GetSs().Base.w,
+		m_smpIcon->GetSs().Base.h,
+		m_smpIcon->GetSs().Disp.w,
+		m_smpIcon->GetSs().Disp.h,
+		fICON_UV_W_MAX );
 
+	m_smpIcon->UpDateSpriteSs();
 
 	m_smpIcon->SetPatarnU( fICON_UV_W );
-
 
 	m_smpLives = make_unique<clsNumGrp>();
 	m_smpLives->Create( pDevice11, pContext11 );

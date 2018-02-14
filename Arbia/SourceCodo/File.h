@@ -10,7 +10,6 @@
 #include"MyMacro.h"
 
 using namespace std;
-
 enum Extension
 {
 	Txt = 0,	//テキストファイル.

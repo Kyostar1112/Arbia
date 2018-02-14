@@ -39,11 +39,10 @@ public:
 	}
 
 	//----- ƒ‰ƒbƒv -----//.
-
 	void InitSetPos(){
 		if( !m_smpModel ) return;
 		m_smpModel->InitSetPos();
-
+	};
 
 
 	void SetScale( float fScale ){

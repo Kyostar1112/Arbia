@@ -12,11 +12,12 @@ public:
 	clsJewel();
 	~clsJewel();
 
-	////ﾓﾃﾞﾙ作成.
-	virtual HRESULT InitModel( SPRITE_STATE ss );
-
 	//描画(ﾚﾝﾀﾞﾘﾝｸﾞ)(※DX9MESH内とMain内で2つ存在するので注意).
 	virtual void Render();
+
+	//SPRITE_STATE変更を適用するために必要.
+	virtual void UpDateSpriteSs();
+
 
 	void AddPos( D3DXVECTOR3 vPos ){
 		m_vPos += vPos;
@@ -25,6 +26,9 @@ public:
 	float	m_fScale;
 
 private:
+
+	////ﾓﾃﾞﾙ作成.
+	virtual HRESULT InitModel( SPRITE_STATE ss );
 
 
 

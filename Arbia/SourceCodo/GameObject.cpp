@@ -26,7 +26,7 @@ clsGameObject::~clsGameObject()
 //============================================================
 //ê›íË.
 void clsGameObject::SetPosition( D3DXVECTOR3 vPos )
-{
+{	
 	m_vPos = vPos;
 }
 void clsGameObject::SetPositionX( float fPosX )
@@ -82,7 +82,7 @@ void clsGameObject::AddPositionZ( float fMoveZ )
 //============================================================
 //ê›íË.
 void clsGameObject::SetRotation( D3DXVECTOR3 vRot )
-{
+{ 
 	m_vRot = vRot;
 }
 void clsGameObject::SetRotationY( float fRotY )
@@ -200,7 +200,7 @@ int clsGameObject::ChangeVolumeDistance( float fEarPosZ, float fThisPosZ )
 		return iVOL_MAX;
 	}
 
-
+	
 	//âπó ïœâª.
 	int vol;
 	vol = (int)( (float)iVOL_MAX / fRange );//îΩî‰ó·.//intÇÃåvéZÇ∑ÇÈÇ∆VSÇ™âÛÇÍÇÈÇ©ÇÁ(float)Ç…ÇµÇƒÇ©ÇÁ(int)Ç…ñﬂÇ∑.
