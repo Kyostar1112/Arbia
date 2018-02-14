@@ -1,27 +1,24 @@
-#ifndef _MY_MACRO_H_	//ç¹§ï½¤ç¹ï½³ç¹§ï½¯ç¹ï½«ç¹ï½¼ç¹å³¨ãç¹ï½¼ç¹.
+#ifndef _MY_MACRO_H_	//²İ¸Ù°ÄŞ¶Ş°ÄŞ.
 #define _MY_MACRO_H_
 
 
 //============================================================
-//	ç¹æ§­ã‘ç¹ï½­.
+//	Ï¸Û.
 //============================================================
 
-//ç¹§ï½¨ç¹ï½©ç¹ï½¼ç¹ï½¡ç¹ï¿½ãç¹ï½¼ç¹§ï½¸.
+//´×°Ò¯¾°¼Ş.
 #define ERR_MSG(str,title)	{MessageBox(NULL,str,title,MB_OK);}
 
-//è§£æ”¾.
-#define SAFE_RELEASE(x)		{ if(x) {(x)->Release();(x)=nullptr; } }
-#define SAFE_DELETE(p)		{ if(p) { delete (p);   (p)=nullptr; } }
-#define SAFE_DELETE_ARRAY(p){ if(p) { delete[] (p); (p)=nullptr; } }
 
-#define SAFE_RELEASE(x)		{ if(x) {(x)->Release();(x)=nullptr; } }
-#define SAFE_DELETE(p)		{ if(p) { delete (p);   (p)=nullptr; } }
-#define SAFE_DELETE_ARRAY(p){ if(p) { delete[] (p); (p)=nullptr; } }
+//‰ğ•ú.
+#define SAFE_RELEASE(x)		if(x){(x)->Release();	(x)=NULL;}
+#define SAFE_DELETE(p)		{ if(p) { delete (p);   (p)=NULL; } }
+#define SAFE_DELETE_ARRAY(p){ if(p) { delete[] (p); (p)=NULL; } }
 
-//ç¹§ï½­ç¹ï½¼ç¹æ‡Šï¿½ç¹ç‰™ï¿½èœ‰.
-//è¬šï½¼ç¸ºåŠ±â€»ç¸ºï¿½ï½‹é«¢.
+//·°ÎŞ°ÄŞ“ü—Í.
+//‰Ÿ‚µ‚Ä‚¢‚éŠÔ.
 #define GETKEY_STAY(x) if (GetAsyncKeyState(x) & 0x8000)	
-//è¬šï½¼ç¸ºåŠ±â—†ç¸ºï½¨ç¸ºé˜ªâ–¡ç¸º.
+//‰Ÿ‚µ‚½‚Æ‚«‚¾‚¯.
 #define GETKEY_DOWN(x) if (GetAsyncKeyState(x) & 0x0001)
 
 #endif//#ifndef _MY_MACRO_H_

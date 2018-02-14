@@ -28,32 +28,30 @@ const	  int iVOL_DOWN = 1000;
 
 
 //===== あたり判定 =====//.
-const float fCOL_ENEMY_RANGE = 0.5f;
+const float COL_ENEMY_RANGE = 0.5f;
 
-const float fCOL_ENEMY_BOX_X = 0.5f / 2.0f;
-const float fCOL_ENEMY_BOX_Y = 2.0f;
-const float fCOL_ENEMY_BOX_Z = 1.0f / 2.0f;
-const float fCOL_ENEMY_BOX_CENTER = 1.0f;
+const float COL_ENEMY_BOX_X = 0.5f / 2.0f;
+const float COL_ENEMY_BOX_Y = 2.0f;
+const float COL_ENEMY_BOX_Z = 1.0f / 2.0f;
+const float COL_ENEMY_BOX_CENTER = 1.0f;
 
 //===== 敵のﾀｰﾝ拠点 =====//.
 //===== Box =====//.
-const float fCOL_ENEMY_TURN_POS_BOX_X = 0.5f / 2.0f;
-const float fCOL_ENEMY_TURN_POS_BOX_Y = 1.0f / 2.0f;
-const float fCOL_ENEMY_TURN_POS_BOX_Z = 0.5f / 2.0f;
-const float fCOL_ENEMY_TURN_POS_BOX_CENTER = 1.0f;
+const float COL_ENEMY_TURN_POS_BOX_X = 0.5f / 2.0f;
+const float COL_ENEMY_TURN_POS_BOX_Y = 1.0f / 2.0f;
+const float COL_ENEMY_TURN_POS_BOX_Z = 0.5f / 2.0f;
+const float COL_ENEMY_TURN_POS_BOX_CENTER = 1.0f;
 
 //===== 敵の索敵,攻撃 =====//.
-const float fCOL_ENEMY_SUB_HEIGHT = 1.0f;	//高さ.
+const float COL_ENEMY_SUB_HEIGHT = 1.0f;	//高さ.
 
-const float fCOL_ENEMY_SUB_RANGE_SARCH = 6.0f;		//索敵距離.
-const int iCOL_ENEMY_SUB_THETA_SARCH = 90;			//索敵角度.
+const float COL_ENEMY_SUB_RANGE_SARCH = 6.0f;		//索敵距離.
+const int COL_ENEMY_SUB_THETA_SARCH = 90;			//索敵角度.
 
-const float fCOL_ENEMY_SUB_RANGE_ATK_START = 1.75f;	//攻撃開始距離.
-const float fCOL_ENEMY_SUB_RANGE_ATK_AREA = 2.0f;	//攻撃範囲距離.
-const int iCOL_ENEMY_SUB_THETA_ATK_AREA = 140;		//攻撃範囲角度. 
+const float COL_ENEMY_SUB_RANGE_ATK_START = 1.75f;	//攻撃開始距離.
+const float COL_ENEMY_SUB_RANGE_ATK_AREA = 2.0f;	//攻撃範囲距離.
+const int COL_ENEMY_SUB_THETA_ATK_AREA = 140;		//攻撃範囲角度. 
 
-const float fENEMY_HEIGHT = 2.0f;
-const int iENEMY_SARCH_THETA = 90;
 //===== あたり判定 終わり =====//.
 
 
@@ -67,18 +65,21 @@ const float fWORKING_RANGE = 6.0f - 1.0f;//前後6マス分追いかける.
 //ﾓﾃﾞﾙの都合.
 const float fMODEL_BACK_TURN = (float)M_PI;//TestPlusTheta
 
+const float ENEMY_HEIGHT = 2.0f;
+const int ENEMY_SARCH_THETA = 90;
 
-
-//速度.
-const float fWALK_SPD = 1.0f / 6.5f;
-const float fRUN_SPD = 1.0f / 2.0f;
-const float fTURN_SPD = 0.1f;
+const float WALK_SPD = 1.0f / 6.5f;
+const float RUN_SPD = 1.0f / 2.0f;
+const float TURN_SPD = 0.1f;
 
 //Timer.
-const int iSTOP_TIME = 60;
-const int iATK_TIME = 50;
+const int STOP_TIME = 60;
+const int ATK_TIME = 50;
 const int iATK_IMPACT_TIME = 25;//30.
 const int iRE_DISCOVER_TIME = 30;//再発見までの時間.
+
+
+const double fANIM_SPD = 0.025 + 0.002;
 
 
 //エフェクト.
@@ -88,8 +89,6 @@ const D3DXVECTOR3 vEFFECT_SCALE_SLASH = { -0.25f, -0.25f, -0.25f };
 
 clsEnemy::clsEnemy()
 {
-	m_pCollision = nullptr;
-	m_ppSe = nullptr;
 	m_pEffect = nullptr;
 }
 
@@ -103,63 +102,55 @@ void clsEnemy::Release()
 {
 	m_pEffect = nullptr;
 
-	if( m_pShadow != nullptr ){
+	if( m_pShadow != NULL ){
 		delete m_pShadow;
-		m_pShadow = nullptr;
+		m_pShadow = NULL;
+	}
+
+	if( m_pCollision != NULL ){
+		delete m_pCollision;
+		m_pCollision = NULL;
 	}
 
 
-	if( m_ppSe != nullptr ){
+	if( m_ppSe != NULL ){
 		for( int i=0; i<enSOUND_MAX; i++ ){
 			delete m_ppSe[i];
-			m_ppSe[i] = nullptr;
+			m_ppSe[i] = NULL;
 		}
 		delete[] m_ppSe;
-		m_ppSe = nullptr;
-	}
-
-	if( m_pCollision != nullptr ){
-		delete m_pCollision;
-		m_pCollision = nullptr;
+		m_ppSe = NULL;
 	}
 }
 
 void clsEnemy::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11, int iNo, int jNo )
 {
-	if( m_pCollision != nullptr ||
-		m_pShadow != nullptr ||
-		m_ppSe != nullptr ||
-		m_pEffect != nullptr )
-	{
-		return;
-	}
-
 	//当たり判定.
 	m_pCollision = new clsCollision;
 	//敵用.
 	ColState.vPos = m_vPos;
-	ColState.fRange = fCOL_ENEMY_RANGE;
+	ColState.fRange = COL_ENEMY_RANGE;
 	ColState.fYaw = m_vRot.y;
-	ColState.fHeight = fENEMY_HEIGHT;
-	ColState.iSarchTheta = iENEMY_SARCH_THETA;
+	ColState.fHeight = ENEMY_HEIGHT;
+	ColState.iSarchTheta = ENEMY_SARCH_THETA;
 
 	//Box.
 	ColState.vRangeHalf = D3DXVECTOR3( 
-		fCOL_ENEMY_BOX_X, fCOL_ENEMY_BOX_Y, fCOL_ENEMY_BOX_Z );
-	ColState.fCenterY = fCOL_ENEMY_BOX_CENTER;
+		COL_ENEMY_BOX_X, COL_ENEMY_BOX_Y, COL_ENEMY_BOX_Z );
+	ColState.fCenterY = COL_ENEMY_BOX_CENTER;
 
 
 	//Sub.
-	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_SARCH;
-	m_colSub.fHeight = fCOL_ENEMY_SUB_HEIGHT;
-	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_SARCH;
+	m_colSub.fRange = COL_ENEMY_SUB_RANGE_SARCH;
+	m_colSub.fHeight = COL_ENEMY_SUB_HEIGHT;
+	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_SARCH;
 
 
 	//TurnPos.
 	for( char i=0; i<TURN_POS_NO_MAX; i++ ){
 		m_colTurn[i].vRangeHalf =
-			D3DXVECTOR3( fCOL_ENEMY_TURN_POS_BOX_X, fCOL_ENEMY_TURN_POS_BOX_Y, fCOL_ENEMY_TURN_POS_BOX_Z );
-		m_colTurn[i].fCenterY = fCOL_ENEMY_TURN_POS_BOX_CENTER;
+			D3DXVECTOR3( COL_ENEMY_TURN_POS_BOX_X, COL_ENEMY_TURN_POS_BOX_Y, COL_ENEMY_TURN_POS_BOX_Z );
+		m_colTurn[i].fCenterY = COL_ENEMY_TURN_POS_BOX_CENTER;
 	}
 
 	//音.
@@ -206,7 +197,7 @@ void clsEnemy::Init( float fStartZ )
 {
 	m_bDead = false;
 	m_enMove = enEM_WALK;
-	m_fSpd = fWALK_SPD;
+	m_fSpd = WALK_SPD;
 	m_bWin = false;
 
 	m_fFloorY = m_vPos.y;
@@ -217,9 +208,9 @@ void clsEnemy::Init( float fStartZ )
 	m_fStartZ = fStartZ;
 
 	//Sub.
-	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_SARCH;
-	m_colSub.fHeight = fCOL_ENEMY_SUB_HEIGHT;
-	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_SARCH;
+	m_colSub.fRange = COL_ENEMY_SUB_RANGE_SARCH;
+	m_colSub.fHeight = COL_ENEMY_SUB_HEIGHT;
+	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_SARCH;
 
 	//TurnPos.
 	for( int i=0; i<TURN_POS_NO_MAX; i++ ){
@@ -235,26 +226,26 @@ void clsEnemy::Init( float fStartZ )
 //==================================================
 //	敵動き.
 //==================================================
-void clsEnemy::Update( float fEarZ )
+void clsEnemy::Move( float fEarZ )
 {
 	m_fEarZ = fEarZ;
 
 	switch( m_enMove )
 	{
 		case enEM_WALK:
-			MoveWalk();
+			Move_Walk();
 			break;
 		case enEM_RUN:
-			MoveRun();
+			Move_Run();
 			break;
 		case enEM_ATK:
-			MoveAtk();
+			Move_Atk();
 			break;
 		case enEM_STOP:
-			MoveStop();
+			Move_Stop();
 			break;
 		case enEM_DEATH:
-			MoveDeath();
+			Move_Death();
 			break;
 		case enEM_WIN:
 			break;
@@ -267,7 +258,7 @@ void clsEnemy::Update( float fEarZ )
 	ThetaOverGuard( m_vRot.y );
 
 	//回転.
-	YawSpnToTarg( m_vRot.y, m_fYawTarget, fTURN_SPD );
+	YawSpnToTarg( m_vRot.y, m_fYawTarget, TURN_SPD );
 
 
 	SetSpeed();
@@ -283,14 +274,11 @@ void clsEnemy::Update( float fEarZ )
 	Animation();
 
 	//影.
-	if( m_pShadow == nullptr ) return;
 	m_pShadow->SetShadow( m_vPos, m_fFloorY );
 }
 
-void clsEnemy::MoveWalk()
+void clsEnemy::Move_Walk()
 {
-	if( m_pCollision == nullptr ) return;
-
 	m_enDir = enDirection_Foward;
 	//自ﾀｰｹﾞｯﾄを向く.
 	m_fYawTarget = OpponentDirect( m_vPos, m_colTurn[m_iTarNo].vPos );
@@ -312,7 +300,7 @@ void clsEnemy::MoveWalk()
 		m_iReDiscTimer --;
 	}
 }
-void clsEnemy::MoveRun()
+void clsEnemy::Move_Run()
 {
 	//自ﾀｰｹﾞｯﾄを向く.
 	m_fYawTarget = OpponentDirect( m_vPos, m_vTargetPos );
@@ -323,7 +311,7 @@ void clsEnemy::MoveRun()
 		Lost();
 	}
 }
-void clsEnemy::MoveAtk()
+void clsEnemy::Move_Atk()
 {
 	m_bAtkImpact = false;//攻撃の瞬間判断フラグ初期化.
 	m_iAtkTimer ++;
@@ -335,15 +323,15 @@ void clsEnemy::MoveAtk()
 		PlayEff();
 	}
 }
-void clsEnemy::MoveStop()
+void clsEnemy::Move_Stop()
 {
 	m_iStopTimer ++;
-	if( m_iStopTimer > iSTOP_TIME ){
+	if( m_iStopTimer > STOP_TIME ){
 		Back();
 	}
 }
 //死亡の動き.
-void clsEnemy::MoveDeath()
+void clsEnemy::Move_Death()
 {
 }////死亡の動き終わり.
 
@@ -363,7 +351,7 @@ void clsEnemy::Turn( int TargetNo )
 
 
 //==================================================
-//	移動の角セット.
+//	.
 //==================================================
 void clsEnemy::SetTurnPos( float x, float z, float SecondX, float SecondZ, bool bReverse, bool bSecond )
 {
@@ -432,7 +420,6 @@ float clsEnemy::OpponentDirect( D3DXVECTOR3 Attker, D3DXVECTOR3 Target)
 //============================================================
 void clsEnemy::UpdateDir()
 {
-	if( m_pModel == nullptr ) return;
 	m_pModel->m_enDir = m_enDir;
 }
 
@@ -450,11 +437,11 @@ bool clsEnemy::Discover( bool bSoundFlg )
 	}
 
 	m_enMove = enEM_RUN;
-	m_fSpd = fRUN_SPD;
+	m_fSpd = RUN_SPD;
 
 	//Sub(攻撃開始範囲).
-	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_ATK_START;
-	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_ATK_AREA;
+	m_colSub.fRange = COL_ENEMY_SUB_RANGE_ATK_START;
+	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_ATK_AREA;
 
 	//ｱﾆﾒｰｼｮﾝ.
 	ChangeAnimMode( enANIM_RUNING );
@@ -471,23 +458,21 @@ bool clsEnemy::Discover( bool bSoundFlg )
 //============================================================
 void clsEnemy::Back()
 {
-	if( m_pCollision == nullptr ) return;
-
 	m_enMove = enEM_WALK;
-	m_fSpd = fWALK_SPD;
+	m_fSpd = WALK_SPD;
 
 	//Sub.
-	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_SARCH;
-	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_SARCH;
+	m_colSub.fRange = COL_ENEMY_SUB_RANGE_SARCH;
+	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_SARCH;
 
 	//一番近いﾎﾟｲﾝﾄを探す.
-	float fRange = m_pCollision->LengthComp( m_vPos, m_colTurn[0].vPos );
+	float RAnge = m_pCollision->LengthComp( m_vPos, m_colTurn[0].vPos );
 	m_iTarNo = 0;
 	for( char i=1; i<TURN_POS_NO_MAX; i++ )
 	{
-		if( fRange > m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos ) )
+		if( RAnge > m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos ) )
 		{
-			fRange = m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos );
+			RAnge = m_pCollision->LengthComp( m_vPos, m_colTurn[i].vPos );
 			m_iTarNo = i;
 		}
 	}
@@ -523,8 +508,8 @@ void clsEnemy::Attack()
 	m_iAtkTimer = 0;
 
 	//Sub.
-	m_colSub.fRange = fCOL_ENEMY_SUB_RANGE_ATK_AREA;
-	m_colSub.iSarchTheta = iCOL_ENEMY_SUB_THETA_ATK_AREA;
+	m_colSub.fRange = COL_ENEMY_SUB_RANGE_ATK_AREA;
+	m_colSub.iSarchTheta = COL_ENEMY_SUB_THETA_ATK_AREA;
 
 	//ｱﾆﾒｰｼｮﾝ.
 	ChangeAnimMode( enANIM_ATK );
@@ -550,6 +535,7 @@ void clsEnemy::Winner()
 
 	//ｱﾆﾒｰｼｮﾝ.
 	ChangeAnimMode( enANIM_WIN );
+
 }
 
 //==================================================
@@ -604,8 +590,6 @@ void clsEnemy::UpdateColState()
 //アニメーション.
 void clsEnemy::Animation()
 {
-	if( m_pModel == nullptr ) return;
-
 	//ループしないモーション.
 	if( m_enAnimNo == enANIM_ATK ||
 		m_enAnimNo == enANIM_DEAD ||
@@ -614,6 +598,7 @@ void clsEnemy::Animation()
 		//アニメーション時間加算.
 		m_dAnimTimer += m_pModel->GetAnimSpeed();
 	}
+
 
 
 	//現在のアニメーションを終えたら.
@@ -638,6 +623,19 @@ void clsEnemy::Animation()
 			break;
 		}	
 	}
+
+//if( m_AnimNo == 1 ){
+//	if( m_pSkinMesh->GetAnimPeriod( m_AnimNo ) < m_AnimTime ){
+//		//1のﾓｰｼｮﾝの時間を終えた.
+//		m_AnimNo = 2;
+//	}
+//	m_AnimTime += m_pSkinMesh->GetAnimSpeed();//ｱﾆﾒｰｼｮﾝ時間加算.
+//}
+//else if( m_AnimNo == 2 ){
+//	m_AnimNo = 0;
+//	m_pSkinMesh->ChangeAnimSet( m_AnimNo );
+//}
+
 }
 
 //============================================================
@@ -653,8 +651,6 @@ void clsEnemy::ChangeAnimMode( enAnimation anim ){
 //効果音再生.
 void clsEnemy::PlaySe( enSound enSe )
 {
-	if( m_ppSe == nullptr ) return;
-
 	//再生する距離なら.
 	int vol = ChangeVolumeDistance( m_fEarZ, m_vPos.z );
 	if( vol ){
@@ -672,8 +668,6 @@ void clsEnemy::PlaySe( enSound enSe )
 //エフェクト再生.
 void clsEnemy::PlayEff()
 {
-	if( m_pEffect == nullptr ) return;
-
 	D3DXVECTOR3 vEffPos = m_vPos;
 	vEffPos.y += fEFFECT_OFFSET_POS_Y_SLASH;
 	D3DXVECTOR3 vEffRot = m_vRot;

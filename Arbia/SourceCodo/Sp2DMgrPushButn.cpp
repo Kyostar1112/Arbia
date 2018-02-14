@@ -18,35 +18,25 @@ clsPushTxt::~clsPushTxt()
 {
 }
 
-void clsPushTxt::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
+void clsPushTxt::Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
-	m_smpAButton = make_unique<clsSprite2D>();	//Aボタン.
-	m_smpPushTxt = make_unique<clsSprite2D>();	//PUSH KETねぇでやんす.
+	m_smpAButton             = make_unique<clsSprite2D>();	//Aボタン.
+	m_smpPushTxt             = make_unique<clsSprite2D>();	//PUSH KETねぇでやんす.
 
-	m_smpPushTxt->Init( pDevice11, pContext11, "Data\\Image\\PushButtun.png");
+	m_smpPushTxt->Create( pDevice11, pContext11, "Data\\Image\\PushButtun.png");
 	m_smpPushTxt->MulDisp(0.5f);
-	m_smpPushTxt->UpDateSpriteSs();
 	m_smpPushTxt->SetAlpha(1.0f);
 
-	m_smpAButton->Init(pDevice11, pContext11, "Data\\Image\\AButtun.png");
+	m_smpAButton->Create(pDevice11, pContext11, "Data\\Image\\AButtun.png");
 	m_smpAButton->SetDispW(m_smpPushTxt->GetSs().Disp.w/4);
 	m_smpAButton->SetDispH(m_smpPushTxt->GetSs().Disp.w/4);
 	m_smpAButton->SetAlpha(1.0f);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	m_smpAButton->UpDateSpriteSs();
->>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
-=======
-	m_smpAButton->UpDateSpriteSs();
->>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
-
 }
 
-void clsPushTxt::InitSetPos()
+void clsPushTxt::Init()
 {
-	m_smpPushTxt->InitSetPos();
-	m_smpAButton->InitSetPos();
+	m_smpPushTxt->Init();
+	m_smpAButton->Init();
 	m_smpPushTxt->SetAlpha(1.0f);
 	m_smpAButton->SetAlpha(1.0f);
 	m_enAlphaMode = clsPushTxt::Flassing;

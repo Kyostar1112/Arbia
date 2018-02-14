@@ -55,7 +55,7 @@ void clsStepBox::Init()
 
 
 //“®ì.
-void clsStepBox::Update()
+void clsStepBox::Move()
 {
 	//“Œ‚Ö.
 	if( m_bEastFlg ){

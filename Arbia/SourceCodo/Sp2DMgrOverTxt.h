@@ -9,13 +9,13 @@ public:
 	clsSp2dMgrOverTxt();
 	~clsSp2dMgrOverTxt();
 
-	void Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
-	void InitSetPos();
+	void Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+	void Init();
 	void Render();
 	void Release();
 
 private:
-
+	
 	float m_fSpeed = 5.0f;
 	float m_fAccel = -0.01f;
 

@@ -37,7 +37,7 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 
 	//ゲームオーバ用.
 	m_smpOverScene = make_unique<clsSp2dMgrOver>();
-	m_smpOverScene->Init( pDevice11, pContext11 );
+	m_smpOverScene->Create( pDevice11, pContext11 );
 
 	//リザルト用.
 	m_smpResult = make_unique<clsSp2dMgrReslt>();
@@ -45,36 +45,28 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	//エンディング.
 	m_smpEndingScene = make_unique<clsSp2dMgrEnding>();
 
-	m_smpBlack->Init(pDevice11, pContext11, "Data\\Image\\Black.png");
+	m_smpBlack->Create(pDevice11, pContext11, "Data\\Image\\Black.png");
 
-	m_smpWhite->Init(pDevice11, pContext11, "Data\\Image\\White.png");
+	m_smpWhite->Create(pDevice11, pContext11, "Data\\Image\\White.png");
 
 	//タイトルシーン.
-	m_smpTitleScene->Init(pDevice11, pContext11);
+	m_smpTitleScene->Create(pDevice11, pContext11);
 
 	//メインシーン.
-	m_smpMainScene->Init( hWnd, pDevice11, pContext11);
+	m_smpMainScene->Create( hWnd, pDevice11, pContext11);
 
-	m_smpActTxt->Init(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
+	m_smpActTxt->Create(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
 
-	m_smpXButton->Init(pDevice11, pContext11, "Data\\Image\\XButtun.png");
-	m_smpAButton->Init(pDevice11, pContext11, "Data\\Image\\AButtun.png");
+	m_smpXButton->Create(pDevice11, pContext11, "Data\\Image\\XButtun.png");
+	m_smpAButton->Create(pDevice11, pContext11, "Data\\Image\\AButtun.png");
 
 
 	//リザルト用.
 	m_smpResult->Init( hWnd, pDevice11, pContext11 );
 
 	//エンディング用.
-<<<<<<< HEAD
-<<<<<<< HEAD
 	m_smpEndingScene->Create(pDevice11, pContext11);
-=======
-	m_smpEndingScene->Init(pDevice11, pContext11);
->>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
-=======
-	m_smpEndingScene->Init(pDevice11, pContext11);
->>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
-	InitPos();
+	Init();
 
 }
 void clsUiManagar::RenderTitle()
@@ -130,7 +122,7 @@ void clsUiManagar::SceneEnding()
 }
 void clsUiManagar::ChangeTitleInit()
 {
-	m_smpTitleScene->InitSetPos();
+	m_smpTitleScene->Init();
 	m_smpMainScene->ActTxtMoveOut();
 
 #ifdef Tahara
@@ -143,21 +135,21 @@ void clsUiManagar::ChangeTitleInit()
 }
 void clsUiManagar::ChangeMainInit()
 {
-	m_smpMainScene->InitSetPos();
+	m_smpMainScene->Init();
 	m_smpMainScene->ActTxtMoveIn();
 
 }
 
 void clsUiManagar::ChangeResultInit()
 {
-	InitPos();
+	Init();
 	m_smpResult->StartSet();
 
 	m_smpAButton->SetAlpha(1.0f);
 }
 void clsUiManagar::ChangeOverInit()
 {
-	InitPos();
+	Init();
 
 //	m_smpGameOverTxt->SetPosX(CENTER_POS.w - m_smpGameOverTxt->GetCenterDisp().w);
 //	m_smpGameOverTxt->SetPosY(-1 * (m_smpGameOverTxt->GetSs().Disp.h));
@@ -166,7 +158,7 @@ void clsUiManagar::ChangeOverInit()
 }
 void clsUiManagar::ChangeEndingInit()
 {
-	InitPos();
+	Init();
 }
 
 void clsUiManagar::BlackStart(float ChaAmo, bool Color)
@@ -215,7 +207,7 @@ void clsUiManagar::BlackOut()
 					else
 					{
 						m_smpBlack->m_BlackMode = Idle;
-						m_smpBlack->InitSetPos();
+						m_smpBlack->Init();
 					}
 				}
 			}
@@ -250,7 +242,7 @@ void clsUiManagar::BlackOut()
 					else
 					{
 						m_smpWhite->m_BlackMode = Idle;
-						m_smpWhite->InitSetPos();
+						m_smpWhite->Init();
 					}
 				}
 			}
@@ -259,25 +251,24 @@ void clsUiManagar::BlackOut()
 	}
 }
 
-void clsUiManagar::InitPos()
+void clsUiManagar::Init()
 {
-	m_smpBlack->InitSetPos();	//暗転用.
-	m_smpActTxt->InitSetPos();
+	m_smpBlack->Init();	//暗転用.
+	m_smpActTxt->Init();
 
-	m_smpTitleScene->InitSetPos();	//タイトル用.
+	m_smpTitleScene->Init();	//タイトル用.
 
-	m_smpActTxt->InitSetPos();	//ジャンプ、攻撃ねぇでやんす.
-	m_smpXButton->InitSetPos();	//Xボタンねぇでやんす.
-	m_smpAButton->InitSetPos();	//Aボタン.
+	m_smpActTxt->Init();	//ジャンプ、攻撃ねぇでやんす.
+	m_smpXButton->Init();	//Xボタンねぇでやんす.
+	m_smpAButton->Init();	//Aボタン.
 	//ゲームオーバ用.
-//	m_smpGameOverTxt->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
-	m_smpOverScene->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
+	m_smpOverScene->Init();	//ゲームオーバーテキストねぇでやんす.
 
 	//リザルト用.
-	m_smpResult->InitSetPos();	//リザルトテキストねぇでやんす.
+	m_smpResult->Init();	//リザルトテキストねぇでやんす.
 
 	//エンディング.
-	m_smpEndingScene->InitSetPos();
+	m_smpEndingScene->Init();
 }
 void clsUiManagar::Delete()
 {

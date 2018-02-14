@@ -45,18 +45,18 @@ const	  int iVOL_DROP_DOWN = 250;//250.
 
 
 
+
+
+
 //”√ﬁŸÇÃìsçá.
 const float fMODEL_BACK_TURN = (float)M_PI;//TestPlusTheta
 
-//âÒì]ílÇÃè„å¿.
-#define THETA_MAX (float)( M_PI * 2.0 )
 
 
 
 clsCollision::clsCollision()
 {
 	m_pRay = new clsCollisionRay;
-	m_ppSe = nullptr;
 }
 
 clsCollision::~clsCollision()
@@ -66,19 +66,19 @@ clsCollision::~clsCollision()
 
 void clsCollision::Release()
 {
-	if( m_ppSe != nullptr ){
+	if( m_ppSe != NULL ){
 		for( int i=0; i<enSOUND_MAX; i++ ){
 			delete m_ppSe[i];
-			m_ppSe[i] = nullptr;
+			m_ppSe[i] = NULL;
 		}
 		delete[] m_ppSe;
-		m_ppSe = nullptr;
+		m_ppSe = NULL;
 	}
 
 
-	if( m_pRay != nullptr ){
+	if( m_pRay != NULL ){
 		delete m_pRay;
-		m_pRay = nullptr;
+		m_pRay = NULL;
 	}
 }
 
@@ -243,6 +243,7 @@ bool clsCollision::HitSect( COL_STATE* Attacker, COL_STATE* Target )
 //============================================================
 void clsCollision::ThetaOverGuard( float& theta )
 {
+#define THETA_MAX (float)( M_PI * 2.0 )
 	if( theta > THETA_MAX ){
 		theta -= THETA_MAX;
 	}
@@ -252,6 +253,7 @@ void clsCollision::ThetaOverGuard( float& theta )
 }
 void clsCollision::ThetaOverGuard( double& theta )
 {
+#define THETA_MAX ( M_PI * 2.0 )
 	if( theta > THETA_MAX ){
 		theta -= THETA_MAX;
 	}
@@ -304,7 +306,7 @@ bool clsCollision::CeilingJudge(
 //å¯â âπçƒê∂.
 void clsCollision::PlaySe( enSound enSe )
 {
-	if( m_ppSe == nullptr ){
+	if( m_ppSe == NULL ){
 		return;
 	}
 	int vol = 1000;
@@ -317,8 +319,6 @@ void clsCollision::PlaySe( enSound enSe )
 
 void clsCollision::CreateSe( HWND hWnd )
 {
-	if( m_ppSe != nullptr ) return;
-
 	clsSound::SOUND_DATA tmpSData[enSOUND_MAX] =
 	{
 		{ ALIAS_NAME_ARBIA_KICK,	FILE_PATH_ARBIA_KICK,	iVOL_ARBIA_KICK	},
@@ -348,5 +348,13 @@ void clsCollision::CreateSe( HWND hWnd )
 		m_ppSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
 }
+
+
+
+
+
+
+
+
 
 
