@@ -75,6 +75,8 @@ public:
 		ID3D11DeviceContext* pContext11,
 		LPSTR fileName );
 
+	//この辺の位置を変えたい.
+
 	//スプライトを画面外へ.
 	void InitSetPos()
 	{

@@ -1,24 +1,25 @@
-#ifndef _MY_MACRO_H_	//²İ¸Ù°ÄŞ¶Ş°ÄŞ.
+#ifndef _MY_MACRO_H_	//ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã‚¬ãƒ¼ãƒ‰.
 #define _MY_MACRO_H_
 
 
 //============================================================
-//	Ï¸Û.
+//	ãƒã‚¯ãƒ­.
 //============================================================
 
-//´×°Ò¯¾°¼Ş.
+//ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸.
 #define ERR_MSG(str,title)	{MessageBox(NULL,str,title,MB_OK);}
 
 
-//‰ğ•ú.
+//è§£æ”¾.
+
 #define SAFE_RELEASE(x)		{ if(x) {(x)->Release();(x)=nullptr; } }
 #define SAFE_DELETE(p)		{ if(p) { delete (p);   (p)=nullptr; } }
 #define SAFE_DELETE_ARRAY(p){ if(p) { delete[] (p); (p)=nullptr; } }
 
-//·°ÎŞ°ÄŞ“ü—Í.
-//‰Ÿ‚µ‚Ä‚¢‚éŠÔ.
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›.
+//æŠ¼ã—ã¦ã„ã‚‹é–“.
 #define GETKEY_STAY(x) if (GetAsyncKeyState(x) & 0x8000)	
-//‰Ÿ‚µ‚½‚Æ‚«‚¾‚¯.
+//æŠ¼ã—ãŸã¨ãã ã‘.
 #define GETKEY_DOWN(x) if (GetAsyncKeyState(x) & 0x0001)
 
 #endif//#ifndef _MY_MACRO_H_

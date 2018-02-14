@@ -129,7 +129,7 @@ bool clsSound::SeekToStart()
 //状態取得関数.
 //	sStatus の配列は256以下にすること.
 //※ただし、状態を取得する場合は、再生時に「notify」を設定し、.
-//	ｳｨﾝﾄﾞｳﾊﾝﾄﾞﾙのﾒｯｾｰｼﾞを送っておく必要がある.
+//	ウィンドウハンドルのメッセージを送っておく必要がある.
 bool clsSound::GetStatus( char *sStatus )
 {
 	//ｺﾏﾝﾄﾞ.
