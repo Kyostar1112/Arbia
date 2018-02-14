@@ -15,7 +15,7 @@ public:
 	void Release();
 
 private:
-	
+
 	float m_fSpeed = 5.0f;
 	float m_fAccel = -0.01f;
 

@@ -77,6 +77,8 @@ public:
 		float SetStrideW = 1.0f,
 		float SetStrideH = 1.0f);
 
+	//この辺の位置を変えたい.
+
 	//スプライトを画面外へ.
 	void Init()
 	{
