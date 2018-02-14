@@ -71,12 +71,16 @@ public:
 	virtual ~clsSprite2D();	//ﾃﾞｽﾄﾗｸﾀ.
 
 	//初期化.
-	HRESULT Init( ID3D11Device* pDevice11,
+	HRESULT Create( ID3D11Device* pDevice11,
 		ID3D11DeviceContext* pContext11,
-		LPSTR fileName );
+		LPSTR fileName,
+		float SetStrideW = 1.0f,
+		float SetStrideH = 1.0f);
+
+	//この辺の位置を変えたい.
 
 	//スプライトを画面外へ.
-	void InitSetPos()
+	void Init()
 	{
 		m_vPos = D3DXVECTOR3( WND_W, WND_H, 0.0f );
 	}
@@ -155,9 +159,8 @@ public:
 		float BaseW,			//元画像高さ.
 		float BaseH,		    //元画像幅.
 		float DispW = -1,	    //表示高さ.//何も入れてなかったらBaseに合わせる.
-		float DispH = -1,       //表示幅.//何も入れてなかったらBaseに合わせる.
-		float StrideW = 1,	    //縦コマ数.
-		float StrideH = 1)	    //横コマ数.
+		float DispH = -1       //表示幅.//何も入れてなかったらBaseに合わせる.
+		)
 	{
 		m_SState.Base.h		= BaseH;		//元画像高さ.
 		m_SState.Base.w		= BaseW;		//元画像幅.
@@ -177,8 +180,6 @@ public:
 		{
 			m_SState.Disp.w		= DispW;		//表示幅.
 		}
-		m_SState.Stride.h	= StrideH;		//縦コマ数.
-		m_SState.Stride.w	= StrideW;		//横コマ数.
 	}
 
 	void SetDispH( float DispH )
@@ -230,9 +231,6 @@ public:
 	{
 		return m_vPos;
 	}
-
-	//SPRITE_STATE変更を適用するために必要.
-	virtual void UpDateSpriteSs();
 
 	//点滅用.
 	void Flashing( float ChaAmo );
