@@ -6,7 +6,7 @@
 
 #include "Sound.h"
 
-
+//落とし穴は2枚組.
 const char cCOVER_MAX = 2; 
 
 
@@ -19,6 +19,7 @@ public:
 	clsCoverMgr();
 	~clsCoverMgr();
 
+	//動きの種類.
 	enum enCoverMove
 	{
 		enCM_FLOOR,	//閉じている（不動）.
