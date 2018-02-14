@@ -14,7 +14,11 @@ void clsSp2dMgrOver::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext
 	m_smpOverTxt = make_unique<clsSp2dMgrOverTxt>();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	m_smpPushTxt->Create(pDevice11, pContext11);
+=======
+	m_smpPushTxt->Init(pDevice11, pContext11);
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 =======
 	m_smpPushTxt->Init(pDevice11, pContext11);
 >>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
@@ -25,7 +29,11 @@ void clsSp2dMgrOver::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext
 void clsSp2dMgrOver::InitSetPos()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	m_smpPushTxt->Init();
+=======
+	m_smpPushTxt->InitSetPos();
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 =======
 	m_smpPushTxt->InitSetPos();
 >>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara

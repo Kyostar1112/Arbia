@@ -33,6 +33,10 @@ void clsPushTxt::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 	m_smpAButton->SetDispH(m_smpPushTxt->GetSs().Disp.w/4);
 	m_smpAButton->SetAlpha(1.0f);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	m_smpAButton->UpDateSpriteSs();
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 =======
 	m_smpAButton->UpDateSpriteSs();
 >>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara

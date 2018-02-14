@@ -66,7 +66,11 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 
 	//エンディング用.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	m_smpEndingScene->Create(pDevice11, pContext11);
+=======
+	m_smpEndingScene->Init(pDevice11, pContext11);
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 =======
 	m_smpEndingScene->Init(pDevice11, pContext11);
 >>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara

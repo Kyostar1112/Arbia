@@ -35,7 +35,11 @@ void clsSp2dMgrTitle::InitSetPos()
 {
 	m_smpTitleLogo->InitSetPos();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	m_smpPushTxt->Init();
+=======
+	m_smpPushTxt->InitSetPos();
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 =======
 	m_smpPushTxt->InitSetPos();
 >>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara

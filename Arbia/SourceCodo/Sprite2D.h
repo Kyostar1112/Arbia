@@ -75,8 +75,11 @@ public:
 		ID3D11DeviceContext* pContext11,
 		LPSTR fileName );
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	//‚±‚Ì•Ó‚ÌˆÊ’u‚ð•Ï‚¦‚½‚¢.
+=======
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 =======
 >>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 
