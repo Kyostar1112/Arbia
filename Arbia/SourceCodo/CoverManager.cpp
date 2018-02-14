@@ -162,7 +162,7 @@ void clsCoverMgr::Release()
 
 
 //“®‚«.
-void clsCoverMgr::Move( float fEarZ )
+void clsCoverMgr::Update( float fEarZ )
 {
 	if( m_ppCover == nullptr ||  m_pppSe == nullptr ) return;
 

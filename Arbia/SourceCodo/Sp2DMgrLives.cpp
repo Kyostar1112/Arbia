@@ -36,9 +36,10 @@ void clsLives::Release()
 void clsLives::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 )
 {
 	m_smpIcon = make_unique<clsSprite2D>();
-	m_smpIcon->Create(pDevice11, pContext11, FILE_PATH_ICON );
+	m_smpIcon->Init(pDevice11, pContext11, FILE_PATH_ICON );
 	m_smpIcon->SetDispW( MainSceneLives::ICONSIZE.w );
 	m_smpIcon->SetDispH( MainSceneLives::ICONSIZE.h );
+	m_smpIcon->UpDateSpriteSs();
 
 	m_smpLives = make_unique<clsNumGrp>();
 	m_smpLives->Create( pDevice11, pContext11 );
@@ -46,7 +47,7 @@ void clsLives::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 
 
 	ReSet();
 }
-
+	
 //“ñ‰ñ–ÚˆÈ~‚Ì‰Šú‰».
 void clsLives::ReSet()
 {
@@ -59,7 +60,7 @@ void clsLives::ReSet()
 
 void clsLives::Update()
 {
-	m_smpLives->Move();
+	m_smpLives->Update();
 }
 void clsLives::Render()
 {

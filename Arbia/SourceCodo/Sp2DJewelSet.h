@@ -11,21 +11,21 @@ public:
 	clsJewerSet();
 	~clsJewerSet();
 
-	void Create( HWND hWnd,
+	void Create( HWND hWnd, 
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
-		int iNo );
+		int iNo ); 
 
-	void Move();
+	void Update();
 
 
 
-	//~‚Ü‚é‚¾‚¯.
+	//ï¿½~ï¿½Ü‚é‚¾ï¿½ï¿½.
 	void Stop(){
 		m_vMove = { 0.0f, 0.0f, 0.0f };
 		m_fAcc = 0.0f;
 	};
 
-	//ÄƒXƒ^[ƒg‘O‚É.
+	//ï¿½ÄƒXï¿½^ï¿½[ï¿½gï¿½Oï¿½ï¿½.
 	void ReSet();
 
 
@@ -38,10 +38,9 @@ public:
 		return m_bDown;
 	}
 
-	//----- ƒ‰ƒbƒv -----//.
 	void Init(){
 		m_smpModel->Init();
-	};
+}
 
 
 	void SetScale( float fScale ){
@@ -78,16 +77,8 @@ public:
 		return m_bGet;
 	}
 
-//	//‰¹‚Ìí—Ş.
-//	enum enSound
-//	{
-//		enS_UP = 0,//•óÎ‚ªã¸‚ğn‚ß‚é.
-////		enS_SHINE,
-//
-//		enS_MAX,	//Å‘å”.
-//	};
+	void PlaySe(){
 
-	void PlaySe( /*clsJewerSet::enSound enSe*/ ){
 		if( m_pSe == nullptr ) return;
 
 //		m_pSe[enSe]->Stop();
@@ -98,19 +89,20 @@ public:
 private:
 
 	unique_ptr<clsJewel> m_smpModel;
-	bool m_bDown;//~‰º’†.
+	bool m_bDown;//ï¿½~ï¿½ï¿½ï¿½ï¿½.
 	bool m_bEnd;
 	D3DXVECTOR3 m_vMove;
 	float		m_fAcc;
-	bool		m_bGet;//è‚É“ü‚ê‚ç‚ê‚é?.
+	bool		m_bGet;//ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½?.
 
 
 	float m_fScale;
 
 
 
-	//Œø‰Ê‰¹.
+	//ï¿½ï¿½Ê‰ï¿½.
 	clsSound*	m_pSe;
+
 	void SetSe( HWND hWnd, int iNo );
 
 

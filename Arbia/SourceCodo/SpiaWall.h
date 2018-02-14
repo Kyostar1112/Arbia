@@ -38,7 +38,7 @@ public:
 	virtual void Init( D3DXVECTOR3 vInitPos, bool bRightFlg = false );//true = .
 
 
-	bool Move();
+	bool Update();
 
 	void GoRight(){
 		m_enMode = enSWM_MOVE_RIGHT;

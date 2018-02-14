@@ -2,21 +2,23 @@
 
 #define sFILE_PATH_JEWEL "Data\\Image\\Jewel.png"
 
-//??.
-//?�I??.
+
+//音.
+//上がる.
 #define ALIAS_NAME_UP "UiResultJewelUp"
 #define  FILE_PATH_UP "SE\\600Result\\010JewelUp.wav"
 const int     iVOL_UP = 1000;
 
-//????(???n?).
+
+//光る(着地?).
 #define ALIAS_NAME_SHINE "UiResultJewelShine"
-#define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"
+#define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"					
 const int     iVOL_SHINE = 1000;
 
-//MulDisp?p.
+//MulDisp用.
 const float fMUL_DISP_JEWEL = 1.0f;
 
-//????.
+//大きさ.
 const float fSCALE_MAX = 1.0f;
 const float fCHANGE_SCALE = fSCALE_MAX / 12.0f;
 
@@ -48,21 +50,23 @@ clsJewerSet::~clsJewerSet()
 }
 
 
-void clsJewerSet::Create( HWND hWnd,
+void clsJewerSet::Create( HWND hWnd, 
 	ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 	int iNo )
 {
 	if( m_smpModel ) return;
 
 	m_smpModel = make_unique<clsJewel>();
-	m_smpModel->Create( pDevice11, pContext11, sFILE_PATH_JEWEL );
+	m_smpModel->Init( pDevice11, pContext11, sFILE_PATH_JEWEL );
 	m_smpModel->MulDisp( fMUL_DISP_JEWEL );
+	m_smpModel->UpDateSpriteSs();
 
 	SetSe( hWnd, iNo );
 }
 
 
-void clsJewerSet::Move()
+
+void clsJewerSet::Update()
 {
 	if( !m_smpModel ) return;
 
@@ -105,47 +109,47 @@ void clsJewerSet::SetSe( HWND hWnd, int iNo )
 	if( m_pSe != nullptr ) return;
 
 #if 0
-	//?T?E???h?\????.
+
+	//サウンド構造体.
 	clsSound::SOUND_DATA tmpSData[enS_MAX] =
 	{
 		{ ALIAS_NAME_UP,	FILE_PATH_UP,	iVOL_UP	},
 //		{ ALIAS_NAME_SHINE,	FILE_PATH_SHINE,iVOL_SHINE },
 	};
-
-	//?T?E???h?N???X??.
+	//サウンドクラス作成.
 	for( int i=0; i<enS_MAX; i++ ){
 		m_pSe[i] = new clsSound;
-		//???O.
+		//名前.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//???.
+		//番号.
 		char cNumber[] = "  ";
 		_itoa_s( iNo, cNumber, 10 );
-		//???O????????.
+		//名前と番号合体.
 		strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-		//??.
+		//作成.
 		m_pSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//???????????.
+		//現音量初期化.
 		m_pSe[i]->SetVolume( tmpSData[i].iMaxVolume );
-		//???????.
+		//最大音量設定.
 		m_pSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
 #else
 	m_pSe = new clsSound;
-	//???O.
+	//名前.
 	char cAliasName[STR_BUFF_MAX] = "";
 	strcat_s( cAliasName, sizeof( cAliasName ), ALIAS_NAME_UP );
-	//???.
+	//番号.
 	char cNumber[] = "  ";
 	_itoa_s( iNo, cNumber, 10 );
-	//???O????????.
+	//名前と番号合体.
 	strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-	//??.
+	//作成.
 	m_pSe->Open( FILE_PATH_UP, cAliasName, hWnd );
-	//???????????.
+	//現音量初期化.
 	m_pSe->SetVolume( iVOL_UP );
-	//???????.
+	//最大音量設定.
 	m_pSe->SetMaxVolume( iVOL_UP );
 #endif
-	//----- SE ?I?? -----//
+	//----- SE 終了 -----//
 }
