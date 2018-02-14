@@ -65,7 +65,7 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	m_smpResult->Init( hWnd, pDevice11, pContext11 );
 
 	//エンディング用.
-	m_smpEndingScene->Init(pDevice11, pContext11);
+	m_smpEndingScene->Create(pDevice11, pContext11);
 	InitPos();
 
 }
@@ -269,7 +269,7 @@ void clsUiManagar::InitPos()
 	m_smpResult->InitSetPos();	//リザルトテキストねぇでやんす.
 
 	//エンディング.
-	m_smpEndingScene->InitSetPos();
+	m_smpEndingScene->Init();
 }
 void clsUiManagar::Delete()
 {

@@ -23,10 +23,10 @@ clsSp2dMgrEnding::~clsSp2dMgrEnding()
 {
 }
 
-void clsSp2dMgrEnding::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
+void clsSp2dMgrEnding::Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
 	m_smpPushTxt = make_unique<clsPushTxt>();
-	m_smpPushTxt->Init(pDevice11, pContext11);
+	m_smpPushTxt->Create(pDevice11, pContext11);
 
 	m_smpEndRoll = make_unique<clsSprite2D>();
 	m_smpEndRoll->Init(pDevice11, pContext11, "Data\\Image\\StaffLool.png");
@@ -34,7 +34,7 @@ void clsSp2dMgrEnding::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pConte
 	m_smpThank = make_unique<clsSprite2D>();
 	m_smpThank->Init(pDevice11, pContext11, "Data\\Image\\EndingThankYou.png");
 }
-void clsSp2dMgrEnding::InitSetPos()
+void clsSp2dMgrEnding::Init()
 {
 	//m_smpEndingNameTxt->
 	//m_smpEndingSiteTxt->

@@ -12,7 +12,7 @@ public:
 
 	//Å‰‚Ì‰Šú‰».
 	virtual void Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 );
-	
+
 	//“ñ‰ñ–ÚˆÈ~‚Ì‰Šú‰».
 	virtual void ReSet();
 

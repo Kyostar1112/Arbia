@@ -13,14 +13,14 @@ void clsSp2dMgrOver::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext
 	m_smpPushTxt = make_unique<clsPushTxt>();
 	m_smpOverTxt = make_unique<clsSp2dMgrOverTxt>();
 
-	m_smpPushTxt->Init(pDevice11, pContext11);
+	m_smpPushTxt->Create(pDevice11, pContext11);
 	m_smpOverTxt->Init(pDevice11, pContext11);
 
 }
 
 void clsSp2dMgrOver::InitSetPos()
 {
-	m_smpPushTxt->InitSetPos();
+	m_smpPushTxt->Init();
 	m_smpOverTxt->InitSetPos();
 }
 

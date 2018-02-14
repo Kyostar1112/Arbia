@@ -16,25 +16,25 @@ const int iVOL_OPEN = 1000;
 
 
 
-//奥行の長さ（音の発生位置をど真ん中にするために必要）.
+//奥行�E長さ（音の発生位置をど真ん中にするために忁E��E��E
 const float fOBJ_Z_LONG = 12.0f;
 
-//ステージの中心からどれだけずらすか及びそのための種.
+//スチE�Eジの中忁E��らどれだけずらすか及びそ�Eための種.
 const float fSTAGE_WIDHT = 10.0f;
 const float fOFFSET_X = fSTAGE_WIDHT / 2.0f;
 
-const float fSPD_OPEN = 0.125f;		//開くときの速度.
-const float fSPD_CLOSE = 0.1875f;	//閉じるときの速度.
+const float fSPD_OPEN = 0.125f;		//開くとき�E速度.
+const float fSPD_CLOSE = 0.1875f;	//閉じるとき�E速度.
 
 const int iVIB_DISTANCE = 8;	//開きかけ時、「何フレームに一回」角度を動かす?.
 const int iVIB_TIME = 60 * 1.75;//開きかけ時間.
 const int iHOLL_TIME = 90;	//穴としての時間.
 
 const float fOPEN_THETA = (float)( M_PI_2 - ( M_PI_4 / 16.0) );//一気に開く角度はここまで.
-const float fVIB_THETA = (float)( M_PI_4 / 128.0 );//ゆっくり開く角度はここまで.
+const float fVIB_THETA = (float)( M_PI_4 / 128.0 );//めE��くり開く角度はここまで.
 
 
-//Se発信箇所の数.
+//Se発信箁E��の数.
 const char cSE_NUM_MAX = 2;
 
 
@@ -54,8 +54,8 @@ void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 
 	if( m_ppCover != nullptr ) return; 
 
-	//----- モデル -----//
-	//全体.
+	//----- モチE�� -----//
+	//全佁E
 	m_ppCover = new clsCharaStatic*[cCOVER_MAX];
 	//左.
 	m_ppCover[0] = new clsCharaStatic;
@@ -67,7 +67,7 @@ void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 	m_ppCover[1]->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_COVER_R ) );
-	//----- モデル 終了 -----//
+	//----- モチE�� 終亁E-----//
 
 
 
@@ -75,20 +75,20 @@ void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 	if( m_pppSe != nullptr ) return;
 
 	//----- SE -----//
-	//サウンド構造体.
+	//サウンド構造佁E
 	clsSound::SOUND_DATA tmpSData[enSOUND_MAX] =
 	{
 		{ ALIAS_NAME_VIB,	FILE_PATH_VIB,	iVOL_VIB	},
 		{ ALIAS_NAME_OPEN,	FILE_PATH_OPEN,	iVOL_OPEN	},
 	};
 
-	//サウンドクラス作成.
+	//サウンドクラス作�E.
 	m_pppSe = new clsSound**[enSOUND_MAX];
 	for( int i=0; i<enSOUND_MAX; i++ ){
-		m_pppSe[i] = new clsSound*[enSOUND_MAX];//SEの数分作る.
+		m_pppSe[i] = new clsSound*[enSOUND_MAX];//SEの数刁E��る.
 		for( int j=0; j<cSE_NUM_MAX; j++ ){
-			m_pppSe[i][j] = new clsSound;//SEを二つに分身.
-			//現音量初期化.
+			m_pppSe[i][j] = new clsSound;//SEを二つに刁E��.
+			//現音量�E期化.
 			m_pppSe[i][j]->SetVolume( 0 );
 			//名前.
 			char cAliasName[STR_BUFF_MAX] = "";
@@ -96,20 +96,20 @@ void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 			//番号.
 			char cNumber[] = "  ";
 			_itoa_s( iNo, cNumber, 10 );
-			//名前と番号合体.
+			//名前と番号合佁E
 			strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-			//発信箇所番号.
+			//発信箁E��番号.
 			char cSeNumber[] = "  ";
 			_itoa_s( j, cSeNumber, 10 );
-			//名前と番号合体.
+			//名前と番号合佁E
 			strcat_s( cAliasName, sizeof( cAliasName ), cSeNumber );
-			//作成.
+			//作�E.
 			m_pppSe[i][j]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-			//最大音量設定.
+			//最大音量設宁E
 			m_pppSe[i][j]->SetMaxVolume( tmpSData[i].iMaxVolume );
 		}
 	}
-	//----- SE 終了 -----//
+	//----- SE 終亁E-----//
 
 
 
@@ -173,7 +173,7 @@ void clsCoverMgr::Update( float fEarZ )
 		break;
 	case enCM_VIB:
 		m_iTimer ++;
-		//徐々に開く.
+		//徐、E��開く.
 		if( m_iTimer % iVIB_DISTANCE == 0 ){
 			m_ppCover[0]->AddRotationZ( -fVIB_THETA );
 			m_ppCover[1]->AddRotationZ(  fVIB_THETA );
@@ -182,7 +182,7 @@ void clsCoverMgr::Update( float fEarZ )
 		if( m_iTimer > iVIB_TIME ){
 			m_iTimer = 0;
 			m_enMove = enCM_OPEN;
-			//ぎしぎしストップ.
+			//ぎしぎしストッチE
 			for( int j=0; j<cSE_NUM_MAX; j++ ){
 				m_pppSe[enSOUND_VIB][j]->Stop();
 			}
@@ -223,7 +223,7 @@ void clsCoverMgr::Update( float fEarZ )
 	}
 }
 
-//踏む.
+//踏�E.
 void clsCoverMgr::StmpCovor( float fEarZ )
 {
 	if( m_enMove == enCM_FLOOR ){
@@ -233,7 +233,7 @@ void clsCoverMgr::StmpCovor( float fEarZ )
 	}
 }
 
-//強く踏む.
+//強く踏�E.
 void clsCoverMgr::StmpCovorStrong( float fEarZ )
 {
 	if( m_pppSe == nullptr ) return;
@@ -242,7 +242,7 @@ void clsCoverMgr::StmpCovorStrong( float fEarZ )
 		m_enMove == enCM_VIB ){
 		m_iTimer = 0;
 		m_enMove = enCM_OPEN;
-		//ぎしぎしストップ.
+		//ぎしぎしストッチE
 		for( int j=0; j<cSE_NUM_MAX; j++ ){
 			m_pppSe[enSOUND_VIB][j]->Stop();
 		}
@@ -269,25 +269,25 @@ void clsCoverMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 void clsCoverMgr::PlaySe( enSound enSe, float fEarZ )
 {
 	if( m_pppSe == nullptr ) return;
-	//耳を手前として考えさせる(ど真ん中から音を出す).
+	//耳を手前として老E��させめEど真ん中から音を�EぁE.
 //	fEarZ -= OBJ_Z_LONG / 2.0f;
 
 	for( int j=0; j<cSE_NUM_MAX; j++ ){
-		//音が鳴る距離か否か.
+		//音が鳴る距離か否ぁE
 		int vol = ChangeVolumeDistance( fEarZ, m_vPos.z );
-		//再生する距離なら.
+		//再生する距離なめE
 		if( vol ){
 			m_pppSe[enSe][j]->GetMaxVolRate( vol );
 			m_pppSe[enSe][j]->SeekToStart();
 			m_pppSe[enSe][j]->SetVolume( vol );
 			m_pppSe[enSe][j]->Play();
 		}
-		//再生しない距離なら.
+		//再生しなぁE��離なめE
 		else{
 			m_pppSe[enSe][j]->SetVolume( 0 );
 		}
 
-		//0は手前、1は奥.
+		//0は手前、Eは奥.
 		fEarZ -= fOBJ_Z_LONG;
 	}
 }
