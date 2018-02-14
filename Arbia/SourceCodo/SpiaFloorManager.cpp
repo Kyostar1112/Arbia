@@ -80,6 +80,8 @@ void clsSpiaFlorMgr::Release()
 void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 {
 	if( m_ppSpia != nullptr || m_iSpiaMax ) return;
+	if( m_pSpiaWall != nullptr ) return;
+	if( m_ppSe != nullptr ) return;
 
 	//----- モデル -----//
 	//槍.
@@ -94,7 +96,6 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 	}
 
 	//槍壁.
-	if( m_pSpiaWall != nullptr ) return;
 	m_pSpiaWall = new clsCharaStatic;
 	m_pSpiaWall->AttachModel(
 		clsResource::GetInstance()->GetStaticModels( 
@@ -102,7 +103,6 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 	//----- モデル 終了 -----//
 
 
-	if( m_ppSe != nullptr ) return;
 	//----- SE -----//
 	//サウンド構造体.
 	clsSound::SOUND_DATA tmpSData[clsSpiaFloor::enSOUND_MAX] =
@@ -167,7 +167,7 @@ void clsSpiaFlorMgr::Init()
 }
 
 
-void clsSpiaFlorMgr::Move( float fEarZ )
+void clsSpiaFlorMgr::Update( float fEarZ )
 {
 	if( m_ppSpia == nullptr || m_ppSe == nullptr || m_pSpiaWall == nullptr ) return;
 
@@ -177,7 +177,7 @@ void clsSpiaFlorMgr::Move( float fEarZ )
 	//動き.
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		//動きに合わせてフラグを更新.
-		enSoundFlg = m_ppSpia[i]->Move();
+		enSoundFlg = m_ppSpia[i]->Update();
 	}
 
 	//効果音再生（MAXはSpiaFloor内の初期化使っているのでそれ以上では鳴らさない）.

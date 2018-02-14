@@ -63,7 +63,7 @@ void clsJewerSet::Create( HWND hWnd,
 }
 
 
-void clsJewerSet::Move()
+void clsJewerSet::Update()
 {
 	if( !m_smpModel ) return;
 

@@ -15,7 +15,7 @@ public:
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 		int iNo ); 
 
-	void Move();
+	void Update();
 
 
 
@@ -79,16 +79,8 @@ public:
 		return m_bGet;
 	}
 
-//	//‰¹‚ÌŽí—Þ.
-//	enum enSound
-//	{
-//		enS_UP = 0,//•óÎ‚ªã¸‚ðŽn‚ß‚é.
-////		enS_SHINE,
-//
-//		enS_MAX,	//Å‘å”.
-//	};
 
-	void PlaySe( /*clsJewerSet::enSound enSe*/ ){
+	void PlaySe(){
 		if( m_pSe == nullptr ) return;
 
 //		m_pSe[enSe]->Stop();

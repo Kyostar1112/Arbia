@@ -2,21 +2,23 @@
 
 clsCharaSkin::clsCharaSkin()
 {
-	m_pModel = nullptr;
-	m_pAnimCtrl = nullptr;
-	m_pShadow = nullptr;
+	m_pModel = NULL;
+	m_pAnimCtrl = NULL;
 	m_dAnimSpeed = 0.025;
+	//m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	//m_vRot = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	//m_fScale = 1.0f;
+	m_pShadow = nullptr;
+
 
 }
 
 clsCharaSkin::~clsCharaSkin()
 {
-	if( m_pShadow != nullptr ){
-		delete m_pShadow;
-		m_pShadow = nullptr;
-	}
-
-	DetatchModel();
+//	if( m_pModel != NULL ){
+//		delete m_pModel;
+//		m_pModel = NULL;
+//	}
 }
 
 
@@ -25,7 +27,7 @@ clsCharaSkin::~clsCharaSkin()
 //============================================================
 void clsCharaSkin::UpDateModel()
 {
-	if( m_pModel == nullptr ){
+	if( m_pModel == NULL ){
 		return;
 	}
 
@@ -47,7 +49,7 @@ void clsCharaSkin::UpDateModel()
 //============================================================
 void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 {
-	if( pModel == nullptr ){
+	if( pModel == NULL ){
 		return;
 	}
 	//ÓÃÞÙÝ’è.
@@ -72,11 +74,13 @@ void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 //============================================================
 void clsCharaSkin::DetatchModel()
 {
-	if( m_pModel != nullptr ){
-		m_pModel = nullptr;
-		if( m_pAnimCtrl != nullptr ){
+	if( m_pModel != NULL ){
+		m_pModel = NULL;
+
+	
+		if( m_pAnimCtrl != NULL ){
 			m_pAnimCtrl->Release();
-			m_pAnimCtrl = nullptr;
+			m_pAnimCtrl = NULL;
 		}
 	}
 }
@@ -91,11 +95,11 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 	D3DXVECTOR3& vLight, D3DXVECTOR3& vEye,
 	D3DXVECTOR4 &vColor, bool alphaFlg )
 {
-	if( m_pModel == nullptr || m_pAnimCtrl == nullptr ){
+	if( m_pModel == NULL || m_pAnimCtrl == NULL ){
 		return;
 	}
 	//‰e.
-	if( m_pShadow != nullptr ){
+	if( m_pShadow != NULL ){
 		m_pShadow->Render( mView, mProj, vEye );
 	}
 
@@ -111,7 +115,7 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 //============================================================
 int clsCharaSkin::GetAnimSetMax()
 {
-	if( m_pAnimCtrl ){
+	if( m_pAnimCtrl != NULL ){
 		return (int)m_pAnimCtrl->GetMaxNumAnimationSets();
 	}
 	return -1;

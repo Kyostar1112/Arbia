@@ -401,7 +401,7 @@ void clsSp2dMgrReslt::JewelMove()
 
 	//“®‚«.
 	if( m_smpJewel[m_iJewelCnt]->GetGetFlg() ){
-		m_smpJewel[m_iJewelCnt]->Move();
+		m_smpJewel[m_iJewelCnt]->Update();
 	}
 
 	//s‚«‰ß‚¬‚È‚¢.
@@ -471,9 +471,6 @@ void clsSp2dMgrReslt::NextJewerSet()
 
 		m_smpJewel[m_iJewelCnt]->SetPos( m_vJewelAppPos );
 		m_smpJewel[m_iJewelCnt]->SetMove( vMove, fAcc );
-
-		
-		
 	}
 }
 
@@ -487,7 +484,7 @@ void clsSp2dMgrReslt::ParfeMove()
 
 	//‰¹.
 	if( m_enParFlg == enPM_SOUND ){
-		m_pSeBox[enS_OTHER]->Stop();
+//		m_pSeBox[enS_OTHER]->Stop();
 		m_pSeBox[enS_OTHER]->SeekToStart();
 		m_pSeBox[enS_OTHER]->Play();	
 		m_enParFlg = enPM_PARFECT;
@@ -509,7 +506,7 @@ void clsSp2dMgrReslt::ParfeMove()
 	//•óÎ.
 	else if( m_enParFlg == enPM_JEWEL ){
 		//“®‚«.
-		m_smpJewel[m_iJewelCnt]->Move();
+		m_smpJewel[m_iJewelCnt]->Update();
 
 		//s‚«‰ß‚¬‚È‚¢.
 		if( vJEWEL_POS[m_iJewelCnt].x > m_vJewelAppPos.x ){

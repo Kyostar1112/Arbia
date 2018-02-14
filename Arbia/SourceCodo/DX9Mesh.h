@@ -23,6 +23,46 @@
 
 
 
+//============================================================
+//	列挙体.
+//============================================================
+////方向列挙体.
+//enum enDirection
+//{
+//	enDirection_Stop	= 0,//停止.
+//	enDirection_Foward,		//前進.
+//	enDirection_BackWard,	//後退.
+//	enDirection_LeftTurn,	//左回転.
+//	enDirection_RightTurn	//右回転.
+//};
+
+
+////自機動きの種類.
+//enum enPlayerMove
+//{
+//	enPM_Stop	= 0,//停止.
+//	enPM_Run,		//走り.
+//	enPM_Atk,		//攻撃.
+//	enPM_JumAt,		//ｼﾞｬﾝﾌﾟ攻撃.
+//	enPM_Dead		//ﾐｽ.
+//};//m_pEnemy_A->m_enPM
+//
+
+
+////敵の動きの種類.
+//enum enEnemyMove
+//{
+//	enEM_Walk = 0,
+//	enEM_Run,
+//	enEM_Atk,
+//	enEM_Back,
+//	enEM_Damage,
+//	enEM_Death
+//};//	enEnemyMove m_enEnemMod;//enEnemyMove.
+//
+
+
+
 
 
 
@@ -63,13 +103,12 @@ struct MY_MATERIAL
 	D3DXVECTOR4		Ambient;	//ｱﾝﾋﾞｴﾝﾄ.
 	D3DXVECTOR4		Diffuse;	//ﾃﾞｨﾌｭｰｽﾞ.
 	D3DXVECTOR4		Specular;	//ｽﾍﾟｷｭﾗ.
-	CHAR	szTextureName[127];	//ﾃｸｽﾁｬﾌｧｲﾙ名.
+	CHAR	szTextureName[128];	//ﾃｸｽﾁｬﾌｧｲﾙ名.
 	ID3D11ShaderResourceView*	pTexture;//ﾃｸｽﾁｬ.
 	DWORD	dwNumFace;			//そのﾏﾃﾘｱﾙのﾎﾟﾘｺﾞﾝ数.
 	//ｺﾝｽﾄﾗｸﾀ.
 	MY_MATERIAL(){
 		ZeroMemory( this, sizeof( MY_MATERIAL ) );
-		pTexture = nullptr;
 	}
 	//ﾃﾞｽﾄﾗｸﾀ.
 	~MY_MATERIAL(){}
@@ -115,37 +154,6 @@ struct BBOX
 class clsDX9Mesh
 {
 public:
-	clsDX9Mesh();	//ｺﾝｽﾄﾗｸﾀ.
-	~clsDX9Mesh();	//ﾃﾞｽﾄﾗｸﾀ.
-
-	//初期化.
-	HRESULT Init( HWND hWnd, ID3D11Device* pDevice11,
-		ID3D11DeviceContext* pContext11, LPSTR fileName );
-
-	//Dx9初期化用.
-	HRESULT InitDx9( HWND hWnd );
-
-	//ﾒｯｼｭ読込.
-	HRESULT LoadXMesh( LPSTR fileName );
-
-	//ｼｪｰﾀﾞ作成.
-	HRESULT InitShader();
-
-	//ﾚﾝﾀﾞﾘﾝｸﾞ用(※DX9MESH内とMain内で2つ存在するので注意).
-	void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
-				D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye,
-				D3DXVECTOR4 vColor = D3DXVECTOR4( 1.0f,1.0f,1.0f,1.0f ),
-				bool alphaFlg = false );
-
-	//透過(ｱﾙﾌｧﾌﾞﾚﾝﾄﾞ)設定の切り替え.
-	void SetBlend( bool flg );
-
-
-
-	//解放.
-	HRESULT Release();
-
-
 	HWND				m_hWnd;	//ｳｨﾝﾄﾞｳﾊﾝﾄﾞﾙ.
 
 	//Dx9.
@@ -154,7 +162,7 @@ public:
 
 	//D3DMATERIAL9*		m_pMaterials;	//ﾏﾃﾘｱﾙ情報.
 	//LPDIRECT3DTEXTURE9*	m_pTextures;	//ﾃｸｽﾁｬ情報.
-	//char				m_TexFileName[8][255];	//ﾃｸｽﾁｬﾌｧｲﾙ名(8枚まで).
+	//char				m_TexFileName[8][256];	//ﾃｸｽﾁｬﾌｧｲﾙ名(8枚まで).
 	DWORD				m_dwNumMaterials;//ﾏﾃﾘｱﾙ数.
 	LPD3DXMESH			m_pMesh;		//ﾒｯｼｭｵﾌﾞｼﾞｪｸﾄ.
 
@@ -208,6 +216,37 @@ public:
 
 
 	ID3D11BlendState*	m_pBlendState;	//ﾌﾞﾚﾝﾄﾞｽﾃｰﾄ.
+
+
+	clsDX9Mesh();	//ｺﾝｽﾄﾗｸﾀ.
+	~clsDX9Mesh();	//ﾃﾞｽﾄﾗｸﾀ.
+
+	//初期化.
+	HRESULT Init( HWND hWnd, ID3D11Device* pDevice11,
+		ID3D11DeviceContext* pContext11, LPSTR fileName );
+
+	//Dx9初期化用.
+	HRESULT InitDx9( HWND hWnd );
+
+	//ﾒｯｼｭ読込.
+	HRESULT LoadXMesh( LPSTR fileName );
+
+	//ｼｪｰﾀﾞ作成.
+	HRESULT InitShader();
+
+	//ﾚﾝﾀﾞﾘﾝｸﾞ用(※DX9MESH内とMain内で2つ存在するので注意).
+	void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
+				D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye,
+				D3DXVECTOR4 vColor = D3DXVECTOR4( 1.0f,1.0f,1.0f,1.0f ),
+				bool alphaFlg = false );
+
+	//透過(ｱﾙﾌｧﾌﾞﾚﾝﾄﾞ)設定の切り替え.
+	void SetBlend( bool flg );
+
+
+
+	//解放.
+	HRESULT Release();
 
 
 };

@@ -9,7 +9,7 @@ const double fANIM_SPD = 0.01;
 //----- 音 -----//.
 const char sALIAS_NAME[] = "DoorBreak";
 const char sFILE_PATH[] = "SE\\300Trap\\900GateBreak.wav";
-const int iVOL = 1000;
+const int iVOL = 600;
 
 
 //----- 蹴られ判定用 -----//.
@@ -51,16 +51,12 @@ const float fEFFECT_SPD = 1.0f;
 const int iEFFECT_PLAY_RAG = 20;//蹴ってから発生するまでのラグ.
 
 
-
-
 clsDoorMgr::clsDoorMgr()
 {
 	m_pGate = nullptr;
 	m_pDoor = nullptr;
 	m_pColWall = nullptr;
-
 	m_pSe = nullptr;
-
 	m_pEffect = nullptr;
 }
 
@@ -77,8 +73,8 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 		m_pDoor != nullptr ||
 		m_pColWall != nullptr ||
 		m_pSe != nullptr ||
-		m_pEffect != nullptr )
-	{	
+		m_pEffect )
+	{
 		return;
 	}
 
@@ -112,6 +108,8 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_SPIA_WALL ) );
 
+
+
 	//蹴られ判定用.
 	ColState.fRange = fCOL_RANGE;
 	ColState.fHeight = fCOL_HEIGHT;
@@ -139,7 +137,6 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 
 	Init();
 }
-
 void clsDoorMgr::Init()
 {
 	ReStart();
@@ -190,39 +187,40 @@ void clsDoorMgr::Release()
 void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
+	if( m_pDoor == nullptr || m_pGate == nullptr ) return;
 	//.
 //	m_pColWall->Render( mView, mProj, vLight, vEye );
+	//扉.
+	m_pDoor->Render( mView, mProj, vLight, vEye );
+	//門.
+	m_pGate->Render( mView, mProj, vLight, vEye,
+		D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
 
-	if( m_pDoor != nullptr ){
-		//扉.
-		m_pDoor->Render( mView, mProj, vLight, vEye );
-	}
-	if( m_pGate != nullptr ){
-		//門.
-		m_pGate->Render( mView, mProj, vLight, vEye,
-			D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
-	}
 }
 
 
 void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 {
+	if( m_pDoor == nullptr ||
+		m_pGate == nullptr ||
+		m_pColWall == nullptr ){
+		return;
+	}
+
 	m_vPos = vPos;
 
 	//子分.
-	if( m_pGate != nullptr )	m_pGate->SetPosition( m_vPos );
-	if( m_pDoor != nullptr )	m_pDoor->SetPosition( m_vPos );
+	m_pGate->SetPosition( m_vPos );
+	m_pDoor->SetPosition( m_vPos );
 
-	if( m_pColWall != nullptr ){
-		m_pColWall->SetPosition( m_vPos );
-		m_pColWall->AddPosition( vWALL_OFFSET );
-	}
+	m_pColWall->SetPosition( m_vPos );
+	m_pColWall->AddPosition( vWALL_OFFSET );
 
 	Init();
 }
 
 
-void clsDoorMgr::Move( float fEarZ )
+void clsDoorMgr::Update( float fEarZ )
 {
 	m_fEarZ = fEarZ;
 	Animation();
@@ -305,7 +303,6 @@ D3DXVECTOR3 clsDoorMgr::DoorBreak()
 
 	ChangeAnimMode( enANIM_BREAK );
 
-
 	m_bEffTimer = true;
 
 	return vReSpawnPos;
@@ -369,7 +366,7 @@ void clsDoorMgr::ChangeAnimMode( enAnimation anim )
 //エフェクト再生.
 void clsDoorMgr::PlayEff()
 {
-	if( m_pEffect == nullptr ) return;
+	if( m_pEffect ) return;
 
 	if( !m_pEffect->PlayCheck( m_ehDust ) ){
 			D3DXVECTOR3 vEffPos = m_vPos;
