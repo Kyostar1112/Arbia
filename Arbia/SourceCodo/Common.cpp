@@ -13,11 +13,10 @@ clsCommon::~clsCommon()
 		m_pBlendState = nullptr;
 	}
 
-	//‚±‚±‚Å‚ÍŠJ•ú‚µ‚È‚¢.
+	//ã“ã“ã§ã¯é–‹æ”¾ã—ãªã„.
 	m_pDeviceContext11 = nullptr;
 	m_pDevice11 = nullptr;
 };
-
 clsCommon::clsCommon()
 {
 	m_pDevice11 = nullptr;
@@ -25,54 +24,55 @@ clsCommon::clsCommon()
 	m_pBlendState = nullptr;
 }
 
+
 //============================================================
-//“§‰ß(±ÙÌ§ÌÞÚÝÄÞ)Ý’è‚ÌØ‚è‘Ö‚¦.
+//é€éŽ(ï½±ï¾™ï¾Œï½§ï¾Œï¾žï¾šï¾ï¾„ï¾ž)è¨­å®šã®åˆ‡ã‚Šæ›¿ãˆ.
 //============================================================
 void clsCommon::SetBlend( bool flg )
 {
-	//±ÙÌ§ÌÞÚÝÄÞ—pÌÞÚÝÄÞ½Ã°Ä\‘¢‘Ì.
-	//pngÌ§²Ù“à‚É±ÙÌ§î•ñ‚ª‚ ‚é‚Ì‚ÅA
-	//“§‰ß‚·‚é‚æ‚¤‚ÉÌÞÚÝÄÞ½Ã°Ä‚ðÝ’è‚·‚é.
+	//ï½±ï¾™ï¾Œï½§ï¾Œï¾žï¾šï¾ï¾„ï¾žç”¨ï¾Œï¾žï¾šï¾ï¾„ï¾žï½½ï¾ƒï½°ï¾„æ§‹é€ ä½“.
+	//pngï¾Œï½§ï½²ï¾™å†…ã«ï½±ï¾™ï¾Œï½§æƒ…å ±ãŒã‚ã‚‹ã®ã§ã€
+	//é€éŽã™ã‚‹ã‚ˆã†ã«ï¾Œï¾žï¾šï¾ï¾„ï¾žï½½ï¾ƒï½°ï¾„ã‚’è¨­å®šã™ã‚‹.
 	D3D11_BLEND_DESC blendDesc;
-	ZeroMemory( &blendDesc, sizeof( D3D11_BLEND_DESC ) );//‰Šú‰».
+	ZeroMemory( &blendDesc, sizeof( D3D11_BLEND_DESC ) );//åˆæœŸåŒ–.
 
 	blendDesc.IndependentBlendEnable
-		= false;//false:RenderTarget[0]‚ÌÒÝÊÞ°‚Ì‚Ý‚ªŽg—p‚·‚é.
-				//true :RenderTarget[0`7]‚ªŽg—p‚Å‚«‚é.
-				//      (ÚÝÀÞ°À°¹Þ¯Ä–ˆ‚É“Æ—§‚µ‚½ÌÞÚÝÄÞˆ—)
+		= false;//false:RenderTarget[0]ã®ï¾’ï¾ï¾Šï¾žï½°ã®ã¿ãŒä½¿ç”¨ã™ã‚‹.
+				//true :RenderTarget[0ï½ž7]ãŒä½¿ç”¨ã§ãã‚‹.
+				//      (ï¾šï¾ï¾€ï¾žï½°ï¾€ï½°ï½¹ï¾žï½¯ï¾„æ¯Žã«ç‹¬ç«‹ã—ãŸï¾Œï¾žï¾šï¾ï¾„ï¾žå‡¦ç†)
 	blendDesc.AlphaToCoverageEnable
-		= false;//true :±ÙÌ§Ä©¶ÊÞÚ¯¼Þ‚ðŽg—p‚·‚é.
+		= false;//true :ï½±ï¾™ï¾Œï½§ï¾„ï½©ï½¶ï¾Šï¾žï¾šï½¯ï½¼ï¾žã‚’ä½¿ç”¨ã™ã‚‹.
 	blendDesc.RenderTarget[0].BlendEnable
-		= flg;	//true :±ÙÌ§ÌÞÚÝÄÞ‚ðŽg—p‚·‚é.
-	blendDesc.RenderTarget[0].SrcBlend	//Œ³‘fÞ‚É‘Î‚·‚éÝ’è.
-		= D3D11_BLEND_SRC_ALPHA;		//	±ÙÌ§ÌÞÚÝÄÞ‚ðŽw’è.
-	blendDesc.RenderTarget[0].DestBlend	//d‚Ë‚é‘fÞ‚É‘Î‚·‚éÝ’è.
-		= D3D11_BLEND_INV_SRC_ALPHA;	//	±ÙÌ§ÌÞÚÝÄÞ‚Ì”½“]‚ðŽw’è.
+		= flg;	//true :ï½±ï¾™ï¾Œï½§ï¾Œï¾žï¾šï¾ï¾„ï¾žã‚’ä½¿ç”¨ã™ã‚‹.
+	blendDesc.RenderTarget[0].SrcBlend	//å…ƒç´ æã«å¯¾ã™ã‚‹è¨­å®š.
+		= D3D11_BLEND_SRC_ALPHA;		//	ï½±ï¾™ï¾Œï½§ï¾Œï¾žï¾šï¾ï¾„ï¾žã‚’æŒ‡å®š.
+	blendDesc.RenderTarget[0].DestBlend	//é‡ã­ã‚‹ç´ æã«å¯¾ã™ã‚‹è¨­å®š.
+		= D3D11_BLEND_INV_SRC_ALPHA;	//	ï½±ï¾™ï¾Œï½§ï¾Œï¾žï¾šï¾ï¾„ï¾žã®åè»¢ã‚’æŒ‡å®š.
 
-	blendDesc.RenderTarget[0].BlendOp	//ÌÞÚÝÄÞµÌß¼®Ý.
-		= D3D11_BLEND_OP_ADD;			//	ADD:‰ÁŽZ‡¬.
+	blendDesc.RenderTarget[0].BlendOp	//ï¾Œï¾žï¾šï¾ï¾„ï¾žï½µï¾Œï¾Ÿï½¼ï½®ï¾.
+		= D3D11_BLEND_OP_ADD;			//	ADD:åŠ ç®—åˆæˆ.
 
-	blendDesc.RenderTarget[0].SrcBlendAlpha	//Œ³‘fÞ‚Ì±ÙÌ§‚É‘Î‚·‚éÝ’è.
-		= D3D11_BLEND_ONE;					//	‚»‚Ì‚Ü‚ÜŽg—p.
-	blendDesc.RenderTarget[0].DestBlendAlpha//d‚Ë‚é‘fÞ‚Ì±ÙÌ§‚É‘Î‚·‚éÝ’è.
-		= D3D11_BLEND_ZERO;					//	‰½‚à‚µ‚È‚¢.
+	blendDesc.RenderTarget[0].SrcBlendAlpha	//å…ƒç´ æã®ï½±ï¾™ï¾Œï½§ã«å¯¾ã™ã‚‹è¨­å®š.
+		= D3D11_BLEND_ONE;					//	ãã®ã¾ã¾ä½¿ç”¨.
+	blendDesc.RenderTarget[0].DestBlendAlpha//é‡ã­ã‚‹ç´ æã®ï½±ï¾™ï¾Œï½§ã«å¯¾ã™ã‚‹è¨­å®š.
+		= D3D11_BLEND_ZERO;					//	ä½•ã‚‚ã—ãªã„.
 
-	blendDesc.RenderTarget[0].BlendOpAlpha	//±ÙÌ§‚ÌÌÞÚÝÄÞµÌß¼®Ý.
-		= D3D11_BLEND_OP_ADD;				//	ADD:‰ÁŽZ‡¬.
+	blendDesc.RenderTarget[0].BlendOpAlpha	//ï½±ï¾™ï¾Œï½§ã®ï¾Œï¾žï¾šï¾ï¾„ï¾žï½µï¾Œï¾Ÿï½¼ï½®ï¾.
+		= D3D11_BLEND_OP_ADD;				//	ADD:åŠ ç®—åˆæˆ.
 
-	blendDesc.RenderTarget[0].RenderTargetWriteMask	//Ëß¸¾Ù–ˆ‚Ì‘‚«ž‚ÝÏ½¸.
-		= D3D11_COLOR_WRITE_ENABLE_ALL;				//	‘S‚Ä‚Ì¬•ª(RGBA)‚Ö‚ÌÃÞ°À‚ÌŠi”[‚ð‹–‰Â‚·‚é.
+	blendDesc.RenderTarget[0].RenderTargetWriteMask	//ï¾‹ï¾Ÿï½¸ï½¾ï¾™æ¯Žã®æ›¸ãè¾¼ã¿ï¾ï½½ï½¸.
+		= D3D11_COLOR_WRITE_ENABLE_ALL;				//	å…¨ã¦ã®æˆåˆ†(RGBA)ã¸ã®ï¾ƒï¾žï½°ï¾€ã®æ ¼ç´ã‚’è¨±å¯ã™ã‚‹.
 
-	//ÌÞÚÝÄÞ½Ã°Äì¬.
+	//ï¾Œï¾žï¾šï¾ï¾„ï¾žï½½ï¾ƒï½°ï¾„ä½œæˆ.
 	if( FAILED(
 		m_pDevice11->CreateBlendState(
 			&blendDesc, &m_pBlendState ) ) )
 	{
-		MessageBox( NULL, "ÌÞÚÝÄÞ½Ã°Äì¬Ž¸”s", "clsCommon::SetBlend", MB_OK );
+		MessageBox( NULL, "ï¾Œï¾žï¾šï¾ï¾„ï¾žï½½ï¾ƒï½°ï¾„ä½œæˆå¤±æ•—", "clsCommon::SetBlend", MB_OK );
 	}
 
-	//ÌÞÚÝÄÞ½Ã°Ä‚ÌÝ’è.
-	UINT mask = 0xffffffff;	//Ï½¸’l.
+	//ï¾Œï¾žï¾šï¾ï¾„ï¾žï½½ï¾ƒï½°ï¾„ã®è¨­å®š.
+	UINT mask = 0xffffffff;	//ï¾ï½½ï½¸å€¤.
 	m_pDeviceContext11->OMSetBlendState(
 		m_pBlendState, NULL, mask );
 
