@@ -9,7 +9,7 @@
 const int     iVOL_UP = 1000;
 
 #define ALIAS_NAME_SHINE "UiResultJewelShine"
-#define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"
+#define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"					
 const int     iVOL_SHINE = 1000;
 
 //MulDisp用.
@@ -47,7 +47,7 @@ clsJewerSet::~clsJewerSet()
 }
 
 
-void clsJewerSet::Create( HWND hWnd,
+void clsJewerSet::Create( HWND hWnd, 
 	ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 	int iNo )
 {

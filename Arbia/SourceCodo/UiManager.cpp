@@ -65,7 +65,11 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	m_smpResult->Init( hWnd, pDevice11, pContext11 );
 
 	//エンディング用.
+<<<<<<< HEAD
 	m_smpEndingScene->Create(pDevice11, pContext11);
+=======
+	m_smpEndingScene->Init(pDevice11, pContext11);
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 	InitPos();
 
 }
@@ -269,7 +273,7 @@ void clsUiManagar::InitPos()
 	m_smpResult->InitSetPos();	//リザルトテキストねぇでやんす.
 
 	//エンディング.
-	m_smpEndingScene->Init();
+	m_smpEndingScene->InitSetPos();
 }
 void clsUiManagar::Delete()
 {

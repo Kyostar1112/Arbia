@@ -74,8 +74,11 @@ public:
 	HRESULT Init( ID3D11Device* pDevice11,
 		ID3D11DeviceContext* pContext11,
 		LPSTR fileName );
+<<<<<<< HEAD
 
 	//この辺の位置を変えたい.
+=======
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 
 	//スプライトを画面外へ.
 	void InitSetPos()

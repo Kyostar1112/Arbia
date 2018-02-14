@@ -19,13 +19,21 @@ public:
 
 
 
+<<<<<<< HEAD
 	//ï¿½ï½½~ï¿½ï½½ï¾œã‚‹ã ï¿½ï½½ï¿½ï½½.
+=======
+	//Ž~‚Ü‚é‚¾‚¯.
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 	void Stop(){
 		m_vMove = { 0.0f, 0.0f, 0.0f };
 		m_fAcc = 0.0f;
 	};
 
+<<<<<<< HEAD
 	//ï¿½ï½½ï¾„ã‚¹ï¿½ï½½^ï¿½ï½½[ï¿½ï½½gï¿½ï½½Oï¿½ï½½ï¿½ï½½.
+=======
+	//ÄƒXƒ^[ƒg‘O‚É.
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 	void ReSet();
 
 
@@ -38,9 +46,18 @@ public:
 		return m_bDown;
 	}
 
+<<<<<<< HEAD
 	void Init(){
 		m_smpModel->Init();
 }
+=======
+	//----- ƒ‰ƒbƒv -----//.
+	void InitSetPos(){
+		if( !m_smpModel ) return;
+		m_smpModel->InitSetPos();
+	};
+
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 
 	void SetScale( float fScale ){
 		if( !m_smpModel ) return;
@@ -87,16 +104,30 @@ public:
 private:
 
 	unique_ptr<clsJewel> m_smpModel;
+<<<<<<< HEAD
 	bool m_bDown;//ï¿½ï½½~ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 	bool m_bEnd;
 	D3DXVECTOR3 m_vMove;
 	float		m_fAcc;
 	bool		m_bGet;//ï¿½ï½½ï¿½ï½½ï¾‰é›£ï½¿ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½?.
+=======
+	bool m_bDown;//~‰º’†.
+	bool m_bEnd;
+	D3DXVECTOR3 m_vMove;
+	float		m_fAcc;
+	bool		m_bGet;//Žè‚É“ü‚ê‚ç‚ê‚é?.
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 
 
 	float m_fScale;
 
+<<<<<<< HEAD
 	//åŠ¹æžœéŸ³.
+=======
+
+
+	//Œø‰Ê‰¹.
+>>>>>>> parent of c2bb3ef... Merge branch 'Deverop' into Tahara
 	clsSound*	m_pSe;	
 	void SetSe( HWND hWnd, int iNo );
 
