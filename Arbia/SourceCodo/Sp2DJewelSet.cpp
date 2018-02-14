@@ -10,7 +10,7 @@ const int     iVOL_UP = 1000;
 
 //Œõ‚é(’…’n?).
 #define ALIAS_NAME_SHINE "UiResultJewelShine"
-#define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"
+#define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"					
 const int     iVOL_SHINE = 1000;
 
 //MulDisp—p.
@@ -48,15 +48,16 @@ clsJewerSet::~clsJewerSet()
 }
 
 
-void clsJewerSet::Create( HWND hWnd,
+void clsJewerSet::Create( HWND hWnd, 
 	ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 	int iNo )
 {
 	if( m_smpModel ) return;
 
 	m_smpModel = make_unique<clsJewel>();
-	m_smpModel->Create( pDevice11, pContext11, sFILE_PATH_JEWEL );
+	m_smpModel->Init( pDevice11, pContext11, sFILE_PATH_JEWEL );
 	m_smpModel->MulDisp( fMUL_DISP_JEWEL );
+	m_smpModel->UpDateSpriteSs();
 
 	SetSe( hWnd, iNo );
 }

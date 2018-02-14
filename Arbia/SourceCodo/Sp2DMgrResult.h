@@ -66,7 +66,7 @@ public:
 
 	void Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 );
 
-	void Init();
+	void InitSetPos();
 
 	//ƒV[ƒ“‚Ì‚Í‚¶‚ß‚Ì‰Šú‰».
 	void StartSet();
