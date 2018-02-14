@@ -6,17 +6,17 @@ const float fMODEL_SCALE = 1.0f;
 const double fANIM_SPD = 0.01;
 
 
-//----- éŸ³ -----//.
+//----- ‰¹ -----//.
 const char sALIAS_NAME[] = "DoorBreak";
 const char sFILE_PATH[] = "SE\\300Trap\\900GateBreak.wav";
 const int iVOL = 600;
 
 
-//----- è¹´ã‚‰ã‚Œåˆ¤å®šç”¨ -----//.
+//----- R‚ç‚ê”»’è—p -----//.
 const float fCOL_RANGE = 1.5f;
 const float fCOL_HEIGHT = 3.0f;
 
-//----- å£ã®èª¿æ•´ -----//.
+//----- •Ç‚Ì’²® -----//.
 const float fSTAGE_WIDTH = 10.0f;
 const float fSTAGE_WIDTH_HARF = fSTAGE_WIDTH / 2.0f;
 const float fWALL_HEIGHT = 6.0f;
@@ -24,31 +24,31 @@ const float fWALL_Z = -0.75f;
 
 const D3DXVECTOR3 vWALL_OFFSET = { -fSTAGE_WIDTH_HARF, fWALL_HEIGHT, fWALL_Z };
 
-//å¾©æ´»æ™‚ã©ã‚Œã ã‘æ‰‹å‰ã«ã„ã‚‹ã‹Z.
+//•œŠˆ‚Ç‚ê‚¾‚¯è‘O‚É‚¢‚é‚©Z.
 const float fRE_SPAWN_POS_Z = 1.5f;
 
-//----- é€é ------//
-//é€éå¢ƒç•Œç·šZ.
+//----- “§‰ß ------//
+//“§‰ß‹«ŠEüZ.
 const float fALPHA_BORDER_Z = 0.5f;
 
-//é€éé€Ÿåº¦.
+//“§‰ß‘¬“x.
 const float fALPHA_SPD = 1.0f / 16.0f;
-//é€éã‚’æˆ»ã™é€Ÿåº¦.
+//“§‰ß‚ğ–ß‚·‘¬“x.
 const float fALPHA_SPD_BACK = 1.0f / 32.0f;
 
-//ä¸€ç•ªè–„ãã—ã¦ã‚‚.
+//ˆê”Ô”–‚­‚µ‚Ä‚à.
 const float fALPHA_LIMIT = 0.375f;
-//ä¸€ç•ªæ¿ƒãã—ã¦ã‚‚.
+//ˆê”Ô”Z‚­‚µ‚Ä‚à.
 const float fALPHA_LIMIT_MAX = 2.0f;
 
 
 
-//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
-const float fEFFECT_Z_OFFSET = 12.0f;//æ‰‰ã®ç€åœ°ä½ç½®.
+//ƒGƒtƒFƒNƒg.
+const float fEFFECT_Z_OFFSET = 12.0f;//”à‚Ì’…’nˆÊ’u.
 const float fEFFECT_SCALE = 0.5f;
 const D3DXVECTOR3 vEFFECT_SCALE = { fEFFECT_SCALE, fEFFECT_SCALE, fEFFECT_SCALE };
 const float fEFFECT_SPD = 1.0f;
-const int iEFFECT_PLAY_RAG = 20;//è¹´ã£ã¦ã‹ã‚‰ç™ºç”Ÿã™ã‚‹ã¾ã§ã®ãƒ©ã‚°.
+const int iEFFECT_PLAY_RAG = 20;//R‚Á‚Ä‚©‚ç”­¶‚·‚é‚Ü‚Å‚Ìƒ‰ƒO.
 
 
 
@@ -81,13 +81,13 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	return;
 	}
 
-	//é–€.
+	//–å.
 	m_pGate = new clsCharaStatic;
 	m_pGate->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_MON ) );
 
-	//æ‰‰.
+	//”à.
 	m_pDoor = new clsCharaSkin;
 
 	CD3DXSKINMESH_INIT si;//skin_Init.
@@ -105,30 +105,30 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	m_pDoor->SetScale( fMODEL_SCALE );
 	m_pDoor->SetAnimSpeed( fANIM_SPD );
 
-	//å£åˆ¤å®š.
+	//•Ç”»’è.
 	m_pColWall = new clsCharaStatic;
 	m_pColWall->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_SPIA_WALL ) );
 
-	//è¹´ã‚‰ã‚Œåˆ¤å®šç”¨.
+	//R‚ç‚ê”»’è—p.
 	ColState.fRange = fCOL_RANGE;
 	ColState.fHeight = fCOL_HEIGHT;
 
-	//åŠ¹æœéŸ³.
+	//Œø‰Ê‰¹.
 	m_pSe = new clsSound;
 	m_pSe->SetVolume( 0 );
-	//åå‰.
+	//–¼‘O.
 	char cAliasName[STR_BUFF_MAX] = "";
 	strcat_s( cAliasName, sizeof( cAliasName ), sALIAS_NAME );
-	//ç•ªå·.
+	//”Ô†.
 	char cNumber[] = "  ";
 	_itoa_s( iNo, cNumber, 10 );
-	//åå‰ã¨ç•ªå·åˆä½“.
+	//–¼‘O‚Æ”Ô†‡‘Ì.
 	strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-	//ä½œæˆ.
+	//ì¬.
 	m_pSe->Open( sFILE_PATH, cAliasName, hWnd );
-	//æœ€å¤§éŸ³é‡è¨­å®š.
+	//Å‘å‰¹—Êİ’è.
 	m_pSe->SetMaxVolume( iVOL );
 
 
@@ -148,7 +148,7 @@ void clsDoorMgr::Init()
 	ChangeAnimMode( enANIM_IDLE );
 
 }
-//å¾©æ´»æ™‚ã®åˆæœŸåŒ–.
+//•œŠˆ‚Ì‰Šú‰».
 void clsDoorMgr::ReStart()
 {
 	m_fAlpha = fALPHA_LIMIT_MAX;
@@ -185,7 +185,7 @@ void clsDoorMgr::Release()
 	}
 }
 
-//æç”».
+//•`‰æ.
 void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
@@ -194,11 +194,11 @@ void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 //	m_pColWall->Render( mView, mProj, vLight, vEye );
 
 	if( m_pDoor != nullptr ){
-		//æ‰‰.
+		//”à.
 		m_pDoor->Render( mView, mProj, vLight, vEye );
 	}
 	if( m_pGate != nullptr ){
-		//é–€.
+		//–å.
 		m_pGate->Render( mView, mProj, vLight, vEye,
 			D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
 	}
@@ -215,7 +215,7 @@ void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 
 	m_vPos = vPos;
 
-	//å­åˆ†.
+	//q•ª.
 	if( m_pGate != nullptr )	m_pGate->SetPosition( m_vPos );
 	if( m_pDoor != nullptr )	m_pDoor->SetPosition( m_vPos );
 
@@ -234,7 +234,7 @@ void clsDoorMgr::Update( float fEarZ )
 	Animation();
 	SetAlpha();
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿ.
+	//ƒGƒtƒFƒNƒgÄ¶.
 	if( m_bEffTimer ){
 		m_iEffTimer ++;
 		if( m_iEffTimer >= iEFFECT_PLAY_RAG ){
@@ -248,45 +248,45 @@ void clsDoorMgr::Update( float fEarZ )
 
 
 //============================================================
-//	é€éå€¤ã®è¨­å®š.
+//	“§‰ß’l‚Ìİ’è.
 //============================================================
 void clsDoorMgr::SetAlphaFlg( float fPlayerZ )
 {
-	//é€éä¸­.
+	//“§‰ß’†.
 	if( m_bAlphaChange ){
-		//é€éãƒ•ãƒ©ã‚°ON.
+		//“§‰ßƒtƒ‰ƒOON.
 		m_bAlpha = true;
-		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå¥¥ã«ã„ã‚‹ãªã‚‰.
+		//ƒvƒŒƒCƒ„[‚ª‰œ‚É‚¢‚é‚È‚ç.
 		if( fPlayerZ > m_vPos.z + fALPHA_BORDER_Z ){
 			return;
 		}
-		//å®Ÿä½“åŒ–é–‹å§‹.
+		//À‘Ì‰»ŠJn.
 		m_bAlphaChange = false;
 	}
-	//é€éä¸­ã§ã¯ãªã„.
+	//“§‰ß’†‚Å‚Í‚È‚¢.
 	else{
-		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ‰‹å‰ã«ã„ã‚‹ãªã‚‰.
+		//ƒvƒŒƒCƒ„[‚ªè‘O‚É‚¢‚é‚È‚ç.
 		if( fPlayerZ < m_vPos.z + fALPHA_BORDER_Z ){
 			return;
 		}
-		//é€éé–‹å§‹.
+		//“§‰ßŠJn.
 		m_bAlphaChange = true;
 	}
 }
 
 //============================================================
-//	é€éå€¤ã®è¨­å®š.
+//	“§‰ß’l‚Ìİ’è.
 //============================================================
 void clsDoorMgr::SetAlpha()
 {
-	//é€éä¸­.
+	//“§‰ß’†.
 	if( m_bAlphaChange ){
 		m_fAlpha -= fALPHA_SPD;
 		if( m_fAlpha < fALPHA_LIMIT ){
 			m_fAlpha = fALPHA_LIMIT;
 		}
 	}
-	//å®Ÿä½“åŒ–ä¸­.
+	//À‘Ì‰»’†.
 	else{
 		m_fAlpha += fALPHA_SPD_BACK;
 		if( m_fAlpha > fALPHA_LIMIT_MAX ){
@@ -298,7 +298,7 @@ void clsDoorMgr::SetAlpha()
 
 
 //============================================================
-//	è¹´ã‚‰ã‚ŒãŸã¨ã.
+//	R‚ç‚ê‚½‚Æ‚«.
 //============================================================
 D3DXVECTOR3 clsDoorMgr::DoorBreak()
 {
@@ -317,7 +317,7 @@ D3DXVECTOR3 clsDoorMgr::DoorBreak()
 }
 
 //==================================================
-//	ã‚ãŸã‚Šåˆ¤å®šç”¨.
+//	‚ ‚½‚è”»’è—p.
 //==================================================
 void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 {
@@ -326,7 +326,7 @@ void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 
 
 //==================================================
-//	åŠ¹æœéŸ³å†ç”Ÿ.
+//	Œø‰Ê‰¹Ä¶.
 //==================================================
 void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 {
@@ -338,40 +338,40 @@ void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 }
 
 //============================================================
-//	ãƒ‰ã‚¢ã®ã‚¢ãƒ‹ãƒ¡.
+//	ƒhƒA‚ÌƒAƒjƒ.
 //============================================================
 void clsDoorMgr::Animation()
 {
 	if( m_pDoor == nullptr ) return;
 
-	//ãƒ«ãƒ¼ãƒ—ã—ãªã„ã‚¢ãƒ‹ãƒ¡.
+	//ƒ‹[ƒv‚µ‚È‚¢ƒAƒjƒ.
 	if( m_enAnimNo == enANIM_BREAK ){
 		m_dAnimTimer += m_pDoor->m_pModel->GetAnimSpeed();
 		
-		const double dRATE = 5.0;//ä½•å€é£›ã°ã™?.
+		const double dRATE = 5.0;//‰½”{”ò‚Î‚·?.
 
-		//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚ãˆãŸã‚‰.
+		//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğI‚¦‚½‚ç.
 		if( m_pDoor->m_pModel->GetAnimPeriod( m_enAnimNo ) - ( dANIM_ONE_FRAME_OVER_SOLUTION * dRATE ) <= m_dAnimTimer ){
-			//å‹•ã‹ãªããªã‚‹.
+			//“®‚©‚È‚­‚È‚é.
 			ChangeAnimMode( enANIM_DEAD );
 		}
 	}
 }
 
 //============================================================
-//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ¢ãƒ¼ãƒ‰ã‚’å¤‰æ›´.
+//	ƒAƒjƒ[ƒVƒ‡ƒ“ƒ‚[ƒh‚ğ•ÏX.
 //============================================================
 void clsDoorMgr::ChangeAnimMode( enAnimation anim )
 {
 	if( m_pDoor == nullptr ) return;
 
 	m_enAnimNo = anim;
-	m_pDoor->ChangeAnimSet( m_enAnimNo );//ã‚¢ãƒ‹ãƒ¡ã‚»ãƒƒãƒˆ.
+	m_pDoor->ChangeAnimSet( m_enAnimNo );//ƒAƒjƒƒZƒbƒg.
 	m_dAnimTimer = 0.0;
 }
 
 
-//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿ.
+//ƒGƒtƒFƒNƒgÄ¶.
 void clsDoorMgr::PlayEff()
 {
 	if( m_pEffect == nullptr ) return;
