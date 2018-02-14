@@ -2,18 +2,18 @@
 #include "SpiaFloorManager.h"
 
 
-//音.
-//振動.
+//髻ｳ.
+//謖ｯ蜍.
 #define ALIAS_NAME_VIB "SpiaFloorVib"
 #define FILE_PATH_VIB "SE\\300Trap\\100SpiaVib.wav"
 const int iVOL_VIB = 1000;
 
-//上がる.
+//荳翫′繧.
 #define ALIAS_NAME_UP "SpiaFloorTop"
 #define FILE_PATH_UP "SE\\300Trap\\110SpiaTop.wav"					
 const int iVOL_UP = 1000;
 
-//下がる.
+//荳九′繧.
 #define ALIAS_NAME_DOWN "SpiaFloorDown"
 #define FILE_PATH_DOWN "SE\\300Trap\\130SpiaClose.wav"					
 const int iVOL_DOWN = 1000;
@@ -29,7 +29,6 @@ const int iFLOOR_MAX = 20;	//床槍の数.
 const float fFLOOR_W_OFFSET = 0.5f;		//槍と槍の横の間隔.
 const float fFLOOR_H_OFFSET = 0.0625f;		//奇数番目を床からどれだけ上げるか.
 const float fFLOOR_H_OFFSET_SECOND = 0.25f;	//偶数番目を床からどれだけ上げるか.
-
 
 clsSpiaFlorMgr::clsSpiaFlorMgr()
 {
@@ -83,6 +82,7 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 	if( m_pSpiaWall != nullptr ) return;
 	if( m_ppSe != nullptr ) return;
 
+
 	//----- モデル -----//
 	//槍.
 	m_iSpiaMax = iFLOOR_MAX;
@@ -95,18 +95,18 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 				clsResource::enST_MODEL_SPIA ) );
 	}
 
-	//槍壁.
+	//讒榊｣.
 	if( m_pSpiaWall != nullptr ) return;
 	m_pSpiaWall = new clsCharaStatic;
 	m_pSpiaWall->AttachModel(
 		clsResource::GetInstance()->GetStaticModels( 
 			clsResource::enST_MODEL_SPIA_WALL ) );
-	//----- モデル 終了 -----//
+	//----- 繝｢繝�Ν 邨ゆｺ -----//
 
 
 	if( m_ppSe != nullptr ) return;
 	//----- SE -----//
-	//サウンド構造体.
+	//繧ｵ繧ｦ繝ｳ繝画ｧ矩菴.
 	clsSound::SOUND_DATA tmpSData[clsSpiaFloor::enSOUND_MAX] =
 	{
 		{ ALIAS_NAME_VIB,	FILE_PATH_VIB,	iVOL_VIB	},
@@ -114,26 +114,26 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 		{ ALIAS_NAME_DOWN,	FILE_PATH_DOWN,	iVOL_DOWN	},
 	};
 
-	//サウンドクラス作成.
+	//繧ｵ繧ｦ繝ｳ繝峨け繝ｩ繧ｹ菴懈�.
 	m_ppSe = new clsSound*[clsSpiaFloor::enSOUND_MAX];
 	for( int i=0; i<clsSpiaFloor::enSOUND_MAX; i++ ){
 		m_ppSe[i] = new clsSound;
-		//現音量初期化.
+		//迴ｾ髻ｳ驥丞�譛溷喧.
 		m_ppSe[i]->SetVolume( 0 );
-		//名前.
+		//蜷榊燕.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//番号.
+		//逡ｪ蜿ｷ.
 		char cNumber[] = "  ";
 		_itoa_s( iNo, cNumber, 10 );
-		//名前と番号合体.
+		//蜷榊燕縺ｨ逡ｪ蜿ｷ蜷井ｽ.
 		strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-		//作成.
+		//菴懈�.
 		m_ppSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//最大音量設定.
+		//譛螟ｧ髻ｳ驥剰ｨｭ螳.
 		m_ppSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
-	//----- SE 終了 -----//
+	//----- SE 邨ゆｺ -----//
 
 
 	Init();
@@ -148,7 +148,7 @@ void clsSpiaFlorMgr::Init()
 		float fOffset = fFLOOR_H_OFFSET;
 		bool bFlg = false;
 		if( i % 2 != 0 ){
-			//高いやつ.
+			//鬮倥＞繧�▽.
 			fOffset = fFLOOR_H_OFFSET_SECOND;
 			bFlg = true;
 		}
@@ -176,26 +176,26 @@ void clsSpiaFlorMgr::Update( float fEarZ )
 	//どの音を鳴らすかのフラグ.
 	clsSpiaFloor::enSound enSoundFlg;
 
-	//動き.
+	//蜍輔″.
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		//動きに合わせてフラグを更新.
 		enSoundFlg = m_ppSpia[i]->Update();
 	}
 
-	//効果音再生（MAXはSpiaFloor内の初期化使っているのでそれ以上では鳴らさない）.
+	//蜉ｹ譫憺浹蜀咲函��AX縺ｯSpiaFloor蜀��蛻晄悄蛹紋ｽｿ縺｣縺ｦ縺�ｋ縺ｮ縺ｧ縺昴ｌ莉･荳翫〒縺ｯ魑ｴ繧峨＆縺ｪ縺�ｼ.
 	if( enSoundFlg < clsSpiaFloor::enSOUND_MAX ){
-		//飛び出したらぎしぎし音を止める.
+		//鬟帙�蜃ｺ縺励◆繧峨℃縺励℃縺鈴浹繧呈ｭ｢繧√ｋ.
 		if( enSoundFlg == clsSpiaFloor::enSOUND_UP ){
 			m_ppSe[clsSpiaFloor::enSOUND_VIB]->Stop();
 		}
-		//再生.
+		//蜀咲函.
 		PlaySe( enSoundFlg, fEarZ );
 	}
 
-	//槍壁座標.
+	//讒榊｣∝ｺｧ讓.
 	m_pSpiaWall->SetPositionY( m_ppSpia[0]->GetPositionY() );
-	//上がってる時は.刺さりやすく
-	//下がっている時は刺さりにくく.
+	//荳翫′縺｣縺ｦ繧区凾縺ｯ.蛻ｺ縺輔ｊ繧�☆縺
+	//荳九′縺｣縺ｦ縺�ｋ譎ゅ�蛻ｺ縺輔ｊ縺ｫ縺上￥.
 	if( m_ppSpia[0]->GetMode() == clsSpiaFloor::enSFM_UNDER ||
 		m_ppSpia[0]->GetMode() == clsSpiaFloor::enSFM_DOWN ){
 		m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
@@ -214,7 +214,7 @@ void clsSpiaFlorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 		m_ppSpia[i]->Render( mView, mProj, vLight, vEye );
 	}
 
-//	//壁.
+//	//螢.
 //	m_pSpiaWall->Render( mView, mProj, vLight, vEye );
 
 }
@@ -225,7 +225,7 @@ void clsSpiaFlorMgr::SetPosition( D3DXVECTOR3 vPos )
 
 	m_vPos = vPos;
 
-	//子分の座標.
+	//蟄仙�縺ｮ蠎ｧ讓.
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		m_ppSpia[i]->SetPosition( 
 			D3DXVECTOR3( 
@@ -234,20 +234,20 @@ void clsSpiaFlorMgr::SetPosition( D3DXVECTOR3 vPos )
 				GetPositionZ() ) );
 	}
 
-	//槍壁座標.
+	//讒榊｣∝ｺｧ讓.
 	m_pSpiaWall->SetPosition( GetPosition() );
 	m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
 	m_pSpiaWall->AddPositionX( -STAGE_WIDHT / 2.0f );
 }
 
-//槍のあたり判定情報返す.
+//讒阪�縺ゅ◆繧雁愛螳壽ュ蝣ｱ霑斐☆.
 COL_STATE* clsSpiaFlorMgr::GetPointerSpiaCol( int i )
 {
 	if( m_ppSpia == nullptr ) return nullptr;
 	return m_ppSpia[i]->GetPointerCol();
 }
 
-//槍の最大数.
+//讒阪�譛螟ｧ謨ｰ.
 int clsSpiaFlorMgr::GetSpiaMax()
 {
 	return m_iSpiaMax;
@@ -260,13 +260,13 @@ clsCharaStatic*	clsSpiaFlorMgr::GetWallPointer()
 
 
 //============================================================
-//	効果音.
+//	蜉ｹ譫憺浹.
 //============================================================
 void clsSpiaFlorMgr::PlaySe( clsSpiaFloor::enSound enSe, float fEarZ )
 {
 	if( m_ppSe == nullptr ) return;
 
-	//再生する距離なら.
+  //再生する距離なら.
 	int vol = ChangeVolumeDistance( fEarZ, m_vPos.z );
 	if( vol ){
 		m_ppSe[enSe]->GetMaxVolRate( vol );
@@ -274,7 +274,7 @@ void clsSpiaFlorMgr::PlaySe( clsSpiaFloor::enSound enSe, float fEarZ )
 		m_ppSe[enSe]->SetVolume( vol );
 		m_ppSe[enSe]->Play();
 	}
-	//再生しない距離なら.
+	//蜀咲函縺励↑縺�ｷ晞屬縺ｪ繧.
 	else{
 		m_ppSe[enSe]->SetVolume( 0 );
 	}

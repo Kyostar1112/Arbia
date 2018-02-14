@@ -64,8 +64,6 @@ void clsJewerSet::Create( HWND hWnd,
 	SetSe( hWnd, iNo );
 }
 
-
-
 void clsJewerSet::Update()
 {
 	if( !m_smpModel ) return;

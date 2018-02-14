@@ -12,8 +12,6 @@ clsCharaSkin::clsCharaSkin()
 	//m_fScale = 1.0f;
 	m_pShadow = nullptr;
 
-
-
 }
 
 clsCharaSkin::~clsCharaSkin()
@@ -28,7 +26,7 @@ clsCharaSkin::~clsCharaSkin()
 
 
 //============================================================
-//	�e��l�̍X�V.
+//	�ｽe�ｽ�ｽl�ｽﾌ更�ｽV.
 //============================================================
 void clsCharaSkin::UpDateModel()
 {
@@ -50,21 +48,21 @@ void clsCharaSkin::UpDateModel()
 
 
 //============================================================
-//	�����ް�̊֘A�t��.
+//	�ｽ�ｽ�ｽ�ｽ�ｽﾞｰ�ｽﾌ関連�ｽt�ｽ�ｽ.
 //============================================================
 void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 {
 	if( pModel == nullptr ){
 		return;
 	}
-	//���ِݒ�.
+	//�ｽ�ｽ�ｽﾙ設抵ｿｽ.
 	m_pModel = pModel;
-	//��Ұ��ݑ��x.
+	//�ｽ�ｽﾒｰ�ｽ�ｽﾝ托ｿｽ�ｽx.
 //	m_dAnimSpeed = m_pModel->GetAnimSpeed();
-	//���ِݒ�.
+	//�ｽ�ｽ�ｽﾙ設抵ｿｽ.
 	m_fScale = m_pModel->m_vScale.x;
 
-	//��Ұ��ݺ��۰̸ׂ۰ݍ쐬.
+	//�ｽ�ｽﾒｰ�ｽ�ｽﾝｺ�ｽ�ｽﾛｰﾗのｸﾛｰﾝ作成.
 	LPD3DXANIMATIONCONTROLLER pAC
 		= m_pModel->GetAnimController();
 	pAC->CloneAnimationController(
@@ -72,10 +70,10 @@ void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 		pAC->GetMaxNumAnimationSets(),
 		pAC->GetMaxNumTracks(),
 		pAC->GetMaxNumEvents(),
-		&m_pAnimCtrl );	//(out)��Ұ��ݺ��۰�.
+		&m_pAnimCtrl );	//(out)�ｽ�ｽﾒｰ�ｽ�ｽﾝｺ�ｽ�ｽﾛｰ�ｽ.
 }
 //============================================================
-//	�����ް�֘A�t����.
+//	�ｽ�ｽ�ｽ�ｽ�ｽﾞｰ�ｽﾖ連�ｽt�ｽ�ｽ�ｽ�ｽ.
 //============================================================
 void clsCharaSkin::DetatchModel()
 {
@@ -92,7 +90,7 @@ void clsCharaSkin::DetatchModel()
 
 
 //============================================================
-//	�����ݸ�.
+//	�ｽ�ｽ�ｽ�ｽ�ｽﾝｸ�ｽ.
 //============================================================
 void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 	D3DXVECTOR3& vLight, D3DXVECTOR3& vEye,
@@ -101,7 +99,7 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 	if( m_pModel == nullptr || m_pAnimCtrl == nullptr ){
 		return;
 	}
-	//�e.
+	//�ｽe.
 	if( m_pShadow != nullptr ){
 		m_pShadow->Render( mView, mProj, vEye );
 	}
@@ -114,7 +112,7 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 }
 
 //============================================================
-//	��Ұ��ݍő吔��擾����.
+//	�ｽ�ｽﾒｰ�ｽ�ｽﾝ最大数�ｽ�ｽ謫ｾ�ｽ�ｽ�ｽ�ｽ.
 //============================================================
 int clsCharaSkin::GetAnimSetMax()
 {
@@ -125,11 +123,11 @@ int clsCharaSkin::GetAnimSetMax()
 }
 
 //============================================================
-//	��Ұ��ݐؑ�.
+//	�ｽ�ｽﾒｰ�ｽ�ｽﾝ切托ｿｽ.
 //============================================================
 void clsCharaSkin::ChangeAnimSet( int index, double dStatPos )
 {
-	//��Ұ��݂͈̔͊O���������.
+	//�ｽ�ｽﾒｰ�ｽ�ｽﾝの範囲外�ｽ�ｽ�ｽ�ｽ�ｽ�ｽ�ｽ�ｽ�ｽ.
 	if( index < 0 || index >= GetAnimSetMax() ){
 		return;
 	}
@@ -139,7 +137,7 @@ void clsCharaSkin::ChangeAnimSet( int index, double dStatPos )
 
 
 ////============================================================
-//	�p�x����.
+//	�ｽp�ｽx�ｽ�ｽ�ｽ�ｽ.
 ////============================================================
 bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 	int iSarchTheta )
@@ -149,13 +147,13 @@ bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 	thetaSearchR = dMyTheta - d_thetaArea_h;
 	thetaSearchL = dMyTheta + d_thetaArea_h;
 
-	//�p�x������Ă�����.
+	//�ｽp�ｽx�ｽ�ｽ�ｽ�ｽ�ｽ�ｽﾄゑｿｽ�ｽ�ｽ�ｽ�ｽ.
 	if( thetaSearchL > dTargTheta &&
 		thetaSearchR < dTargTheta )
 	{
 		return true;
 	}
-	////���΍�(0��360�̋���).
+	////�ｽ�ｽ�ｽﾎ搾ｿｽ(0�ｽ�ｽ360�ｽﾌ具ｿｽ�ｽ�ｽ).
 	else{
 		if( dMyTheta < dTargTheta ){
 			dTargTheta -= M_PI * 2.0;
@@ -180,11 +178,11 @@ bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 
 
 //============================================================
-//	��u�ŐU���Ȃ�(���X�ɐU���).
+//	�ｽ�ｽu�ｽﾅ振�ｽ�ｽ�ｽﾈゑｿｽ(�ｽ�ｽ�ｽX�ｽﾉ振�ｽ�ｽ�ｽ).
 //============================================================
 void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, float TurnStop )
 {
-	//360,0����.
+	//360,0�ｽ�ｽ�ｽ�ｽ.
 	if( TarYaw - NowYaw > (float)M_PI ){
 		TarYaw -= (float)( M_PI * 2.0 );
 	}
@@ -192,7 +190,7 @@ void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, flo
 		TarYaw += (float)( M_PI * 2.0 );
 	}
 
-	//�p�x���߂Â�.
+	//�ｽp�ｽx�ｽ�ｽ�ｽﾟづゑｿｽ.
 	if( abs( TarYaw - NowYaw ) > TurnStop ){
 		if( NowYaw < TarYaw ){
 			NowYaw += TurnSpd;
@@ -206,34 +204,33 @@ void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, flo
 
 
 //==================================================
-//	�ʒu�X�V�֐�.
+//	�ｽﾊ置�ｽX�ｽV�ｽﾖ撰ｿｽ.
 //==================================================
 void clsCharaSkin::UpdatePos()
 {
 	D3DXMATRIX mYaw;
-	//��].
-	D3DXMatrixRotationY( &mYaw, m_vRot.y );	//Y����].
+	//�ｽ�ｽ].
+	D3DXMatrixRotationY( &mYaw, m_vRot.y );	//Y�ｽ�ｽ�ｽ�ｽ].
 
-	//Z���޸�ق�p��.
+	//Z�ｽ�ｽ�ｽﾞｸ�ｽﾙゑｿｽp�ｽ�ｽ.
 	D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
 
 	//Z軸ﾍﾞｸﾄﾙそのものを回転状態により変換する.
-
-	D3DXVec3TransformCoord(
+	D3DXVec3TransformCoord( 
 		&vecAxisZ,	//(out).
 		&vecAxisZ,	//.
-		&mYaw );	//Y����]�s��.
+		&mYaw );	//Y�ｽ�ｽ�ｽ�ｽ]�ｽs�ｽ�ｽ.
 
-	//���ɂ��Đi�s������l��ݒ�.
+	//�ｽ�ｽ�ｽﾉゑｿｽ�ｽﾄ進�ｽs�ｽ�ｽ�ｽ�ｽ�ｽ�ｽl�ｽ�ｽﾝ抵ｿｽ.
 	switch( m_enDir )
 	{
 	case enDirection_Stop:
 		break;
-	case enDirection_Foward:	//�O�i.
-		//����*�i�߂�l(0.1f).
+	case enDirection_Foward:	//�ｽO�ｽi.
+		//�ｽ�ｽ�ｽ�ｽ*�ｽi�ｽﾟゑｿｽl(0.1f).
 		m_vPos -= vecAxisZ * 0.15f * m_fSpd;
 		break;
-	case enDirection_BackWard:	//���.
+	case enDirection_BackWard:	//�ｽ�ｽ�ｽ.
 		m_vPos += vecAxisZ * 0.15f * m_fSpd;
 		break;
 	//case enDirection_LeftTurn:
@@ -243,12 +240,12 @@ void clsCharaSkin::UpdatePos()
 	//default:
 	//	break;
 	}
-	//m_enDir = enDirection_Stop;//��~.
+	//m_enDir = enDirection_Stop;//�ｽ�ｽ~.
 	//==================================================
 
 }
 //==================================================
-//	�����蔻����X�V�֐�.
+//	�ｽ�ｽ�ｽ�ｽ�ｽ阡ｻ�ｽ�ｽ�ｽ�ｽX�ｽV�ｽﾖ撰ｿｽ.
 //==================================================
 void clsCharaSkin::UpdateColState()
 {
@@ -258,14 +255,14 @@ void clsCharaSkin::UpdateColState()
 
 
 //==================================================
-//	�����蔻��̏��̃A�h���X�擾.
+//	�ｽ�ｽ�ｽ�ｽ�ｽ阡ｻ�ｽ�ｽﾌ擾ｿｽ�ｽﾌア�ｽh�ｽ�ｽ�ｽX�ｽ謫ｾ.
 //==================================================
 COL_STATE* clsCharaSkin::GetPointerCol()
 {
 	return &ColState;
 }
 //==================================================
-//	�����蔻��p.
+//	�ｽ�ｽ�ｽ�ｽ�ｽ阡ｻ�ｽ�ｽp.
 //==================================================
 void clsCharaSkin::SetColPos( D3DXVECTOR3* vPos, float fYaw )
 {
