@@ -28,7 +28,7 @@ clsCharaSkin::~clsCharaSkin()
 
 
 //============================================================
-//	各種値の更新.
+//	�e��l�̍X�V.
 //============================================================
 void clsCharaSkin::UpDateModel()
 {
@@ -50,21 +50,21 @@ void clsCharaSkin::UpDateModel()
 
 
 //============================================================
-//	ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
+//	�����ް�̊֘A�t��.
 //============================================================
 void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 {
 	if( pModel == nullptr ){
 		return;
 	}
-	//ﾓﾃﾞﾙ設定.
+	//���ِݒ�.
 	m_pModel = pModel;
-	//ｱﾆﾒｰｼｮﾝ速度.
+	//��Ұ��ݑ��x.
 //	m_dAnimSpeed = m_pModel->GetAnimSpeed();
-	//ｽｹｰﾙ設定.
+	//���ِݒ�.
 	m_fScale = m_pModel->m_vScale.x;
 
-	//ｱﾆﾒｰｼｮﾝｺﾝﾄﾛｰﾗのｸﾛｰﾝ作成.
+	//��Ұ��ݺ��۰̸ׂ۰ݍ쐬.
 	LPD3DXANIMATIONCONTROLLER pAC
 		= m_pModel->GetAnimController();
 	pAC->CloneAnimationController(
@@ -72,10 +72,10 @@ void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 		pAC->GetMaxNumAnimationSets(),
 		pAC->GetMaxNumTracks(),
 		pAC->GetMaxNumEvents(),
-		&m_pAnimCtrl );	//(out)ｱﾆﾒｰｼｮﾝｺﾝﾄﾛｰﾗ.
+		&m_pAnimCtrl );	//(out)��Ұ��ݺ��۰�.
 }
 //============================================================
-//	ﾓﾃﾞﾙﾃﾞｰﾀ関連付け解除.
+//	�����ް�֘A�t����.
 //============================================================
 void clsCharaSkin::DetatchModel()
 {
@@ -92,7 +92,7 @@ void clsCharaSkin::DetatchModel()
 
 
 //============================================================
-//	ﾚﾝﾀﾞﾘﾝｸﾞ.
+//	�����ݸ�.
 //============================================================
 void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 	D3DXVECTOR3& vLight, D3DXVECTOR3& vEye,
@@ -101,7 +101,7 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 	if( m_pModel == nullptr || m_pAnimCtrl == nullptr ){
 		return;
 	}
-	//影.
+	//�e.
 	if( m_pShadow != nullptr ){
 		m_pShadow->Render( mView, mProj, vEye );
 	}
@@ -114,7 +114,7 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 }
 
 //============================================================
-//	ｱﾆﾒｰｼｮﾝ最大数を取得する.
+//	��Ұ��ݍő吔��擾����.
 //============================================================
 int clsCharaSkin::GetAnimSetMax()
 {
@@ -125,11 +125,11 @@ int clsCharaSkin::GetAnimSetMax()
 }
 
 //============================================================
-//	ｱﾆﾒｰｼｮﾝ切替.
+//	��Ұ��ݐؑ�.
 //============================================================
 void clsCharaSkin::ChangeAnimSet( int index, double dStatPos )
 {
-	//ｱﾆﾒｰｼｮﾝの範囲外かﾁｪｯｸする.
+	//��Ұ��݂͈̔͊O���������.
 	if( index < 0 || index >= GetAnimSetMax() ){
 		return;
 	}
@@ -139,7 +139,7 @@ void clsCharaSkin::ChangeAnimSet( int index, double dStatPos )
 
 
 ////============================================================
-//	角度判定.
+//	�p�x����.
 ////============================================================
 bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 	int iSarchTheta )
@@ -149,13 +149,13 @@ bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 	thetaSearchR = dMyTheta - d_thetaArea_h;
 	thetaSearchL = dMyTheta + d_thetaArea_h;
 
-	//角度が合っていたら.
+	//�p�x������Ă�����.
 	if( thetaSearchL > dTargTheta &&
 		thetaSearchR < dTargTheta )
 	{
 		return true;
 	}
-	////一周対策(0と360の境目).
+	////���΍�(0��360�̋���).
 	else{
 		if( dMyTheta < dTargTheta ){
 			dTargTheta -= M_PI * 2.0;
@@ -180,11 +180,11 @@ bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 
 
 //============================================================
-//	一瞬で振り向かない(徐々に振り向く).
+//	��u�ŐU���Ȃ�(���X�ɐU���).
 //============================================================
 void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, float TurnStop )
 {
-	//360,0問題解決.
+	//360,0����.
 	if( TarYaw - NowYaw > (float)M_PI ){
 		TarYaw -= (float)( M_PI * 2.0 );
 	}
@@ -192,7 +192,7 @@ void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, flo
 		TarYaw += (float)( M_PI * 2.0 );
 	}
 
-	//角度が近づく.
+	//�p�x���߂Â�.
 	if( abs( TarYaw - NowYaw ) > TurnStop ){
 		if( NowYaw < TarYaw ){
 			NowYaw += TurnSpd;
@@ -206,34 +206,34 @@ void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, flo
 
 
 //==================================================
-//	位置更新関数.
+//	�ʒu�X�V�֐�.
 //==================================================
 void clsCharaSkin::UpdatePos()
 {
 	D3DXMATRIX mYaw;
-	//回転.
-	D3DXMatrixRotationY( &mYaw, m_vRot.y );	//Y軸回転.
+	//��].
+	D3DXMatrixRotationY( &mYaw, m_vRot.y );	//Y����].
 
-	//Z軸ﾍﾞｸﾄﾙを用意.
+	//Z���޸�ق�p��.
 	D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
 
-
 	//Z軸ﾍﾞｸﾄﾙそのものを回転状態により変換する.
+
 	D3DXVec3TransformCoord(
 		&vecAxisZ,	//(out).
 		&vecAxisZ,	//.
-		&mYaw );	//Y軸回転行列.
+		&mYaw );	//Y����]�s��.
 
-	//方向によって進行させる値を設定.
+	//���ɂ��Đi�s������l��ݒ�.
 	switch( m_enDir )
 	{
 	case enDirection_Stop:
 		break;
-	case enDirection_Foward:	//前進.
-		//向かう方向*進める値(0.1f).
+	case enDirection_Foward:	//�O�i.
+		//����*�i�߂�l(0.1f).
 		m_vPos -= vecAxisZ * 0.15f * m_fSpd;
 		break;
-	case enDirection_BackWard:	//後退.
+	case enDirection_BackWard:	//���.
 		m_vPos += vecAxisZ * 0.15f * m_fSpd;
 		break;
 	//case enDirection_LeftTurn:
@@ -243,12 +243,12 @@ void clsCharaSkin::UpdatePos()
 	//default:
 	//	break;
 	}
-	//m_enDir = enDirection_Stop;//停止.
+	//m_enDir = enDirection_Stop;//��~.
 	//==================================================
 
 }
 //==================================================
-//	あたり判定情報更新関数.
+//	�����蔻����X�V�֐�.
 //==================================================
 void clsCharaSkin::UpdateColState()
 {
@@ -258,14 +258,14 @@ void clsCharaSkin::UpdateColState()
 
 
 //==================================================
-//	あたり判定の情報のアドレス取得.
+//	�����蔻��̏��̃A�h���X�擾.
 //==================================================
 COL_STATE* clsCharaSkin::GetPointerCol()
 {
 	return &ColState;
 }
 //==================================================
-//	あたり判定用.
+//	�����蔻��p.
 //==================================================
 void clsCharaSkin::SetColPos( D3DXVECTOR3* vPos, float fYaw )
 {

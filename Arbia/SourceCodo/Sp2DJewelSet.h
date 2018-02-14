@@ -19,13 +19,13 @@ public:
 
 
 
-	//止まるだけ.
+	//�~�܂邾��.
 	void Stop(){
 		m_vMove = { 0.0f, 0.0f, 0.0f };
 		m_fAcc = 0.0f;
 	};
 
-	//再スタート前に.
+	//�ăX�^�[�g�O��.
 	void ReSet();
 
 
@@ -38,12 +38,9 @@ public:
 		return m_bDown;
 	}
 
-
-	//----- ���b�v -----//.
-	void InitSetPos(){
-		if( !m_smpModel ) return;
-		m_smpModel->InitSetPos();
-	};
+	void Init(){
+		m_smpModel->Init();
+}
 
 
 	void SetScale( float fScale ){
@@ -81,6 +78,7 @@ public:
 	}
 
 	void PlaySe(){
+
 		if( m_pSe == nullptr ) return;
 
 //		m_pSe[enSe]->Stop();
@@ -91,18 +89,18 @@ public:
 private:
 
 	unique_ptr<clsJewel> m_smpModel;
-	bool m_bDown;//降下中.
+	bool m_bDown;//�~����.
 	bool m_bEnd;
 	D3DXVECTOR3 m_vMove;
 	float		m_fAcc;
-	bool		m_bGet;//手に入れられる?.
+	bool		m_bGet;//��ɓ�����?.
 
 
 	float m_fScale;
 
 
 
-	//効果音.
+	//��ʉ�.
 	clsSound*	m_pSe;
 
 	void SetSe( HWND hWnd, int iNo );

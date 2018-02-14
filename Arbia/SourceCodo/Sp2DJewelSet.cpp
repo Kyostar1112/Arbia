@@ -2,11 +2,13 @@
 
 #define sFILE_PATH_JEWEL "Data\\Image\\Jewel.png"
 
+
 //音.
 //上がる.
 #define ALIAS_NAME_UP "UiResultJewelUp"
 #define  FILE_PATH_UP "SE\\600Result\\010JewelUp.wav"
 const int     iVOL_UP = 1000;
+
 
 //光る(着地?).
 #define ALIAS_NAME_SHINE "UiResultJewelShine"
@@ -107,13 +109,13 @@ void clsJewerSet::SetSe( HWND hWnd, int iNo )
 	if( m_pSe != nullptr ) return;
 
 #if 0
+
 	//サウンド構造体.
 	clsSound::SOUND_DATA tmpSData[enS_MAX] =
 	{
 		{ ALIAS_NAME_UP,	FILE_PATH_UP,	iVOL_UP	},
 //		{ ALIAS_NAME_SHINE,	FILE_PATH_SHINE,iVOL_SHINE },
 	};
-
 	//サウンドクラス作成.
 	for( int i=0; i<enS_MAX; i++ ){
 		m_pSe[i] = new clsSound;

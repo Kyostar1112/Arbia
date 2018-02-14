@@ -10,7 +10,7 @@ const int iVOL_VIB = 1000;
 
 //ぱかっ.
 #define ALIAS_NAME_OPEN "CoverOpen"
-#define FILE_PATH_OPEN "SE\\300Trap\\300Cover.wav"					
+#define FILE_PATH_OPEN "SE\\300Trap\\300Cover.wav"
 const int iVOL_OPEN = 1000;
 
 
@@ -51,7 +51,7 @@ clsCoverMgr::~clsCoverMgr()
 
 void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 {
-	if( m_ppCover != nullptr ) return; 
+	if( m_ppCover != nullptr ) return;
 
 	//----- モデル -----//
 	//全体.
@@ -71,10 +71,10 @@ void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 
 
 
-	if( m_pppSe != nullptr ) return; 
+	if( m_pppSe != nullptr ) return;
 	//----- SE -----//
 	//サウンド構造体.
-	clsSound::SOUND_DATA tmpSData[enSOUND_MAX] = 
+	clsSound::SOUND_DATA tmpSData[enSOUND_MAX] =
 	{
 		{ ALIAS_NAME_VIB,	FILE_PATH_VIB,	iVOL_VIB	},
 		{ ALIAS_NAME_OPEN,	FILE_PATH_OPEN,	iVOL_OPEN	},
@@ -164,7 +164,7 @@ void clsCoverMgr::Release()
 //動き.
 void clsCoverMgr::Update( float fEarZ )
 {
-	if( m_ppCover == nullptr |  m_pppSe == nullptr ) return;
+	if( m_ppCover == nullptr ||  m_pppSe == nullptr ) return;
 
 	switch( m_enMove )
 	{
