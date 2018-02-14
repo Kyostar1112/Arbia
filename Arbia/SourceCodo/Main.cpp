@@ -981,7 +981,6 @@ void clsMain::DestroyD3D()
 	}
 	//Å‘å”‰Šú‰».
 	m_iBlkAryMax = 0;
-	
 
 #endif //#if _DEBUG
 
