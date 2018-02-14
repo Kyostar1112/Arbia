@@ -15,17 +15,17 @@ public:
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 		int iNo );
 
-	void Move();
+	void Update();
 
 
 
-	//~‚Ü‚é‚¾‚¯.
+	//æ­¢ã¾ã‚‹ã ã‘.
 	void Stop(){
 		m_vMove = { 0.0f, 0.0f, 0.0f };
 		m_fAcc = 0.0f;
 	};
 
-	//ÄƒXƒ^[ƒg‘O‚É.
+	//å†ã‚¹ã‚¿ãƒ¼ãƒˆå‰ã«.
 	void ReSet();
 
 
@@ -38,13 +38,16 @@ public:
 		return m_bDown;
 	}
 
-	//----- ƒ‰ƒbƒv -----//.
-	void Init(){
-		m_smpModel->Init();
-	};
+	//----- ãƒ©ãƒƒãƒ— -----//.
+
+	void InitSetPos(){
+		if( !m_smpModel ) return;
+		m_smpModel->InitSetPos();
+
 
 
 	void SetScale( float fScale ){
+		if( !m_smpModel ) return;
 		m_fScale = fScale;
 		m_smpModel->m_fScale = m_fScale;
 	}
@@ -52,17 +55,21 @@ public:
 	void AddScale( float fScale );
 
 	void Render(){
+		if( !m_smpModel ) return;
 		m_smpModel->Render();
 	};
 
 	void SetPos( D3DXVECTOR3 vPos ){
+		if( !m_smpModel ) return;
 		m_smpModel->SetPos( vPos );
 	};
 	D3DXVECTOR3 GetPos(){
+		if( !m_smpModel ) return { -100.0f, -100.0f, -100.0f };
 		return m_smpModel->GetPos();
 	}
 
 	void SetPosX( float fX ){
+		if( !m_smpModel ) return;
 		m_smpModel->SetPosX( fX );
 	}
 
@@ -73,16 +80,10 @@ public:
 		return m_bGet;
 	}
 
-//	//‰¹‚Ìí—Ş.
-//	enum enSound
-//	{
-//		enS_UP = 0,//•óÎ‚ªã¸‚ğn‚ß‚é.
-////		enS_SHINE,
-//
-//		enS_MAX,	//Å‘å”.
-//	};
 
-	void PlaySe( /*clsJewerSet::enSound enSe*/ ){
+	void PlaySe(){
+		if( m_pSe == nullptr ) return;
+
 //		m_pSe[enSe]->Stop();
 		m_pSe->SeekToStart();
 		m_pSe->Play();
@@ -91,18 +92,18 @@ public:
 private:
 
 	unique_ptr<clsJewel> m_smpModel;
-	bool m_bDown;//~‰º’†.
+	bool m_bDown;//é™ä¸‹ä¸­.
 	bool m_bEnd;
 	D3DXVECTOR3 m_vMove;
 	float		m_fAcc;
-	bool		m_bGet;//è‚É“ü‚ê‚ç‚ê‚é?.
+	bool		m_bGet;//æ‰‹ã«å…¥ã‚Œã‚‰ã‚Œã‚‹?.
 
 
 	float m_fScale;
 
 
 
-	//Œø‰Ê‰¹.
+	//åŠ¹æœéŸ³.
 	clsSound*	m_pSe;
 	void SetSe( HWND hWnd, int iNo );
 

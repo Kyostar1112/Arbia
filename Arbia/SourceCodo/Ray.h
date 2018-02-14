@@ -34,11 +34,15 @@ public:
 		FLOAT		fYaw;		//Y‰ñ“]².
 		RAY()
 		{
-			ZeroMemory( this, sizeof( RAY ) );
-			//vDirection;	= 0;//ˆêŒÂˆêŒÂ‚±‚¤‚µ‚½•û‚ª–ŒÌ‚ª­‚È‚¢.
+			const D3DXVECTOR3 vINIT_VECTOR3 = { 0.0f, 0.0f, 0.0f };
+			//ZeroMemory( this, sizeof( RAY ) );
+			vPoint[0] = vPoint[1] = vINIT_VECTOR3;
+			vDirection = vINIT_VECTOR3;
+			vPos = vINIT_VECTOR3;
+			fYaw = 0.0f;
 		}
 	};
-	RAY						m_Ray;	//Ú²\‘¢‘Ì.
+	RAY	m_Ray;	//Ú²\‘¢‘Ì.
 
 	clsRay();
 	~clsRay();

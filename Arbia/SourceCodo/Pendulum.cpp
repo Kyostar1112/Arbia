@@ -19,11 +19,8 @@ const float COL_PEND_BOX_CENTER_Y = 0.0f;
 
 
 
-//const float fPEND_SPN_POWER_MAX = 0.05f;
-//const float fPEND_SPN_POWER_UP = 0.001f;
-//const float fPEND_YAW_MAX = 0.0f;
-const float fPEND_SPN_POWER_MAX = 0.025f;
-const float fPEND_SPN_POWER_UP = 0.0005f;
+const float fPEND_SPN_POWER_MAX = 0.025f;//揺れるスピードの上限.
+const float fPEND_SPN_POWER_UP = 0.0005f;//加速度.
 const float fPEND_YAW_MAX = 0.0f;
 
 
@@ -138,7 +135,7 @@ void clsPend::Init()
 //============================================================
 //	振り子動き.
 //============================================================
-void clsPend::Move( float fEarZ )
+void clsPend::Update( float fEarZ )
 {
 	//振れる.
 	m_vRot.z += m_fMovePower;
@@ -175,8 +172,6 @@ void clsPend::Move( float fEarZ )
 	//透過値設定.
 	SetAlpha();
 }
-
-
 
 
 //============================================================
