@@ -49,7 +49,7 @@ void clsSpiaFloor::Init( bool bFlg )//右回転のフラグ.
 }
 
 //戻り値は槍マネージャーでの音再生用.
-clsSpiaFloor::enSound clsSpiaFloor::Move()
+clsSpiaFloor::enSound clsSpiaFloor::Update()
 {
 	//マネージャーでの音再生用.
 	enSound enSoundFlg = enSOUND_MAX;

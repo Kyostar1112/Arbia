@@ -210,13 +210,6 @@ public:
 	void Proj();
 
 
-	//¼Þ®²½Ã¨¯¸.
-	clsXInput* m_pXInput;
-
-
-
-	//‚ ‚½‚è”»’è.
-	clsCollision*	m_pCollision;
 
 #ifdef Inoue
 
@@ -408,9 +401,6 @@ private:
 
 
 #if _DEBUG
-	//”ÂÎßØºÞÝ—p.
-	clsSprite*		m_pExplosion;//”š”­—p.
-
 	//ÃÞÊÞ¯¸ÞÃ·½Ä¸×½.
 	clsDebugText*	m_pText;
 
@@ -429,6 +419,11 @@ private:
 #endif //#if _DEBUG
 
 
+	//¼Þ®²½Ã¨¯¸.
+	clsXInput* m_pXInput;
+
+	//‚ ‚½‚è”»’è.
+	clsCollision*	m_pCollision;
 
 	//ÌßÚ²Ô°.
 	clsPlayer*			m_pPlayer;

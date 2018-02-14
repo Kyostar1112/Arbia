@@ -11,9 +11,9 @@
 
 
 //‰ð•ú.
-#define SAFE_RELEASE(x)		if(x){(x)->Release();	(x)=NULL;}
-#define SAFE_DELETE(p)		{ if(p) { delete (p);   (p)=NULL; } }
-#define SAFE_DELETE_ARRAY(p){ if(p) { delete[] (p); (p)=NULL; } }
+#define SAFE_RELEASE(x)		{ if(x) {(x)->Release();(x)=nullptr; } }
+#define SAFE_DELETE(p)		{ if(p) { delete (p);   (p)=nullptr; } }
+#define SAFE_DELETE_ARRAY(p){ if(p) { delete[] (p); (p)=nullptr; } }
 
 //·°ÎÞ°ÄÞ“ü—Í.
 //‰Ÿ‚µ‚Ä‚¢‚éŠÔ.

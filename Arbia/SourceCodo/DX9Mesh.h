@@ -197,7 +197,7 @@ public:
 
 
 
-float			m_fSpd;
+	float			m_fSpd;
 
 
 

@@ -167,7 +167,7 @@ void clsSpiaFlorMgr::Init()
 }
 
 
-void clsSpiaFlorMgr::Move( float fEarZ )
+void clsSpiaFlorMgr::Update( float fEarZ )
 {
 	if( m_ppSpia == nullptr || m_ppSe == nullptr || m_pSpiaWall == nullptr ) return;
 
@@ -177,7 +177,7 @@ void clsSpiaFlorMgr::Move( float fEarZ )
 	//動き.
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		//動きに合わせてフラグを更新.
-		enSoundFlg = m_ppSpia[i]->Move();
+		enSoundFlg = m_ppSpia[i]->Update();
 	}
 
 	//効果音再生（MAXはSpiaFloor内の初期化使っているのでそれ以上では鳴らさない）.

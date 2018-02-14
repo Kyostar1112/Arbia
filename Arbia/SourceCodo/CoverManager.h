@@ -43,7 +43,7 @@ public:
 
 
 	//“®‚«.
-	void Move( float fEarZ );
+	void Update( float fEarZ );
 	//“¥‚Þ.
 	void StmpCovor( float fEarZ );
 	//‹­‚­“¥‚Þ.

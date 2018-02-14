@@ -29,7 +29,7 @@ public:
 	virtual void SetPosition( D3DXVECTOR3 vPos );
 
 
-	void Move( float fEarZ );
+	void Update( float fEarZ );
 
 	//” ‚ðŠJ‚¯‚é.
 	void BoxBreak();
