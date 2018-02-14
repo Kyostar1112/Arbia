@@ -10,7 +10,7 @@ namespace MainSceneDisc{
 	const WHSIZE_FLOAT CENTER_POS = { WND_W / 2, WND_H / 2 };
 }
 
-//ã‚¢ã‚¤ã‚³ãƒ³ã®UV.
+//ƒAƒCƒRƒ“‚ÌUV.
 const float fICON_UV_W = 1.0f;
 const float fICON_UV_W_MAX = 2.0f;
 
@@ -23,7 +23,7 @@ clsDiscover::~clsDiscover()
 }
 
 
-//æœ€åˆã®åˆæœŸåŒ–.
+//Å‰‚Ì‰Šú‰».
 void clsDiscover::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 )
 {
 	m_smpIcon = make_unique<clsSprite2D>();
@@ -43,7 +43,7 @@ void clsDiscover::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext
 }
 
 
-//äºŒå›ç›®ä»¥é™ã®åˆæœŸåŒ–.
+//“ñ‰ñ–ÚˆÈ~‚Ì‰Šú‰».
 void clsDiscover::ReSet()
 {
 	m_vPos = D3DXVECTOR3( MainSceneDisc::ICONPOS.w, MainSceneDisc::ICONPOS.h, 0.0f );

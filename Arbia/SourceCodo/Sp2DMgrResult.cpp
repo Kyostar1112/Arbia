@@ -5,50 +5,50 @@
 
 #define sFILE_PATH_STEAL "Data\\Image\\ResultSteal.png"
 
-#define sFILE_PATH_RESULT_TIME		"Data\\Image\\ResultTime.png"//æ™‚é–“.
-#define sFILE_PATH_RESULT_DISCOVER	"Data\\Image\\ResultDisc.png"//ç™ºè¦‹æ•°.
-#define sFILE_PATH_RESULT_LIVES		"Data\\Image\\ResultLives.png"//æ®‹æ©Ÿ.
-#define sFILE_PATH_RESULT_PARFECT	"Data\\Image\\ResultParf.png"//ãƒ‘ãƒ¼ãƒ•ã‚§ã‚¯ãƒˆ.
+#define sFILE_PATH_RESULT_TIME		"Data\\Image\\ResultTime.png"//ŠÔ.
+#define sFILE_PATH_RESULT_DISCOVER	"Data\\Image\\ResultDisc.png"//”­Œ©”.
+#define sFILE_PATH_RESULT_LIVES		"Data\\Image\\ResultLives.png"//c‹@.
+#define sFILE_PATH_RESULT_PARFECT	"Data\\Image\\ResultParf.png"//ƒp[ƒtƒFƒNƒg.
 
 
 
-//----- éŸ³ -----//.
-//å½“ã¦ã‚‹.
+//----- ‰¹ -----//.
+//“–‚Ä‚é.
 #define ALIAS_NAME_HIT "SP2DMgrResultBoxHit"
 #define  FILE_PATH_HIT "SE\\600Result\\500BoxHit.wav"
 const	  int iVOL_HIT = 1000;
 
-//é–‹ã.
+//ŠJ‚­.
 #define ALIAS_NAME_OPEN "SP2DMgrResultBoxOpen"
 #define  FILE_PATH_OPEN "SE\\600Result\\510BoxOpen.wav"
 const	  int iVOL_OPEN = 1000;
 
 
-//ç›—ã‚“ã æˆæœ.
+//“‚ñ‚¾¬‰Ê.
 #define ALIAS_NAME_STEAL "SP2DMgrResultSteal"
 #define  FILE_PATH_STEAL "SE\\600Result\\510BoxOpen.wav"
 const	  int iVOL_STEAL = 1000;
 
-//å„æ–‡å­—.
+//Še•¶š.
 #define ALIAS_NAME_OTHER "SP2DMgrResultOther"
 #define  FILE_PATH_OTHER "SE\\600Result\\300OtherMove.wav"
 const	  int iVOL_OTHER = 1000;
 
-//æœ€å¾Œã®å®çŸ³.
+//ÅŒã‚Ì•óÎ.
 #define ALIAS_NAME_LAST_JEWEL "SP2DMgrResultLastJewel"
 #define  FILE_PATH_LAST_JEWEL "SE\\600Result\\120LastJewel.wav"
 const	  int iVOL_LAST_JEWEL = 750;
 
 
 
-//åŠæš—è»¢.
-const float fBLACK_ALPHA_RIMIT = 0.5f;//æœ€çµ‚çš„.
-const float fBLACK_ALPHA_ADD = fBLACK_ALPHA_RIMIT / 120.0f;//ã©ã‚Œãã‚‰ã„ãšã¤å¤‰ã‚ã‚‹?.
+//”¼ˆÃ“].
+const float fBLACK_ALPHA_RIMIT = 0.5f;//ÅI“I.
+const float fBLACK_ALPHA_ADD = fBLACK_ALPHA_RIMIT / 120.0f;//‚Ç‚ê‚­‚ç‚¢‚¸‚Â•Ï‚í‚é?.
 
 
-//ä¸Šã®æ–‡å­—ã®æœ€çµ‚åº§æ¨™.
+//ã‚Ì•¶š‚ÌÅIÀ•W.
 const D3DXVECTOR3 vSTEAL_POS = { 450.0f, 100.0f, 0.0f };
-//å„æ–‡å­—ã®æœ€çµ‚åº§æ¨™.
+//Še•¶š‚ÌÅIÀ•W.
 const float vOTHER_POS_Y = 200.0f;
 const float vOTHER_POS_PARFECT_Y = vOTHER_POS_Y + 225.0f;
 const D3DXVECTOR3 vRESULT_POS[cSTEAL_RESULT_MAX] =
@@ -58,7 +58,7 @@ const D3DXVECTOR3 vRESULT_POS[cSTEAL_RESULT_MAX] =
 	{ 980.0f,	vOTHER_POS_Y,			0.0f },
 	{ 450.0f,	vOTHER_POS_PARFECT_Y,	0.0f },
 };
-//å®çŸ³æœ€çµ‚åœ°ç‚¹.
+//•óÎÅI’n“_.
 const float vJEWEL_OFFSET_Y = 125.0f;
 const float vJEWEL_OFFSET_FIN_Y = 225.0f;
 const float vJEWEL_OFFSET_FIN_X = 100.0f;
@@ -79,32 +79,32 @@ const D3DXVECTOR3 vJEWEL_POS[sJEWEL_NUM_MAX] =
 	{ vJEWEL_POS[4]  + D3DXVECTOR3{ 0.0f,	vJEWEL_OFFSET_FIN_Y,0.0f } },
 };
 
-//å„æ–‡å­—ã®åˆæœŸåº§æ¨™.
+//Še•¶š‚Ì‰ŠúÀ•W.
 const float fSTEAL_START_POS_Y = -150.0f;
 const float fRESULT_START_POS_X = -250.0f;
 const float fRESULT_START_POS_X_PARFECT = -400.0f;
-//å„æ–‡å­—ã®ç§»å‹•é€Ÿåº¦.
+//Še•¶š‚ÌˆÚ“®‘¬“x.
 const float fSTEAL_SPD = 4.0f;
 const float fRESULT_SPD = 24.0f;
 
-//å®çŸ³ç§»å‹•.
-const float fJEWEL_MOVE_TIME = 25.0f;//ä½•ãƒ•ãƒ¬ãƒ¼ãƒ ã§å®Œäº†ã™ã‚‹?.
-const float fJEWEL_UP = -64.0f;		//åˆæœŸä¸Šæ˜‡åŠ›.
-const float fJEWER_ACC_RATE = 1.75f;	//åŠ é€Ÿåº¦ã®å€ç‡.
+//•óÎˆÚ“®.
+const float fJEWEL_MOVE_TIME = 25.0f;//‰½ƒtƒŒ[ƒ€‚ÅŠ®—¹‚·‚é?.
+const float fJEWEL_UP = -64.0f;		//‰Šúã¸—Í.
+const float fJEWER_ACC_RATE = 1.75f;	//‰Á‘¬“x‚Ì”{—¦.
 
-//MulDispç”¨.
+//MulDisp—p.
 const float fMUL_DISP_STEAL = 0.5f;	//1/2.
 const float fMUL_DISP_OTHER = 0.25f;	//1/4.
 
-//å®çŸ³å‡ºã™ã‹ã®åˆ¤æ–­åŸºæº–( å·¦ã‹ã‚‰é †ã«ã‚†ã‚‹ã„ ).
-const int iJUDGE_TIME[cJEWEL_NUM_PARTS] = { 1000, 700, 300 };//æ™‚é–“( ã“ã‚Œã‚ˆã‚Šæ—©ãã‚´ãƒ¼ãƒ«ã™ã‚‹ ) (10åˆ†, 7åˆ†30ç§’, 3åˆ†, 0ç§’).
-const int iJUDGE_DISC[cJEWEL_NUM_PARTS] = { 9, 5, 2 };		//ç™ºè¦‹æ•°( ã“ã®æ•°ã¾ã§ãªã‚‰è¨±å®¹ã§ãã‚‹ ).
-const int iJUDGE_LIVES[cJEWEL_NUM_PARTS] = { 1, 4, 7 };	//æ®‹æ©Ÿ( ã“ã®æ•°ã¾ã§ãªã‚‰è¨±å®¹ã§ãã‚‹ ).
+//•óÎo‚·‚©‚Ì”»’fŠî€( ¶‚©‚ç‡‚É‚ä‚é‚¢ ).
+const int iJUDGE_TIME[cJEWEL_NUM_PARTS] = { 1000, 700, 300 };//ŠÔ( ‚±‚ê‚æ‚è‘‚­ƒS[ƒ‹‚·‚é ) (10•ª, 7•ª30•b, 3•ª, 0•b).
+const int iJUDGE_DISC[cJEWEL_NUM_PARTS] = { 9, 5, 2 };		//”­Œ©”( ‚±‚Ì”‚Ü‚Å‚È‚ç‹–—e‚Å‚«‚é ).
+const int iJUDGE_LIVES[cJEWEL_NUM_PARTS] = { 1, 4, 7 };	//c‹@( ‚±‚Ì”‚Ü‚Å‚È‚ç‹–—e‚Å‚«‚é ).
 
-//å®çŸ³ã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–æ•°å­—.
+//•óÎƒJƒEƒ“ƒg‚Ì‰Šú‰»”š.
 const int iJEWEL_CNT_INIT = -1;
 
-//ãƒ‘ãƒ¼ãƒ•ã‚§ã‚¯ãƒˆæ–‡å­—ã‚µã‚¤ã‚ºä¿‚æ•°.
+//ƒp[ƒtƒFƒNƒg•¶šƒTƒCƒYŒW”.
 const float fPARFECT_SIZE_RATE = 1.5f;
 
 
@@ -129,17 +129,17 @@ clsSp2dMgrReslt::~clsSp2dMgrReslt()
 
 void clsSp2dMgrReslt::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
-	//åŠæš—è»¢.
+	//”¼ˆÃ“].
 	m_smpBlack = make_unique<clsSprite2D>();
 	m_smpBlack->Create( pDevice11, pContext11, sFILE_PATH_BLACK );
 
-	//ç›—ã‚“ã æˆæœ.
+	//“‚ñ‚¾¬‰Ê.
 	m_smpSteal = make_unique<clsSprite2D>();
 	m_smpSteal->Create( pDevice11, pContext11, sFILE_PATH_STEAL );
-//	//ã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã™ã‚‹.
+//	//ƒTƒCƒY‚ğ•ÏX‚·‚é.
 	m_smpSteal->MulDisp( fMUL_DISP_STEAL );
 
-	//é …ç›®.
+	//€–Ú.
 	LPSTR tmpFilePath[] =
 	{
 		sFILE_PATH_RESULT_TIME, sFILE_PATH_RESULT_DISCOVER, sFILE_PATH_RESULT_LIVES, sFILE_PATH_RESULT_PARFECT
@@ -152,7 +152,7 @@ void clsSp2dMgrReslt::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceCont
 	m_smpResult[ cSTEAL_RESULT_MAX - 1 ]->MulDisp( fMUL_DISP_OTHER * fPARFECT_SIZE_RATE );
 
 
-	//å®çŸ³.
+	//•óÎ.
 	for( char i=0; i<sJEWEL_NUM_MAX; i++ ){
 		m_smpJewel[i] = make_unique<clsJewerSet>();
 		m_smpJewel[i]->Create( hWnd, pDevice11, pContext11, i );
@@ -162,7 +162,7 @@ void clsSp2dMgrReslt::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceCont
 	m_smpPushTxt->Create( pDevice11, pContext11 );
 
 
-	//åŠ¹æœéŸ³.
+	//Œø‰Ê‰¹.
 	SetSe( hWnd );
 
 }
@@ -184,13 +184,13 @@ void clsSp2dMgrReslt::Init()
 }
 
 
-//å®çŸ³å‡ºã™ã‹ã®åˆ¤æ–­.
+//•óÎo‚·‚©‚Ì”»’f.
 void clsSp2dMgrReslt::JewelJudge()
 {
-	//å®çŸ³ã®No.
+	//•óÎ‚ÌNo.
 	int i = 0;
 
-	//æ™‚é–“.
+	//ŠÔ.
 	for( char j=0; j<cJEWEL_NUM_PARTS; i++, j++ ){
 		if( m_UiState.iTime < iJUDGE_TIME[j] ){
 			m_smpJewel[i]->SetGetFlg( true );
@@ -199,7 +199,7 @@ void clsSp2dMgrReslt::JewelJudge()
 			m_smpJewel[i]->SetGetFlg( false );
 		}
 	}
-	//ç™ºè¦‹.
+	//”­Œ©.
 	for( char j=0; j<cJEWEL_NUM_PARTS; i++, j++ ){
 		if( m_UiState.iDisc <= iJUDGE_DISC[j] ){
 			m_smpJewel[i]->SetGetFlg( true );
@@ -208,8 +208,8 @@ void clsSp2dMgrReslt::JewelJudge()
 			m_smpJewel[i]->SetGetFlg( false );
 		}
 	}
-	//æ®‹æ©Ÿ.
-	//jã¯å„é …ç›®ã®å®çŸ³ã®æ•°å­—.
+	//c‹@.
+	//j‚ÍŠe€–Ú‚Ì•óÎ‚Ì”š.
 	for( char j=0; j<cJEWEL_NUM_PARTS; i++, j++ ){
 		if( m_UiState.iLives >= iJUDGE_LIVES[j] ){
 			m_smpJewel[i]->SetGetFlg( true );
@@ -219,7 +219,7 @@ void clsSp2dMgrReslt::JewelJudge()
 		}
 	}
 
-	//ãƒ©ã‚¹ãƒˆ.
+	//ƒ‰ƒXƒg.
 	bool bFlg = true;
 	for( i=0; i<sJEWEL_NUM_MAX - 1; i++ ){
 		bFlg = m_smpJewel[i]->GetGetFlg();
@@ -255,9 +255,9 @@ void clsSp2dMgrReslt::StartSet()
 		m_smpJewel[i]->SetPos( m_vJewelAppPos );
 		m_smpJewel[i]->SetScale( 0.0f );
 	}
-	//å®çŸ³æƒ…å ±ã«ã‚ˆã‚‹å®çŸ³ãƒ•ãƒ©ã‚°ç¢ºå®š.
+	//•óÎî•ñ‚É‚æ‚é•óÎƒtƒ‰ƒOŠm’è.
 	JewelJudge();
-	//å®çŸ³æƒ…å ±åˆæœŸåŒ–( æ¬¡å›ã®ç‚º ).
+	//•óÎî•ñ‰Šú‰»( Ÿ‰ñ‚Ìˆ× ).
 	m_UiState.Init();
 
 	m_iJewelCnt = iJEWEL_CNT_INIT;
@@ -312,15 +312,15 @@ void clsSp2dMgrReslt::UpDate()
 }
 
 //==================================================
-//	å‹•ã.
+//	“®‚«.
 //==================================================
 void clsSp2dMgrReslt::BlackMove()
 {
-	//æš—ããªã‚‹.
+	//ˆÃ‚­‚È‚é.
 	if( m_smpBlack->GetAlpha() <= fBLACK_ALPHA_RIMIT ){
 		m_smpBlack->AddAlpha( fBLACK_ALPHA_ADD );
 	}
-	//æš—ããªã£ãŸå¾Œ.
+	//ˆÃ‚­‚È‚Á‚½Œã.
 	else{
 		NextMove();
 		m_pSeBox[enS_OPEN]->SeekPlay();
@@ -329,16 +329,16 @@ void clsSp2dMgrReslt::BlackMove()
 
 void clsSp2dMgrReslt::StealMove()
 {
-	//çµæœãŠã‚ã™.
+	//Œ‹‰Ê‚¨‚ë‚·.
 	if( m_smpSteal->GetPos().y <= vSTEAL_POS.y ){
 		m_smpSteal->AddPosY( fSTEAL_SPD );
 	}
-	//ãŠã‚ã—ãŸå¾Œ.
+	//‚¨‚ë‚µ‚½Œã.
 	else{
 		m_smpSteal->SetPos( vSTEAL_POS );
 		m_pSeBox[enS_OTHER]->SeekToStart();
 		m_pSeBox[enS_OTHER]->Play();
-		//ç¢ºèªç”¨ãƒ•ãƒ©ã‚°.
+		//Šm”F—pƒtƒ‰ƒO.
 		for( char i=0; i<cSTEAL_RESULT_MAX - 1; i++ ){
 			m_bOtherMove[i] = false;
 		}
@@ -350,14 +350,14 @@ void clsSp2dMgrReslt::OtherMove()
 {
 	for( char i=0; i<cSTEAL_RESULT_MAX - 1; i++ ){
 		if( !m_bOtherMove[i] ){
-			//æ–‡å­—ã‚’å³ã¸.
+			//•¶š‚ğ‰E‚Ö.
 			if( m_smpResult[i]->GetPos().x < vRESULT_POS[i].x ){
 				m_smpResult[i]->AddPosX( fRESULT_SPD );
 			}
-			//å‹•ã‹ã—ãŸå¾Œ.
+			//“®‚©‚µ‚½Œã.
 			else{
 				m_smpResult[i]->SetPos( vRESULT_POS[i] );
-				//æœ€å¾Œã®ã‚„ã¤ã§ã¯é³´ã‚‰ã•ãªã„.
+				//ÅŒã‚Ì‚â‚Â‚Å‚Í–Â‚ç‚³‚È‚¢.
 				if( i < cSTEAL_RESULT_MAX - 1 - 1 ){
 //					m_pSeBox[enS_OTHER]->Stop();
 					m_pSeBox[enS_OTHER]->SeekToStart();
@@ -368,7 +368,7 @@ void clsSp2dMgrReslt::OtherMove()
 		}
 	}
 
-	//å…¨ã¦çµ‚ã‚ã£ãŸã‚‰.
+	//‘S‚ÄI‚í‚Á‚½‚ç.
 	bool bEndFlg = true;
 
 	for( char i=0; i<cSTEAL_RESULT_MAX - 1; i++ ){
@@ -380,7 +380,7 @@ void clsSp2dMgrReslt::OtherMove()
 
 	if( bEndFlg ){
 		NextJewerSet();
-		//åŠ¹æœéŸ³.
+		//Œø‰Ê‰¹.
 		m_smpJewel[m_iJewelCnt]->PlaySe(  );
 		NextMove();
 	}
@@ -388,19 +388,19 @@ void clsSp2dMgrReslt::OtherMove()
 
 void clsSp2dMgrReslt::JewelMove()
 {
-	////ç¢ºèªç”¨ãƒ•ãƒ©ã‚° : m_iJewelCnt.
+	////Šm”F—pƒtƒ‰ƒO : m_iJewelCnt.
 
-	//å‹•ã‹ã•ãªã„ãªã‚‰.
+	//“®‚©‚³‚È‚¢‚È‚ç.
 	if( !m_smpJewel[m_iJewelCnt]->GetGetFlg() ){
 		NextJewerSet();
 	}
 
-	//å‹•ã.
+	//“®‚«.
 	if( m_smpJewel[m_iJewelCnt]->GetGetFlg() ){
 		m_smpJewel[m_iJewelCnt]->Update();
 	}
 
-	//è¡Œãéããªã„.
+	//s‚«‰ß‚¬‚È‚¢.
 	if( vJEWEL_POS[m_iJewelCnt].x > m_vJewelAppPos.x ){
 		if( m_smpJewel[m_iJewelCnt]->GetPos().x > vJEWEL_POS[m_iJewelCnt].x ){
 			m_smpJewel[m_iJewelCnt]->SetPosX( vJEWEL_POS[m_iJewelCnt].x );
@@ -412,18 +412,18 @@ void clsSp2dMgrReslt::JewelMove()
 		}
 	}
 
-	//å‹•ãã®çµ‚ã‚ã‚Š.
+	//“®‚«‚ÌI‚í‚è.
 	if( m_smpJewel[m_iJewelCnt]->GetPos().y > vJEWEL_POS[m_iJewelCnt].y &&
 		m_smpJewel[m_iJewelCnt]->GetDown() )
 	{
 		m_smpJewel[m_iJewelCnt]->SetPos( vJEWEL_POS[m_iJewelCnt] );
 
-		//å…‰ã‚‹åŠ¹æœéŸ³.
+		//Œõ‚éŒø‰Ê‰¹.
 //		m_smpJewel[m_iJewelCnt]->PlaySe( clsJewerSet::enS_SHINE );
 
 		NextJewerSet();
 		if( m_iJewelCnt < sJEWEL_NUM_MAX - 1 ){
-			//éŸ³é³´ã‚‰ã™ã‹ã®åˆ¤æ–­.
+			//‰¹–Â‚ç‚·‚©‚Ì”»’f.
 			bool bSound = false;
 			for( short i=m_iJewelCnt; i<sJEWEL_NUM_MAX - 1; i++ ){
 				if( m_smpJewel[i]->GetGetFlg() ){
@@ -431,16 +431,16 @@ void clsSp2dMgrReslt::JewelMove()
 					break;
 				}
 			}
-			//æ¬¡ã«éŸ³é³´ã‚‰ã™å¥´ãŒã‚ã‚‹ãªã‚‰.
+			//Ÿ‚É‰¹–Â‚ç‚·“z‚ª‚ ‚é‚È‚ç.
 			if( bSound ){
-				//åŠ¹æœéŸ³.
+				//Œø‰Ê‰¹.
 				m_smpJewel[m_iJewelCnt - 1]->PlaySe(  );
 			}
 		}
 	}
 
 
-	//å…¨ã¦çµ‚ã‚ã£ãŸã‚‰.
+	//‘S‚ÄI‚í‚Á‚½‚ç.
 	bool bEndFlg = false;
 
 	if( m_iJewelCnt >= sJEWEL_NUM_MAX - 1 ){
@@ -456,13 +456,13 @@ void clsSp2dMgrReslt::NextJewerSet()
 {
 	m_iJewelCnt ++;
 
-	//ç¯„å›²å¤–ã§ã¯ç„¡ã‘ã‚Œã°.
+	//”ÍˆÍŠO‚Å‚Í–³‚¯‚ê‚Î.
 	if( m_iJewelCnt < sJEWEL_NUM_MAX ){
-		//åº§æ¨™ã‚»ãƒƒãƒˆ & åˆå‹•.
+		//À•WƒZƒbƒg & ‰“®.
 		D3DXVECTOR3 vMove = { 0.0f, 10.0f, 0.0f };
 		float fAcc = 0.0f;
 
-		//åˆå‹•.
+		//‰“®.
 		MakeParbPower( vMove, fAcc, m_vJewelAppPos, vJEWEL_POS[m_iJewelCnt] );
 
 		m_smpJewel[m_iJewelCnt]->SetPos( m_vJewelAppPos );
@@ -470,28 +470,28 @@ void clsSp2dMgrReslt::NextJewerSet()
 	}
 }
 
-//ãƒ‘ãƒ¼ãƒ•ã‚§ã‚¯ãƒˆ.
+//ƒp[ƒtƒFƒNƒg.
 void clsSp2dMgrReslt::ParfeMove()
 {
-	//ãƒ‘ãƒ¼ãƒ•ã‚§ã‚¯ãƒˆã˜ã‚ƒãªã„ãªã‚‰é£›ã°ã™.
+	//ƒp[ƒtƒFƒNƒg‚¶‚á‚È‚¢‚È‚ç”ò‚Î‚·.
 	if( !m_smpJewel[sJEWEL_NUM_MAX - 1]->GetGetFlg() ){
 		m_enParFlg = enPM_END;
 	}
 
-	//éŸ³.
+	//‰¹.
 	if( m_enParFlg == enPM_SOUND ){
 //		m_pSeBox[enS_OTHER]->Stop();
 		m_pSeBox[enS_OTHER]->SeekToStart();
 		m_pSeBox[enS_OTHER]->Play();
 		m_enParFlg = enPM_PARFECT;
 	}
-	//æ–‡å­—.
+	//•¶š.
 	else if( m_enParFlg == enPM_PARFECT ){
-		//æ–‡å­—ã‚’å³ã¸.
+		//•¶š‚ğ‰E‚Ö.
 		if( m_smpResult[cSTEAL_RESULT_MAX - 1]->GetPos().x < vRESULT_POS[cSTEAL_RESULT_MAX - 1].x ){
 			m_smpResult[cSTEAL_RESULT_MAX - 1]->AddPosX( fRESULT_SPD );
 		}
-		//å‹•ã‹ã—ãŸå¾Œ.
+		//“®‚©‚µ‚½Œã.
 		else{
 			m_smpResult[cSTEAL_RESULT_MAX - 1]->SetPos( vRESULT_POS[cSTEAL_RESULT_MAX - 1] );
 			m_smpJewel[m_iJewelCnt]->PlaySe(  );
@@ -499,12 +499,12 @@ void clsSp2dMgrReslt::ParfeMove()
 		}
 	}
 
-	//å®çŸ³.
+	//•óÎ.
 	else if( m_enParFlg == enPM_JEWEL ){
-		//å‹•ã.
+		//“®‚«.
 		m_smpJewel[m_iJewelCnt]->Update();
 
-		//è¡Œãéããªã„.
+		//s‚«‰ß‚¬‚È‚¢.
 		if( vJEWEL_POS[m_iJewelCnt].x > m_vJewelAppPos.x ){
 			if( m_smpJewel[m_iJewelCnt]->GetPos().x > vJEWEL_POS[m_iJewelCnt].x ){
 				m_smpJewel[m_iJewelCnt]->SetPosX( vJEWEL_POS[m_iJewelCnt].x );
@@ -516,7 +516,7 @@ void clsSp2dMgrReslt::ParfeMove()
 			}
 		}
 
-		//å‹•ãã®çµ‚ã‚ã‚Š.
+		//“®‚«‚ÌI‚í‚è.
 		if( m_smpJewel[m_iJewelCnt]->GetPos().y > vJEWEL_POS[m_iJewelCnt].y &&
 			m_smpJewel[m_iJewelCnt]->GetDown() )
 		{
@@ -526,7 +526,7 @@ void clsSp2dMgrReslt::ParfeMove()
 		}
 	}
 
-	//å…¨ã¦çµ‚ã‚ã£ãŸã‚‰.
+	//‘S‚ÄI‚í‚Á‚½‚ç.
 	if( m_enParFlg >= enPM_END ){
 		NextMove();
 	}
@@ -538,11 +538,11 @@ void clsSp2dMgrReslt::FinalPos( bool bInit )
 	m_smpSteal->SetPos( vSTEAL_POS );
 	char i = 0;
 
-	//æ–‡å­—.
+	//•¶š.
 	for( i=0; i<cSTEAL_RESULT_MAX - 1; i++ ){
 		m_smpResult[i]->SetPos( vRESULT_POS[i] );
 	}
-	//ãƒ‘ãƒ¼ãƒ•ã‚§ã‚¯ãƒˆ?.
+	//ƒp[ƒtƒFƒNƒg?.
 	if( m_smpJewel[sJEWEL_NUM_MAX - 1]->GetGetFlg() ){
 		m_smpResult[cSTEAL_RESULT_MAX - 1]->SetPos( vRESULT_POS[cSTEAL_RESULT_MAX - 1] );
 		if( !bInit ){
@@ -551,7 +551,7 @@ void clsSp2dMgrReslt::FinalPos( bool bInit )
 		}
 	}
 
-	//å®çŸ³.
+	//•óÎ.
 	for( i=0; i<sJEWEL_NUM_MAX; i++ ){
 		if( m_smpJewel[i]->GetGetFlg() ){
 			m_smpJewel[i]->SetPos( vJEWEL_POS[i] );
@@ -600,13 +600,13 @@ void clsSp2dMgrReslt::JewelSetReSet()
 }
 
 
-//å®çŸ³ã®Moveã¨Accã‚’æ±‚ã‚ã‚‹. Parad -> parabola : æ”¾ç‰©ç·š.
+//•óÎ‚ÌMove‚ÆAcc‚ğ‹‚ß‚é. Parad -> parabola : •ú•¨ü.
 void clsSp2dMgrReslt::MakeParbPower(
 	D3DXVECTOR3 &vMove, float &fAcc,
 	D3DXVECTOR3 vStartPos, D3DXVECTOR3 vEndPos )
 {
 	//Move.
-	D3DXVECTOR3 vDis = vEndPos - vStartPos;//å·®.
+	D3DXVECTOR3 vDis = vEndPos - vStartPos;//·.
 	vMove.x = vDis.x / fJEWEL_MOVE_TIME;
 	vMove.y = fJEWEL_UP;
 
@@ -658,14 +658,14 @@ void clsSp2dMgrReslt::SetSe( HWND hWnd )
 
 	for( int i=0; i<enS_MAX; i++ ){
 		m_pSeBox[i] = new clsSound;
-		//ç¾éŸ³é‡åˆæœŸåŒ–.
+		//Œ»‰¹—Ê‰Šú‰».
 		m_pSeBox[i]->SetVolume( tmpSData[i].iMaxVolume );
-		//åå‰.
+		//–¼‘O.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//ä½œæˆ.
+		//ì¬.
 		m_pSeBox[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//æœ€å¤§éŸ³é‡è¨­å®š.
+		//Å‘å‰¹—Êİ’è.
 		m_pSeBox[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
 }
