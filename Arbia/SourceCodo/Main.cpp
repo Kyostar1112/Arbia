@@ -1,24 +1,24 @@
 #include "Main.h"
 #include <stdio.h>
 
-//====ã‚„ã‚‹ã“ã¨ãƒªã‚¹ãƒˆ==========================================
-	//Pendulumã®Init()ä½œã‚‹.
-	//å…µå£«ã®ã‚„ã‚‰ã‚Œ(ã‚¢ãƒ«ãƒ“ã‚¢ã®æ”»æ’ƒ).
+//====‚â‚é‚±‚ÆƒŠƒXƒg==========================================
+	//Pendulum‚ÌInit()ì‚é.
+	//•ºm‚Ì‚â‚ç‚ê(ƒAƒ‹ƒrƒA‚ÌUŒ‚).
 //============================================================
 
 
-//ï½¸ï¾ï¾›ï½°ï¾Šï¾ï¾™å¤‰æ•°.
+//¸ŞÛ°ÊŞÙ•Ï”.
 clsMain* g_pClsMain = nullptr;
 
 
-//-----æŒ¯å‹•-----//.
-//ã‚¢ãƒ«ãƒ“ã‚¢ã®è¹´ã‚Šãƒ’ãƒƒãƒˆ.
+//-----U“®-----//.
+//ƒAƒ‹ƒrƒA‚ÌR‚èƒqƒbƒg.
 const unsigned short usVIB_KICK_POWER = INPUT_VIBRATION_MAX;
 const int iVIB_KICK_TIME = 15;
-//ãƒ‰ã‚¢ç ´å£Š.
+//ƒhƒA”j‰ó.
 const unsigned short usVIB_DOOR_POWER = INPUT_VIBRATION_MAX;
 const int iVIB_DOOR_TIME = 30;
-//è½ã¨ã—ç©´ã‚®ã‚·ã‚®ã‚·.
+//—‚Æ‚µŒŠƒMƒVƒMƒV.
 const unsigned short usVIB_COVER_POWER = INPUT_VIBRATION_MAX / 10;
 const int iVIB_COVER_TIME = 82;
 const int iVIB_COVER_DEC = 128;
@@ -26,64 +26,64 @@ const int iVIB_COVER_DEC = 128;
 
 
 //BGM.
-//èµ·å‹•.
+//‹N“®.
 #define ALIAS_NAME_BGM_START_UP "StartUp"
 #define  FILE_PATH_BGM_START_UP "BGM\\000StartUp\\StartUp.mp3"
 const int	  iVOL_BGM_START_UP = 250;
 
-//ã‚¿ã‚¤ãƒˆãƒ«.
+//ƒ^ƒCƒgƒ‹.
 #define ALIAS_NAME_BGM_TITLE "Title"
 #define  FILE_PATH_BGM_TITLE "BGM\\100Title\\100Title.mp3"
 const int	  iVOL_BGM_TITLE = 350;
 
-//ãƒ¡ã‚¤ãƒ³.
+//ƒƒCƒ“.
 #define ALIAS_NAME_BGM_MAIN "Main"
 #define  FILE_PATH_BGM_MAIN "BGM\\200Main\\010Stage.mp3"
 const int	  iVOL_BGM_MAIN = 250;
 
-//ãƒªã‚¶ãƒ«ãƒˆ.
+//ƒŠƒUƒ‹ƒg.
 #define ALIAS_NAME_BGM_RESULT "Result"
 #define  FILE_PATH_BGM_RESULT "BGM\\300Result\\200ResultJingle.mp3"
 const int	  iVOL_BGM_RESULT = 750;
 
-//ã‚¯ãƒªã‚¢.
+//ƒNƒŠƒA.
 #define ALIAS_NAME_BGM_CLEAR "Clear"
 #define  FILE_PATH_BGM_CLEAR "BGM\\400Clear\\100EndRoll.mp3"
 const int	  iVOL_BGM_CLEAR = 200;
 
-//ã‚ªãƒ¼ãƒãƒ¼.
+//ƒI[ƒo[.
 #define ALIAS_NAME_BGM_OVER "Over"
 #define  FILE_PATH_BGM_OVER "BGM\\500Over\\100Bye.mp3"
 const int	  iVOL_BGM_OVER = 300;
 
 
 //SE.
-//æ˜ã‚‹ã„ã‚„ã¤.
+//–¾‚é‚¢‚â‚Â.
 #define ALIAS_NAME_SE_ENTER "Enter"
 #define  FILE_PATH_SE_ENTER "SE\\700Button\\100Enter.wav"
 const int	  iVOL_SE_ENTER = 300;
 
-//æš—ã„ã‚„ã¤.
+//ˆÃ‚¢‚â‚Â.
 #define ALIAS_NAME_SE_EXIT "Exit"
 #define  FILE_PATH_SE_EXIT "SE\\700Button\\200Exit.wav"
 const int	  iVOL_SE_EXIT = 300;
 
 
-//ãƒ©ã‚¤ãƒˆæ–¹å‘.
+//ƒ‰ƒCƒg•ûŒü.
 const D3DXVECTOR3 vLIGHT_DIR = { 0.0f, 0.01f, 0.02f };
 
-//ã‚«ãƒ¡ãƒ©ã®ã‚ˆã‚Šå…·åˆ.
+//ƒJƒƒ‰‚Ì‚æ‚è‹ï‡.
 const float g_Zoom = 4.0f;
 
-//æç”»é™ç•Œè·é›¢.
+//•`‰æŒÀŠE‹——£.
 const float fRENDER_LIMIT = 150.0f;
 
 
-//æ­»äº¡ã‚·ãƒ¼ãƒ³æ™‚é–“.
+//€–SƒV[ƒ“ŠÔ.
 const int iDEAD_TIME = 90;
 
 
-//æš—è»¢é€Ÿåº¦.
+//ˆÃ“]‘¬“x.
 const float fBLACK_SPD_SLOW = 0.0125f;
 const float fBLACK_SPD_FAST = 0.05f;
 
@@ -93,69 +93,69 @@ const float fBLACK_SPD_FAST = 0.05f;
 const int PAT_SMOK_MAX = 500;
 
 
-//----- é…ç½®ç”¨ -----//
+//----- ”z’u—p -----//
 const float STAGE_WIDHT = 10.0f;
 const float fWALL_HIT_RANGE = STAGE_WIDHT / 2.0f - 0.75f;
-//è½ä¸‹æ­»äº¡æ‰±ã„ã™ã‚‹é«˜ã•.
+//—‰º€–Sˆµ‚¢‚·‚é‚‚³.
 const float fDROP_DOWN_Y = -6.0f;
 
-//æ‰‹å‰é™ç•Œ.
+//è‘OŒÀŠE.
 const float fPLAYER_BACK_LIMIT = 4.0f;
-//ã‚¹ã‚¿ãƒ¼ãƒˆåœ°ç‚¹.
+//ƒXƒ^[ƒg’n“_.
 const D3DXVECTOR3 START_POSITION = { 0.0f, 0.0f, fPLAYER_BACK_LIMIT };
-//ã‚«ãƒ¡ãƒ©ãŒæ‰‹å‰ã«ã‚ˆã‚‰ãªã„Zåº§æ¨™.
+//ƒJƒƒ‰‚ªè‘O‚É‚æ‚ç‚È‚¢ZÀ•W.
 const float CAMERA_NOT_BACK = 12.0f;
 
-//ã‚«ãƒ¡ãƒ©ã®åˆæœŸãšã‚Œ.
+//ƒJƒƒ‰‚Ì‰Šú‚¸‚ê.
 const D3DXVECTOR3 vCAMERA_INIT_OFFSET = { 0.0f, 4.9f, -7.0f };
-//ã‚«ãƒ¡ãƒ©ã®è¦–ç‚¹ã®ä½ç½®.
+//ƒJƒƒ‰‚Ì‹“_‚ÌˆÊ’u.
 const float fLOOK_OFFSET_Z = 5.0f;
 const float fLOOK_OFFSET_Y = 3.0625f;//.
-//----- é…ç½®ç”¨çµ‚ã‚ã‚Š -----//
+//----- ”z’u—pI‚í‚è -----//
 
-//----- ã‚ãŸã‚Šåˆ¤å®šã®åˆ¤æ–­è·é›¢ -----//
-const float fONE_BROCK_HIT_AREA = 1.0f;//æ§ã‚„åºŠã€å£.3.0f.
-const float fGOAL_TREASURE_HIT_AREA = 32.0f;//ã‚´ãƒ¼ãƒ«ã®ç®±ã®å¥¥è·é›¢.
+//----- ‚ ‚½‚è”»’è‚Ì”»’f‹——£ -----//
+const float fONE_BROCK_HIT_AREA = 1.0f;//‘„‚â°A•Ç.3.0f.
+const float fGOAL_TREASURE_HIT_AREA = 32.0f;//ƒS[ƒ‹‚Ì” ‚Ì‰œ‹——£.
 
 
-//ã‚¹ãƒ†ãƒ¼ã‚¸ä½œæˆç”¨å®šæ•°.
+//ƒXƒe[ƒWì¬—p’è”.
 
-const float WALL_SPACE			= 0.8f;	//å£ã¨ã®é™ç•Œè·é›¢.
+const float WALL_SPACE			= 0.8f;	//•Ç‚Æ‚ÌŒÀŠE‹——£.
 
 const int	STAGEPATARUNSETMAX	= 12;
 
-const float PENDPOSY			= 12.0f;//PendulumåŸºç‚¹ã®é«˜ã•.
+const float PENDPOSY			= 12.0f;//PendulumŠî“_‚Ì‚‚³.
 
-const int	COVEREREA			= 12;	//è½ã¨ã—ç©´ã®è“‹.
-const int	ENEMYEREA			= 13;	//æ•µã®è¡Œå‹•ç¯„å›².
-const int	ENEMYEREACENTER		= 6;	//æ•µã®Csvã®è¨­ç½®å ´æ‰€.
-const int	CILMOVEEREA			= 15;	//ä¸¸åºŠã®ç§»å‹•ç¯„å›².
-const int	CILMOVEEREACENTER	= 4;	//ä¸¸åºŠã®Csvã®è¨­ç½®å ´æ‰€.
+const int	COVEREREA			= 12;	//—‚Æ‚µŒŠ‚ÌŠW.
+const int	ENEMYEREA			= 13;	//“G‚Ìs“®”ÍˆÍ.
+const int	ENEMYEREACENTER		= 6;	//“G‚ÌCsv‚Ìİ’uêŠ.
+const int	CILMOVEEREA			= 15;	//ŠÛ°‚ÌˆÚ“®”ÍˆÍ.
+const int	CILMOVEEREACENTER	= 4;	//ŠÛ°‚ÌCsv‚Ìİ’uêŠ.
 
-//ã‚¹ãƒ†ãƒ¼ã‚¸ä½œæˆç”¨å®šæ•°çµ‚äº†.
+//ƒXƒe[ƒWì¬—p’è”I—¹.
 
-//ä¸€ãƒã‚¹ã®å¤§ãã•.
+//ˆêƒ}ƒX‚Ì‘å‚«‚³.
 const float fONE_BLOCK_SIZE = 1.0f;
 
 
-//----- ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚° -----//.
+//----- ƒGƒ“ƒfƒBƒ“ƒO -----//.
 const int iENDING_STAGE_MAX = 256;
 const D3DXVECTOR3 vENDING_INIT_STAGE_POS = { 0.0f, 0.0f, 0.0f };
 const D3DXVECTOR3 vENDING_INIT_CEILING_POS = { 0.0f, 7.0f, 0.0f };
-//ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é€Ÿã•.
+//ƒGƒ“ƒfƒBƒ“ƒO‚ÌƒXƒNƒ[ƒ‹‘¬‚³.
 const float fEND_SCROL_SPD = 0.125f;
-//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é™ç•Œ.
+//ƒXƒNƒ[ƒ‹ŒÀŠE.
 const float fEND_SCROL_LIMIT = 128.0f;
 
-//ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°->ã‚¿ã‚¤ãƒˆãƒ«.
+//ƒGƒ“ƒfƒBƒ“ƒO->ƒ^ƒCƒgƒ‹.
 const D3DXVECTOR3 vTITLE_INIT_STAGE_POS = { 0.0f, 0.0f, 2.0f };
 const D3DXVECTOR3 vTITLE_INIT_CEILING_POS = { 0.0f, 7.0f, 2.0f };
 
 
 #ifdef Inoue
 int		g_iPngNum;
-vector<string> g_vsFilePath;	//ã“ã“ã«D&Dã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’å…¥ã‚Œã‚‹.
-bool	g_bFileActive = false;	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å…¥ã‚ŒãŸã‹ã©ã†ã‹.
+vector<string> g_vsFilePath;	//‚±‚±‚ÉD&D‚µ‚½ƒtƒ@ƒCƒ‹‚ğ“ü‚ê‚é.
+bool	g_bFileActive = false;	//ƒtƒ@ƒCƒ‹‚ğ“ü‚ê‚½‚©‚Ç‚¤‚©.
 
 bool	g_bStageRead;
 
@@ -163,16 +163,16 @@ int		g_ControlNum = 0;
 
 #endif//Inoue.
 //============================================================
-//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
-//æ•µã®ã‚„ã‚‰ã‚Œã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ•°.
+//ƒGƒtƒFƒNƒg.
+//“G‚Ì‚â‚ç‚êƒGƒtƒFƒNƒg‚Ì”.
 const char cEFF_KICK_HIT_MAX = 2;
 
-//å¤§ãã•.
+//‘å‚«‚³.
 const float fEFF_SCALE = 0.25f;
 const D3DXVECTOR3 vEFF_KICK_HIT_SCALE = { fEFF_SCALE, fEFF_SCALE, fEFF_SCALE };
 const D3DXVECTOR3 vEFF_SLASH_HIT_SCALE = { fEFF_SCALE, fEFF_SCALE, fEFF_SCALE };
 
-//é«˜ã•ä¸Šã’ã‚‹.
+//‚‚³ã‚°‚é.
 const float fEFF_UP_OFFSET = 1.0f;
 
 
@@ -183,19 +183,19 @@ const float fEFF_UP_OFFSET = 1.0f;
 
 
 //============================================================
-//	ï¾’ï½²ï¾é–¢æ•°.
+//	Ò²İŠÖ”.
 //============================================================
 INT WINAPI WinMain(
-	HINSTANCE hInstance,		//ï½²ï¾ï½½ï¾€ï¾ç•ªå·(ï½³ï½¨ï¾ï¾„ï¾ï½³ã®ç•ªå·).
+	HINSTANCE hInstance,		//²İ½Àİ”Ô†(³¨İÄŞ³‚Ì”Ô†).
 	HINSTANCE hPrevInstance,
 	PSTR lpCmdLine,
 	INT nCmdShow )
 {
-	g_pClsMain = new clsMain;	//åˆæœŸåŒ–&ï½¸ï¾—ï½½ã®å®£è¨€.
+	g_pClsMain = new clsMain;	//‰Šú‰»&¸×½‚ÌéŒ¾.
 
-	//ï½¸ï¾—ï½½ãŒå­˜åœ¨ã—ã¦ã„ã‚‹ã‹ï¾ï½ªï½¯ï½¸.
+	//¸×½‚ª‘¶İ‚µ‚Ä‚¢‚é‚©Áª¯¸.
 	if( g_pClsMain != nullptr ){
-		//ï½³ï½¨ï¾ï¾„ï¾ï½³ä½œæˆæˆåŠŸ.
+		//³¨İÄŞ³ì¬¬Œ÷.
 		if( SUCCEEDED(
 			g_pClsMain->InitWindow(
 				hInstance,
@@ -203,16 +203,16 @@ INT WINAPI WinMain(
 				WND_W, WND_H,
 				WND_TITLE ) ) )
 		{
-			//Dx11ç”¨ã®åˆæœŸåŒ–
+			//Dx11—p‚Ì‰Šú‰»
 			if( SUCCEEDED( g_pClsMain->InitD3D() ) ){
-				//ï¾’ï½¯ï½¾ï½°ï½¼ï¾ï¾™ï½°ï¾Œï¾Ÿ.
+				//Ò¯¾°¼ŞÙ°Ìß.
 				g_pClsMain->Loop();
 			}
 		}
-		//çµ‚äº†.
-		g_pClsMain->DestroyD3D();//Direct3Dã®è§£æ”¾.
+		//I—¹.
+		g_pClsMain->DestroyD3D();//Direct3D‚Ì‰ğ•ú.
 
-		delete g_pClsMain;		//ï½¸ï¾—ï½½ã®ç ´æ£„.
+		delete g_pClsMain;		//¸×½‚Ì”jŠü.
 	}
 
 	return 0;
@@ -220,23 +220,23 @@ INT WINAPI WinMain(
 
 
 //============================================================
-//	ï½³ï½¨ï¾ï¾„ï¾ï½³ï¾Œï¾Ÿï¾›ï½¼ï½°ï½¼ï¾ï½¬.
+//	³¨İÄŞ³ÌßÛ¼°¼Ş¬.
 //============================================================
 LRESULT CALLBACK WndProc(
 	HWND hWnd, UINT uMsg,
 	WPARAM wParam, LPARAM lParam )
 {
-	//ï¾Œï¾Ÿï¾›ï½¼ï½°ï½¼ï¾ï½¬.
+	//ÌßÛ¼°¼Ş¬.
 	return g_pClsMain->MsgProc( hWnd, uMsg, wParam, lParam );
 }
 
 
 //============================================================
-//	ï¾’ï½²ï¾ï½¸ï¾—ï½½.
+//	Ò²İ¸×½.
 //============================================================
 
 //============================================================
-//	ï½ºï¾ï½½ï¾„ï¾—ï½¸ï¾€.
+//	ºİ½Ä×¸À.
 //============================================================
 clsMain::clsMain()
 {
@@ -244,25 +244,25 @@ clsMain::clsMain()
 
 	m_hWnd = nullptr;
 
-	m_pDevice		= nullptr;	//ï¾ƒï¾ï¾Šï¾ï½²ï½½ï½µï¾Œï¾ï½¼ï¾ï½ªï½¸ï¾„.
-	m_pDeviceContext= nullptr;	//ï¾ƒï¾ï¾Šï¾ï½²ï½½ï½ºï¾ï¾ƒï½·ï½½ï¾„.
-	m_pSwapChain	= nullptr;	//ï½½ï¾œï½¯ï¾Œï¾Ÿï¾ï½ªï½°ï¾.
+	m_pDevice		= nullptr;	//ÃŞÊŞ²½µÌŞ¼Şª¸Ä.
+	m_pDeviceContext= nullptr;	//ÃŞÊŞ²½ºİÃ·½Ä.
+	m_pSwapChain	= nullptr;	//½Ü¯ÌßÁª°İ.
 
-	m_pBackBuffer_TexRTV	= nullptr;//ï¾šï¾ï¾€ï¾ï½°ï¾€ï½°ï½¹ï¾ï½¯ï¾„ï¾‹ï¾ï½­ï½°.
-	m_pBackBuffer_DSTex		= nullptr;//ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§.
-	m_pBackBuffer_DSTexDSV	= nullptr;//ï¾ƒï¾ï¾Œï¾Ÿï½½ï½½ï¾ƒï¾ï½¼ï¾™ï¾‹ï¾ï½­ï½°.
+	m_pBackBuffer_TexRTV	= nullptr;//ÚİÀŞ°À°¹Ş¯ÄËŞ­°.
+	m_pBackBuffer_DSTex		= nullptr;//ÊŞ¯¸ÊŞ¯Ì§.
+	m_pBackBuffer_DSTexDSV	= nullptr;//ÃŞÌß½½Ãİ¼ÙËŞ­°.
 
 
-	//ï¾—ï½²ï¾„æ–¹å‘.
+	//×²Ä•ûŒü.
 	m_vLight = vLIGHT_DIR;
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸èª­è¾¼å…¨é€ŸåŠ›.
+	//ƒXƒe[ƒW“Ç‘S‘¬—Í.
 	g_bStageRead = false;
 	m_fAlphaPoint = 1.0f;
 }
 
 //============================================================
-//	ï¾ƒï¾ï½½ï¾„ï¾—ï½¸ï¾€.
+//	ÃŞ½Ä×¸À.
 //============================================================
 clsMain::~clsMain()
 {
@@ -270,17 +270,17 @@ clsMain::~clsMain()
 }
 
 //============================================================
-//ï½³ï½¨ï¾ï¾„ï¾ï½³åˆæœŸåŒ–é–¢æ•°.
+//³¨İÄŞ³‰Šú‰»ŠÖ”.
 //============================================================
 HRESULT clsMain::InitWindow(
-	HINSTANCE hInstance,	//ï½²ï¾ï½½ï¾€ï¾ï½½.
-	INT x, INT y,			//ï½³ï½¨ï¾ï¾„ï¾ï½³ã®x,yåº§æ¨™.
-	INT width, INT height,	//ï½³ï½¨ï¾ï¾„ï¾ï½³ã®å¹…,é«˜ã•.
-	LPSTR WindowName )		//ï½³ï½¨ï¾ï¾„ï¾ï½³å.
+	HINSTANCE hInstance,	//²İ½Àİ½.
+	INT x, INT y,			//³¨İÄŞ³‚Ìx,yÀ•W.
+	INT width, INT height,	//³¨İÄŞ³‚Ì•,‚‚³.
+	LPSTR WindowName )		//³¨İÄŞ³–¼.
 {
-	//ï½³ï½¨ï¾ï¾„ï¾ï½³ã®å®šç¾©.
+	//³¨İÄŞ³‚Ì’è‹`.
 	WNDCLASSEX wc;
-	ZeroMemory( &wc, sizeof( wc ) );//åˆæœŸåŒ–.
+	ZeroMemory( &wc, sizeof( wc ) );//‰Šú‰».
 
 	wc.cbSize			= sizeof( wc );
 	wc.style			= CS_HREDRAW | CS_VREDRAW;
@@ -288,59 +288,55 @@ HRESULT clsMain::InitWindow(
 	wc.hInstance		= hInstance;
 	wc.hIcon			= LoadIcon( NULL, IDI_APPLICATION );
 	wc.hCursor			= LoadCursor( NULL, IDC_ARROW );
-	wc.hbrBackground	= ( HBRUSH )GetStockObject( LTGRAY_BRUSH );
+	wc.hbrBackground	= (HBRUSH)GetStockObject( LTGRAY_BRUSH );
 	wc.lpszClassName	= APR_NAME;
 	wc.hIconSm			= LoadIcon( NULL, IDI_APPLICATION );
 
-	//ï½³ï½¨ï¾ï¾„ï¾ï½³ï½¸ï¾—ï½½ã‚’Windowsã«ç™»éŒ².
+	//³¨İÄŞ³¸×½‚ğWindows‚É“o˜^.
 	if( !RegisterClassEx( &wc ) ){
-		MessageBox( NULL,
-			"ï½³ï½¨ï¾ï¾„ï¾ï½³ï½¸ï¾—ï½½ã®ç™»éŒ²ã«å¤±æ•—", "clsMain::InitWindow", MB_OK );
+		MessageBox( NULL, "ƒEƒBƒ“ƒhƒEƒNƒ‰ƒXƒm“o˜^‚Éƒ~ƒX", "clsMainInitWindow", MB_OK );
 		return E_FAIL;
 	}
 
-	//ï½³ï½¨ï¾ï¾„ï¾ï½³ã®ä½œæˆ.
+	//³¨İÄŞ³‚Ìì¬.
 	m_hWnd = CreateWindow(
-		APR_NAME,			//ï½±ï¾Œï¾Ÿï¾˜å.
-		WindowName,			//ï½³ï½¨ï¾ï¾„ï¾ï½³ï¾€ï½²ï¾„ï¾™.
-		WS_OVERLAPPEDWINDOW,//ï½³ï½¨ï¾ï¾„ï¾ï½³ç¨®åˆ¥.
-		0, 0,				//è¡¨ç¤ºåº§æ¨™.
-		width, height,		//ï½³ï½¨ï¾ï¾„ï¾ï½³ã®å¹…,é«˜ã•.
-		NULL,				//è¦ªï½³ï½¨ï¾ï¾„ï¾ï½³ï¾Šï¾ï¾„ï¾ï¾™.
-		NULL,				//ï¾’ï¾†ï½­ï½°è¨­å®š.
-		hInstance,			//ï½²ï¾ï½½ï¾€ï¾ï½½ç•ªå·.
-		NULL );				//ï½³ï½¨ï¾ï¾„ï¾ï½³ä½œæˆæ™‚ã«ç™ºç”Ÿã™ã‚‹ï½²ï¾ï¾ï¾ï¾„ã«æ¸¡ã™ï¾ƒï¾ï½°ï¾€.
+		APR_NAME,			//±ÌßØ–¼.
+		WindowName,			//³¨İÄŞ³À²ÄÙ.
+		WS_OVERLAPPEDWINDOW,//³¨İÄŞ³í•Ê.
+		0, 0,				//•\¦À•W.
+		width, height,		//³¨İÄŞ³‚Ì•,‚‚³.
+		NULL,				//e³¨İÄŞ³ÊİÄŞÙ.
+		NULL,				//ÒÆ­°İ’è.
+		hInstance,			//²İ½Àİ½”Ô†.
+		NULL );				//³¨İÄŞ³ì¬‚É”­¶‚·‚é²ÍŞİÄ‚É“n‚·ÃŞ°À.
 
 	if( !m_hWnd ){
-		MessageBox( NULL,
-			"ï½³ï½¨ï¾ï¾„ï¾ï½³ä½œæˆã«å¤±æ•—", "clsMain::InitWindow", MB_OK );
+		MessageBox( NULL, "³¨İÄŞ³ì¬‚Éƒ~ƒX", "clsMain::InitWindow", MB_OK );
 		return E_FAIL;
 	}
 #ifdef Inoue
 #ifdef _DEBUG
 	DragAcceptFiles(
-		m_hWnd,    // ç™»éŒ²ã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
-		true // ã‚¢ã‚¯ã‚»ãƒ—ãƒˆã‚ªãƒ—ã‚·ãƒ§ãƒ³
+		m_hWnd,    // “o˜^‚·‚éƒEƒBƒ“ƒhƒE
+		true // ƒAƒNƒZƒvƒgƒIƒvƒVƒ‡ƒ“
 	   );
 #endif	//#ifdef _DEBUG
-
 #endif//#ifdef Inoue
 
-	//ï½³ï½¨ï¾ï¾„ï¾ï½³ã®è¡¨ç¤º.
+	//³¨İÄŞ³‚Ì•\¦.
 	ShowWindow( m_hWnd, SW_SHOW );
 	UpdateWindow( m_hWnd );
 
-	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®éè¡¨ç¤º.
-#ifdef _DEBUG
-#else
+	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚Ì”ñ•\¦.
+#ifndef _DEBUG
 	ShowCursor(false);
-#endif//#ifdef _RELEASE
+#endif//#ifndef _DEBUG
 
 	return S_OK;
 }
 
 //============================================================
-//	ï½³ï½¨ï¾ï¾„ï¾ï½³é–¢æ•°(ï¾’ï½¯ï½¾ï½°ï½¼ï¾æ¯ã®å‡¦ç†).
+//	³¨İÄŞ³ŠÖ”(Ò¯¾°¼Ş–ˆ‚Ìˆ—).
 //============================================================
 LRESULT clsMain::MsgProc(
 	HWND hWnd, UINT uMsg,
@@ -350,8 +346,8 @@ LRESULT clsMain::MsgProc(
     UINT uFileNo;
 	switch( uMsg )
 	{
-	case WM_DESTROY:	//ï½³ï½¨ï¾ï¾„ï¾ï½³ç ´æ£„æ™‚.
-		//ï½±ï¾Œï¾Ÿï¾˜ï½¹ï½°ï½¼ï½®ï¾ã®çµ‚äº†ã‚’Windowsã«é€šçŸ¥ã™ã‚‹.
+	case WM_DESTROY:	//³¨İÄŞ³”jŠü.
+		//±ÌßØ¹°¼®İ‚ÌI—¹‚ğWindows‚É’Ê’m‚·‚é.
 		PostQuitMessage( 0 );
 		break;
 	case WM_DROPFILES:
@@ -365,16 +361,16 @@ LRESULT clsMain::MsgProc(
 		}
 		DragFinish( hDrop );
 		break;
-	case WM_KEYDOWN:	//ï½·ï½°ï¾ï¾ï½°ï¾„ï¾ãŒæŠ¼ã•ã‚ŒãŸã¨ã.
-		//ï½·ï½°åˆ¥ã®å‡¦ç†.
+	case WM_KEYDOWN:	//·°ÎŞ°ÄŞ‚ª‰Ÿ‚³‚ê‚½‚Æ‚«.
+		//·°•Ê‚Ìˆ—.
 		switch( (char)wParam )
 		{
-		case VK_ESCAPE:	//ESCï½·ï½°.
+		case VK_ESCAPE:	//ESC·°.
 			if( MessageBox( NULL,
-				"ï½¹ï¾ï½°ï¾‘ã‚’çµ‚äº†ã—ã¾ã™ã‹?", "Message",
+				"¹Ş°Ñ‚ğI—¹‚µ‚Ü‚·‚©?", "Message",
 				MB_YESNO ) == IDYES )
 			{
-				//ï½³ï½¨ï¾ï¾„ï¾ï½³ã‚’ç ´æ£„ã™ã‚‹.
+				//³¨İÄŞ³‚ğ”jŠü‚·‚é.
 				DestroyWindow( hWnd );
 			}
 			break;
@@ -382,83 +378,83 @@ LRESULT clsMain::MsgProc(
 		break;
 	}
 
-	//ï¾’ï½²ï¾ã«è¿”ã™æƒ…å ±.
+	//Ò²İ‚É•Ô‚·î•ñ.
 	return DefWindowProc( hWnd, uMsg, wParam, lParam );
 }
 
 
 //============================================================
-//	ï¾’ï½¯ï½¾ï½°ï½¼ï¾ï¾™ï½°ï¾Œï¾Ÿã¨ï½±ï¾Œï¾Ÿï¾˜ï½¹ï½°ï½¼ï½®ï¾å‡¦ç†ã®å…¥ã‚Šå£.
+//	Ò¯¾°¼ŞÙ°Ìß‚Æ±ÌßØ¹°¼®İˆ—‚Ì“ü‚èŒû.
 //============================================================
 void clsMain::Loop()
 {
-	//BGMä½œæˆ.
+	//BGMì¬.
 	CreateSound();
-	//èµ·å‹•éŸ³å†ç”Ÿ.
+	//‹N“®‰¹Ä¶.
 	m_pBgm[enBGM_START_UP]->Play();
 
 	m_pXInput = new clsXInput;
 
-	//ã‚ãŸã‚Šåˆ¤å®š.
+	//‚ ‚½‚è”»’è.
 	m_pCollision = new clsCollision;
 	m_pCollision->CreateSe( m_hWnd );
 
 
 #ifdef START_LOADING_DISPLAY
-	//ãƒ¡ãƒƒã‚·ãƒ¥ã‚„ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãªã©ã®èª­è¾¼.
+	//ƒƒbƒVƒ…‚âƒXƒvƒ‰ƒCƒg‚È‚Ç‚Ì“Ç.
 	NowLoading();
 #else
-	//ï¾’ï½¯ï½¼ï½­èª­ã¿è¾¼ã¿é–¢æ•°ã‚’ã¾ã¨ã‚ãŸã‚‚ã®.
+	//Ò¯¼­“Ç‚İ‚İŠÖ”‚ğ‚Ü‚Æ‚ß‚½‚à‚Ì.
 	ReadMesh();
-	//ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒ³åˆæœŸåŒ–(ä»®ç½®ã).
+	//ƒƒCƒ“ƒV[ƒ“‰Šú‰»(‰¼’u‚«).
 	InitMain( true );
 #endif//#ifndef START_LOADING_DISPLAY
 
 
 	//----------------------------------------------------------
-	//	ï¾Œï¾šï½°ï¾‘ï¾šï½°ï¾„.
+	//	ÌÚ°ÑÚ°Ä.
 	//----------------------------------------------------------
-	float fRate		= 0.0f;	//ï¾šï½°ï¾„.
-	float fFPS		= 60.0f;//FPSå€¤.
-	DWORD sync_old	= timeGetTime();	//éå»æ™‚é–“.
+	float fRate		= 0.0f;	//Ú°Ä.
+	float fFPS		= 60.0f;//FPS’l.
+	DWORD sync_old	= timeGetTime();	//‰ß‹ŠÔ.
 	DWORD sync_now;
-	//æ™‚é–“å‡¦ç†ã®ç‚ºã€æœ€å°å˜ä½ã‚’1ï¾ï¾˜ç§’ã«å¤‰æ›´.
+	//ŠÔˆ—‚Ìˆ×AÅ¬’PˆÊ‚ğ1ĞØ•b‚É•ÏX.
 	timeBeginPeriod( 1 );
 
 
-	//ï¾’ï½¯ï½¾ï½°ï½¼ï¾ï¾™ï½°ï¾Œï¾Ÿ.
+	//Ò¯¾°¼ŞÙ°Ìß.
 	MSG msg = { 0 };
 	ZeroMemory( &msg, sizeof( msg ) );
 
 	while( msg.message != WM_QUIT )
 	{
 		Sleep( 1 );
-		sync_now = timeGetTime();	//ç¾åœ¨æ™‚é–“ã‚’å–å¾—.
+		sync_now = timeGetTime();	//Œ»İŠÔ‚ğæ“¾.
 
 		if( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) ){
 			TranslateMessage( &msg );
 			DispatchMessage( &msg );
 		}
 
-		fRate = 1000.0f / fFPS;	//ç†æƒ³æ™‚é–“ã‚’ç®—å‡º.
+		fRate = 1000.0f / fFPS;	//—‘zŠÔ‚ğZo.
 
 		if( sync_now - sync_old >= fRate ){
-			sync_old = sync_now;	//ç¾åœ¨æ™‚é–“ã«ç½®ãã‹ãˆ.
+			sync_old = sync_now;	//Œ»İŠÔ‚É’u‚«‚©‚¦.
 
-			//ï½±ï¾Œï¾Ÿï¾˜ï½¹ï½°ï½¼ï½®ï¾å‡¦ç†ã¯ã“ã“ã‹ã‚‰é£›ã¶.
+			//±ÌßØ¹°¼®İˆ—‚Í‚±‚±‚©‚ç”ò‚Ô.
 			AppMain();
 		}
 	}
-	//ï½±ï¾Œï¾Ÿï¾˜ï½¹ï½°ï½¼ï½®ï¾ã®çµ‚äº†.
-	timeEndPeriod( 1 );	//è§£é™¤.
+	//±ÌßØ¹°¼®İ‚ÌI—¹.
+	timeEndPeriod( 1 );	//‰ğœ.
 }
 
 //============================================================
-//	ï½±ï¾Œï¾Ÿï¾˜ï½¹ï½°ï½¼ï½®ï¾ï¾’ï½²ï¾å‡¦ç†.
+//	±ÌßØ¹°¼®İÒ²İˆ—.
 //============================================================
 void clsMain::AppMain()
 {
-	//ï½ºï¾ï¾„ï¾›ï½°ï¾—å…¥åŠ›æƒ…å ±æ›´æ–°.
+	//ºİÄÛ°×“ü—Íî•ñXV.
 	m_pXInput->UpdateStatus();
 
 #ifdef Inoue
@@ -568,7 +564,7 @@ void clsMain::AppMain()
 	{
 	case 0:
 #if _DEBUG
-		//å®šè¦ä½ç½®ã®ç§»å‹•.
+		//’è‹KˆÊ’u‚ÌˆÚ“®.
 		GETKEY_STAY( 'A' ) 	m_ppBlkAry[0]->AddPositionX( -0.1f );
 		GETKEY_STAY( 'D' )	m_ppBlkAry[0]->AddPositionX(  0.1f );
 		GETKEY_STAY( 'W' )	m_ppBlkAry[0]->AddPositionY(  0.1f );
@@ -583,7 +579,7 @@ void clsMain::AppMain()
 		}
 		break;
 	case 1:
-		//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç§»å‹•ã€æ‹¡ç¸®.
+		//ƒXƒvƒ‰ƒCƒgˆÚ“®AŠgk.
 		if (!m_vsmpSpriteTest.empty())
 		{
 			GETKEY_STAY('A'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(-5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
@@ -619,7 +615,7 @@ void clsMain::AppMain()
 		}
 		break;
 	case 2:
-		//ãƒ©ã‚¤ãƒˆã®æ–¹å‘ã®æ“ä½œ.
+		//ƒ‰ƒCƒg‚Ì•ûŒü‚Ì‘€ì.
 		GETKEY_STAY( 'A' ) 	m_vLight.x += 0.01f;
 		GETKEY_STAY( 'D' )	m_vLight.x -= 0.01f;
 		GETKEY_STAY( 'W' )	m_vLight.y += 0.01f;
@@ -646,7 +642,7 @@ void clsMain::AppMain()
 			m_ppBlkAry[blk_no]->AddPositionX( (float)blk_no );
 		}
 
-		//ã‚®ã‚¶ã‚®ã‚¶.
+		//ƒMƒUƒMƒU.
 		if( blkZYFlg <= 1 ){
 			if( blk_no % 2 != 0 ){
 				m_ppBlkAry[blk_no]->AddPositionX( 1.0f );
@@ -675,31 +671,31 @@ void clsMain::AppMain()
 	}
 
 
-	//ï¾šï¾ï¾€ï¾ï¾˜ï¾ï½¸ï¾.
+	//ÚİÀŞØİ¸Ş.
 	Render();
 }
 
 //============================================================
-//	æç”»(ï¾šï¾ï¾€ï¾ï¾˜ï¾ï½¸ï¾).
-//	ï½¼ï½°ï¾(å ´é¢)ã‚’ç”»é¢ã«ï¾šï¾ï¾€ï¾ï¾˜ï¾ï½¸ï¾(æç”»).
-//	(â€»DX9MESHå†…ã¨Mainå†…ã§2ã¤å­˜åœ¨ã™ã‚‹ã®ã§æ³¨æ„).
+//	•`‰æ(ÚİÀŞØİ¸Ş).
+//	¼°İ(ê–Ê)‚ğ‰æ–Ê‚ÉÚİÀŞØİ¸Ş(•`‰æ).
+//	(¦DX9MESH“à‚ÆMain“à‚Å2‚Â‘¶İ‚·‚é‚Ì‚Å’ˆÓ).
 //============================================================
 void clsMain::Render()
 {
-	//ç”»é¢ã®ï½¸ï¾˜ï½±.
-	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//ï½¸ï¾˜ï½±è‰²(RGBAé †)(0.0f~1.0f).
-	//ï½¶ï¾—ï½°ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§.
+	//‰æ–Ê‚Ì¸Ø±.
+	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//¸Ø±F(RGBA‡)(0.0f~1.0f).
+	//¶×°ÊŞ¯¸ÊŞ¯Ì§.
 	m_pDeviceContext->ClearRenderTargetView(
 		m_pBackBuffer_TexRTV, ClearColor );
-	//ï¾ƒï¾ï¾Œï¾Ÿï½½ï½½ï¾ƒï¾ï½¼ï¾™ï¾‹ï¾ï½­ï½°ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§.
+	//ÃŞÌß½½Ãİ¼ÙËŞ­°ÊŞ¯¸ÊŞ¯Ì§.
 	m_pDeviceContext->ClearDepthStencilView(
 		m_pBackBuffer_DSTexDSV,
 		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
 		1.0f, 0 );
 
-	//ï½¶ï¾’ï¾—é–¢æ•°.
+	//¶Ò×ŠÖ”.
 	Camera();
-	//ï¾Œï¾Ÿï¾›ï½¼ï¾ï½ªï½¸ï½¼ï½®ï¾é–¢æ•°.
+	//ÌßÛ¼Şª¸¼®İŠÖ”.
 	Proj();
 
 
@@ -707,33 +703,33 @@ void clsMain::Render()
 	{
 	case enSCENE_TITLE:
 		RenderTitle();
-		SetDepth( false );	//Zï¾ƒï½½ï¾„:OFF.
+		SetDepth( false );	//ZÃ½Ä:OFF.
 		m_smpUiManagar->RenderTitle();
-		SetDepth( true );	//Zï¾ƒï½½ï¾„:ON.
+		SetDepth( true );	//ZÃ½Ä:ON.
 		break;
 	case enSCENE_MAIN:
 		RenderMain();
-		SetDepth( false );	//Zï¾ƒï½½ï¾„:OFF.
+		SetDepth( false );	//ZÃ½Ä:OFF.
 		m_smpUiManagar->RenderMain();
-		SetDepth( true );	//Zï¾ƒï½½ï¾„:ON.
+		SetDepth( true );	//ZÃ½Ä:ON.
 		break;
 	case enSCENE_OVER:
 		RenderOver();
-		SetDepth( false );	//Zï¾ƒï½½ï¾„:OFF.
+		SetDepth( false );	//ZÃ½Ä:OFF.
 		m_smpUiManagar->RenderOver();
-		SetDepth( true );	//Zï¾ƒï½½ï¾„:ON.
+		SetDepth( true );	//ZÃ½Ä:ON.
 		break;
 	case enSCENE_RESULT:
 		RenderResult();
-		SetDepth( false );	//Zï¾ƒï½½ï¾„:OFF.
+		SetDepth( false );	//ZÃ½Ä:OFF.
 		m_smpUiManagar->RenderResult();
-		SetDepth( true );	//Zï¾ƒï½½ï¾„:ON.
+		SetDepth( true );	//ZÃ½Ä:ON.
 		break;
 	case enSCENE_ENDROLL:
 		RenderEnding();
-		SetDepth( false );	//Zï¾ƒï½½ï¾„:OFF.
+		SetDepth( false );	//ZÃ½Ä:OFF.
 		m_smpUiManagar->RenderEnding();
-		SetDepth( true );	//Zï¾ƒï½½ï¾„:ON.
+		SetDepth( true );	//ZÃ½Ä:ON.
 		break;
 	}
 
@@ -741,74 +737,74 @@ void clsMain::Render()
 
 
 #if _DEBUG
-	//ï¾ƒï¾ï¾Šï¾ï½¯ï½¸ï¾ï¾ƒï½·ï½½ï¾„.
+	//ÃŞÊŞ¯¸ŞÃ·½Ä.
 	RenderDebugText();
 #endif//#if _DEBUG
 
 	for (char i = 0; i < m_vsmpSpriteTest.size(); i++){
 		m_vsmpSpriteTest[i]->Render();
 	}
-	//ï¾šï¾ï¾€ï¾ï¾˜ï¾ï½¸ï¾ã•ã‚ŒãŸï½²ï¾’ï½°ï½¼ï¾ã‚’è¡¨ç¤º.
+	//ÚİÀŞØİ¸Ş‚³‚ê‚½²Ò°¼Ş‚ğ•\¦.
 	m_pSwapChain->Present( 0, 0 );
 }
 
 
 //============================================================
-//	DirectXåˆæœŸåŒ–.
+//	DirectX‰Šú‰».
 //============================================================
 HRESULT clsMain::InitD3D()
 {
 	//---------------------------------------------------
-	//	ï¾ƒï¾ï¾Šï¾ï½²ï½½ã¨ï½½ï¾œï½¯ï¾Œï¾Ÿï¾ï½ªï½°ï¾é–¢ä¿‚.
+	//	ÃŞÊŞ²½‚Æ½Ü¯ÌßÁª°İŠÖŒW.
 	//---------------------------------------------------
 
-	//ï½½ï¾œï½¯ï¾Œï¾Ÿï¾ï½ªï½°ï¾æ§‹é€ ä½“.
+	//½Ü¯ÌßÁª°İ\‘¢‘Ì.
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory( &sd, sizeof( sd ) );
-	sd.BufferCount		= 1;		//ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ã®æ•°.
+	sd.BufferCount		= 1;		//ÊŞ¯¸ÊŞ¯Ì§‚Ì”.
 	sd.BufferDesc.Width	= WND_W;
 	sd.BufferDesc.Height= WND_H;
 	sd.BufferDesc.Format= DXGI_FORMAT_R8G8B8A8_UNORM;
-									//ï¾Œï½«ï½°ï¾ï½¯ï¾„(32ï¾‹ï¾ï½¯ï¾„ï½¶ï¾—ï½°).
+									//Ì«°Ï¯Ä(32ËŞ¯Ä¶×°).
 	sd.BufferDesc.RefreshRate.Numerator = 60;
-									//ï¾˜ï¾Œï¾šï½¯ï½¼ï½­ï¾šï½°ï¾„(åˆ†æ¯) â€»FPS:60.
+									//ØÌÚ¯¼­Ú°Ä(•ª•ê) ¦FPS:60.
 	sd.BufferDesc.RefreshRate.Denominator = 1;
-									//ï¾˜ï¾Œï¾šï½¯ï½¼ï½­ï¾šï½°ï¾„(åˆ†å­).
+									//ØÌÚ¯¼­Ú°Ä(•ªq).
 	sd.BufferUsage		= DXGI_USAGE_RENDER_TARGET_OUTPUT;
-									//ä½¿ã„æ–¹(è¡¨ç¤ºå…ˆ).
-	sd.OutputWindow		= m_hWnd;	//ï½³ï½¨ï¾ï¾„ï¾ï½³ï¾Šï¾ï¾„ï¾ï¾™.
-	sd.SampleDesc.Count	= 1;		//ï¾ï¾™ï¾ï½»ï¾ï¾Œï¾Ÿï¾™ã®æ•°.
-	sd.SampleDesc.Quality=0;		//ï¾ï¾™ï¾ï½»ï¾ï¾Œï¾Ÿï¾™ã®ï½¸ï½µï¾˜ï¾ƒï½¨.
-	sd.Windowed			= TRUE;		//ï½³ï½¨ï¾ï¾„ï¾ï½³ï¾“ï½°ï¾„ï¾(ï¾Œï¾™ï½½ï½¸æ™‚ã¯FALSE).
+									//g‚¢•û(•\¦æ).
+	sd.OutputWindow		= m_hWnd;	//³¨İÄŞ³ÊİÄŞÙ.
+	sd.SampleDesc.Count	= 1;		//ÏÙÁ»İÌßÙ‚Ì”.
+	sd.SampleDesc.Quality=0;		//ÏÙÁ»İÌßÙ‚Ì¸µØÃ¨.
+	sd.Windowed			= TRUE;		//³¨İÄŞ³Ó°ÄŞ(ÌÙ½¸‚ÍFALSE).
 
 
-	//ä½œæˆã‚’è©¦ã¿ã‚‹æ©Ÿèƒ½ï¾šï¾ï¾ï¾™ã®å„ªå…ˆã‚’æŒ‡å®š.
-	//	(GPUãŒï½»ï¾ï¾Ÿï½°ï¾„ã™ã‚‹æ©Ÿèƒ½ï½¾ï½¯ï¾„ã®å®šç¾©).
-	//	D3D_FEATURE_LEVELåˆ—æŒ™ä½“ã®é…åˆ—.
-	//	D3D_FEATURE_LEVEL_10_1:Direct3D 10.1ã®GPUï¾šï¾ï¾ï¾™.
+	//ì¬‚ğ‚İ‚é‹@”\ÚÍŞÙ‚Ì—Dæ‚ğw’è.
+	//	(GPU‚ª»Îß°Ä‚·‚é‹@”\¾¯Ä‚Ì’è‹`).
+	//	D3D_FEATURE_LEVEL—ñ‹“‘Ì‚Ì”z—ñ.
+	//	D3D_FEATURE_LEVEL_10_1:Direct3D 10.1‚ÌGPUÚÍŞÙ.
 	D3D_FEATURE_LEVEL	pFeatureLevels	= D3D_FEATURE_LEVEL_11_0;
-	D3D_FEATURE_LEVEL*	pFeatureLevel	= nullptr;	//é…åˆ—ã®è¦ç´ æ•°.
+	D3D_FEATURE_LEVEL*	pFeatureLevel	= nullptr;	//”z—ñ‚Ì—v‘f”.
 
 
-	//ï¾ƒï¾ï¾Šï¾ï½²ï½½ã¨ï½½ï¾œï½¯ï¾Œï¾Ÿï¾ï½ªï½°ï¾ã®ä½œæˆ.
-	//	ï¾Šï½°ï¾„ï¾ï½³ï½ªï½±(GPU)ï¾ƒï¾ï¾Šï¾ï½²ï½½ã§ä½œæˆ.
+	//ÃŞÊŞ²½‚Æ½Ü¯ÌßÁª°İ‚Ìì¬.
+	//	Ê°ÄŞ³ª±(GPU)ÃŞÊŞ²½‚Åì¬.
 	if( FAILED(
 		D3D11CreateDeviceAndSwapChain(
-			NULL,					//ï¾‹ï¾ï¾ƒï¾ï½µï½±ï¾€ï¾ï¾Œï¾Ÿï¾€ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€.
-			D3D_DRIVER_TYPE_HARDWARE,//ä½œæˆã™ã‚‹ï¾ƒï¾ï¾Šï¾ï½²ï½½ã®ç¨®é¡.
-			NULL,					//ï½¿ï¾Œï¾„ï½³ï½ªï½±ï¾—ï½½ï¾€ï¾—ï½²ï½»ï¾ï½°ã‚’å®Ÿè£…ã™ã‚‹DLLã®ï¾Šï¾ï¾„ï¾ï¾™.
-			0,						//æœ‰åŠ¹ã«ã™ã‚‹ï¾—ï¾ï¾€ï½²ï¾‘ï¾šï½²ï¾”ï½°.
-			&pFeatureLevels,		//ä½œæˆã‚’è©¦ã¿ã‚‹æ©Ÿèƒ½ï¾šï¾ï¾ï¾™ã®é †åºã‚’æŒ‡å®šã™ã‚‹é…åˆ—.
-			1,						//â†‘ã®è¦ç´ æ•°.
-			D3D11_SDK_VERSION,		//SDKã®ï¾Šï¾ï½°ï½¼ï¾ï½®ï¾.
-			&sd,					//ï½½ï¾œï½¯ï¾Œï¾Ÿï¾ï½ªï½°ï¾ã®åˆæœŸåŒ–ï¾Šï¾Ÿï¾—ï¾’ï½°ï¾€ã®ï¾ï¾Ÿï½²ï¾ï¾€.
-			&m_pSwapChain,			//(out)ï¾šï¾ï¾€ï¾ï¾˜ï¾ï½¸ï¾ã«ä½¿ç”¨ã•ã‚ŒãŸï½½ï¾œï½¯ï¾Œï¾Ÿï¾ï½ªï½°ï¾.
-			&m_pDevice,				//(out)ä½œæˆã•ã‚ŒãŸï¾ƒï¾ï¾Šï¾ï½²ï½½.
-			pFeatureLevel,			//æ©Ÿèƒ½ï¾šï¾ï¾ï¾™ã®é…åˆ—ã«ã‚ã‚‹æœ€åˆã®è¦ç´ ã‚’è¡¨ã™ï¾ï¾Ÿï½²ï¾ï¾€.
-			&m_pDeviceContext ) ) )	//(out)ï¾ƒï¾ï¾Šï¾ï½²ï½½ï½ºï¾ï¾ƒï½·ï½½ï¾„.
+			NULL,					//ËŞÃŞµ±ÀŞÌßÀ‚Ö‚ÌÎß²İÀ.
+			D3D_DRIVER_TYPE_HARDWARE,//ì¬‚·‚éÃŞÊŞ²½‚Ìí—Ş.
+			NULL,					//¿ÌÄ³ª±×½À×²»Ş°‚ğÀ‘•‚·‚éDLL‚ÌÊİÄŞÙ.
+			0,						//—LŒø‚É‚·‚é×İÀ²ÑÚ²Ô°.
+			&pFeatureLevels,		//ì¬‚ğ‚İ‚é‹@”\ÚÍŞÙ‚Ì‡˜‚ğw’è‚·‚é”z—ñ.
+			1,						//ª‚Ì—v‘f”.
+			D3D11_SDK_VERSION,		//SDK‚ÌÊŞ°¼Ş®İ.
+			&sd,					//½Ü¯ÌßÁª°İ‚Ì‰Šú‰»Êß×Ò°À‚ÌÎß²İÀ.
+			&m_pSwapChain,			//(out)ÚİÀŞØİ¸Ş‚Ég—p‚³‚ê‚½½Ü¯ÌßÁª°İ.
+			&m_pDevice,				//(out)ì¬‚³‚ê‚½ÃŞÊŞ²½.
+			pFeatureLevel,			//‹@”\ÚÍŞÙ‚Ì”z—ñ‚É‚ ‚éÅ‰‚Ì—v‘f‚ğ•\‚·Îß²İÀ.
+			&m_pDeviceContext ) ) )	//(out)ÃŞÊŞ²½ºİÃ·½Ä.
 	{
-		//WARPï¾ƒï¾ï¾Šï¾ï½²ï½½ã®ä½œæˆ.
-		// D3D_FEATURE_LEVEL_9_1 ï½ D3D_FEATURE_LEVEL_10_1.
+		//WARPÃŞÊŞ²½‚Ìì¬.
+		// D3D_FEATURE_LEVEL_9_1 ` D3D_FEATURE_LEVEL_10_1.
 		if( FAILED(
 			D3D11CreateDeviceAndSwapChain(
 				NULL, D3D_DRIVER_TYPE_WARP,
@@ -817,8 +813,8 @@ HRESULT clsMain::InitD3D()
 				&m_pSwapChain, &m_pDevice,
 				pFeatureLevel, &m_pDeviceContext ) ) )
 		{
-			//ï¾˜ï¾Œï½§ï¾šï¾ï½½ï¾ƒï¾ï¾Šï¾ï½²ï½½ã®ä½œæˆ.
-			//	DirectX SDKãŒï½²ï¾ï½½ï¾„ï½°ï¾™ã•ã‚Œã¦ã„ãªã„ã¨ä½¿ãˆãªã„.
+			//ØÌ§Úİ½ÃŞÊŞ²½‚Ìì¬.
+			//	DirectX SDK‚ª²İ½Ä°Ù‚³‚ê‚Ä‚¢‚È‚¢‚Æg‚¦‚È‚¢.
 			if( FAILED(
 				D3D11CreateDeviceAndSwapChain(
 					NULL, D3D_DRIVER_TYPE_REFERENCE,
@@ -827,75 +823,73 @@ HRESULT clsMain::InitD3D()
 					&m_pSwapChain, &m_pDevice,
 					pFeatureLevel, &m_pDeviceContext ) ) )
 			{
-				MessageBox( NULL,
-					"ï¾ƒï¾ï¾Šï¾ï½²ï½½ã¨ï½½ï¾œï½¯ï¾Œï¾Ÿï¾ï½ªï½°ï¾ã®ä½œæˆã«å¤±æ•—",
-					"error(main.cpp)", MB_OK );
+				MessageBox( NULL, "ÃŞÊŞ²½‚Æ½Ü¯ÌßÁª°İ‚Ìì¬‚Éƒ~ƒX", "error(main.cpp)", MB_OK );
 				return E_FAIL;
 			}
 		}
 	}
 
 
-	//å„ç¨®ï¾ƒï½¸ï½½ï¾ï½¬ï½°ã¨ã€ãã‚Œã«ä»˜å¸¯ã™ã‚‹å„ç¨®ï¾‹ï¾ï½­ï½°(ç”»é¢)ã‚’ä½œæˆ.
+	//ŠeíÃ¸½Á¬°‚ÆA‚»‚ê‚É•t‘Ñ‚·‚éŠeíËŞ­°(‰æ–Ê)‚ğì¬.
 
 	//---------------------------------------------------
-	//	ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§æº–å‚™:ï½¶ï¾—ï½°ï¾Šï¾ï½¯ï¾Œï½§è¨­å®š.
+	//	ÊŞ¯¸ÊŞ¯Ì§€”õ:¶×°ÊŞ¯Ì§İ’è.
 	//---------------------------------------------------
 
-	//ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ï¾ƒï½¸ï½½ï¾ï½¬ï½°ã‚’å–å¾—(æ—¢ã«ã‚ã‚‹ã®ã§ä½œæˆã¯ãªã„).
+	//ÊŞ¯¸ÊŞ¯Ì§Ã¸½Á¬°‚ğæ“¾(Šù‚É‚ ‚é‚Ì‚Åì¬‚Í‚È‚¢).
 	ID3D11Texture2D *pBackBuffer_Tex;
 	m_pSwapChain->GetBuffer(
 		0,
-		__uuidof(ID3D11Texture2D),	//__uuidof:å¼ã«é–¢é€£ä»˜ã‘ãŸGUIDã‚’å–å¾—.
-									//		   Texture2Dã®å”¯ä¸€ã®ç‰©ã¨ã—ã¦æ‰±ã†.
-		(LPVOID*)&pBackBuffer_Tex );//(out)ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ï¾ƒï½¸ï½½ï¾ï½¬.
+		__uuidof(ID3D11Texture2D),	//__uuidof:®‚ÉŠÖ˜A•t‚¯‚½GUID‚ğæ“¾.
+									//		   Texture2D‚Ì—Bˆê‚Ì•¨‚Æ‚µ‚Äˆµ‚¤.
+		(LPVOID*)&pBackBuffer_Tex );//(out)ÊŞ¯¸ÊŞ¯Ì§Ã¸½Á¬.
 
-	//ãã®ï¾ƒï½¸ï½½ï¾ï½¬ï½°ã«å¯¾ã—ï¾šï¾ï¾€ï¾ï½°ï¾€ï½°ï½¹ï¾ï½¯ï¾„ï¾‹ï¾ï½­ï½°(RTV)ã‚’ä½œæˆ.
+	//‚»‚ÌÃ¸½Á¬°‚É‘Î‚µÚİÀŞ°À°¹Ş¯ÄËŞ­°(RTV)‚ğì¬.
 	m_pDevice->CreateRenderTargetView(
 		pBackBuffer_Tex,
 		NULL,
 		&m_pBackBuffer_TexRTV );//(out)RTV.
-	//ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ï¾ƒï½¸ï½½ï¾ï½¬ï½°ã‚’è§£æ”¾.
-	SAFE_RELEASE( pBackBuffer_Tex );//ï¾ï½¸ï¾›å†…ã«ï½¾ï¾ï½ºï¾›ï¾ãŒã‚ã‚‹ã®ã§ã„ã‚‰ãªã„ãŒè¦‹ãŸç›®ã®çµ±ä¸€ã§ã¤ã‘ã¦ã„ã‚‹.
+	//ÊŞ¯¸ÊŞ¯Ì§Ã¸½Á¬°‚ğ‰ğ•ú.
+	SAFE_RELEASE( pBackBuffer_Tex );//Ï¸Û“à‚É¾ĞºÛİ‚ª‚ ‚é‚Ì‚Å‚¢‚ç‚È‚¢‚ªŒ©‚½–Ú‚Ì“ˆê‚Å‚Â‚¯‚Ä‚¢‚é.
 
 	//---------------------------------------------------
-	//	ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§æº–å‚™:ï¾ƒï¾ï¾Œï¾Ÿï½½(æ·±åº¦)ï½½ï¾ƒï¾ï½¼ï¾™é–¢ä¿‚.
+	//	ÊŞ¯¸ÊŞ¯Ì§€”õ:ÃŞÌß½([“x)½Ãİ¼ÙŠÖŒW.
 	//---------------------------------------------------
 
-	//ï¾ƒï¾ï¾Œï¾Ÿï½½(æ·±ã•oræ·±åº¦)ï½½ï¾ƒï¾ï½¼ï¾™ï¾‹ï¾ï½­ï½°ç”¨ã®ï¾ƒï½¸ï½½ï¾ï½¬ï½°ã‚’ä½œæˆ.
+	//ÃŞÌß½([‚³or[“x)½Ãİ¼ÙËŞ­°—p‚ÌÃ¸½Á¬°‚ğì¬.
 	D3D11_TEXTURE2D_DESC descDepth;
 
-	descDepth.Width				= WND_W;					//å¹….
-	descDepth.Height			= WND_H;					//é«˜ã•.
-	descDepth.MipLevels			= 1;						//ï¾ï½¯ï¾Œï¾Ÿï¾ï½¯ï¾Œï¾Ÿï¾šï¾ï¾ï¾™:1.
-	descDepth.ArraySize			= 1;						//é…åˆ—æ•°:1.
-	descDepth.Format			= DXGI_FORMAT_D32_FLOAT;	//32ï¾‹ï¾ï½¯ï¾„ï¾Œï½«ï½°ï¾ï½¯ï¾„.
-	descDepth.SampleDesc.Count	= 1;						//ï¾ï¾™ï¾ï½»ï¾ï¾Œï¾Ÿï¾™ã®æ•°.
-	descDepth.SampleDesc.Quality= 0;						//ï¾ï¾™ï¾ï½»ï¾ï¾Œï¾Ÿï¾™ã®ï½¸ï½µï¾˜ï¾ƒï½¨.
-	descDepth.Usage				= D3D11_USAGE_DEFAULT;		//ä½¿ç”¨æ–¹æ³•:ï¾ƒï¾ï¾Œï½«ï¾™ï¾„.
-	descDepth.BindFlags			= D3D11_BIND_DEPTH_STENCIL;	//æ·±åº¦(ï½½ï¾ƒï¾ï½¼ï¾™ã¨ã—ã¦ä½¿ç”¨).
-	descDepth.CPUAccessFlags	= 0;						//CPUã‹ã‚‰ï½±ï½¸ï½¾ï½½ã—ãªã„.
-	descDepth.MiscFlags			= 0;						//ãã®ä»–è¨­å®šãªã—.
+	descDepth.Width				= WND_W;					//•.
+	descDepth.Height			= WND_H;					//‚‚³.
+	descDepth.MipLevels			= 1;						//Ğ¯ÌßÏ¯ÌßÚÍŞÙ:1.
+	descDepth.ArraySize			= 1;						//”z—ñ”:1.
+	descDepth.Format			= DXGI_FORMAT_D32_FLOAT;	//32ËŞ¯ÄÌ«°Ï¯Ä.
+	descDepth.SampleDesc.Count	= 1;						//ÏÙÁ»İÌßÙ‚Ì”.
+	descDepth.SampleDesc.Quality= 0;						//ÏÙÁ»İÌßÙ‚Ì¸µØÃ¨.
+	descDepth.Usage				= D3D11_USAGE_DEFAULT;		//g—p•û–@:ÃŞÌ«ÙÄ.
+	descDepth.BindFlags			= D3D11_BIND_DEPTH_STENCIL;	//[“x(½Ãİ¼Ù‚Æ‚µ‚Äg—p).
+	descDepth.CPUAccessFlags	= 0;						//CPU‚©‚ç±¸¾½‚µ‚È‚¢.
+	descDepth.MiscFlags			= 0;						//‚»‚Ì‘¼İ’è‚È‚µ.
 
 	m_pDevice->CreateTexture2D(
 		&descDepth,
 		NULL,
-		&m_pBackBuffer_DSTex );//(out)ï¾ƒï¾ï¾Œï¾Ÿï½½ï½½ï¾ƒï¾ï½¼ï¾™ç”¨ï¾ƒï½¸ï½½ï¾ï½¬.
+		&m_pBackBuffer_DSTex );//(out)ÃŞÌß½½Ãİ¼Ù—pÃ¸½Á¬.
 
-	//ãã®ï¾ƒï½¸ï½½ï¾ï½¬ã«å¯¾ã—ï¾ƒï¾ï¾Œï¾Ÿï½½ï½½ï¾ƒï¾ï½¼ï¾™ï¾‹ï¾ï½­ï½°(DSV)ã‚’ä½œæˆ.
+	//‚»‚ÌÃ¸½Á¬‚É‘Î‚µÃŞÌß½½Ãİ¼ÙËŞ­°(DSV)‚ğì¬.
 	m_pDevice->CreateDepthStencilView(
 		m_pBackBuffer_DSTex,
 		NULL,
 		&m_pBackBuffer_DSTexDSV );//(out)DSV.
 
-	//ï¾šï¾ï¾€ï¾ï½°ï¾€ï½°ï½¹ï¾ï½¯ï¾„ï¾‹ï¾ï½­ï½°ã¨ï¾ƒï¾ï¾Œï¾Ÿï½½ï½½ï¾ƒï¾ï½¼ï¾™ï¾‹ï¾ï½­ï½°ã‚’ï¾Šï¾Ÿï½²ï¾Œï¾Ÿï¾—ï½²ï¾ã«ï½¾ï½¯ï¾„.
+	//ÚİÀŞ°À°¹Ş¯ÄËŞ­°‚ÆÃŞÌß½½Ãİ¼ÙËŞ­°‚ğÊß²Ìß×²İ‚É¾¯Ä.
 	m_pDeviceContext->OMSetRenderTargets(
 		1,
 		&m_pBackBuffer_TexRTV,
 		m_pBackBuffer_DSTexDSV );
 
 
-	//æ·±åº¦ï¾ƒï½½ï¾„(Zï¾ƒï½½ï¾„)ã‚’æœ‰åŠ¹ã«ã™ã‚‹.
+	//[“xÃ½Ä(ZÃ½Ä)‚ğ—LŒø‚É‚·‚é.
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
 	ZeroMemory( &depthStencilDesc,
 		sizeof( D3D11_DEPTH_STENCIL_DESC ) );
@@ -908,32 +902,32 @@ HRESULT clsMain::InitD3D()
 			m_pDepthStencilState, 1 );
 	}
 
-	//ï¾‹ï¾ï½­ï½°ï¾ï¾Ÿï½°ï¾„ã®è¨­å®š.
+	//ËŞ­°Îß°Ä‚Ìİ’è.
 	D3D11_VIEWPORT vp;
-	vp.Width	= WND_W;//å¹….
-	vp.Height	= WND_H;//é«˜ã•.
-	vp.MinDepth	= 0.0f;	//æœ€å°æ·±åº¦(æ‰‹å‰).
-	vp.MaxDepth	= 1.0f;	//æœ€å¤§æ·±åº¦(å¥¥).
-	vp.TopLeftX	= 0.0f;	//å·¦ä¸Šä½ç½®x.
-	vp.TopLeftY	= 0.0f;	//å·¦ä¸Šä½ç½®y.
+	vp.Width	= WND_W;//•.
+	vp.Height	= WND_H;//‚‚³.
+	vp.MinDepth	= 0.0f;	//Å¬[“x(è‘O).
+	vp.MaxDepth	= 1.0f;	//Å‘å[“x(‰œ).
+	vp.TopLeftX	= 0.0f;	//¶ãˆÊ’ux.
+	vp.TopLeftY	= 0.0f;	//¶ãˆÊ’uy.
 	m_pDeviceContext->RSSetViewports( 1, &vp );
 
-	//Sp2Dç”¨.
+	//Sp2D—p.
 	SetViewPort10( &vp );
 
-	//ï¾—ï½½ï¾€ï¾—ï½²ï½½ï¾(é¢ã®å¡—ã‚Šã¤ã¶ã—æ–¹)è¨­å®š.
+	//×½À×²½Ş(–Ê‚Ì“h‚è‚Â‚Ô‚µ•û)İ’è.
 	D3D11_RASTERIZER_DESC rdc;
 	ZeroMemory(&rdc, sizeof( rdc ) );
-	rdc.FillMode = D3D11_FILL_SOLID;	//å¡—ã‚Šã¤ã¶ã—(ï½¿ï¾˜ï½¯ï¾„ï¾).
+	rdc.FillMode = D3D11_FILL_SOLID;	//“h‚è‚Â‚Ô‚µ(¿Ø¯ÄŞ).
 	rdc.CullMode = D3D11_CULL_NONE;
-					//D3D11_CULL_NONE :ï½¶ï¾˜ï¾ï½¸ï¾ã‚’åˆ‡ã‚‹(æ­£èƒŒé¢ã‚’æç”»ã™ã‚‹).
-					//D3D11_CULL_BACK :èƒŒé¢ã‚’æç”»ã—ãªã„.
-					//D3D11_CULL_FRONT:æ­£é¢ã‚’æç”»ã—ãªã„.
+					//D3D11_CULL_NONE :¶Øİ¸Ş‚ğØ‚é(³”w–Ê‚ğ•`‰æ‚·‚é).
+					//D3D11_CULL_BACK :”w–Ê‚ğ•`‰æ‚µ‚È‚¢.
+					//D3D11_CULL_FRONT:³–Ê‚ğ•`‰æ‚µ‚È‚¢.
 	rdc.FrontCounterClockwise	= FALSE;
-								//ãƒãƒªã‚´ãƒ³ã®è¡¨è£ã‚’æ±ºå®šã™ã‚‹ï¾Œï¾—ï½¸ï¾.
-								//TRUE :å·¦å›ã‚Šãªã‚‰å‰å‘ã,å³å›ã‚Šãªã‚‰å¾Œã‚å‘ã.
-								//FALSE:â†‘ã®é€†ã«ãªã‚‹.
-	rdc.DepthClipEnable	= FALSE;	//è·é›¢ã«ã¤ã„ã¦ã®ï½¸ï¾˜ï½¯ï¾‹ï¾Ÿï¾ï½¸ï¾æœ‰åŠ¹.
+								//ƒ|ƒŠƒSƒ“‚Ì•\— ‚ğŒˆ’è‚·‚éÌ×¸Ş.
+								//TRUE :¶‰ñ‚è‚È‚ç‘OŒü‚«,‰E‰ñ‚è‚È‚çŒã‚ëŒü‚«.
+								//FALSE:ª‚Ì‹t‚É‚È‚é.
+	rdc.DepthClipEnable	= FALSE;	//‹——£‚É‚Â‚¢‚Ä‚Ì¸Ø¯Ëßİ¸Ş—LŒø.
 
 	ID3D11RasterizerState* pIr	= nullptr;
 	m_pDevice->CreateRasterizerState( &rdc, &pIr );
@@ -944,12 +938,12 @@ HRESULT clsMain::InitD3D()
 }
 
 //============================================================
-//	Direct3Dçµ‚äº†å‡¦ç†.
+//	Direct3DI—¹ˆ—.
 //============================================================
 void clsMain::DestroyD3D()
 {
 #if _DEBUG
-	//ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆ.
+	//ƒfƒoƒbƒOƒeƒLƒXƒg.
 	if( m_pText != nullptr ){
 		delete m_pText;
 		m_pText = nullptr;
@@ -971,143 +965,142 @@ void clsMain::DestroyD3D()
 		delete m_pParticle;
 		m_pParticle = nullptr;
 	}
-å¤§æ•°åˆæœŸåŒ–.
-	m_iBlkAryMax = 0;
 
-#endif //#if _DEBUG
-
-
-
-	//å®šè¦ã®å‰Šé™¤.
+	//’è‹K‚Ìíœ.
 	if( m_ppBlkAry != nullptr ){
 		for( int i=0; i<m_iBlkAryMax; i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_ppBlkAry[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			delete m_ppBlkAry[i];
 			m_ppBlkAry[i] = nullptr;
 		}
-		//ï¾ï¾Ÿï½²ï¾ï¾€é…åˆ—ç ´æ£„.
+		//Îß²İÀ”z—ñ”jŠü.
 		delete[] m_ppBlkAry;
 		m_ppBlkAry = nullptr;
 	}
-	//æœ€
+	//Å‘å”‰Šú‰».
+	m_iBlkAryMax = 0;
+	
+
+#endif //#if _DEBUG
+
 #ifdef Inoue
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(å£)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(•Ç)‚Ìíœ.
 	if(!m_vsmpWall.empty()){
 		for( int i=0; i<m_vsmpWall.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpWall[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpWall[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpWall.clear();
 		m_vsmpWall.shrink_to_fit();
 	}
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(åºŠ)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(°)‚Ìíœ.
 	if(!m_vsmpFloor.empty()){
 		for( int i=0; i<m_vsmpFloor.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpFloor[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpFloor[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpFloor.clear();
 		m_vsmpFloor.shrink_to_fit();
 	}
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(å‹•ãåºŠâ—‹)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(“®‚­°›)‚Ìíœ.
 	if(!m_vsmpStepCil.empty()){
 		for( int i=0; i<m_vsmpStepCil.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpStepCil[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpStepCil[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpStepCil.clear();
 		m_vsmpStepCil.shrink_to_fit();
 	}
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(å‹•ãåºŠâ–¡)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(“®‚­° )‚Ìíœ.
 	if(!m_vsmpStepCil.empty()){
 		for( int i=0; i<m_vsmpStepCil.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpStepBox[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpStepBox[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpStepCil.clear();
 		m_vsmpStepCil.shrink_to_fit();
 	}
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(æ•µ)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(“G)‚Ìíœ.
 	if(!m_vsmpEnemyMgr.empty()){
 		for( int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpEnemyMgr[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpEnemyMgr[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpEnemyMgr.clear();
 		m_vsmpEnemyMgr.shrink_to_fit();
 	}
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ )ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(ƒyƒ“ƒfƒ…ƒ‰ƒ€)‚Ìíœ.
 	if(!m_vsmpPend.empty()){
 		for( int i=0; i<m_vsmpPend.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpPend[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpPend[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpPend.clear();
 		m_vsmpPend.shrink_to_fit();
 	}
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(æ§åºŠ)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(‘„°)‚Ìíœ.
 	if(!m_vsmpSpiaFloorMgr.empty()){
 	for( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpSpiaFloorMgr[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpSpiaFloorMgr[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpSpiaFloorMgr.clear();
 		m_vsmpSpiaFloorMgr.shrink_to_fit();
 	}
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(æ§å£)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(‘„•Ç)‚Ìíœ.
 	if(!m_vsmpSpiaWallMgr.empty()){
 		for( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpSpiaWallMgr[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpSpiaWallMgr[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpSpiaWallMgr.clear();
 		m_vsmpSpiaWallMgr.shrink_to_fit();
 	}
-	//ã‚¹ãƒ†ãƒ¼ã‚¸(è½ã¨ã—ç©´ã®è“‹)ã®å‰Šé™¤.
+	//ƒXƒe[ƒW(—‚Æ‚µŒŠ‚ÌŠW)‚Ìíœ.
 	if(m_vsmpCoverMgr.empty()){
 		for( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
 			m_vsmpCoverMgr[i]->DetatchModel();
-			//ç ´æ£„.
+			//”jŠü.
 			m_vsmpCoverMgr[i].reset();
 		}
-		//vectorã®ç ´æ£„.
+		//vector‚Ì”jŠü.
 		m_vsmpCoverMgr.clear();
 		m_vsmpCoverMgr.shrink_to_fit();
 	}
 
-	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¯ãƒ©ã‚¹è§£æ”¾.
+	//ƒXƒvƒ‰ƒCƒgƒNƒ‰ƒX‰ğ•ú.
 	if(!m_vsmpSpriteTest.empty()){
 		for (size_t i = 0; i < m_vsmpSpriteTest.size(); i++)
 		{
@@ -1117,7 +1110,7 @@ void clsMain::DestroyD3D()
 		m_vsmpSpriteTest.shrink_to_fit();
 	}
 
-	//ï¾Œï½§ï½²ï¾™èª­è¾¼ï½¸ï¾—ï½½è§£æ”¾.
+	//Ì§²Ù“Ç¸×½‰ğ•ú.
 	if( m_smpStageData != NULL ){
 		m_smpStageData.reset();
 		m_smpStageData = NULL;
@@ -1137,42 +1130,6 @@ void clsMain::DestroyD3D()
 #endif //ifdef Inoue.
 
 #ifdef Tahara
-#if _DEBUG
-	if( m_pRayH != nullptr ){
-		delete m_pRayH;
-		m_pRayH = nullptr;
-	}
-	if( m_pRayFB != nullptr ){
-		delete m_pRayFB;
-		m_pRayFB = nullptr;
-	}
-	if( m_pRayV != nullptr ){
-		delete m_pRayV;
-		m_pRayV = nullptr;
-	}
-
-	if( m_pParticle != nullptr ){
-		delete m_pParticle;
-		m_pParticle = nullptr;
-	}
-
-	if( m_ppBlkAry != nullptr ){
-		//å®šè¦ã®å‰Šé™¤.
-		for( int i=0; i<m_iBlkAryMax; i++ ){
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€ã®é–¢é€£ä»˜ã‘.
-			m_ppBlkAry[i]->DetatchModel();
-			//ç ´æ£„.
-			delete m_ppBlkAry[i];
-			m_ppBlkAry[i] = nullptr;
-		}
-		delete[] m_ppBlkAry;
-		m_ppBlkAry = nullptr;
-	}
-
-	//æœ€å¤§æ•°åˆæœŸåŒ–.
-	m_iBlkAryMax = 0;
-
-#endif //#if _DEBUG
 
 	if( m_pEndEnemy != nullptr ){
 		delete m_pEndEnemy;
@@ -1192,19 +1149,19 @@ void clsMain::DestroyD3D()
 	}
 
 
-	////Effekseerã®ç ´æ£„.
+	////Effekseer‚Ì”jŠü.
 	//clsEffects::GetInstance()->Destroy();
 	m_pEffect = nullptr;
 
 
 
-	//ã‚ãŸã‚Šåˆ¤å®š.
+	//‚ ‚½‚è”»’è.
 	if( m_pCollision != nullptr ){
 		delete m_pCollision;
 		m_pCollision = nullptr;
 	}
 
-	//ï½ºï¾ï¾„ï¾›ï½°ï¾—å…¥åŠ›.
+	//ºİÄÛ°×“ü—Í.
 	if( m_pXInput != nullptr ){
 		m_pXInput->EndProc();
 		XInputEnable( false );
@@ -1212,29 +1169,17 @@ void clsMain::DestroyD3D()
 		m_pXInput = nullptr;
 	}
 
-	//SEã‚’é–‰ã˜ã‚‹.
-
-	for( int i=0; i<enSe_MAX; i++ ){
-		if( m_pSe[i] != nullptr ){
-
+	//SE‚ğ•Â‚¶‚é.
+	if( m_pSe != nullptr ){
+		for( int i=0; i<enSe_MAX; i++ ){
 			m_pSe[i]->Stop();
 			m_pSe[i]->Close();
 			delete m_pSe[i];
 			m_pSe[i] = nullptr;
 		}
 	}
-	//éŸ³å£°ï¾Œï½§ï½²ï¾™ã‚’é–‰ã˜ã‚‹.
-	for( int i=0; i<enBGM_MAX; i++){
-		if( m_pBgm[i] != nullptr ){
-			m_pBgm[i]->Stop();
-			m_pBgm[i]->Close();
-			delete m_pBgm[i];
-			m_pBgm[i] = nullptr;
-		}
 
-	}
-
-	//BGMã‚’é–‰ã˜ã‚‹.
+	//BGM‚ğ•Â‚¶‚é.
 	if( m_pBgm != nullptr ){
 		for( int i=0; i<enBGM_MAX; i++){
 			m_pBgm[i]->Stop();
@@ -1258,47 +1203,48 @@ void clsMain::DestroyD3D()
 #if _DEBUG
 
 ////============================================================
-//	ï½½ï¾Œï½¨ï½±ä½œæˆ.
+//	½Ì¨±ì¬.
 ////============================================================
 HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
 {
-	LPDIRECT3DVERTEXBUFFER9 pVB = nullptr;	//é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§.
-	void*	pVertices = nullptr;	//é ‚ç‚¹.
-	D3DXVECTOR3	vCenter;		//ä¸­å¿ƒ.
-	float	fRadius;			//åŠå¾„.
+	LPDIRECT3DVERTEXBUFFER9 pVB = nullptr;	//’¸“_ÊŞ¯Ì§.
+	void*	pVertices = nullptr;	//’¸“_.
+	D3DXVECTOR3	vCenter;		//’†S.
+	float	fRadius;			//”¼Œa.
 
-	//é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ã‚’å–å¾—.
+	//’¸“_ÊŞ¯Ì§‚ğæ“¾.
 	if( FAILED( pMesh->m_pMesh->GetVertexBuffer( &pVB ) ) ){
 		return E_FAIL;
 	}
 
-	//ï¾’ï½¯ï½¼ï½­ã®é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ã‚’ï¾›ï½¯ï½¸ã™ã‚‹.
+	//Ò¯¼­‚Ì’¸“_ÊŞ¯Ì§‚ğÛ¯¸‚·‚é.
 	if( FAILED( pVB->Lock( 0, 0, &pVertices, 0 ) ) ){
 		SAFE_RELEASE( pVB );
 		return E_FAIL;
 	}
 
-	//ï¾’ï½¯ï½¼ï½­ã®å¤–æ¥å††ã®ä¸­å¿ƒã¨åŠå¾„ã‚’è¨ˆç®—ã™ã‚‹.
+	//Ò¯¼­‚ÌŠOÚ‰~‚Ì’†S‚Æ”¼Œa‚ğŒvZ‚·‚é.
 	D3DXComputeBoundingSphere(
 		(D3DXVECTOR3*)pVertices,
-		pMesh->m_pMesh->GetNumVertices(),	//é ‚ç‚¹ã®æ•°.
-		D3DXGetFVFVertexSize( pMesh->m_pMesh->GetFVF()),	//é ‚ç‚¹ã®æƒ…å ±.
-		&vCenter,	//(out)ä¸­å¿ƒåº§æ¨™.
-		&fRadius );	//(out)åŠå¾„.
+		pMesh->m_pMesh->GetNumVertices(),	//’¸“_‚Ì”.
+		D3DXGetFVFVertexSize( pMesh->m_pMesh->GetFVF()),	//’¸“_‚Ìî•ñ.
+		&vCenter,	//(out)’†SÀ•W.
+		&fRadius );	//(out)”¼Œa.
 
-	//ï½±ï¾ï¾›ï½¯ï½¸.
+	//±İÛ¯¸.
 	pVB->Unlock();
 	SAFE_RELEASE( pVB );
 
-	//ä¸­å¿ƒã¨åŠå¾„ã‚’æ§‹é€ ä½“ã«è¨­å®š.
+	//’†S‚Æ”¼Œa‚ğ\‘¢‘Ì‚Éİ’è.
 	pMesh->m_Sphere.vCenter	= vCenter;
 	pMesh->m_Sphere.fRadius	= fRadius * fScale;
 
 
 	return S_OK;
 }
+
 ////============================================================
-//	ï¾Šï¾ï½³ï¾ï¾ƒï¾ï½¨ï¾ï½¸ï¾ï¾ï¾ï½¯ï½¸ï½½ä½œæˆ.
+//	ÊŞ³İÃŞ¨İ¸ŞÎŞ¯¸½ì¬.
 ////============================================================
 HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
 {
@@ -1306,29 +1252,29 @@ HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
 	VOID* pVertices = nullptr;
 	D3DXVECTOR3 Max, Min;
 
-	//ï¾’ï½¯ï½¼ï½­ã®é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ã‚’ï¾›ï½¯ï½¸ã™ã‚‹.
+	//Ò¯¼­‚Ì’¸“_ÊŞ¯Ì§‚ğÛ¯¸‚·‚é.
 	if( FAILED( pMesh->m_pMesh->GetVertexBuffer( &pVB ) ) ){
-		MessageBox( NULL, "é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§å–å¾—å¤±æ•—", "clsMain::InitBBox()", MB_OK );
+		MessageBox( NULL, "’¸“_ÊŞ¯Ì§æ“¾¸”s", "clsMain::InitBBox()", MB_OK );
 		return E_FAIL;
 	}
 	if( FAILED( pVB->Lock( 0, 0, &pVertices, 0 ) ) ){
-		MessageBox( NULL, "é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ã®ï¾›ï½¯ï½¸ã«å¤±æ•—", "clsMain::InitBBox()", MB_OK );
+		MessageBox( NULL, "’¸“_ÊŞ¯Ì§‚ÌÛ¯¸‚É¸”s", "clsMain::InitBBox()", MB_OK );
 		return E_FAIL;
 	}
-	//ï¾’ï½¯ï½¼ï½­å†…ã®é ‚ç‚¹ä½ç½®ã®æœ€å¤§ã¨æœ€å°ã‚’æ¤œç´¢ã™ã‚‹.
+	//Ò¯¼­“à‚Ì’¸“_ˆÊ’u‚ÌÅ‘å‚ÆÅ¬‚ğŒŸõ‚·‚é.
 	D3DXComputeBoundingBox(
 		(D3DXVECTOR3*)pVertices,
 		pMesh->m_pMesh->GetNumVertices(),
 		D3DXGetFVFVertexSize(
 			pMesh->m_pMesh->GetFVF() ),
-			&Min, &Max );	//(out)æœ€å°ã€æœ€å¤§é ‚ç‚¹.
-	pVB->Unlock();			//ï½±ï¾ï¾›ï½¯ï½¸.
-	SAFE_RELEASE( pVB );	//ä½¿ç”¨æ¸ˆé ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ã®è§£æ”¾.
+			&Min, &Max );	//(out)Å¬AÅ‘å’¸“_.
+	pVB->Unlock();			//±İÛ¯¸.
+	SAFE_RELEASE( pVB );	//g—pÏ’¸“_ÊŞ¯Ì§‚Ì‰ğ•ú.
 
 	pMesh->m_BBox.vPosMax = Max;
 	pMesh->m_BBox.vPosMin = Min;
 
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™,è»¸ã®é•·ã•(ã“ã®å ´åˆï¾ï¾ï½¯ï½¸ï½½ã®å„åŠå¾„)ã‚’åˆæœŸåŒ–ã™ã‚‹.
+	//²ÍŞ¸ÄÙ,²‚Ì’·‚³(‚±‚Ìê‡ÎŞ¯¸½‚ÌŠe”¼Œa)‚ğ‰Šú‰»‚·‚é.
 	pMesh->m_BBox.fLengthX = ( Max.x - Min.x ) / 2.0f;
 	pMesh->m_BBox.fLengthY = ( Max.y - Min.y ) / 2.0f;
 	pMesh->m_BBox.fLengthZ = ( Max.z - Min.z ) / 2.0f;
@@ -1341,7 +1287,7 @@ HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
 
 
 ////============================================================
-//	ï¾’ï½¯ï½¼ï½­èª­ã¿è¾¼ã¿é–¢æ•°(ã¾ã¨ã‚ãŸ).
+//	Ò¯¼­“Ç‚İ‚İŠÖ”(‚Ü‚Æ‚ß‚½).
 ////============================================================
 HRESULT clsMain::ReadMesh()
 {
@@ -1371,10 +1317,10 @@ HRESULT clsMain::ReadMesh()
 
 
 
-//ãƒ­ãƒ¼ãƒ‰ã«ç§»è¡Œ.
+//ƒ[ƒh‚ÉˆÚs.
 /*
 
-	//ï¾˜ï½¿ï½°ï½½ï½¸ï¾—ï½½.
+	//Ø¿°½¸×½.
 	m_pResource = clsResource::GetInstance();
 
 	m_pResource->InitStaticModel( m_hWnd, m_pDevice, m_pDeviceContext);
@@ -1401,21 +1347,21 @@ HRESULT clsMain::ReadMesh()
 		"Data\\Stage\\yuka_hanbun_R.X",
 		clsResource::enST_MODEL_FLOOR_HALF_R );
 
-	//ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ åºŠ.
+	//ƒyƒ“ƒfƒ…ƒ‰ƒ€°.
 	m_pResource->CreateStaticModel(
 		"Data\\Stage\\yuka_kizu.X",
 		clsResource::enST_MODEL_FLOOR_PEND );
 
-	//ç¸¦ç§»å‹•åºŠ.
+	//cˆÚ“®°.
 	m_pResource->CreateStaticModel(
 		"Data\\Stage\\StepCylinder.X",
 		clsResource::enST_MODEL_STEP_CIL );
-	//æ¨ªç§»å‹•åºŠ.
+	//‰¡ˆÚ“®°.
 	m_pResource->CreateStaticModel(
 		"Data\\Stage\\StepBox.X",
 		clsResource::enST_MODEL_STEP_BOX );
 
-	//ãƒ‰ã‚¢ãƒ¢ãƒ‡ãƒ«ã‚’ç¢ºèªã™ã‚‹.
+	//ƒhƒAƒ‚ƒfƒ‹‚ğŠm”F‚·‚é.
 	m_pResource->CreateStaticModel(
 		"Data\\Stage\\mon.X",
 		clsResource::enST_MODEL_MON);
@@ -1423,7 +1369,7 @@ HRESULT clsMain::ReadMesh()
 		"Data\\Stage\\tobira.X",
 		clsResource::enST_MODEL_TOBIRA );
 
-	//ã‚´ãƒ¼ãƒ«ãƒ¢ãƒ‡ãƒ«ã‚’ç¢ºèªã™ã‚‹.
+	//ƒS[ƒ‹ƒ‚ƒfƒ‹‚ğŠm”F‚·‚é.
 	m_pResource->CreateStaticModel(
 		"Data\\Stage\\gool.X",
 		clsResource::enST_MODEL_GOOL );
@@ -1475,7 +1421,7 @@ HRESULT clsMain::ReadMesh()
 */
 
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼.
+	//ƒvƒŒƒCƒ„[.
 	{
 		m_pPlayer = new clsPlayer;
 		m_pPlayer->Create( m_hWnd, m_pDevice, m_pDeviceContext, m_pXInput );
@@ -1489,7 +1435,7 @@ HRESULT clsMain::ReadMesh()
 		m_pPlayer->m_pModel = new clsD3DXSKINMESH;
 		m_pPlayer->m_pModel->Init( &si );
 
-		//ï¾“ï¾ƒï¾ï¾™é–¢é€£ä»˜ã‘.
+		//ÓÃŞÙŠÖ˜A•t‚¯.
 		m_pPlayer->
 			AttachModel( m_pResource->GetSkinModels( clsResource::enSK_MODEL_PLAYER ) );
 
@@ -1503,7 +1449,7 @@ HRESULT clsMain::ReadMesh()
 	}
 
 
-	//ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆæ–‡å­—( æœ€åˆã®å¥´ã¯ä½œã‚‰ãªã„{ MOVIEç”¨ } ).
+	//ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•¶š( Å‰‚Ì“z‚Íì‚ç‚È‚¢{ MOVIE—p } ).
 	m_pCheck = new clsCheckPointMgr;
 	m_pCheck->Create( m_hWnd, m_pDevice, m_pDeviceContext );
 	m_pCheck->Init();
@@ -1511,34 +1457,34 @@ HRESULT clsMain::ReadMesh()
 
 
 
-	//ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ã‚·ãƒ¼ãƒ³ã§ã®æ•µè¡¨ç¤ºã‚¯ãƒ©ã‚¹.
+	//ƒGƒ“ƒfƒBƒ“ƒOƒV[ƒ“‚Å‚Ì“G•\¦ƒNƒ‰ƒX.
 	m_pEndEnemy = new clsEndEnemMgr;
 	m_pEndEnemy->Create( m_hWnd, m_pDevice, m_pDeviceContext );
 
 
 
-	//åˆ—æŒ™ä½“ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã®ä¸€ç•ªæœ€åˆ.
+	//—ñ‹“‘Ì‚ÌƒXƒe[ƒW‚Ìˆê”ÔÅ‰.
 	iWallModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_WALL_MIN );
 	iFloorModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_FLOOR_MIN );
 
 
 
-	//ãƒ¢ãƒ‡ãƒ«ã®ç´ã¥ã‘.
+	//ƒ‚ƒfƒ‹‚Ì•R‚Ã‚¯.
 	StageModelSet();
 
 
 
 
 #if _DEBUG
-	//ï¾˜ï½¿ï½°ï½½å®šè¦.
-	//ï½·ï½¬ï¾—ï½¸ï¾€ï½°ï½¸ï¾—ï½½.
+	//Ø¿°½’è‹K.
+	//·¬×¸À°¸×½.
 	m_iBlkAryMax = 100;
 	m_ppBlkAry = new clsCharaStatic*[m_iBlkAryMax];
-	//ï½·ï½¬ï¾—ï½¸ï¾—ï½½ã®ï¾ï¾Ÿï½²ï¾ï¾€ã®é…åˆ—ã‚’ä½œã‚‹.
+	//·¬×¸×½‚ÌÎß²İÀ‚Ì”z—ñ‚ğì‚é.
 	for( int i=0; i<m_iBlkAryMax; i++ ){
 		m_ppBlkAry[i] = new clsCharaStatic;
 
-		//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘.
+		//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯.
 		m_ppBlkAry[i]->AttachModel(
 			m_pResource->GetStaticModels( clsResource::enST_MODEL_BLOCK ) );
 
@@ -1546,23 +1492,23 @@ HRESULT clsMain::ReadMesh()
 			D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
 	}
 
-	//ï¾Šï¾Ÿï½°ï¾ƒï½¨ï½¸ï¾™ã®åˆæœŸåŒ–500å€‹.
-//	m_pParticle = new clsParticle;	//å…ƒã¯ã“ã†ã—ã¦ä½¿ã£ã¦ã„ãŸã‚ˆ.
+	//Êß°Ã¨¸Ù‚Ì‰Šú‰»500ŒÂ.
+//	m_pParticle = new clsParticle;	//Œ³‚Í‚±‚¤‚µ‚Äg‚Á‚Ä‚¢‚½‚æ.
 	m_pParticle = new clsParticle( PAT_SMOK_MAX, D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
 	m_pParticle->Init( m_pDevice, m_pDeviceContext );
 	m_pParticle->m_bDispFlg = false;
 
-	//ï¾šï½²è¡¨ç¤ºã®åˆæœŸåŒ–(å‚ç›´).
+	//Ú²•\¦‚Ì‰Šú‰»(‚’¼).
 	m_pRayV = new clsRay;
 	m_pRayV->m_Ray.vPoint[0] = D3DXVECTOR3( 0.0f,-5.0f, 0.0f);
 	m_pRayV->m_Ray.vPoint[1] = D3DXVECTOR3( 0.0f, 5.0f, 0.0f);
 	m_pRayV->Init( m_pDevice, m_pDeviceContext );
-	//ï¾šï½²è¡¨ç¤ºã®åˆæœŸåŒ–(å‰å¾Œ).
+	//Ú²•\¦‚Ì‰Šú‰»(‘OŒã).
 	m_pRayFB = new clsRay;
 	m_pRayFB->m_Ray.vPoint[0] = D3DXVECTOR3( 0.0f, 0.0f,-5.0f);
 	m_pRayFB->m_Ray.vPoint[1] = D3DXVECTOR3( 0.0f, 0.0f, 5.0f);
 	m_pRayFB->Init( m_pDevice, m_pDeviceContext );
-	//ï¾šï½²è¡¨ç¤ºã®åˆæœŸåŒ–(å·¦å³).
+	//Ú²•\¦‚Ì‰Šú‰»(¶‰E).
 	if( m_pRayH == nullptr ){
 		m_pRayH = new clsRay;
 		int r = sizeof( clsRay );
@@ -1571,7 +1517,7 @@ HRESULT clsMain::ReadMesh()
 		m_pRayH->Init( m_pDevice, m_pDeviceContext );
 	}
 
-	//ï¾ƒï¾ï¾Šï¾ï½¯ï½¸ï¾ï¾ƒï½·ï½½ï¾„ã®åˆæœŸåŒ–.
+	//ÃŞÊŞ¯¸ŞÃ·½Ä‚Ì‰Šú‰».
 	m_pText = new clsDebugText;
 	D3DXVECTOR4 vColor( 1.0f, 1.0f, 1.0f, 1.0f );
 	if( FAILED( m_pText->Init(
@@ -1579,7 +1525,7 @@ HRESULT clsMain::ReadMesh()
 		WND_W, WND_H, 50.0f,
 		vColor ) ) )
 	{
-		MessageBox( NULL, "ï¾ƒï¾ï¾Šï¾ï½¯ï½¸ï¾ï¾ƒï½·ï½½ï¾„ä½œæˆå¤±æ•—", "clsMain::Loop", MB_OK );
+		MessageBox( NULL, "ÃŞÊŞ¯¸ŞÃ·½Äì¬¸”s", "clsMain::Loop", MB_OK );
 	}
 #endif //#if _DEBUG
 
@@ -1590,7 +1536,7 @@ HRESULT clsMain::ReadMesh()
 
 
 //============================================================
-//	æ·±åº¦ï¾ƒï½½ï¾„(Zï¾ƒï½½ï¾„)ã€€ON/OFFåˆ‡æ›¿.
+//	[“xÃ½Ä(ZÃ½Ä)ON/OFFØ‘Ö.
 //============================================================
 void clsMain::SetDepth( bool bFlg )
 {
@@ -1607,61 +1553,61 @@ void clsMain::SetDepth( bool bFlg )
 
 #if _DEBUG
 ////============================================================
-//	è¡çªåˆ¤å®šé–¢æ•°.
+//	Õ“Ë”»’èŠÖ”.
 ////============================================================
 bool clsMain::Collision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget)
 {
-	//2ã¤ã®ç‰©ä½“ã®ä¸­å¿ƒé–“ã®è·é›¢ã‚’æ±‚ã‚ã‚‹.
+	//2‚Â‚Ì•¨‘Ì‚Ì’†SŠÔ‚Ì‹——£‚ğ‹‚ß‚é.
 	D3DXVECTOR3 vLength
 		= pTarget->m_vPos - pAttacker->m_vPos;
-	//é•·ã•ã«å¤‰æ›ã™ã‚‹.
+	//’·‚³‚É•ÏŠ·‚·‚é.
 	float Length = D3DXVec3Length( &vLength );
 
-	//2ç‰©ä½“é–“ã®è·é›¢ãŒã€2ç‰©ä½“ã®åŠå¾„ã‚’è¶³ã—ãŸã‚‚ã®ã‚ˆã‚Š.
-	//å°ã•ã„ã¨ã„ã†ã“ã¨ã¯ã€ï½½ï¾Œï½¨ï½±åŒå£«ãŒé‡ãªã£ã¦ã„ã‚‹.
-	//(è¡çªã—ã¦ã„ã‚‹)ã¨ã„ã†ã“ã¨.
+	//2•¨‘ÌŠÔ‚Ì‹——£‚ªA2•¨‘Ì‚Ì”¼Œa‚ğ‘«‚µ‚½‚à‚Ì‚æ‚è.
+	//¬‚³‚¢‚Æ‚¢‚¤‚±‚Æ‚ÍA½Ì¨±“¯m‚ªd‚È‚Á‚Ä‚¢‚é.
+	//(Õ“Ë‚µ‚Ä‚¢‚é)‚Æ‚¢‚¤‚±‚Æ.
 	if( Length <=
 		pAttacker->m_Sphere.fRadius + pTarget->m_Sphere.fRadius )
 	{
-		return true;//è¡çªã—ãŸ.
+		return true;//Õ“Ë‚µ‚½.
 	}
-	return false;	//è¡çªã—ã¦ã„ãªã„.
+	return false;	//Õ“Ë‚µ‚Ä‚¢‚È‚¢.
 }
 //============================================================
-//	ï¾ï¾ï½¯ï½¸ï½½è¡çªåˆ¤å®šé–¢æ•°.
+//	ÎŞ¯¸½Õ“Ë”»’èŠÖ”.
 //============================================================
 bool clsMain::BBoxCollision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget )
 {
-	//æ”»æ’ƒå´ç”¨ã«2ã¤ã®é ‚ç‚¹ã‚’ç”¨æ„ã—åˆæœŸåŒ–ã™ã‚‹.
-	D3DXVECTOR3 vecMaxAtk, vecMinAtk;	//æœ€å¤§ã€æœ€å°é ‚ç‚¹.
+	//UŒ‚‘¤—p‚É2‚Â‚Ì’¸“_‚ğ—pˆÓ‚µ‰Šú‰»‚·‚é.
+	D3DXVECTOR3 vecMaxAtk, vecMinAtk;	//Å‘åAÅ¬’¸“_.
 	vecMaxAtk = pAttacker->m_BBox.vPosMax
 				+ pAttacker->m_vPos;
 	vecMinAtk = pAttacker->m_BBox.vPosMin
 				+ pAttacker->m_vPos;
 
-	//ç›®æ¨™å´ç”¨ã«2ã¤ã®é ‚ç‚¹ã‚’ç”¨æ„ã—åˆæœŸåŒ–ã™ã‚‹.
-	D3DXVECTOR3 vecMaxTrg, vecMinTrg;	//æœ€å¤§ã€æœ€å°é ‚ç‚¹.
+	//–Ú•W‘¤—p‚É2‚Â‚Ì’¸“_‚ğ—pˆÓ‚µ‰Šú‰»‚·‚é.
+	D3DXVECTOR3 vecMaxTrg, vecMinTrg;	//Å‘åAÅ¬’¸“_.
 	vecMaxTrg = pTarget->m_BBox.vPosMax
 				+ pTarget->m_vPos;
 	vecMinTrg = pTarget->m_BBox.vPosMin
 				+ pTarget->m_vPos;
 
-	//2ã¤ã®ç‰©ä½“ãã‚Œãã‚Œã®æœ€å¤§ã€æœ€å°ä½ç½®ã¨ã„ã†,.
-	//4ã¤ã®æƒ…å ±ãŒã‚ã‚Œã°ã€è¡çªã‚’æ¤œå‡ºã§ãã‚‹.
+	//2‚Â‚Ì•¨‘Ì‚»‚ê‚¼‚ê‚ÌÅ‘åAÅ¬ˆÊ’u‚Æ‚¢‚¤,.
+	//4‚Â‚Ìî•ñ‚ª‚ ‚ê‚ÎAÕ“Ë‚ğŒŸo‚Å‚«‚é.
 	if( vecMinAtk.x < vecMaxTrg.x  &&  vecMaxAtk.x > vecMinTrg.x &&
 		vecMinAtk.y < vecMaxTrg.y  &&  vecMaxAtk.y > vecMinTrg.y &&
 		vecMinAtk.z < vecMaxTrg.z  &&  vecMaxAtk.z > vecMinTrg.z )
 	{
-		return true;//è¡çªã—ã¦ã„ã‚‹.
+		return true;//Õ“Ë‚µ‚Ä‚¢‚é.
 	}
 
-	return false;	//è¡çªã—ã¦ã„ãªã„.
+	return false;	//Õ“Ë‚µ‚Ä‚¢‚È‚¢.
 }
 #endif //#if _DEBUG
 
 
 //============================================================
-//	ï¾ï¾ï½°ï¾ã®åº§æ¨™ã‚’ã¨ã‚‹.
+//	ÎŞ°İ‚ÌÀ•W‚ğ‚Æ‚é.
 //============================================================
 void clsMain::GetPosFromBone( clsD3DXSKINMESH* skinMesh, char BoneName[], D3DXVECTOR3& Pos )
 {
@@ -1673,33 +1619,33 @@ void clsMain::GetPosFromBone( clsD3DXSKINMESH* skinMesh, char BoneName[], D3DXVE
 
 
 //============================================================
-//	ï¾šï½²ã¨ï¾’ï½¯ï½¼ï½­ã®ã‚ãŸã‚Šåˆ¤å®š.
+//	Ú²‚ÆÒ¯¼­‚Ì‚ ‚½‚è”»’è.
 //============================================================
 bool clsMain::Intersect(
-	clsDX9Mesh* pAttacker,		//åŸºæº–ã®ã®ç‰©ä½“.
-	clsDX9Mesh* pTarget,		//å¯¾è±¡ã®ã®ç‰©ä½“.
-	float* pfDistance,			//(out)è·é›¢.
-	D3DXVECTOR3* pvIntersect )	//(out)äº¤å·®åº§æ¨™.
+	clsDX9Mesh* pAttacker,		//Šî€‚Ì‚Ì•¨‘Ì.
+	clsDX9Mesh* pTarget,		//‘ÎÛ‚Ì‚Ì•¨‘Ì.
+	float* pfDistance,			//(out)‹——£.
+	D3DXVECTOR3* pvIntersect )	//(out)Œğ·À•W.
 {
-	D3DXMATRIXA16	matRot;	//å›è»¢è¡Œåˆ—.
+	D3DXMATRIXA16	matRot;	//‰ñ“]s—ñ.
 
-	//å›è»¢è¡Œåˆ—ã‚’è¨ˆç®—.
+	//‰ñ“]s—ñ‚ğŒvZ.
 	D3DXMatrixRotationY( &matRot, pAttacker->m_fYaw );
 
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™ã‚’ç”¨æ„.
+	//²ÍŞ¸ÄÙ‚ğ—pˆÓ.
 	D3DXVECTOR3 vecAxisZ;
-	//Zè»¸ï¾ï¾ï½¸ï¾„ï¾™ãã®ã‚‚ã®ã‚’ç¾åœ¨ã®å›è»¢çŠ¶æ…‹ã«ã‚ˆã‚Šå¤‰æ›ã™ã‚‹.
+	//Z²ÍŞ¸ÄÙ‚»‚Ì‚à‚Ì‚ğŒ»İ‚Ì‰ñ“]ó‘Ô‚É‚æ‚è•ÏŠ·‚·‚é.
 	D3DXVec3TransformCoord(
 		&vecAxisZ, &pAttacker->m_vAxis, &matRot );
 
 	D3DXVECTOR3 vecStart, vecEnd, vecDistance;
-	//ï¾šï½²ã®é–‹å§‹çµ‚äº†ä½ç½®ã‚’Attackerã¨åˆã‚ã›ã‚‹.
+	//Ú²‚ÌŠJnI—¹ˆÊ’u‚ğAttacker‚Æ‡‚í‚¹‚é.
 	vecStart = vecEnd = pAttacker->m_vRay;
-	//Attackerã®åº§æ¨™ã«å›è»¢åº§æ¨™ã‚’åˆæˆã™ã‚‹.
+	//Attacker‚ÌÀ•W‚É‰ñ“]À•W‚ğ‡¬‚·‚é.
 	vecEnd += vecAxisZ * 1.0f;
 
-	//å¯¾è±¡ãŒå‹•ã„ã¦ã„ã‚‹ç‰©ä½“ã§ã‚‚ã€å¯¾è±¡ã®worldè¡Œåˆ—ã®ã€.
-	//é€†è¡Œåˆ—ã‚’ç”¨ã„ã‚Œã°ã€æ­£ã—ãï¾šï½²ãŒå½“ãŸã‚‹.
+	//‘ÎÛ‚ª“®‚¢‚Ä‚¢‚é•¨‘Ì‚Å‚àA‘ÎÛ‚Ìworlds—ñ‚ÌA.
+	//‹ts—ñ‚ğ—p‚¢‚ê‚ÎA³‚µ‚­Ú²‚ª“–‚½‚é.
 	D3DXMATRIX matWorld;
 	D3DXMatrixTranslation(
 		&matWorld,
@@ -1707,40 +1653,40 @@ bool clsMain::Intersect(
 		pTarget->m_vPos.y,
 		pTarget->m_vPos.z );
 
-	//é€†è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹.
+	//‹ts—ñ‚ğ‹‚ß‚é.
 	D3DXMatrixInverse( &matWorld, NULL, &matWorld );
 	D3DXVec3TransformCoord(
 		&vecStart, &vecStart, &matWorld );
 	D3DXVec3TransformCoord(
 		&vecEnd, &vecEnd, &matWorld );
 
-	//è·é›¢ã‚’æ±‚ã‚ã‚‹.
+	//‹——£‚ğ‹‚ß‚é.
 	vecDistance = vecEnd - vecStart;
 
-	BOOL bHit = false;	//å‘½ä¸­ï¾Œï¾—ï½¸ï¾.
+	BOOL bHit = false;	//–½’†Ì×¸Ş.
 
-	DWORD dwIndex = 0;	//ï½²ï¾ï¾ƒï¾ï½¯ï½¸ï½½ç•ªå·.
-	D3DXVECTOR3 vVertex[3];	//é ‚ç‚¹åº§æ¨™.
-	FLOAT U = 0, V = 0;	//(out)é‡å¿ƒï¾‹ï½¯ï¾„åº§æ¨™.
+	DWORD dwIndex = 0;	//²İÃŞ¯¸½”Ô†.
+	D3DXVECTOR3 vVertex[3];	//’¸“_À•W.
+	FLOAT U = 0, V = 0;	//(out)dSË¯ÄÀ•W.
 
-	//ï¾’ï½¯ï½¼ï½­ã¨ï¾šï½²ã®äº¤å·®ã‚’èª¿ã¹ã‚‹.
+	//Ò¯¼­‚ÆÚ²‚ÌŒğ·‚ğ’²‚×‚é.
 	D3DXIntersect(
-		pTarget->m_pMesh,//å¯¾è±¡ï¾’ï½¯ï½¼ï½­.
-		&vecStart,		//é–‹å§‹ä½ç½®.
-		&vecDistance,	//ï¾šï½²ã®è·é›¢.
-		&bHit,			//(out)åˆ¤å®šçµæœ.
-		&dwIndex,		//(out)bHitãŒTrueæ™‚ã€ï¾šï½²ã®è¦–ç‚¹ã«ã€‚.
-						//æœ€ã‚‚è¿‘ãã®é¢ã®ï½²ï¾ï¾ƒï¾ï½¯ï½¸ï½½å€¤ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€.
-		&U, &V,			//(out)é‡å¿ƒï¾‹ï½¯ï¾„åº§æ¨™.
-		pfDistance,		//ï¾€ï½°ï½¹ï¾ï½¯ï¾„ã¨ã®è·é›¢.
+		pTarget->m_pMesh,//‘ÎÛÒ¯¼­.
+		&vecStart,		//ŠJnˆÊ’u.
+		&vecDistance,	//Ú²‚Ì‹——£.
+		&bHit,			//(out)”»’èŒ‹‰Ê.
+		&dwIndex,		//(out)bHit‚ªTrueAÚ²‚Ì‹“_‚ÉB.
+						//Å‚à‹ß‚­‚Ì–Ê‚Ì²İÃŞ¯¸½’l‚Ö‚ÌÎß²İÀ.
+		&U, &V,			//(out)dSË¯ÄÀ•W.
+		pfDistance,		//À°¹Ş¯Ä‚Æ‚Ì‹——£.
 		NULL, NULL );
 
 	if( bHit ){
-		//å‘½ä¸­ã—ãŸã¨ã.
+		//–½’†‚µ‚½‚Æ‚«.
 		FindVerticesOnPoly(
 			pTarget->m_pMeshForRay, dwIndex, vVertex );
-		//é‡å¿ƒåº§æ¨™ã‹ã‚‰äº¤å·®ç‚¹ã‚’ç®—å‡º.
-		//ï¾›ï½°ï½¶ï¾™äº¤ç‚¹pã¯ã€ v0 + U*(v1-v0) + V*(v2-v0)ã§æ±‚ã¾ã‚‹.
+		//dSÀ•W‚©‚çŒğ·“_‚ğZo.
+		//Û°¶ÙŒğ“_p‚ÍA v0 + U*(v1-v0) + V*(v2-v0)‚Å‹‚Ü‚é.
 		*pvIntersect =
 			vVertex[0]
 			+ U * ( vVertex[1] - vVertex[0] )
@@ -1752,54 +1698,54 @@ bool clsMain::Intersect(
 }
 
 //============================================================
-//	äº¤å·®ä½ç½®ã®ï¾ï¾Ÿï¾˜ï½ºï¾ï¾ã®é ‚ç‚¹ã‚’è¦‹ã¤ã‘ã‚‹.
-//		â€»é ‚ç‚¹åº§æ¨™ã¯ï¾›ï½°ï½¶ï¾™åº§æ¨™.
+//	Œğ·ˆÊ’u‚ÌÎßØºŞİ‚Ì’¸“_‚ğŒ©‚Â‚¯‚é.
+//		¦’¸“_À•W‚ÍÛ°¶ÙÀ•W.
 //============================================================
 HRESULT clsMain::FindVerticesOnPoly(
 	LPD3DXMESH pTarget, DWORD dwPolyIndex,
 	D3DXVECTOR3* pVecVertices )
 {
-	//é ‚ç‚¹æ¯ã®ãƒï¾Šï¾ï½²ï¾„æ•°ã‚’å–å¾—.
+	//’¸“_–ˆ‚ÌƒoÊŞ²Ä”‚ğæ“¾.
 	DWORD dwStride = pTarget->GetNumBytesPerVertex();
-	//é ‚ç‚¹æ•°ã‚’å–å¾—.
+	//’¸“_”‚ğæ“¾.
 	DWORD dwVertexAmt = pTarget->GetNumVertices();
-	//é¢æ•°ã‚’å–å¾—.
+	//–Ê”‚ğæ“¾.
 	DWORD dwPolyAmt = pTarget->GetNumFaces();
 
 	WORD* pwPoly = nullptr;
 
-	//ï½²ï¾ï¾ƒï¾ï½¯ï½¸ï½½ï¾Šï¾ï½¯ï¾Œï½§ã‚’ï¾›ï½¯ï½¸(èª­è¾¼ï¾“ï½°ï¾„ï¾).
+	//²İÃŞ¯¸½ÊŞ¯Ì§‚ğÛ¯¸(“ÇÓ°ÄŞ).
 	pTarget->LockIndexBuffer(
 		D3DLOCK_READONLY, (VOID**)&pwPoly );
-	BYTE*	pbVertices = nullptr;	//é ‚ç‚¹(ï¾Šï¾ï½²ï¾„å‹)
-	FLOAT*	pfVertices = nullptr;	//é ‚ç‚¹(floatå‹)
-	LPDIRECT3DVERTEXBUFFER9 VB = nullptr;	//é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§.
-	pTarget->GetVertexBuffer( &VB );	//é ‚ç‚¹æƒ…å ±ã®å–å¾—.
+	BYTE*	pbVertices = nullptr;	//’¸“_(ÊŞ²ÄŒ^)
+	FLOAT*	pfVertices = nullptr;	//’¸“_(floatŒ^)
+	LPDIRECT3DVERTEXBUFFER9 VB = nullptr;	//’¸“_ÊŞ¯Ì§.
+	pTarget->GetVertexBuffer( &VB );	//’¸“_î•ñ‚Ìæ“¾.
 
-	//é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ã®ï¾›ï½¯ï½¸.
+	//’¸“_ÊŞ¯Ì§‚ÌÛ¯¸.
 	if( SUCCEEDED(
 		VB->Lock( 0, 0, (VOID**)&pbVertices, 0 ) ) )
 	{
-		////ï¾ï¾Ÿï¾˜ï½ºï¾ï¾ã®é ‚ç‚¹ã®1ã¤ç›®ã‚’å–å¾—.
+		////ÎßØºŞİ‚Ì’¸“_‚Ì1‚Â–Ú‚ğæ“¾.
 		//pfVertices
 		//	= (FLOAT*)&pbVertices[ dwStride * pwPoly[ dwPolyIndex * 3 ] ];
 		//pVecVertices[0].x = pfVertices[0];
 		//pVecVertices[0].y = pfVertices[1];
 		//pVecVertices[0].z = pfVertices[2];
-		////ï¾ï¾Ÿï¾˜ï½ºï¾ï¾ã®é ‚ç‚¹ã®2ã¤ç›®ã‚’å–å¾—.
+		////ÎßØºŞİ‚Ì’¸“_‚Ì2‚Â–Ú‚ğæ“¾.
 		//pfVertices
 		//	= (FLOAT*)&pbVertices[ dwStride * pwPoly[ dwPolyIndex * 3 + 1 ] ];
 		//pVecVertices[1].x = pfVertices[0];
 		//pVecVertices[1].y = pfVertices[1];
 		//pVecVertices[1].z = pfVertices[2];
-		////ï¾ï¾Ÿï¾˜ï½ºï¾ï¾ã®é ‚ç‚¹ã®3ã¤ç›®ã‚’å–å¾—.
+		////ÎßØºŞİ‚Ì’¸“_‚Ì3‚Â–Ú‚ğæ“¾.
 		//pfVertices
 		//	= (FLOAT*)&pbVertices[ dwStride * pwPoly[ dwPolyIndex * 3 + 2 ] ];
 		//pVecVertices[2].x = pfVertices[0];
 		//pVecVertices[2].y = pfVertices[1];
 		//pVecVertices[2].z = pfVertices[2];
 
-		////ï¾ï¾Ÿï¾˜ï½ºï¾ï¾ã®é ‚ç‚¹ã®1ï½3ã¤ç›®ã‚’å–å¾—.
+		////ÎßØºŞİ‚Ì’¸“_‚Ì1`3‚Â–Ú‚ğæ“¾.
 		for( int i=0; i<3; i++ ){
 			pfVertices
 				= (FLOAT*)&pbVertices[ dwStride * pwPoly[ dwPolyIndex * 3 + i ] ];
@@ -1808,7 +1754,7 @@ HRESULT clsMain::FindVerticesOnPoly(
 			pVecVertices[i].x = pfVertices[0];
 		}
 
-		//ï¾›ï½¯ï½¸è§£é™¤.
+		//Û¯¸‰ğœ.
 		pTarget->UnlockIndexBuffer();
 		VB->Unlock();
 	}
@@ -1819,188 +1765,188 @@ HRESULT clsMain::FindVerticesOnPoly(
 
 
 //============================================================
-//	å£ã®ã‚ãŸã‚Šåˆ¤å®šé–¢é€£.
+//	•Ç‚Ì‚ ‚½‚è”»’èŠÖ˜A.
 //============================================================
 void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 {
-	const char MAX = 4;//.ç·šã®æ•°
-	const float HitHeight = 0.375f;	//ï½±ï¾™ï¾‹ï¾ï½±ã®è¶³å…ƒã‹ã‚‰ã®é«˜ã•.
+	const char MAX = 4;//.ü‚Ì”
+	const float HitHeight = 0.375f;	//±ÙËŞ±‚Ì‘«Œ³‚©‚ç‚Ì‚‚³.
 
-	FLOAT		fDistance[MAX] = { 0.0f, 0.0f, 0.0f, 0.0f };	//è·é›¢.
-	D3DXVECTOR3	vIntersect[MAX];//äº¤ç‚¹åº§æ¨™.
-	float		fDis, fYaw;		//è·é›¢ã¨å›è»¢.
+	FLOAT		fDistance[MAX] = { 0.0f, 0.0f, 0.0f, 0.0f };	//‹——£.
+	D3DXVECTOR3	vIntersect[MAX];//Œğ“_À•W.
+	float		fDis, fYaw;		//‹——£‚Æ‰ñ“].
 
 
 	pAttacker->m_vRay = pAttacker->m_vPos;
 	pAttacker->m_vRay.y += HitHeight;
 
 #if 0
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™ã®æ–¹å‘å‰å¾Œå³å·¦.
+	//²ÍŞ¸ÄÙ‚Ì•ûŒü‘OŒã‰E¶.
 	D3DXVECTOR3 Axis[MAX] ={D3DXVECTOR3( 0.0f, 0.0f, 1.0f ),
 							D3DXVECTOR3( 0.0f, 0.0f,-1.0f ),
 							D3DXVECTOR3( 1.0f, 0.0f, 0.0f ),
 							D3DXVECTOR3(-1.0f, 0.0f, 0.0f ) };
-	//ï¾šï½²ã®å‘ãã«ã‚ˆã‚Šå½“ãŸã‚‹å£ã¾ã§ã®è·é›¢ã‚’æ±‚ã‚ã‚‹.
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™ã€€å‰å¾Œå³å·¦.
+	//Ú²‚ÌŒü‚«‚É‚æ‚è“–‚½‚é•Ç‚Ü‚Å‚Ì‹——£‚ğ‹‚ß‚é.
+	//²ÍŞ¸ÄÙ‘OŒã‰E¶.
 	for( char i=0; i<MAX; i++ ){
 		pAttacker->m_vAxis = Axis[i];
 		Intersect( pAttacker, pWall, &fDistance[i], &vIntersect[i] );
 	}
 #else
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™ã€€å‰.
+	//²ÍŞ¸ÄÙ‘O.
 	pAttacker->m_vAxis = D3DXVECTOR3( 0.0f, 0.0f, 1.0f );
 	Intersect( pAttacker, pWall, &fDistance[0], &vIntersect[0] );
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™ã€€å¾Œ.
+	//²ÍŞ¸ÄÙŒã.
 	pAttacker->m_vAxis = D3DXVECTOR3( 0.0f, 0.0f,-1.0f );
 	Intersect( pAttacker, pWall, &fDistance[1], &vIntersect[1] );
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™ã€€å³.
+	//²ÍŞ¸ÄÙ‰E.
 	pAttacker->m_vAxis = D3DXVECTOR3( 1.0f, 0.0f, 0.0f );
 	Intersect( pAttacker, pWall, &fDistance[2], &vIntersect[2] );
-	//è»¸ï¾ï¾ï½¸ï¾„ï¾™ã€€å·¦.
+	//²ÍŞ¸ÄÙ¶.
 	pAttacker->m_vAxis = D3DXVECTOR3(-1.0f, 0.0f, 0.0f );
 	Intersect( pAttacker, pWall, &fDistance[3], &vIntersect[3] );
 #endif
 
-	//çµ¶å¯¾å€¤.
+	//â‘Î’l.
 	fYaw = fabs( pAttacker->m_fYaw );
 	DirOverGuard( &fYaw );
 
 
-	//å‰ãŒå£ã«æ¥è¿‘.
+	//‘O‚ª•Ç‚ÉÚ‹ß.
 	fDis = fDistance[0];
 	if( fDis < WALL_SPACE && fDis > 0.01f ){
 		if( pAttacker->m_fYaw < 0.0f ){
-			//æ™‚è¨ˆå›ã‚Š.
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			//Œv‰ñ‚è.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
 		}
 		else{
-			//åæ™‚è¨ˆå›ã‚Š.
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			//”½Œv‰ñ‚è.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
 		}
 	}
 
-	//å¾Œã‚ãŒå£ã«æ¥è¿‘.
+	//Œã‚ë‚ª•Ç‚ÉÚ‹ß.
 	fDis = fDistance[1];
 	if( fDis < WALL_SPACE && fDis > 0.01f ){
-		//æ™‚è¨ˆå›ã‚Š.
+		//Œv‰ñ‚è.
 		if( pAttacker->m_fYaw < 0.0f ){
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
 		}
-		//åæ™‚è¨ˆå›ã‚Š.
+		//”½Œv‰ñ‚è.
 		else{
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
 		}
 	}
 
-	//å³ãŒå£ã«æ¥è¿‘.
+	//‰E‚ª•Ç‚ÉÚ‹ß.
 	fDis = fDistance[2];
 	if( fDis < WALL_SPACE && fDis > 0.01f ){
-		//æ™‚è¨ˆå›ã‚Š.
+		//Œv‰ñ‚è.
 		if( pAttacker->m_fYaw < 0.0f ){
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
 		}
-		//åæ™‚è¨ˆå›ã‚Š.
+		//”½Œv‰ñ‚è.
 		else{
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
 		}
 	}
 
-	//å·¦ãŒå£ã«æ¥è¿‘.
+	//¶‚ª•Ç‚ÉÚ‹ß.
 	fDis = fDistance[3];
 	if( fDis < WALL_SPACE && fDis > 0.01f ){
-		//æ™‚è¨ˆå›ã‚Š.
+		//Œv‰ñ‚è.
 		if( pAttacker->m_fYaw < 0.0f ){
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
 		}
-		//åæ™‚è¨ˆå›ã‚Š.
+		//”½Œv‰ñ‚è.
 		else{
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//å³ã‹ã‚‰.
+			if( fYaw >= 0.785f && fYaw < 2.355f ){		//‰E‚©‚ç.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//å‰ã‹ã‚‰.
+			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//‘O‚©‚ç.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//å·¦ã‹ã‚‰.
+			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//¶‚©‚ç.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else{										//å¥¥ã‹ã‚‰.
+			else{										//‰œ‚©‚ç.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
 		}
@@ -2008,7 +1954,7 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 }
 
 //============================================================
-//	å›è»¢å€¤èª¿æ•´.
+//	‰ñ“]’l’²®.
 //============================================================
 void clsMain::DirOverGuard( float* fYaw )
 {
@@ -2019,7 +1965,7 @@ void clsMain::DirOverGuard( float* fYaw )
 		return;
 	}
 
-	//å†å¸°.
+	//Ä‹A.
 	if( *fYaw > (float)( D3DX_PI * 2.0 ) ){
 		DirOverGuard( fYaw );
 	}
@@ -2027,69 +1973,69 @@ void clsMain::DirOverGuard( float* fYaw )
 
 
 //============================================================
-//	ï½¶ï¾’ï¾—é–¢æ•°.
+//	¶Ò×ŠÖ”.
 //============================================================
 void clsMain::Camera()
 {
 
 ////----------------------------.
-////	ï½¶ï¾’ï¾—è¿½å¾“å‡¦ç†ã“ã“ã‹ã‚‰.
+////	¶Ò×’Ç]ˆ—‚±‚±‚©‚ç.
 ////----------------------------.
-////ï½¶ï¾’ï¾—ä½ç½®(è‡ªæ©Ÿã®èƒŒä¸­ã‹ã‚‰)ã®ä½ç½®.
+////¶Ò×ˆÊ’u(©‹@‚Ì”w’†‚©‚ç)‚ÌˆÊ’u.
 //m_Camera.vEye = m_Camera.vLook = m_pOldPlayer->m_vPos;
 //m_Camera.fYaw = m_pOldPlayer->m_fYaw;
-////Yè»¸å›è»¢è¡Œåˆ—ã®ä½œæˆ.
+////Y²‰ñ“]s—ñ‚Ìì¬.
 //D3DXMatrixRotationY( &m_Camera.mRot, m_Camera.fYaw );
-////è»¸ï¾ï¾ï½¸ï¾„ï¾™.
+////²ÍŞ¸ÄÙ.
 //D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
-////Zè»¸ï¾ï¾ï½¸ï¾„ï¾™ãã®ã‚‚ã®ã‚’å›è»¢.
+////Z²ÍŞ¸ÄÙ‚»‚Ì‚à‚Ì‚ğ‰ñ“].
 //D3DXVec3TransformCoord( &vecAxisZ, &vecAxisZ, &m_Camera.mRot );
-//m_Camera.vEye	-= vecAxisZ * 4.0f;//è‡ªæ©Ÿã®èƒŒä¸­å´.
-//m_Camera.vLook	+= vecAxisZ * 2.0f;//è‡ªæ©Ÿã®å‰å´.
+//m_Camera.vEye	-= vecAxisZ * 4.0f;//©‹@‚Ì”w’†‘¤.
+//m_Camera.vLook	+= vecAxisZ * 2.0f;//©‹@‚Ì‘O‘¤.
 //m_Camera.vEye.y		+= 2.0f;
 //m_Camera.vLook.y	+= 0.2f;
 ////----------------------------.
-////	ï½¶ï¾’ï¾—è¿½å¾“å‡¦ç†ã“ã“ã¾ã§.
+////	¶Ò×’Ç]ˆ—‚±‚±‚Ü‚Å.
 ////----------------------------.
 
 
-	//ï¾‹ï¾ï½­ï½°(ï½¶ï¾’ï¾—)å¤‰æ›.
-	D3DXVECTOR3 vUpVec	( 0.0f, 1.0f, 0.0f );	//ä¸Šæ–¹ä½ç½®.
+	//ËŞ­°(¶Ò×)•ÏŠ·.
+	D3DXVECTOR3 vUpVec	( 0.0f, 1.0f, 0.0f );	//ã•ûˆÊ’u.
 	D3DXMatrixLookAtLH(
-		&m_mView,	//(out)ï¾‹ï¾ï½­ï½°è¨ˆç®—çµæœ.
+		&m_mView,	//(out)ËŞ­°ŒvZŒ‹‰Ê.
 		&m_Camera.vEye, &m_Camera.vLook, &vUpVec );
 
 }
 //============================================================
-//	ï¾Œï¾Ÿï¾›ï½¼ï¾ï½ªï½¸ï½¼ï½®ï¾é–¢æ•°.
+//	ÌßÛ¼Şª¸¼®İŠÖ”.
 //============================================================
 void clsMain::Proj()
 {
-	//ï¾Œï¾Ÿï¾›ï½¼ï¾ï½ªï½¸ï½¼ï½®ï¾(å°„å½±è¡Œåˆ—)å¤‰æ›.
+	//ÌßÛ¼Şª¸¼®İ(Ë‰es—ñ)•ÏŠ·.
 	D3DXMatrixPerspectiveFovLH(
-		&m_mProj,			//(out)ï¾Œï¾Ÿï¾›ï½¼ï¾ï½ªï½¸ï½¼ï½®ï¾è¨ˆç®—çµæœ.
-		D3DX_PI / g_Zoom,	//yæ–¹å‘ã®è¦–é‡(ï¾—ï½¼ï¾ï½±ï¾æŒ‡å®š)æ•°å­—ã‚’å¤§ããã—ãŸã‚‰è¦–é‡ãŒç‹­ããªã‚‹.
-		(FLOAT)WND_W / (FLOAT)WND_H,//ï½±ï½½ï¾ï¾Ÿï½¸ï¾„æ¯”(å¹…/é«˜ã•).
-		0.1f,				//è¿‘ã„ï¾‹ï¾ï½­ï½°å¹³é¢ã®zå€¤.
-		fRENDER_LIMIT );	//é ã„ï¾‹ï¾ï½­ï½°å¹³é¢ã®zå€¤.100.f
+		&m_mProj,			//(out)ÌßÛ¼Şª¸¼®İŒvZŒ‹‰Ê.
+		D3DX_PI / g_Zoom,	//y•ûŒü‚Ì‹–ì(×¼Ş±İw’è)”š‚ğ‘å‚«‚­‚µ‚½‚ç‹–ì‚ª‹·‚­‚È‚é.
+		(FLOAT)WND_W / (FLOAT)WND_H,//±½Íß¸Ä”ä(•/‚‚³).
+		0.1f,				//‹ß‚¢ËŞ­°•½–Ê‚Ìz’l.
+		fRENDER_LIMIT );	//‰“‚¢ËŞ­°•½–Ê‚Ìz’l.100.f
 
 }
 
 
 //============================================================
 //============================================================
-//				ã‚·ãƒ¼ãƒ³åˆæœŸåŒ–ã‚·ãƒªãƒ¼ã‚º.
+//				ƒV[ƒ“‰Šú‰»ƒVƒŠ[ƒY.
 //============================================================
 //============================================================
 //============================================================
-//	ã‚¿ã‚¤ãƒˆãƒ«ç”¨åˆæœŸåŒ–.
+//	ƒ^ƒCƒgƒ‹—p‰Šú‰».
 //============================================================
 void clsMain::InitTitle()
 {
 	InitMain( true, true );
 
 
-	//åˆæœŸåŒ–ã‚«ãƒ¡ãƒ©ä½ç½®.
+	//‰Šú‰»ƒJƒƒ‰ˆÊ’u.
 	const D3DXVECTOR3 vCAM_INIT_TITLE_POS =
 		{ 0.7f, 2.4f, 6.7f };
 	const D3DXVECTOR3 vLOOK_INIT_TITLE_POS =
@@ -2097,7 +2043,7 @@ void clsMain::InitTitle()
 	m_Camera.vEye = vCAM_INIT_TITLE_POS;
 	m_Camera.vLook = vLOOK_INIT_TITLE_POS;
 
-	//ã‚·ãƒ¼ãƒ³.
+	//ƒV[ƒ“.
 	m_enScene = enSCENE_TITLE;
 	m_enTitleSceneMode = en_TSM_IDLE;
 	//UI.
@@ -2105,7 +2051,7 @@ void clsMain::InitTitle()
 
 	m_ResUiState.Init();
 
-	//ç™ºè¦‹æƒ…å ±æ›´æ–°.
+	//”­Œ©î•ñXV.
 	m_smpUiManagar->SetDisc( m_ResUiState.iDisc );
 	m_smpUiManagar->SetLives( m_ResUiState.iLives );
 
@@ -2118,29 +2064,29 @@ void clsMain::InitTitle()
 	m_pBgm[enBGM_TITLE]->Play( true );
 
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼.
+	//ƒvƒŒƒCƒ„[.
 	m_pPlayer->InitTitleScene();
 
-	//ã‚¨ãƒ³ãƒ‰ãƒ­ãƒ¼ãƒ«ã§å´©ã‚ŒãŸã‚„ã¤ä¿®æ­£.
+	//ƒGƒ“ƒhƒ[ƒ‹‚Å•ö‚ê‚½‚â‚ÂC³.
 	m_vsmpWall[0]->SetPosition( vTITLE_INIT_STAGE_POS );
 	m_vsmpFloor[0]->SetPosition( vTITLE_INIT_STAGE_POS );
 	m_vsmpCeiling[0]->SetPosition( vENDING_INIT_CEILING_POS );
 
 
-	//ãƒ‰ã‚¢.
+	//ƒhƒA.
 	for( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
 		m_vsmpDoorMgr[i]->Init();
 	}
 
 }
 //============================================================
-//	ã‚¹ãƒ†ãƒ¼ã‚¸é–‹å§‹ç”¨åˆæœŸåŒ–.
+//	ƒXƒe[ƒWŠJn—p‰Šú‰».
 //============================================================
 void clsMain::InitMain( bool bFirstFlg, bool bTitle )
 {
-	//åˆå›ã®åˆæœŸåŒ–.
+	//‰‰ñ‚Ì‰Šú‰».
 	if( bFirstFlg ){
-		//ã‚·ãƒ¼ãƒ³.
+		//ƒV[ƒ“.
 		m_enScene = enSCENE_MAIN;
 		if( !bTitle ){
 			m_smpUiManagar->ChangeMainInit();
@@ -2151,98 +2097,98 @@ void clsMain::InitMain( bool bFirstFlg, bool bTitle )
 		m_pBgm[enBGM_MAIN]->SeekToStart();
 		m_pBgm[enBGM_MAIN]->SetVolume( iVOL_BGM_MAIN );
 		m_pBgm[enBGM_MAIN]->Play( true );
-		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼.
+		//ƒvƒŒƒCƒ„[.
 		m_pPlayer->Spawn();
-		//ãƒ‰ã‚¢(0ã¯ã‚¿ã‚¤ãƒˆãƒ«).
+		//ƒhƒA(0‚Íƒ^ƒCƒgƒ‹).
 		for( int i=1; i<m_vsmpDoorMgr.size(); i++ ){
 			m_vsmpDoorMgr[i]->Init();
 		}
-		//æ™‚é–“.
+		//ŠÔ.
 		m_smpUiManagar->ReSetTimer();
 		m_smpUiManagar->SetTimerStop( true );
-		//ç™ºè¦‹æ•°.
+		//”­Œ©”.
 		m_smpUiManagar->ReSetDisc();
-		//æ®‹æ©Ÿ.
+		//c‹@.
 		m_smpUiManagar->ReSetLives();
 	}
-	//å¾©æ´»æ™‚ã®åˆæœŸåŒ–.
+	//•œŠˆ‚Ì‰Šú‰».
 	else{
-		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼.
+		//ƒvƒŒƒCƒ„[.
 		m_pPlayer->ReSpawn();
-		//ãƒ‰ã‚¢(0ã¯ã‚¿ã‚¤ãƒˆãƒ«).
+		//ƒhƒA(0‚Íƒ^ƒCƒgƒ‹).
 		for( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
 			m_vsmpDoorMgr[i]->ReStart();
 		}
-		//ã‚¿ã‚¤ãƒå‹•ã‹ã™.
+		//ƒ^ƒCƒ}“®‚©‚·.
 		m_smpUiManagar->SetTimerStop( false );
 	}
 	m_iRespawnTimer = 0;
 
-	//æ®‹æ©Ÿ.
+	//c‹@.
 	m_smpUiManagar->SetLives( m_pPlayer->GetHp() );
 
-	//ã‚«ãƒ¡ãƒ©.
+	//ƒJƒƒ‰.
 	D3DXVECTOR3 vCamInitPos = m_pPlayer->GetPosition() + vCAMERA_INIT_OFFSET;
 	m_Camera.vEye = m_vCameraTarget = vCamInitPos;
 	m_fLookOffset = 0.0f;
 
-	//ä¸¸åºŠ.
+	//ŠÛ°.
 	for( int i=0; i<m_vsmpStepCil.size(); i++ ){
 		m_vsmpStepCil[i]->Init();
 	}
-	//å››è§’åºŠ.
+	//lŠp°.
 	for( int i=0; i<m_vsmpStepBox.size(); i++ ){
 		m_vsmpStepBox[i]->Init();
 	}
 
 
-	//æ•µ.
+	//“G.
 	for( int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
 		m_vsmpEnemyMgr[i]->Init( bFirstFlg );
 	}
 
 
-	//åºŠæ§.
+	//°‘„.
 	for( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
 		m_vsmpSpiaFloorMgr[i]->Init();
 	}
-	//å£æ§.
+	//•Ç‘„.
 	for( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
 		m_vsmpSpiaWallMgr[i]->Init();
 	}
 
 
 
-	//æŒ¯ã‚Šå­.
+	//U‚èq.
 	for( int i=0; i<m_vsmpPend.size(); i++ ){
 		m_vsmpPend[i]->Init();
 	}
 
-	//è½ã¨ã—ç©´.
+	//—‚Æ‚µŒŠ.
 	for( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
 		m_vsmpCoverMgr[i]->Init();
 	}
 
-	//ã‚´ãƒ¼ãƒ«.
+	//ƒS[ƒ‹.
 	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 		m_vsmpGoalMgr[i]->Init();
 	}
 
-	//ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ ã®ç«èŠ±ç”¨.
+	//ƒyƒ“ƒfƒ…ƒ‰ƒ€‚Ì‰Î‰Ô—p.
 	if( bFirstFlg ){
-		//åºŠã®ä¸Šãªã‚‰ã°ç«èŠ±.
+		//°‚Ìã‚È‚ç‚Î‰Î‰Ô.
 		for( int i=0; i<m_vsmpPend.size(); i++ ){
 			for( int j=0; j<m_vsmpFloor.size(); j++ ){
-				//åˆ¤å®š.
+				//”»’è.
 				if( m_vsmpPend[i]->GetPositionZ() > m_vsmpFloor[j]->GetPositionZ() - ( fONE_BLOCK_SIZE / 2.0f ) &&
 					m_vsmpPend[i]->GetPositionZ() < m_vsmpFloor[j]->GetPositionZ() + ( fONE_BLOCK_SIZE / 2.0f ) )
 				{
 					m_vsmpPend[i]->SetFireDisp( true );
 					break;
 				}
-				//é€šã‚ŠéããŸã‚‰.
+				//’Ê‚è‰ß‚¬‚½‚ç.
 				else if( m_vsmpPend[i]->GetPositionZ() < m_vsmpFloor[j]->GetPositionZ() + ( fONE_BLOCK_SIZE / 2.0f ) ){
-					//æ¬¡ã®ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ åˆ¤å®šã¸.
+					//Ÿ‚Ìƒyƒ“ƒfƒ…ƒ‰ƒ€”»’è‚Ö.
 					m_vsmpPend[i]->SetFireDisp( false );
 					break;
 				}
@@ -2252,15 +2198,15 @@ void clsMain::InitMain( bool bFirstFlg, bool bTitle )
 
 }
 //============================================================
-//	ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨åˆæœŸåŒ–.
+//	ƒQ[ƒ€ƒI[ƒo[—p‰Šú‰».
 //============================================================
 void clsMain::InitOver()
 {
-	//ã‚«ãƒ¡ãƒ©åˆæœŸåŒ–ä½ç½®.
+	//ƒJƒƒ‰‰Šú‰»ˆÊ’u.
 	const D3DXVECTOR3 vCAM_INIT_OVER_POS = { 0.55f, 3.619998f, -4.024998f };
 	const D3DXVECTOR3 vLOOK_INIT_OVER_POS = { 0.3f, 1.762501f, 0.375f };
 
-	//ã‚·ãƒ¼ãƒ³.
+	//ƒV[ƒ“.
 	m_enScene = enSCENE_OVER;
 	//UI.
 	m_smpUiManagar->ChangeOverInit();
@@ -2277,21 +2223,21 @@ void clsMain::InitOver()
 
 }
 //============================================================
-//	çµæœç”¨åˆæœŸåŒ–.
+//	Œ‹‰Ê—p‰Šú‰».
 //============================================================
 void clsMain::InitResult()
 {
-	//ã‚·ãƒ¼ãƒ³.
+	//ƒV[ƒ“.
 	m_enScene = enSCENE_RESULT;
 	m_enResultSceneMode = enRSM_SILENCE;
 
-	//å®ç®±ã®ç”»é¢ä¸Šã®åº§æ¨™ã‚’å®çŸ³ã®å‡ºç¾ä½ç½®ã«ã™ã‚‹.
+	//•ó” ‚Ì‰æ–Êã‚ÌÀ•W‚ğ•óÎ‚ÌoŒ»ˆÊ’u‚É‚·‚é.
 	m_smpUiManagar->SetJewelAppPos(
 		ConvDimPos(
 			m_smpUiManagar->GetJewelAppPos(),
 			m_vsmpGoalMgr[0]->GetBoxPos() ) );
 
-	//ãƒªã‚¶ãƒ«ãƒˆæƒ…å ±ã‚»ãƒƒãƒˆ.
+	//ƒŠƒUƒ‹ƒgî•ñƒZƒbƒg.
 	UpDateJewelState();
 	SetJewelState();
 
@@ -2309,11 +2255,11 @@ void clsMain::InitResult()
 
 }
 //============================================================
-//	ã‚¯ãƒªã‚¢ç”¨åˆæœŸåŒ–.
+//	ƒNƒŠƒA—p‰Šú‰».
 //============================================================
 void clsMain::InitEndroll()
 {
-	//ã‚·ãƒ¼ãƒ³.
+	//ƒV[ƒ“.
 	m_enScene = enSCENE_ENDROLL;
 	//UI.
 	m_smpUiManagar->ChangeEndingInit();
@@ -2325,7 +2271,7 @@ void clsMain::InitEndroll()
 
 
 
-	//åˆæœŸåŒ–ã‚«ãƒ¡ãƒ©ä½ç½®.
+	//‰Šú‰»ƒJƒƒ‰ˆÊ’u.
 	const D3DXVECTOR3 vCAM_INIT_END_POS =
 		{ -2.35f, 1.95f, 3.5f };
 	const D3DXVECTOR3 vLOOK_INIT_END_POS =
@@ -2334,19 +2280,19 @@ void clsMain::InitEndroll()
 	m_Camera.vLook = vLOOK_INIT_END_POS;
 
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼.
+	//ƒvƒŒƒCƒ„[.
 	m_pPlayer->InitEndScene();
 
 
-	//ã‚´ãƒ¼ãƒ«.
+	//ƒS[ƒ‹.
 	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 		m_vsmpGoalMgr[i]->Init();
 	}
 
-	//ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ã‚·ãƒ¼ãƒ³ã®èƒŒæ™¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«.
+	//ƒGƒ“ƒfƒBƒ“ƒOƒV[ƒ“‚Ì”wŒiƒXƒNƒ[ƒ‹.
 	m_fEndScrol = 0.0f;
 
-	//æ•µã«è¦‹ã¤ã‹ã£ãŸå›æ•°( ãƒ¬ãƒ³ãƒ€ãƒ¼ã§ä½¿ã† ).
+	//“G‚ÉŒ©‚Â‚©‚Á‚½‰ñ”( ƒŒƒ“ƒ_[‚Åg‚¤ ).
 	m_iEnemyDiscNum = m_ResUiState.iDisc;
 	m_pEndEnemy->Init( m_pPlayer->GetPosition(), m_iEnemyDiscNum );
 
@@ -2355,7 +2301,7 @@ void clsMain::InitEndroll()
 
 
 //============================================================
-//	ï½¶ï¾’ï¾—.
+//	¶Ò×.
 //============================================================
 void clsMain::CameraMgr()
 {
@@ -2370,18 +2316,18 @@ void clsMain::CameraTargetSet()
 	float CamTarStopPointN, CamTarStopPointS;
 	CamTarStopPointN = 7.0f;
 	CamTarStopPointS = 15.0f;
-	const float fCAM_SOUTH_OFFSET = CamTarStopPointS - CamTarStopPointN;//åŒ—å‘ãã«æ¯”ã¹ã¦å—ã¸ã¯ã©ã‚Œã ã‘ä¸‹ãŒã‚‹ã‹.
-	const float fCAMERA_OFFSET_MOVE_Y = 0.05f; //å‰å¾Œåˆ‡ã‚Šæ›¿ãˆæ™‚ã®ã‚«ãƒ¡ãƒ©ç§»å‹•é‡.
+	const float fCAM_SOUTH_OFFSET = CamTarStopPointS - CamTarStopPointN;//–kŒü‚«‚É”ä‚×‚Ä“ì‚Ö‚Í‚Ç‚ê‚¾‚¯‰º‚ª‚é‚©.
+	const float fCAMERA_OFFSET_MOVE_Y = 0.05f; //‘OŒãØ‚è‘Ö‚¦‚ÌƒJƒƒ‰ˆÚ“®—Ê.
 
-	const float fCAMERA_OFFSET_MOVE_BACK_LIMIT = 0.125f; //ä¸€ç•ªæ‰‹å‰æ™‚ã®ã‚«ãƒ¡ãƒ©ç§»å‹•é‡.
+	const float fCAMERA_OFFSET_MOVE_BACK_LIMIT = 0.125f; //ˆê”Ôè‘O‚ÌƒJƒƒ‰ˆÚ“®—Ê.
 
 
-	//åŸºæœ¬ä½ç½®.
+	//Šî–{ˆÊ’u.
 	m_vCameraTarget.z = m_pPlayer->GetPositionZ() - CamTarStopPointN;
-	//å‘ãã«ã‚ˆã‚‹ã‚ªãƒ•ã‚»ãƒƒãƒˆ.
+	//Œü‚«‚É‚æ‚éƒIƒtƒZƒbƒg.
 	m_vCameraTarget.z += m_fLookOffset;
 
-	//ä¸€ç•ªæ‰‹å‰.
+	//ˆê”Ôè‘O.
 	if( m_pPlayer->GetPositionZ() <= CAMERA_NOT_BACK )
 	{
 		m_fLookOffset += fCAMERA_OFFSET_MOVE_BACK_LIMIT;
@@ -2389,7 +2335,7 @@ void clsMain::CameraTargetSet()
 			m_fLookOffset = 0.0f;
 		}
 	}
-	//åŒ—å‘ã.
+	//–kŒü‚«.
 	else if( m_pPlayer->GetDirNorth() )
 	{
 		m_fLookOffset += fCAMERA_OFFSET_MOVE_Y;
@@ -2397,7 +2343,7 @@ void clsMain::CameraTargetSet()
 			m_fLookOffset = 0.0f;
 		}
 	}
-	//å—å‘ã.
+	//“ìŒü‚«.
 	else{
 		m_fLookOffset -= fCAMERA_OFFSET_MOVE_Y;
 		if( m_fLookOffset < -fCAM_SOUTH_OFFSET ){
@@ -2405,7 +2351,7 @@ void clsMain::CameraTargetSet()
 		}
 	}
 
-//	//ã‚¹ãƒ†ãƒ¼ã‚¸ã®ä¸€ç•ªæ‰‹å‰ã§ã¯å¯„ã‚‹.
+//	//ƒXƒe[ƒW‚Ìˆê”Ôè‘O‚Å‚ÍŠñ‚é.
 //	if( m_pPlayer->GetPositionZ() <= CAMERA_NOT_BACK ){
 //		m_vCameraTarget.z += CamTarMovSpdN;
 //		if( m_vCameraTarget.z > player_z - CamTarStopPointN ){
@@ -2415,17 +2361,17 @@ void clsMain::CameraTargetSet()
 }
 bool clsMain::Stoker( D3DXVECTOR3& Pos, D3DXVECTOR3 TargetPos )
 {
-	//ï½¶ï¾’ï¾—ãŒï¾€ï½°ï½¹ï¾ï½¯ï¾„ã‚’è¿½ã„ã‹ã‘ã‚‹.
-	const float CamMoveStop = 0.0078125f;	//åœæ­¢è·é›¢.
-	const float CamMoveStep = 0.05f;	//å°ã•ãã™ã‚‹ã¨ï½¶ï¾’ï¾—ç§»å‹•ãŒé…ããªã‚‹.
+	//¶Ò×‚ªÀ°¹Ş¯Ä‚ğ’Ç‚¢‚©‚¯‚é.
+	const float CamMoveStop = 0.0078125f;	//’â~‹——£.
+	const float CamMoveStep = 0.05f;	//¬‚³‚­‚·‚é‚Æ¶Ò×ˆÚ“®‚ª’x‚­‚È‚é.
 
-	//ãŸã©ã‚Šç€ã„ãŸ?ãƒ•ãƒ©ã‚°.
+	//‚½‚Ç‚è’…‚¢‚½?ƒtƒ‰ƒO.
 	bool bX, bY, bZ;
 	bX = bY = bZ = false;
 
-	//è·é›¢.
+	//‹——£.
 	float lCamMove = CameraLengthComp( Pos.x, TargetPos.x );
-	//è·é›¢ã‚’è¨ˆç®—ã—ã¦ï½¶ï¾’ï¾—è¿½å¾“.
+	//‹——£‚ğŒvZ‚µ‚Ä¶Ò×’Ç].
 	if( abs( lCamMove ) > CamMoveStop ){
 		Pos.x += lCamMove * CamMoveStep;
 	}
@@ -2454,7 +2400,7 @@ void clsMain::CameraLookSet()
 {
 	const float LOOK_JUMP_OFFSET_Y_RATE = 4.0f;
 
-	//ç©´ã®ä¸Šç”¨å‡¦ç†.
+	//ŒŠ‚Ìã—pˆ—.
 	if( m_pPlayer->m_fFloorY >= 0.0f ){
 		m_fCameraLookFloorOld = m_fCameraLookFloor;
 		if( m_fCameraLookFloorOld > 0.0f ) m_fCameraLookFloorOld = 0.0f;
@@ -2464,19 +2410,19 @@ void clsMain::CameraLookSet()
 	}
 
 
-	//è¦–ç‚¹å¥¥è¡Œ.
+	//‹“_‰œs.
 	m_vLookTarget = m_Camera.vEye;
 	m_vLookTarget.z += fLOOK_OFFSET_Z;
 
-	//è¦‹ã‚‹é«˜ã•ï¾ï¾ï½°ï½½.
+	//Œ©‚é‚‚³ÍŞ°½.
 	m_fCameraLookFloor = m_pPlayer->m_fFloorY;
 	m_vLookTarget.y = m_fCameraLookFloorOld;
 
-	//è¦‹ã‚‹é«˜ã•ã€€è¶³å…ƒã‹ã‚‰ã®é«˜ã•.
+	//Œ©‚é‚‚³‘«Œ³‚©‚ç‚Ì‚‚³.
 	m_vLookTarget.y += fLOOK_OFFSET_Y;
 
 
-	//ï½¼ï¾ï½¬ï¾ï¾Œï¾Ÿï½±ï¾€ï½¯ï½¸ã§è¦‹ä¸Šã’ã‚‹.
+	//¼Ş¬İÌß±À¯¸‚ÅŒ©ã‚°‚é.
 	if( m_pPlayer->isCamLookUp() ){
 		if( m_pPlayer->GetPositionY() > m_vLookTarget.y ){
 			float look_offset_y = m_pPlayer->GetPositionY()
@@ -2499,11 +2445,11 @@ float clsMain::CameraLengthComp( float Attker, float Target )
 
 
 //============================================================
-//	ä¸€ç¬ã§æŒ¯ã‚Šå‘ã‹ãªã„(å¾ã€…ã«æŒ¯ã‚Šå‘ã).
+//	ˆêu‚ÅU‚èŒü‚©‚È‚¢(™X‚ÉU‚èŒü‚­).
 //============================================================
 void clsMain::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, float TurnStop )
 {
-	//3600å•é¡Œè§£æ±º.
+	//3600–â‘è‰ğŒˆ.
 	if( TarYaw - NowYaw > (float)M_PI ){
 		TarYaw -= (float)( M_PI * 2.0 );
 	}
@@ -2511,7 +2457,7 @@ void clsMain::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, float Tu
 		TarYaw += (float)( M_PI * 2.0 );
 	}
 
-	//è§’åº¦ãŒè¿‘ã¥ã.
+	//Šp“x‚ª‹ß‚Ã‚­.
 	if( abs( TarYaw - NowYaw ) > TurnStop ){
 		if( NowYaw < TarYaw ){
 			NowYaw += TurnSpd;
@@ -2527,7 +2473,7 @@ void clsMain::CreateSound()
 {
 	//BGM.
 	{
-		//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
+		//ƒTƒEƒ“ƒh\‘¢‘Ì.
 		clsSound::SOUND_DATA tmpSData[enBGM_MAX] =
 		{
 			{ ALIAS_NAME_BGM_START_UP,	FILE_PATH_BGM_START_UP, iVOL_BGM_START_UP	},
@@ -2539,14 +2485,14 @@ void clsMain::CreateSound()
 		};
 		for( int i=0; i<enBGM_MAX; i++ ){
 			m_pBgm[i] = new clsSound;
-			//åå‰.
+			//–¼‘O.
 			char cAliasName[STR_BUFF_MAX] = "";
 			strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-			//ä½œæˆ.
+			//ì¬.
 			m_pBgm[i]->Open( tmpSData[i].sPath, cAliasName, m_hWnd );
-	//		//æœ€å¤§éŸ³é‡è¨­å®š.
+	//		//Å‘å‰¹—Êİ’è.
 	//		m_pBgm[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
-			//ç¾éŸ³é‡åˆæœŸåŒ–.
+			//Œ»‰¹—Ê‰Šú‰».
 			m_pBgm[i]->SetVolume( tmpSData[i].iMaxVolume );
 		}
 	}
@@ -2554,7 +2500,7 @@ void clsMain::CreateSound()
 
 	//SE.
 	{
-		//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
+		//ƒTƒEƒ“ƒh\‘¢‘Ì.
 		clsSound::SOUND_DATA tmpSData[enSe_MAX] =
 		{
 			{ ALIAS_NAME_SE_ENTER,	FILE_PATH_SE_ENTER, iVOL_SE_ENTER	},
@@ -2562,14 +2508,14 @@ void clsMain::CreateSound()
 		};
 		for( int i=0; i<enSe_MAX; i++ ){
 			m_pSe[i] = new clsSound;
-			//åå‰.
+			//–¼‘O.
 			char cAliasName[STR_BUFF_MAX] = "";
 			strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-			//ä½œæˆ.
+			//ì¬.
 			m_pSe[i]->Open( tmpSData[i].sPath, cAliasName, m_hWnd );
-	//		//æœ€å¤§éŸ³é‡è¨­å®š.
+	//		//Å‘å‰¹—Êİ’è.
 	//		m_pBgm[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
-			//ç¾éŸ³é‡åˆæœŸåŒ–.
+			//Œ»‰¹—Ê‰Šú‰».
 			m_pSe[i]->SetVolume( tmpSData[i].iMaxVolume );
 		}
 	}
@@ -2579,14 +2525,14 @@ void clsMain::CreateSound()
 
 
 //============================================================
-//	foræ–‡ã®å‡¦ç†ã®ç„¡é§„ã‚’æ¸›ã‚‰ã™.
+//	for•¶‚Ìˆ—‚Ì–³‘Ê‚ğŒ¸‚ç‚·.
 //============================================================
-//ã‚ãŸã‚Šåˆ¤å®š.
+//‚ ‚½‚è”»’è.
 bool clsMain::isCutOutForHit( float fPlayerZ, float fObjZ, float fBack, float fOpposite ){
-	float fOffsetBack = 17.0f;	//å¾Œ(æ‰‹å‰)ã«ã©ã‚Œã ã‘åˆ¤å®šã™ã‚‹ã‹.
-	float fOffsetOpposite = fOffsetBack;	//å‰(å¥¥)ã«ã©ã‚Œã ã‘åˆ¤å®šã™ã‚‹ã‹.
+	float fOffsetBack = 17.0f;	//Œã(è‘O)‚É‚Ç‚ê‚¾‚¯”»’è‚·‚é‚©.
+	float fOffsetOpposite = fOffsetBack;	//‘O(‰œ)‚É‚Ç‚ê‚¾‚¯”»’è‚·‚é‚©.
 #if 0
-	//æŒ‡å®šè·é›¢ä»¥å†…ãªã‚‰.
+	//w’è‹——£ˆÈ“à‚È‚ç.
 	if( abs( fPlayerZ - fObjZ ) <= fOffset ){
 		return true;
 	}
@@ -2606,10 +2552,10 @@ bool clsMain::isCutOutForHit( float fPlayerZ, float fObjZ, float fBack, float fO
 #endif
 	return false;
 }
-//å‹•ã.
+//“®‚«.
 bool clsMain::isCutOutForMove( float fPlayerZ, float fObjZ, float fBack, float fOpposite ){
-	float fOffsetBack = 32.0f;	//å¾Œã«ã©ã‚Œã ã‘åˆ¤å®šã™ã‚‹ã‹.
-	float fOffsetOpposite = fRENDER_LIMIT;	//å‰ã«ã©ã‚Œã ã‘åˆ¤å®šã™ã‚‹ã‹.
+	float fOffsetBack = 32.0f;	//Œã‚É‚Ç‚ê‚¾‚¯”»’è‚·‚é‚©.
+	float fOffsetOpposite = fRENDER_LIMIT;	//‘O‚É‚Ç‚ê‚¾‚¯”»’è‚·‚é‚©.
 	if( fBack ){
 		fOffsetBack = fBack;
 	}
@@ -2672,19 +2618,19 @@ void clsMain::StageSet()
 
 void clsMain::StageModelSet()
 {
-	//Csvã®ãƒ‡ãƒ¼ã‚¿èª­è¾¼.
+	//Csv‚Ìƒf[ƒ^“Ç.
 	m_smpStageData->Read();
 
-	//ãƒªã‚½ãƒ¼ã‚¹ã‚¹ãƒ†ãƒ¼ã‚¸.
+	//ƒŠƒ\[ƒXƒXƒe[ƒW.
 	m_iStageDataMax = m_smpStageData->GetDataArrayNumMax()/STAGEPATARUNSETMAX;
 	m_iStageDataMaxMax = m_iStageDataMax;
 
 	m_smpStageDataExcelStageMax->Read();
 
-	//csvã‹ã‚‰ã®ãƒ‡ãƒ¼ã‚¿ã‚’æ§‹é€ ä½“ã«.
+	//csv‚©‚ç‚Ìƒf[ƒ^‚ğ\‘¢‘Ì‚É.
 	StageSet();
 
-	//ãƒ‘ãƒ¼ãƒ„ã®ç•ªå·æŒ¯ã‚Šç”¨.
+	//ƒp[ƒc‚Ì”Ô†U‚è—p.
 	int StageWallNum             = 0;
 	int StageFloorNum            = 0;
 	int StageEnemyNum            = 0;
@@ -2707,56 +2653,56 @@ void clsMain::StageModelSet()
 	StageDetatchModelSet();
 
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸ã®ï¾ï¾Ÿï½²ï¾ï¾€ã®é…åˆ—ã‚’ä½œã‚‹.
+	//ƒXƒe[ƒW‚ÌÎß²İÀ‚Ì”z—ñ‚ğì‚é.
 	for( int StageNum = 0; StageNum < m_iStageDataMaxMax; StageNum++ )
 	{
-		//è¦å®šã®ã‚¹ãƒ†ãƒ¼ã‚¸ã§ã®ãƒã‚¸ã¨å¤§ãã•.
+		//‹K’è‚ÌƒXƒe[ƒW‚Å‚Ìƒ|ƒW‚Æ‘å‚«‚³.
 		D3DXVECTOR3 SetPos( 0.0f, 0.0f, 1.0f+( StageNum * 1.0f ) );
 		float SetScale = 1.0f;
 
-		//å±‹æ ¹ã®ä½œæˆ.
+		//‰®ª‚Ìì¬.
 		m_vsmpCeiling.push_back( make_unique<clsCharaStatic>() );
-		//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘ã¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å´ã§ã‚„ã‚‹ã®ã§ãƒ•ãƒ¨ã‚¦ãƒ©.
+		//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‚Íƒ}ƒl[ƒWƒƒ[‘¤‚Å‚â‚é‚Ì‚ÅƒtƒˆƒEƒ‰.
 		m_vsmpCeiling[CeilingNum]->AttachModel( m_pResource->GetStaticModels( m_pResource->enST_MODEL_CEILING ) );
 		m_vsmpCeiling[CeilingNum]->SetPosition( SetPos );
-		m_vsmpCeiling[CeilingNum]->AddPositionY( 7.0f );	//å£ã¨åˆã‚ã›ã‚‹ãŸã‚.
+		m_vsmpCeiling[CeilingNum]->AddPositionY( 7.0f );	//•Ç‚Æ‡‚í‚¹‚é‚½‚ß.
 		m_vsmpCeiling[CeilingNum]->SetScale( SetScale );
 		CeilingNum++;
 
-		//è½ã¨ã—ç©´ã®è“‹ã®ä½œæˆ.
+		//—‚Æ‚µŒŠ‚ÌŠW‚Ìì¬.
 		if ( m_vStageDataPatarnSet[StageNum].bCover)
 		{
 			m_vsmpCoverMgr.push_back( make_unique<clsCoverMgr>() );
 			m_vsmpCoverMgr[StageCoverNum]->CreateCover( m_hWnd, StageCoverNum );
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘ã¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å´ã§ã‚„ã‚‹ã®ã§ãƒ•ãƒ¨ã‚¦ãƒ©.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‚Íƒ}ƒl[ƒWƒƒ[‘¤‚Å‚â‚é‚Ì‚ÅƒtƒˆƒEƒ‰.
 			m_vsmpCoverMgr[StageCoverNum]->SetPosition(SetPos);
 			m_vsmpCoverMgr[StageCoverNum]->SetScale(SetScale);
 			m_vsmpCoverMgr[StageCoverNum]->Init();
 			StageCoverNum++;
 		}
 
-		//æ•µä½œæˆ.
+		//“Gì¬.
 		if ( m_vStageDataPatarnSet[StageNum].iEnemy > 0)
 		{
 			m_vsmpEnemyMgr.push_back( make_unique<clsEnemyMgr>() );
 			m_vsmpEnemyMgr[StageEnemyNum]->CreateEnemy( m_hWnd, m_pDevice, m_pDeviceContext,
 				m_vStageDataPatarnSet[StageNum].iEnemy, StageEnemyNum );
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘ã¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å´ã§ã‚„ã‚‹ã®ã§ãƒ•ãƒ¨ã‚¦ãƒ©.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‚Íƒ}ƒl[ƒWƒƒ[‘¤‚Å‚â‚é‚Ì‚ÅƒtƒˆƒEƒ‰.
 			m_vsmpEnemyMgr[StageEnemyNum]->SetPosition( SetPos );
 			m_vsmpEnemyMgr[StageEnemyNum]->SetScale( SetScale );
 			StageEnemyNum++;
 		}
 
-		//ç¸¦ç§»å‹•ã®ä¸¸åºŠä½œæˆ.
+		//cˆÚ“®‚ÌŠÛ°ì¬.
 		if ( m_vStageDataPatarnSet[StageNum].iStepCil != 0)
 		{
 			{
 #ifdef Tahara
-				//å‹•ãã®åˆæœŸåŒ–ç”¨.
+				//“®‚«‚Ì‰Šú‰»—p.
 				bool bInitCil = true;
 				if( m_vStageDataPatarnSet[StageNum].iStepCil < 0 ){
 					bInitCil = false;
-					m_vStageDataPatarnSet[StageNum].iStepCil *= -1;//é€†å‘ãã®è¨¼ã®ãƒã‚¤ãƒŠã‚¹ã¯ã“ã“ã§å¤–ã™.
+					m_vStageDataPatarnSet[StageNum].iStepCil *= -1;//‹tŒü‚«‚ÌØ‚Ìƒ}ƒCƒiƒX‚Í‚±‚±‚ÅŠO‚·.
 				}
 #endif//#ifdef Tahara
 				m_vsmpStepCil.push_back( make_unique<clsStepCyl>() );
@@ -2784,38 +2730,38 @@ void clsMain::StageModelSet()
 			int ResauseModelNum;
 			ResauseModelNum = m_vStageDataPatarnSet[StageNum].iWall;
 			ResauseModelNum = ResauseModelNum + iWallModelNumZero;
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯.
 			m_vsmpWall[StageWallNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->ItoE(ResauseModelNum)));
 			m_vsmpWall[StageWallNum]->SetPosition(SetPos);
 			m_vsmpWall[StageWallNum]->SetScale(SetScale);
 			StageWallNum++;
 		}
 
-		//åºŠä½œæˆ.
-		if (m_vStageDataPatarnSet[StageNum].iFloor > 0)//csvã‹ã‚‰ï½.
+		//°ì¬.
+		if (m_vStageDataPatarnSet[StageNum].iFloor > 0)//csv‚©‚ç`.
 		{
 			m_vsmpFloor.push_back( make_unique<clsFloor>() );
 			int ResauseModelNum;
 			ResauseModelNum = m_vStageDataPatarnSet[StageNum].iFloor;
 			ResauseModelNum = ResauseModelNum + iFloorModelNumZero;
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯.
 			m_vsmpFloor[StageFloorNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->ItoE(ResauseModelNum)));
 			m_vsmpFloor[StageFloorNum]->SetPosition(SetPos);
 			m_vsmpFloor[StageFloorNum]->SetScale(SetScale);
 			StageFloorNum++;
 		}
 
-		//æ¨ªç§»å‹•ã®å››è§’åºŠä½œæˆ.
+		//‰¡ˆÚ“®‚ÌlŠp°ì¬.
 		if ( m_vStageDataPatarnSet[StageNum].iStepBox > 0 )
 		{
-			//å³ã‹å·¦ã‹ã€è¥¿ã‹æ±ã‹.
+			//‰E‚©¶‚©A¼‚©“Œ‚©.
 			bool bRight = false;
 			bool bEast = false;
-			//2ã‚ˆã‚Šå¤§ãã„ãªã‚‰ãªã‚‰å·¦.
+			//2‚æ‚è‘å‚«‚¢‚È‚ç‚È‚ç¶.
 			if( m_vStageDataPatarnSet[StageNum].iStepBox > 2 ){
 				bRight = true;
 			}
-			//å¥‡æ•°ãªã‚‰.//æ±ã¸.
+			//Šï”‚È‚ç.//“Œ‚Ö.
 			if( m_vStageDataPatarnSet[StageNum].iStepBox % 2 ){
 				bEast = true;
 			}
@@ -2827,19 +2773,19 @@ void clsMain::StageModelSet()
 			StageMoveFloorSideNum++;
 		}
 
-		//ãƒ‰ã‚¢ã®ä½œæˆ.
+		//ƒhƒA‚Ìì¬.
 		if ( m_vStageDataPatarnSet[StageNum].bDoor )
 		{
 			m_vsmpDoorMgr.push_back( make_unique<clsDoorMgr>() );
 			m_vsmpDoorMgr[StageDoarNum]->Create( m_hWnd, m_pDevice, m_pDeviceContext, StageDoarNum );
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘ã¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å´ã§ã‚„ã‚‹ã®ã§ãƒ•ãƒ¨ã‚¦ãƒ©.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‚Íƒ}ƒl[ƒWƒƒ[‘¤‚Å‚â‚é‚Ì‚ÅƒtƒˆƒEƒ‰.
 			m_vsmpDoorMgr[StageDoarNum]->SetPosition( SetPos );
 			m_vsmpDoorMgr[StageDoarNum]->SetScale( SetScale );
 			StageDoarNum++;
 			continue;
 		}
 
-		//ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ ã®ä½œæˆ.
+		//ƒyƒ“ƒfƒ…ƒ‰ƒ€‚Ìì¬.
 		if ( m_vStageDataPatarnSet[StageNum].iPend > 0 )
 		{
 			m_vsmpPend.push_back( make_unique<clsPend>() );
@@ -2853,24 +2799,24 @@ void clsMain::StageModelSet()
 			continue;
 		}
 
-		//æ§åºŠã®ä½œæˆ.
+		//‘„°‚Ìì¬.
 		if ( m_vStageDataPatarnSet[StageNum].bSpiaFloor )
 		{
 			m_vsmpSpiaFloorMgr.push_back( make_unique<clsSpiaFlorMgr>() );
 			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->CreateSpia( m_hWnd, StageSpearFloorNum );
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘ã¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å´ã§ã‚„ã‚‹ã®ã§ãƒ•ãƒ¨ã‚¦ãƒ©.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‚Íƒ}ƒl[ƒWƒƒ[‘¤‚Å‚â‚é‚Ì‚ÅƒtƒˆƒEƒ‰.
 			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->SetPosition( SetPos );
 			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->SetScale( SetScale );
 			StageSpearFloorNum++;
 			continue;
 		}
 
-		//æ§å£ã®ä½œæˆ.
+		//‘„•Ç‚Ìì¬.
 		if ( m_vStageDataPatarnSet[StageNum].iSpiaWall )
 		{
 			m_vsmpSpiaWallMgr.push_back( make_unique<clsSpiaWallMgr>() );
 			m_vsmpSpiaWallMgr[StageSpearWallNum]->CreateSpia( m_hWnd, StageSpearWallNum, m_vStageDataPatarnSet[StageNum].iSpiaWall );
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘ã¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å´ã§ã‚„ã‚‹ã®ã§ãƒ•ãƒ¨ã‚¦ãƒ©.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‚Íƒ}ƒl[ƒWƒƒ[‘¤‚Å‚â‚é‚Ì‚ÅƒtƒˆƒEƒ‰.
 			m_vsmpSpiaWallMgr[StageSpearWallNum]->SetPosition( SetPos );
 			m_vsmpSpiaWallMgr[StageSpearWallNum]->SetScale( SetScale );
 			StageSpearWallNum++;
@@ -2878,11 +2824,11 @@ void clsMain::StageModelSet()
 		}
 
 
-		//ã‚´ãƒ¼ãƒ«ã®ä½œæˆ.
+		//ƒS[ƒ‹‚Ìì¬.
 		if ( m_vStageDataPatarnSet[StageNum].bGoal )
 		{
 			m_vsmpGoalMgr.push_back( make_unique<clsGoalMgr>() );
-			//ï¾“ï¾ƒï¾ï¾™ï¾ƒï¾ï½°ï¾€é–¢é€£ä»˜ã‘ã¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å´ã§ã‚„ã‚‹ã®ã§ãƒ•ãƒ¨ã‚¦ãƒ©.
+			//ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‚Íƒ}ƒl[ƒWƒƒ[‘¤‚Å‚â‚é‚Ì‚ÅƒtƒˆƒEƒ‰.
 			m_vsmpGoalMgr[StageGoalNum]->Create( m_hWnd, m_pDevice, m_pDeviceContext );
 			m_vsmpGoalMgr[StageGoalNum]->SetPosition( SetPos );
 			m_vsmpGoalMgr[StageGoalNum]->SetScale( SetScale );
@@ -2890,7 +2836,7 @@ void clsMain::StageModelSet()
 			continue;
 		}
 
-		//ãƒ†ã‚¹ãƒˆãƒ¢ãƒ‡ãƒ«ç”¨.
+		//ƒeƒXƒgƒ‚ƒfƒ‹—p.
 		if ( m_vStageDataPatarnSet[StageNum].bTest )
 		{
 			m_vsmpTest.push_back( make_unique<clsCharaStatic>() );
@@ -2905,7 +2851,7 @@ void clsMain::StageModelSet()
 
 void clsMain::StageDetatchModelSet()
 {
-	//å£ç´ã¥ã‘è§£é™¤.
+	//•Ç•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpWall.empty())
 	{
 		for ( int i = 0; i < m_vsmpWall.size(); i++ )
@@ -2915,7 +2861,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpWall.clear();
 		m_vsmpWall.shrink_to_fit();
 	}
-	//åºŠç´ã¥ã‘è§£é™¤.
+	//°•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpFloor.empty())
 	{
 		for ( int i = 0; i<m_vsmpFloor.size(); i++ )
@@ -2925,7 +2871,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpFloor.clear();
 		m_vsmpFloor.shrink_to_fit();
 	}
-	//æ•µç´ã¥ã‘è§£é™¤.
+	//“G•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpEnemyMgr.empty())
 	{
 		for ( int i = 0; i< m_vsmpEnemyMgr.size(); i++ )
@@ -2935,7 +2881,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpEnemyMgr.clear();
 		m_vsmpEnemyMgr.shrink_to_fit();
 	}
-	//ç§»å‹•åºŠä¸¸ç´ã¥ã‘è§£é™¤.
+	//ˆÚ“®°ŠÛ•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpStepCil.empty())
 	{
 		for ( int i = 0; i<m_vsmpStepCil.size(); i++ )
@@ -2945,7 +2891,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpStepCil.clear();
 		m_vsmpStepCil.shrink_to_fit();
 	}
-	//ç§»å‹•åºŠå››è§’ç´ã¥ã‘è§£é™¤.
+	//ˆÚ“®°lŠp•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpStepBox.empty())
 	{
 		for (int i = 0; i< m_vsmpStepBox.size(); i++)
@@ -2955,7 +2901,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpStepBox.clear();
 		m_vsmpStepBox.shrink_to_fit();
 	}
-	//ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ ç´ã¥ã‘è§£é™¤.
+	//ƒyƒ“ƒfƒ…ƒ‰ƒ€•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpPend.empty())
 	{
 		for (int i = 0; i < m_vsmpPend.size(); i++ )
@@ -2965,7 +2911,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpPend.clear();
 		m_vsmpPend.shrink_to_fit();
 	}
-	//ãƒ‰ã‚¢ç´ã¥ã‘è§£é™¤.
+	//ƒhƒA•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpDoorMgr.empty())
 	{
 		for (int i = 0; i < m_vsmpDoorMgr.size(); i++ )
@@ -2975,7 +2921,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpDoorMgr.clear();
 		m_vsmpDoorMgr.shrink_to_fit();
 	}
-	//åºŠæ§ç´ã¥ã‘è§£é™¤.
+	//°‘„•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpSpiaFloorMgr.empty())
 	{
 		for (int i = 0; i < m_vsmpSpiaFloorMgr.size(); i++ )
@@ -2985,7 +2931,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpSpiaFloorMgr.clear();
 		m_vsmpTest.shrink_to_fit();
 	}
-	//å£æ§ç´ã¥ã‘è§£é™¤.
+	//•Ç‘„•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpSpiaWallMgr.empty())
 	{
 		for (int i = 0; i < m_vsmpSpiaWallMgr.size(); i++ )
@@ -2995,7 +2941,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpSpiaWallMgr.clear();
 		m_vsmpSpiaWallMgr.shrink_to_fit();
 	}
-	//è½ã¨ã—ç©´ã®è“‹ç´ã¥ã‘è§£é™¤.
+	//—‚Æ‚µŒŠ‚ÌŠW•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpCoverMgr.empty())
 	{
 		for (int i = 0; i < m_vsmpCoverMgr.size(); i++ )
@@ -3005,7 +2951,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpCoverMgr.clear();
 		m_vsmpTest.shrink_to_fit();
 	}
-	//ã‚´ãƒ¼ãƒ«ç´ã¥ã‘è§£é™¤.
+	//ƒS[ƒ‹•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpGoalMgr.empty())
 	{
 		for (int i = 0; i < m_vsmpGoalMgr.size(); i++ )
@@ -3016,7 +2962,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpTest.shrink_to_fit();
 	}
 
-	//å±‹æ ¹ç´ã¥ã‘è§£é™¤.
+	//‰®ª•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpCeiling.empty())
 	{
 		for (int i = 0; i < m_vsmpCeiling.size(); i++ )
@@ -3027,7 +2973,7 @@ void clsMain::StageDetatchModelSet()
 		m_vsmpTest.shrink_to_fit();
 	}
 
-	//ãƒ¢ãƒ‡ãƒ«ãƒ†ã‚¹ãƒˆç´ã¥ã‘è§£é™¤.
+	//ƒ‚ƒfƒ‹ƒeƒXƒg•R‚Ã‚¯‰ğœ.
 	if(!m_vsmpTest.empty())
 	{
 		for ( int i=0; i<m_vsmpTest.size(); i++ )
@@ -3043,27 +2989,27 @@ void clsMain::StageDetatchModelSet()
 void clsMain::StageModelSetErrMsg( int StageNum, const char* ERR_MSG )
 {
 	string ErrMsg;
-	stringstream ss;	//å¤‰æ›ç”¨.
+	stringstream ss;	//•ÏŠ·—p.
 	ErrMsg = ERR_MSG ;
 	ErrMsg += "\n";
 	ss << StageNum+1;
 	ErrMsg += ss.str();
-	ErrMsg += "è¡Œç›®";
-	ERR_MSG( ErrMsg.c_str(), "Csvã®é…ç½®ã‚¨ãƒ©ãƒ¼" );
-	ss.str( "" ); // ãƒãƒƒãƒ•ã‚¡ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹.
-	ss.clear( stringstream::goodbit );// ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹ã€‚ã“ã®è¡ŒãŒãªã„ã¨æ„å›³é€šã‚Šã«å‹•ä½œã—ãªã„.
+	ErrMsg += "s–Ú";
+	ERR_MSG( ErrMsg.c_str(), "Csv‚Ì”z’uƒGƒ‰[" );
+	ss.str( "" ); // ƒoƒbƒtƒ@‚ğƒNƒŠƒA‚·‚é.
+	ss.clear( stringstream::goodbit );// ƒXƒgƒŠ[ƒ€‚Ìó‘Ô‚ğƒNƒŠƒA‚·‚éB‚±‚Ìs‚ª‚È‚¢‚ÆˆÓ}’Ê‚è‚É“®ì‚µ‚È‚¢.
 }
 
 void clsMain::SceneTitle()
 {
-	//ã‚«ãƒ¡ãƒ©ã®æœ€çµ‚åœ°ç‚¹.
+	//ƒJƒƒ‰‚ÌÅI’n“_.
 	const D3DXVECTOR3 vCAM_GO_MAIN_TARGET = m_pPlayer->GetPosition() + vCAMERA_INIT_OFFSET;
 	const float fLOOK_GO_MAIN_TARGET_Y = 3.0625f;
 	const D3DXVECTOR3 vLOOK_GO_MAIN_TARGET = {  vCAM_GO_MAIN_TARGET.x,
 												fLOOK_GO_MAIN_TARGET_Y,
 												vCAM_GO_MAIN_TARGET.z + fLOOK_OFFSET_Z };
 
-	//ãƒ«ãƒ¼ãƒ—.
+	//ƒ‹[ƒv.
 	if( m_pBgm[enBGM_TITLE]->IsStopped() ){
 		m_pBgm[enBGM_TITLE]->SeekToStart();
 		m_pBgm[enBGM_TITLE]->Play( true );
@@ -3075,13 +3021,13 @@ void clsMain::SceneTitle()
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
-	//ãƒ¢ãƒ¼ãƒ‰.
+	//ƒ‚[ƒh.
 	switch( m_enTitleSceneMode )
 	{
 	case en_TSM_IDLE:
-		//æš—è»¢ä¸­ã§ã¯ãªã„.
+		//ˆÃ“]’†‚Å‚Í‚È‚¢.
 		if( m_smpUiManagar->GetBlackIdle() ){
-			//ç ´å£Šé–‹å§‹.
+			//”j‰óŠJn.
 			if( bPushEnter ){
 				m_enTitleSceneMode = en_TSM_BREAK_DOOR;
 				m_pSe[enSe_EXIT]->SeekPlay();
@@ -3091,41 +3037,41 @@ void clsMain::SceneTitle()
 
 	case en_TSM_BREAK_DOOR:
 		{
-			//ã‚«ãƒ¡ãƒ©è¿½ã„ã‹ã‘ã‚‹.
+			//ƒJƒƒ‰’Ç‚¢‚©‚¯‚é.
 			if( Stoker( m_Camera.vEye, vCAM_GO_MAIN_TARGET ) &&
 				Stoker( m_Camera.vLook, vLOOK_GO_MAIN_TARGET ) )
 			{
-				//è¿½ã„ã‹ã‘çµ‚ã‚ã£ãŸã‚‰.
+				//’Ç‚¢‚©‚¯I‚í‚Á‚½‚ç.
 				m_enTitleSceneMode = en_TSM_GO_MAIN;
 			}
-			//ã‚¿ã‚¤ãƒˆãƒ«ã®å‹•ãã‚’ã™ã‚‹.
+			//ƒ^ƒCƒgƒ‹‚Ì“®‚«‚ğ‚·‚é.
 			m_pPlayer->MoveTitleScene();
 
-			//ãƒ‰ã‚¢è¹´ç ´ã‚Š.
+			//ƒhƒAR”j‚è.
 			if( m_pPlayer->GetAttackImpact() ){
-				//å£Šã‚Œã¦ãªã„ã¨ã.
+				//‰ó‚ê‚Ä‚È‚¢‚Æ‚«.
 				if( !m_vsmpDoorMgr[0]->GetDoorBroken() ){
-					//ã‚¿ã‚¤ãƒˆãƒ«é€é.
+					//ƒ^ƒCƒgƒ‹“§‰ß.
 					m_smpUiManagar->SetTitleTransFlg( true );
-					//ã‚­ãƒƒã‚¯ã®ç¯„å›².
+					//ƒLƒbƒN‚Ì”ÍˆÍ.
 					if( m_pCollision->HitSect(
 						m_pPlayer->GetPointerSubCol(),
 						m_vsmpDoorMgr[0]->GetDoorHitColPointer() ) )
 					{
-						//ãƒ¡ã‚¤ãƒ³ã®ä¸Šã®ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸‹ã«è½ã¨ã™.
+						//ƒƒCƒ“‚Ìã‚ÌƒeƒLƒXƒg‚ğ‰º‚É—‚Æ‚·.
 						m_smpUiManagar->TopMainTxtMoveStart();
-						//ãƒ‰ã‚¢ã®ç ´å£Šã¨å¾©æ´»ä½ç½®æ›´æ–°.
+						//ƒhƒA‚Ì”j‰ó‚Æ•œŠˆˆÊ’uXV.
 						m_pPlayer->UpdateReSpawnPos( m_vsmpDoorMgr[0]->DoorBreak() );
-						//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã¯ã‚¢ãƒ«ãƒ“ã‚¢ã¨ãƒ‰ã‚¢ã®ä¸­é–“åœ°ç‚¹( è¹´ã£ãŸå ´æ‰€ )ã«å‡ºã™.
+						//ƒGƒtƒFƒNƒg‚ÍƒAƒ‹ƒrƒA‚ÆƒhƒA‚Ì’†ŠÔ’n“_( R‚Á‚½êŠ )‚Éo‚·.
 						PlayEffKick( GetMidWay( m_pPlayer->GetPosition(), m_vsmpDoorMgr[0]->GetPosition() ) );
-						//æŒ¯å‹•.
+						//U“®.
 						m_pXInput->SetVibPowerL( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
 						m_pXInput->SetVibPowerR( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
 						break;
 					}
 				}
 			}
-			//åºŠ.
+			//°.
 			bool bGroundFlg = false;
 			m_vsmpDoorMgr[0]->Update( m_pPlayer->GetPositionZ() );
 			for( int i=0; i<m_vsmpFloor.size(); i++ ){
@@ -3135,7 +3081,7 @@ void clsMain::SceneTitle()
 						m_vsmpFloor[i].get(),
 						bGroundFlg ) )
 					{
-						//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+						//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 						break;
 					}
 				}
@@ -3145,7 +3091,7 @@ void clsMain::SceneTitle()
 		break;
 
 	case en_TSM_GO_MAIN:
-		//ãƒ¡ã‚¤ãƒ³ã¸.
+		//ƒƒCƒ“‚Ö.
 		InitMain( true );
 		m_enTitleSceneMode = en_TSM_IDLE;
 		break;
@@ -3160,22 +3106,22 @@ void clsMain::SceneTitle()
 
 void clsMain::SceneMain()
 {
-	//ãƒ«ãƒ¼ãƒ—.
+	//ƒ‹[ƒv.
 	if( m_pBgm[enBGM_MAIN]->IsStopped() ){
 		m_pBgm[enBGM_MAIN]->SeekToStart();
 		m_pBgm[enBGM_MAIN]->Play( true );
 	}
 
-	//----- è‡ªæ©Ÿ -----//.
+	//----- ©‹@ -----//.
 	m_pPlayer->Input();
 
 	m_pPlayer->Update( GetEar() );
 
-	//æ‰‹å‰ã‚¬ãƒ¼ãƒ‰.
+	//è‘OƒK[ƒh.
 	if( m_pPlayer->GetPositionZ() < fPLAYER_BACK_LIMIT ){
 		m_pPlayer->SetPositionZ( fPLAYER_BACK_LIMIT );
 	}
-	//å£.
+	//•Ç.
 	if( m_pPlayer->GetPositionX() > fWALL_HIT_RANGE ){
 		m_pPlayer->SetPositionX( fWALL_HIT_RANGE );
 	}
@@ -3184,38 +3130,38 @@ void clsMain::SceneMain()
 	}
 
 
-	//----- ï½¶ï¾’ï¾— -----//.
+	//----- ¶Ò× -----//.
 	CameraMgr();
 
-	//----- è€³ã®ä½ç½® -----//.
+	//----- ¨‚ÌˆÊ’u -----//.
 	SetEar( m_pPlayer->GetPositionZ(), m_Camera.vEye.z );
 
 
-	//----- æ•µ -----//.
+	//----- “G -----//.
 	for( int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
-		//å‹•ã.
+		//“®‚­.
 		m_vsmpEnemyMgr[i]->Update( GetEar() );
 
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpEnemyMgr[i]->GetPositionZ() ) ){
-			//ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã®Posã‚’ï¾€ï½°ï½¹ï¾ï½¯ï¾„ã«ï½¾ï½¯ï¾„.
+			//ÌßÚ²Ô°‚ÌPos‚ğÀ°¹Ş¯Ä‚É¾¯Ä.
 			m_vsmpEnemyMgr[i]->GetSarchTarget( m_pPlayer->GetPosition() );
 
-			//æ•µã®ã‚ãŸã‚Šåˆ¤å®š.
+			//“G‚Ì‚ ‚½‚è”»’è.
 			for( int j=0; j<m_vsmpEnemyMgr[i]->GetEnemyMax(); j++ )
 			{
-				//æ•µãŒã‚„ã‚‰ã‚Œã¦ã„ãŸã‚‰åˆ¤å®šã—ãªã„.
+				//“G‚ª‚â‚ç‚ê‚Ä‚¢‚½‚ç”»’è‚µ‚È‚¢.
 				if( m_vsmpEnemyMgr[i]->GetEnemyMove( j ) != clsEnemy::enEM_DEATH ){
-					//è‡ªæ©ŸãŒç”Ÿãã¦ã‚‹ã¨ã.
+					//©‹@‚ª¶‚«‚Ä‚é‚Æ‚«.
 					if( !m_pPlayer->GetDead() ){
-						//===== ã„ã¤ã§ã‚‚å‹•ã„ã¦ã„ã‚‹ã‚ãŸã‚Šåˆ¤å®š =====//.
-						//è‡ªæ©Ÿã‹ã‚‰æ•µã¸ã®æ”»æ’ƒ.
-						//æ”»æ’ƒä¸­.
+						//===== ‚¢‚Â‚Å‚à“®‚¢‚Ä‚¢‚é‚ ‚½‚è”»’è =====//.
+						//©‹@‚©‚ç“G‚Ö‚ÌUŒ‚.
+						//UŒ‚’†.
 						if( m_pPlayer->GetAttackImpact() ){
-							//ã‹ã‹ã¨è½ã¨ã—ä¸­.
+							//‚©‚©‚Æ—‚Æ‚µ’†.
 							if( m_pPlayer->isJumpAtk() ){
-								//é™ä¸‹ä¸­.
+								//~‰º’†.
 								if( m_pPlayer->GetJumpAtkImpact() ){
-									//ã‚­ãƒƒã‚¯ã®ç¯„å›².
+									//ƒLƒbƒN‚Ì”ÍˆÍ.
 									if( m_pCollision->HitCylind(
 										m_pPlayer->GetPointerSubCol(),
 										m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
@@ -3223,15 +3169,15 @@ void clsMain::SceneMain()
 										m_vsmpEnemyMgr[i]->Dead( j );
 										m_pCollision->PlaySe( clsCollision::enSOUND_ARBIA_KICK );
 										m_pXInput->SetVibPowerR( usVIB_KICK_POWER, iVIB_KICK_TIME );
-										//æ•µã®å ´æ‰€ã«ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå‡ºã™.
+										//“G‚ÌêŠ‚ÉƒGƒtƒFƒNƒgo‚·.
 										PlayEffKick( m_vsmpEnemyMgr[i]->GetEnemyPos( j ) );
 										break;
 									}
 								}
 							}
-							//é€šå¸¸ã‚­ãƒƒã‚¯.
+							//’ÊíƒLƒbƒN.
 							else{
-								//ã‚­ãƒƒã‚¯ã®ç¯„å›²ã«æ•µãŒã„ãŸ.
+								//ƒLƒbƒN‚Ì”ÍˆÍ‚É“G‚ª‚¢‚½.
 								if( m_pCollision->HitSect(
 									m_pPlayer->GetPointerSubCol(),
 									m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
@@ -3243,7 +3189,7 @@ void clsMain::SceneMain()
 									break;
 								}
 							}
-							//æ•µã«æ¥è§¦ã§æ•µãŒæ­»ã¬.
+							//“G‚ÉÚG‚Å“G‚ª€‚Ê.
 							if( m_pCollision->HitCylind(
 								m_pPlayer->GetPointerCol(),
 								m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
@@ -3255,9 +3201,9 @@ void clsMain::SceneMain()
 								break;
 							}
 						}
-						//è‡ªæ©ŸãŒæ”»æ’ƒä¸­ä»¥å¤–.
+						//©‹@‚ªUŒ‚’†ˆÈŠO.
 						else{
-							//æ•µã«æ¥è§¦ã§è‡ªæ©ŸãŒæ­»ã¬.
+							//“G‚ÉÚG‚Å©‹@‚ª€‚Ê.
 							if( m_pCollision->HitCylind(
 								m_pPlayer->GetPointerCol(),
 								m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
@@ -3271,26 +3217,26 @@ void clsMain::SceneMain()
 						}
 
 
-						//===== ãƒ¢ãƒ¼ãƒ‰åˆ¥ã‚ãŸã‚Šåˆ¤å®š =====//.
+						//===== ƒ‚[ƒh•Ê‚ ‚½‚è”»’è =====//.
 						switch( m_vsmpEnemyMgr[i]->GetEnemyMove( j ) )
 						{
 						case clsEnemy::enEM_WALK:
-							//è‡ªæ©Ÿç™ºè¦‹.
-							//ç¯„å›²å†….
+							//©‹@”­Œ©.
+							//”ÍˆÍ“à.
 							if( m_pCollision->HitSect(
 								m_vsmpEnemyMgr[i]->GetPointerEnemySubCol( j ),
 								m_pPlayer->GetPointerCol() ) )
 							{
-								//æ•µãŒè¦‹ã¤ã‘ã‚Œã‚‹çŠ¶æ…‹ã§è¦‹ã¤ã‹ã£ãŸæ™‚.
+								//“G‚ªŒ©‚Â‚¯‚ê‚éó‘Ô‚ÅŒ©‚Â‚©‚Á‚½.
 								if( m_vsmpEnemyMgr[i]->Discover( j ) ){
-									//ç™ºè¦‹æƒ…å ±æ›´æ–°.
+									//”­Œ©î•ñXV.
 									m_ResUiState.iDisc ++;
 									m_smpUiManagar->SetDisc( m_ResUiState.iDisc );
 								}
 							}
 							break;
 						case clsEnemy::enEM_RUN:
-							//æ”»æ’ƒé–‹å§‹ç¯„å›².
+							//UŒ‚ŠJn”ÍˆÍ.
 							if( m_pCollision->HitSect(
 								m_vsmpEnemyMgr[i]->GetPointerEnemySubCol( j ),
 								m_pPlayer->GetPointerCol() ) )
@@ -3299,9 +3245,9 @@ void clsMain::SceneMain()
 							}
 							break;
 						case clsEnemy::enEM_ATK:
-							//æ”»æ’ƒã®ã‚¤ãƒ³ãƒ‘ã‚¯ãƒˆ(åˆ¤å®šã®ã‚ã‚‹æ™‚é–“ã‹?).
+							//UŒ‚‚ÌƒCƒ“ƒpƒNƒg(”»’è‚Ì‚ ‚éŠÔ‚©?).
 							if( m_vsmpEnemyMgr[i]->GetAttackImpact( j ) ){
-								//æ”»æ’ƒç¯„å›².
+								//UŒ‚”ÍˆÍ.
 								if( m_pCollision->HitSect(
 									m_vsmpEnemyMgr[i]->GetPointerEnemySubCol( j ),
 									m_pPlayer->GetPointerCol() ) )
@@ -3309,7 +3255,7 @@ void clsMain::SceneMain()
 									m_pPlayer->Dead();
 									m_vsmpEnemyMgr[i]->Win( j );
 									m_pCollision->PlaySe( clsCollision::enSOUND_ENEMY_SRASH );
-									//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+									//ƒGƒtƒFƒNƒg.
 									PlayEffSlash( m_pPlayer->GetPosition() );
 								}
 							}
@@ -3320,20 +3266,20 @@ void clsMain::SceneMain()
 			}
 		}
 	}
-	//----- æ•µ çµ‚ã‚ã‚Š -----//.
+	//----- “G I‚í‚è -----//.
 
 
 
 
-	//----- åºŠæ§ -----//.
+	//----- °‘„ -----//.
 	for( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
-		//å‹•ã.
+		//“®‚«.
 		m_vsmpSpiaFloorMgr[i]->Update( GetEar() );
 
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpSpiaFloorMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
-			//ç”Ÿãã¦ã‚‹ã¨ã.
+			//¶‚«‚Ä‚é‚Æ‚«.
 			if( !m_pPlayer->GetDead() ){
-				//æ§ã¨ã®ã‚ãŸã‚Šåˆ¤å®š.
+				//‘„‚Æ‚Ì‚ ‚½‚è”»’è.
 				for( int j=0; j<m_vsmpSpiaFloorMgr[i]->GetSpiaMax(); j++ )
 				{
 					if( m_pCollision->HitCylind(
@@ -3342,80 +3288,80 @@ void clsMain::SceneMain()
 					{
 						m_pPlayer->Dead();
 						m_pCollision->PlaySe( clsCollision::enSOUND_SPIA );
-						//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+						//ƒGƒtƒFƒNƒg.
 						PlayEffSlash( m_pPlayer->GetPosition() );
 						break;
 					}
 				}
 			}
-			//è‡ªæ©Ÿã¨æ§å£ã®ã‚ãŸã‚Šåˆ¤å®š.
+			//©‹@‚Æ‘„•Ç‚Ì‚ ‚½‚è”»’è.
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpSpiaFloorMgr[i]->GetWallPointer() );
 		}
 	}
 
 
-	//----- å£æ§ -----//.
+	//----- •Ç‘„ -----//.
 	for ( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
-		//å‹•ã.
+		//“®‚«.
 		m_vsmpSpiaWallMgr[i]->Update( GetEar() );
 
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpSpiaWallMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
-			//ç”Ÿãã¦ã‚‹ã¨ã.
+			//¶‚«‚Ä‚é‚Æ‚«.
 			if( !m_pPlayer->GetDead() ){
-				//æ§ã¨ã®ã‚ãŸã‚Šåˆ¤å®š.
+				//‘„‚Æ‚Ì‚ ‚½‚è”»’è.
 				for( int j=0; j<m_vsmpSpiaWallMgr[i]->GetSpiaMax(); j++ )
 				{
-					//å·¦å´.
+					//¶‘¤.
 					if( m_pCollision->HitBox(
 						m_vsmpSpiaWallMgr[i]->GetPointerSpiaCol( false, j ),
 						m_pPlayer->GetPointerCol() ) )
 					{
 						m_pPlayer->Dead();
 						m_pCollision->PlaySe( clsCollision::enSOUND_SPIA );
-						//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+						//ƒGƒtƒFƒNƒg.
 						PlayEffSlash( m_pPlayer->GetPosition() );
 						break;
 					}
-					//å³å´.
+					//‰E‘¤.
 					if( m_pCollision->HitBox(
 						m_vsmpSpiaWallMgr[i]->GetPointerSpiaCol( true, j ),
 						m_pPlayer->GetPointerCol() ) )
 					{
 						m_pPlayer->Dead();
 						m_pCollision->PlaySe( clsCollision::enSOUND_SPIA );
-						//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+						//ƒGƒtƒFƒNƒg.
 						PlayEffSlash( m_pPlayer->GetPosition() );
 						break;
 					}
 				}
 			}
 
-			//å£.
+			//•Ç.
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpSpiaWallMgr[i]->GetWallLCol() );
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpSpiaWallMgr[i]->GetWallRCol() );
 		}
 	}
 
-	//----- æŒ¯ã‚Šå­ -----//.
-	char* cPendBoneName = (char*)PEND_BONE_NAME;//ï¾ï¾ï½°ï¾å.
+	//----- U‚èq -----//.
+	char* cPendBoneName = (char*)PEND_BONE_NAME;//ÎŞ°İ–¼.
 	for( int i=0; i<m_vsmpPend.size(); i++ ){
-		//æŒ¯ã‚Šå­å‹•ã.
+		//U‚èq“®‚«.
 		m_vsmpPend[i]->Update( GetEar() );
-		//é€éåŸºæº–è¨­å®š.
+		//“§‰ßŠî€İ’è.
 		m_vsmpPend[i]->SetAlphaFlg( m_pPlayer->GetPositionZ() );
 
-		//æŒ¯ã‚Šå­ã®ã‚ãŸã‚Šåˆ¤å®š.
+		//U‚èq‚Ì‚ ‚½‚è”»’è.
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpPend[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
-			//åº§æ¨™ï½¾ï½¯ï¾„ã¯ï¾šï¾ï¾€ï¾ï½°ã§ã‚„ã£ã¦ã„ã‚‹ï¼ˆ1ï¾Œï¾šï½°ï¾‘é…ã‚Œã‚‹ã‘ã©è¨±ã—ã¦ã­ï¼‰.
+			//À•W¾¯Ä‚ÍÚİÀŞ°‚Å‚â‚Á‚Ä‚¢‚éi1ÌÚ°Ñ’x‚ê‚é‚¯‚Ç‹–‚µ‚Ä‚Ëj.
 			if( !m_pPlayer->GetDead() ){
-				//ï¾‹ï½¯ï¾„.
+				//Ë¯Ä.
 				if( m_pCollision->HitBox(
 					m_vsmpPend[i]->GetPointerCol(),
 					m_pPlayer->GetPointerCol() ) )
 				{
 					m_pPlayer->Dead();
 					m_pCollision->PlaySe( clsCollision::enSOUND_PEND );
-					//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+					//ƒGƒtƒFƒNƒg.
 					PlayEffSlash( m_pPlayer->GetPosition() );
 					break;
 				}
@@ -3426,47 +3372,47 @@ void clsMain::SceneMain()
 
 
 
-	//========== åœ°å½¢ã¨ã®ã‚ãŸã‚Šåˆ¤å®š ==========//.
+	//========== ’nŒ`‚Æ‚Ì‚ ‚½‚è”»’è ==========//.
 
-//	//----- è‡ªæ©Ÿã¨å£ã®å£ã‚ãŸã‚Šåˆ¤å®š -----//.
+//	//----- ©‹@‚Æ•Ç‚Ì•Ç‚ ‚½‚è”»’è -----//.
 //	for( int i=0; i<m_vpWall.size(); i++ ){
 //		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vpWall[i]->GetPositionZ() ) ){
 //			m_pCollision->WallJudge( m_pPlayer, m_vpWall[i] );
 //		}
 //	}
-	//----- è‡ªæ©Ÿã¨åºŠã¨ã®å£ã‚ãŸã‚Šåˆ¤å®š -----//.
+	//----- ©‹@‚Æ°‚Æ‚Ì•Ç‚ ‚½‚è”»’è -----//.
 	for( int i=0; i<m_vsmpFloor.size(); i++ ){
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpFloor[i].get() );
 		}
 	}
-	//----- è‡ªæ©Ÿã¨ä¸¸è¶³å ´ã®å£ã‚ãŸã‚Šåˆ¤å®š -----//.
+	//----- ©‹@‚ÆŠÛ‘«ê‚Ì•Ç‚ ‚½‚è”»’è -----//.
 	for( int i=0; i<m_vsmpStepCil.size(); i++ ){
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpStepCil[i]->GetPositionZ() ) ){
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpStepCil[i].get() );
 		}
 	}
-	//----- è‡ªæ©Ÿã¨å››è§’è¶³å ´ã®å£ã‚ãŸã‚Šåˆ¤å®š -----//.
+	//----- ©‹@‚ÆlŠp‘«ê‚Ì•Ç‚ ‚½‚è”»’è -----//.
 	for( int i=0; i<m_vsmpStepBox.size(); i++ ){
 		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpStepBox[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpStepBox[i].get() );
 		}
 	}
-	//----- ã‚´ãƒ¼ãƒ«ã®å£ã‚ãŸã‚Šåˆ¤å®šã¨å‹•ä½œ -----//.
+	//----- ƒS[ƒ‹‚Ì•Ç‚ ‚½‚è”»’è‚Æ“®ì -----//.
 	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 		if( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1 ){
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetFloorColPointer() );
 			m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetTrBoxColPointer() );
-			//è¹´ç ´ã‚‰ã‚Œ.
+			//R”j‚ç‚ê.
 			if( m_pPlayer->GetAttackImpact() ){
-				//å£Šã‚Œã¦ãªã„ã¨ã.
+				//‰ó‚ê‚Ä‚È‚¢‚Æ‚«.
 				if( !m_vsmpGoalMgr[i]->GetBoxOpened() ){
-					//ã‚­ãƒƒã‚¯ã®ç¯„å›².
+					//ƒLƒbƒN‚Ì”ÍˆÍ.
 					if( m_pCollision->HitSect(
 						m_pPlayer->GetPointerSubCol(),
 						m_vsmpGoalMgr[i]->GetBoxHitColPointer() ) )
 					{
-						//ç®±ã‚’é–‹ã‘ã‚‹.
+						//” ‚ğŠJ‚¯‚é.
 						m_vsmpGoalMgr[i]->BoxBreak();
 
 						m_pXInput->SetVibPowerL( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
@@ -3480,36 +3426,36 @@ void clsMain::SceneMain()
 	}
 
 
-	//----- è‡ªæ©Ÿã¨é–€ã¨ã®å£ã‚ãŸã‚Šåˆ¤å®šã¨å‹•ä½œ -----//.
+	//----- ©‹@‚Æ–å‚Æ‚Ì•Ç‚ ‚½‚è”»’è‚Æ“®ì -----//.
 	for( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
-		//å£Šã‚Œã¦ãªã„ã¨ã.
+		//‰ó‚ê‚Ä‚È‚¢‚Æ‚«.
 		if( !m_vsmpDoorMgr[i]->GetDoorBroken() ){
 			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
-				//æ‰‰ã®å£åˆ¤å®š.
+				//”à‚Ì•Ç”»’è.
 				m_pCollision->WallJudge( m_pPlayer, m_vsmpDoorMgr[i]->GetWallColPointer() );
-				//è¹´ç ´ã‚‰ã‚Œ.
+				//R”j‚ç‚ê.
 				if( m_pPlayer->GetAttackImpact() ){
-					//ã‹ã‹ã¨è½ã¨ã—ä¸­.
+					//‚©‚©‚Æ—‚Æ‚µ’†.
 					if( m_pPlayer->isJumpAtk() ){
-						//é™ä¸‹ä¸­.
+						//~‰º’†.
 						if( m_pPlayer->GetJumpAtkImpact() ){
-							//ã‚­ãƒƒã‚¯ã®ç¯„å›².
+							//ƒLƒbƒN‚Ì”ÍˆÍ.
 							if( m_pCollision->HitSect(
 								m_pPlayer->GetPointerSubCol(),
 								m_vsmpDoorMgr[i]->GetDoorHitColPointer() ) )
 							{
-								//ãƒ‰ã‚¢ã®ç ´å£Šã¨å¾©æ´»ä½ç½®æ›´æ–°.
+								//ƒhƒA‚Ì”j‰ó‚Æ•œŠˆˆÊ’uXV.
 								m_pPlayer->UpdateReSpawnPos( m_vsmpDoorMgr[i]->DoorBreak() );
-								//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã¯ã‚¢ãƒ«ãƒ“ã‚¢ã¨ãƒ‰ã‚¢ã®ä¸­é–“åœ°ç‚¹( è¹´ã£ãŸå ´æ‰€ )ã«å‡ºã™.
+								//ƒGƒtƒFƒNƒg‚ÍƒAƒ‹ƒrƒA‚ÆƒhƒA‚Ì’†ŠÔ’n“_( R‚Á‚½êŠ )‚Éo‚·.
 								PlayEffKick( GetMidWay( m_pPlayer->GetPosition(), m_vsmpDoorMgr[i]->GetPosition() ) );
-								//ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆæ–‡å­—.
+								//ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•¶š.
 								if( m_pCheck != nullptr ){
 									m_pCheck->Init();
 									m_pCheck->Start( m_vsmpDoorMgr[i]->DoorBreak().z );
 								}
-								//ãƒ‰ã‚¢ã‚’ç ´ã£ã¦å…µå£«ã‚’å€’ã™.
+								//ƒhƒA‚ğ”j‚Á‚Ä•ºm‚ğ“|‚·.
 								for( int j=0; j<m_vsmpEnemyMgr.size(); j++ ){
-									//ãƒ‰ã‚¢ã§æ­»ã¬äºº.
+									//ƒhƒA‚Å€‚Êl.
 									if( m_vsmpEnemyMgr[j]->GetDoorDeader() ){
 										if( isCutOutForHit( m_vsmpEnemyMgr[j]->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
 											m_vsmpEnemyMgr[j]->DoorTimerStart();
@@ -3524,25 +3470,25 @@ void clsMain::SceneMain()
 							}
 						}
 					}
-					//é€šå¸¸æ”»æ’ƒ.
+					//’ÊíUŒ‚.
 					else{
-						//ã‚­ãƒƒã‚¯ã®ç¯„å›².
+						//ƒLƒbƒN‚Ì”ÍˆÍ.
 						if( m_pCollision->HitSect(
 							m_pPlayer->GetPointerSubCol(),
 							m_vsmpDoorMgr[i]->GetDoorHitColPointer() ) )
 						{
-							//ãƒ‰ã‚¢ã®ç ´å£Šã¨å¾©æ´»ä½ç½®æ›´æ–°.
+							//ƒhƒA‚Ì”j‰ó‚Æ•œŠˆˆÊ’uXV.
 							m_pPlayer->UpdateReSpawnPos( m_vsmpDoorMgr[i]->DoorBreak() );
-							//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã¯ã‚¢ãƒ«ãƒ“ã‚¢ã¨ãƒ‰ã‚¢ã®ä¸­é–“åœ°ç‚¹( è¹´ã£ãŸå ´æ‰€ )ã«å‡ºã™.
+							//ƒGƒtƒFƒNƒg‚ÍƒAƒ‹ƒrƒA‚ÆƒhƒA‚Ì’†ŠÔ’n“_( R‚Á‚½êŠ )‚Éo‚·.
 							PlayEffKick( GetMidWay( m_pPlayer->GetPosition(), m_vsmpDoorMgr[i]->GetPosition() ) );
-							//ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆæ–‡å­—.
+							//ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•¶š.
 							if( m_pCheck != nullptr ){
 								m_pCheck->Init();
 								m_pCheck->Start( m_vsmpDoorMgr[i]->DoorBreak().z );
 							}
-							//ãƒ‰ã‚¢ã‚’ç ´ã£ã¦å…µå£«ã‚’å€’ã™.
+							//ƒhƒA‚ğ”j‚Á‚Ä•ºm‚ğ“|‚·.
 							for( int j=0; j<m_vsmpEnemyMgr.size(); j++ ){
-								//ãƒ‰ã‚¢ã§æ­»ã¬äºº.
+								//ƒhƒA‚Å€‚Êl.
 								if( m_vsmpEnemyMgr[j]->GetDoorDeader() ){
 									if( isCutOutForHit( m_vsmpEnemyMgr[j]->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
 										m_vsmpEnemyMgr[j]->DoorTimerStart();
@@ -3559,25 +3505,25 @@ void clsMain::SceneMain()
 				}
 			}
 		}
-		//å£Šã‚Œã¦ã„ã‚‹æ™‚.
+		//‰ó‚ê‚Ä‚¢‚é.
 		else{
 			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
-				//æœ€åˆã®é–€ã‚’ããã‚‹ã¨ã‚¿ã‚¤ãƒãƒ¼ãŒå‹•ãå‡ºã™.
+				//Å‰‚Ì–å‚ğ‚­‚®‚é‚Æƒ^ƒCƒ}[‚ª“®‚«o‚·.
 				if( !i ){
 					if( m_pPlayer->GetPositionZ() > m_vsmpDoorMgr[i]->GetPositionZ() ){
 						m_smpUiManagar->SetTimerStop( false );
 					}
 				}
-				//äºŒã¤ã‚ã®é–€ã‚’ããã‚‹ã¨ã‚¢ã‚¯ã‚·ãƒ§ãƒ³èª¬æ˜ãŒå¼•ã£è¾¼ã‚€.
+				//“ñ‚Â‚ß‚Ì–å‚ğ‚­‚®‚é‚ÆƒAƒNƒVƒ‡ƒ“à–¾‚ªˆø‚Á‚Ş.
 				else if( i == 1 ){
 					if( m_pPlayer->GetPositionZ() > m_vsmpDoorMgr[i]->GetPositionZ() ){
 						m_smpUiManagar->ActTxtOut();
 					}
 				}
 
-				//å£åˆ¤å®š.
+				//•Ç”»’è.
 				m_pCollision->WallJudge( m_pPlayer, m_vsmpDoorMgr[i]->GetGateColPointer() );
-				//å¤©äº•ã«é ­ã‚’æ‰“ã¤ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä¸Šä¸‹ç§»å‹•é‡åè»¢.
+				//“Vˆä‚É“ª‚ğ‘Å‚Â‚ÆƒvƒŒƒCƒ„[‚Ìã‰ºˆÚ“®—Ê”½“].
 				if( m_pCollision->CeilingJudge(
 					m_pPlayer,
 					m_pPlayer->GetHeight(),
@@ -3586,36 +3532,36 @@ void clsMain::SceneMain()
 					m_pPlayer->HeadHitToCeiling();
 				}
 			}
-			//é€é.
+			//“§‰ß.
 			m_vsmpDoorMgr[i]->SetAlphaFlg( GetEar() );
-			//å‹•ä½œ.
+			//“®ì.
 			m_vsmpDoorMgr[i]->Update( GetEar() );
 		}
 	}
 
-	//ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆæ–‡å­—.
+	//ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•¶š.
 	if( m_pCheck != nullptr ){
 		m_pCheck->Update();
 	}
 
 
 
-	//========== è‡ªæ©Ÿã¨åºŠã®ã‚ãŸã‚Šåˆ¤å®š ==========//.
-	m_pPlayer->m_fFloorY = 0.0f;//åœ°é¢ã®é«˜ã•åˆæœŸåŒ–.
+	//========== ©‹@‚Æ°‚Ì‚ ‚½‚è”»’è ==========//.
+	m_pPlayer->m_fFloorY = 0.0f;//’n–Ê‚Ì‚‚³‰Šú‰».
 	bool bGroundFlg = false;
-	bool bCutGroundCheck = false;	//åœ°é¢ã®ä¸Šã«ã„ã‚‹ãªã‚‰ãã‚Œä»¥ä¸Šã®ãƒã‚§ãƒƒã‚¯ã¯ã„ã‚‰ãªã„ã®ã§ã€ãã®ãŸã‚ã®ãƒ•ãƒ©ã‚°.
+	bool bCutGroundCheck = false;	//’n–Ê‚Ìã‚É‚¢‚é‚È‚ç‚»‚êˆÈã‚Ìƒ`ƒFƒbƒN‚Í‚¢‚ç‚È‚¢‚Ì‚ÅA‚»‚Ì‚½‚ß‚Ìƒtƒ‰ƒO.
 	m_pPlayer->SetGroundFlg( bGroundFlg );
 
 
-	//----- è½ã¨ã—ç©´ã®è“‹ -----//.//è½ã¨ã—ç©´ã¯æœ€åˆã«åˆ¤å®šã—ãªã„ã¨ãƒ€ãƒ¡.
-	//å®™ã«æµ®ã„ã¦ã‚‹ã¨ã.
+	//----- —‚Æ‚µŒŠ‚ÌŠW -----//.//—‚Æ‚µŒŠ‚ÍÅ‰‚É”»’è‚µ‚È‚¢‚Æƒ_ƒ.
+	//’ˆ‚É•‚‚¢‚Ä‚é‚Æ‚«.
 	if( !bCutGroundCheck ){
-		//è½ã¨ã—ç©´ã®æ•°åˆ†å›ã™.
+		//—‚Æ‚µŒŠ‚Ì”•ª‰ñ‚·.
 		for( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
-			//å‹•ä½œ.
+			//“®ì.
 			m_vsmpCoverMgr[i]->Update( GetEar() );
 			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpCoverMgr[i]->GetPositionZ() ) ){
-				//é–‹ã„ã¦ã„ã‚‹æ™‚ã¯ä¹—ã‚Œãªã„.
+				//ŠJ‚¢‚Ä‚¢‚é‚Íæ‚ê‚È‚¢.
 				if( m_vsmpCoverMgr[i]->isCanStmp() )
 				{
 					for( char j=0; j<m_vsmpCoverMgr[i]->GetCoverMax(); j++ ){
@@ -3624,22 +3570,22 @@ void clsMain::SceneMain()
 							m_vsmpCoverMgr[i]->GetCoverPointer( j ),
 							bGroundFlg ) )
 						{
-							//ç€åœ°æ™‚ã®ã¿.
+							//’…’n‚Ì‚İ.
 							if( bGroundFlg ){
-								//ã‹ã‹ã¨è½ã¨ã—ã§ä¹—ã‚‹.
+								//‚©‚©‚Æ—‚Æ‚µ‚Åæ‚é.
 								if( m_pPlayer->isJumpAtk() ){
-									//æ€¥ã«é–‹ã.
+									//‹}‚ÉŠJ‚­.
 									m_vsmpCoverMgr[i]->StmpCovorStrong( GetEar() );
 								}
-								//æ™®é€šã«ä¹—ã‚‹.
+								//•’Ê‚Éæ‚é.
 								else{
-									//ãã—ãã—.
+									//‚¬‚µ‚¬‚µ.
 									m_vsmpCoverMgr[i]->StmpCovor( GetEar() );
 									m_pXInput->SetVibPowerL( usVIB_COVER_POWER, iVIB_COVER_TIME, iVIB_COVER_DEC );
 								}
 							}
 							bCutGroundCheck = true;
-							//2é‡foræ–‡ã®è„±å‡ºç”¨ï¼ˆã“ã‚ŒãŒã‚ã‚‹ã®ã§breakã¯ã„ã‚‰ãªã„ï½› ä»–ã§ã¯æ™®é€šã«breakã—ã¦ã„ã‚‹ç†ç”±ã¯ã€å¯èª­æ€§ãŒã„ã„ã‹ã‚‰ã§ã™ ï½ï¼‰.
+							//2dfor•¶‚Ì’Eo—pi‚±‚ê‚ª‚ ‚é‚Ì‚Åbreak‚Í‚¢‚ç‚È‚¢o ‘¼‚Å‚Í•’Ê‚Ébreak‚µ‚Ä‚¢‚é——R‚ÍA‰Â“Ç«‚ª‚¢‚¢‚©‚ç‚Å‚· pj.
 							i = m_vsmpCoverMgr.size() - 1;
 							j = m_vsmpCoverMgr[i]->GetCoverMax() - 1;
 						}
@@ -3650,7 +3596,7 @@ void clsMain::SceneMain()
 		m_pPlayer->SetGroundFlg( bGroundFlg );
 	}
 
-	//----- æ™®é€šåºŠ -----//.
+	//----- •’Ê° -----//.
 	if( !bCutGroundCheck ){
 		for( int i=0; i<m_vsmpFloor.size(); i++ ){
 			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
@@ -3660,7 +3606,7 @@ void clsMain::SceneMain()
 					bGroundFlg ) )
 				{
 					bCutGroundCheck = true;
-					//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+					//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 					break;
 				}
 			}
@@ -3668,9 +3614,9 @@ void clsMain::SceneMain()
 		m_pPlayer->SetGroundFlg( bGroundFlg );
 	}
 
-	//----- å‹•ãä¸¸è¶³å ´ -----//.
+	//----- “®‚­ŠÛ‘«ê -----//.
 	for( int i=0; i<m_vsmpStepCil.size(); i++ ){
-		m_vsmpStepCil[i]->Update();	//ã“ã„ã¤ã¯å¤–ã«å‡ºã—ã¦ãŠã‹ãªã„ã¨breakã®ã›ã„ã§ä¹—ã£ã¦ã„ã‚‹è¶³å ´ä»¥å¤–ãŒæ­¢ã¾ã£ã¦ã—ã¾ã†.
+		m_vsmpStepCil[i]->Update();	//‚±‚¢‚Â‚ÍŠO‚Éo‚µ‚Ä‚¨‚©‚È‚¢‚Æbreak‚Ì‚¹‚¢‚Åæ‚Á‚Ä‚¢‚é‘«êˆÈŠO‚ª~‚Ü‚Á‚Ä‚µ‚Ü‚¤.
 	}
 	if( !bCutGroundCheck ){
 		for( int i=0; i<m_vsmpStepCil.size(); i++ ){
@@ -3681,12 +3627,12 @@ void clsMain::SceneMain()
 					bGroundFlg ) )
 				{
 					bCutGroundCheck = true;
-					//ä¹—ã£ã¦ã„ãŸã‚‰é‹ã¶.
+					//æ‚Á‚Ä‚¢‚½‚ç‰^‚Ô.
 					if( bGroundFlg ){
-						//è¶³å ´ã®ç§»å‹•é‡ã‚’æ›´æ–°.
+						//‘«ê‚ÌˆÚ“®—Ê‚ğXV.
 						m_pPlayer->AddPositionZ( m_vsmpStepCil[i]->GetCarryRangeZ() );
 					}
-					//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+					//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 					break;
 				}
 			}
@@ -3695,9 +3641,9 @@ void clsMain::SceneMain()
 	}
 
 
-	//----- å‹•ãå››è§’è¶³å ´ -----//.
+	//----- “®‚­lŠp‘«ê -----//.
 	for( int i=0; i<m_vsmpStepBox.size(); i++ ){
-		m_vsmpStepBox[i]->Update();	//ã“ã„ã¤ã¯å¤–ã«å‡ºã—ã¦ãŠã‹ãªã„ã¨breakã®ã›ã„ã§ä¹—ã£ã¦ã„ã‚‹è¶³å ´ä»¥å¤–ãŒæ­¢ã¾ã£ã¦ã—ã¾ã†.
+		m_vsmpStepBox[i]->Update();	//‚±‚¢‚Â‚ÍŠO‚Éo‚µ‚Ä‚¨‚©‚È‚¢‚Æbreak‚Ì‚¹‚¢‚Åæ‚Á‚Ä‚¢‚é‘«êˆÈŠO‚ª~‚Ü‚Á‚Ä‚µ‚Ü‚¤.
 	}
 	if( !bCutGroundCheck ){
 		for( int i=0; i<m_vsmpStepBox.size(); i++ ){
@@ -3708,12 +3654,12 @@ void clsMain::SceneMain()
 					bGroundFlg ) )
 				{
 					bCutGroundCheck = true;
-					//ä¹—ã£ã¦ã„ãŸã‚‰é‹ã¶.
+					//æ‚Á‚Ä‚¢‚½‚ç‰^‚Ô.
 					if( bGroundFlg ){
-						//è¶³å ´ã®ç§»å‹•é‡ã‚’æ›´æ–°.
+						//‘«ê‚ÌˆÚ“®—Ê‚ğXV.
 						m_pPlayer->AddPositionX( m_vsmpStepBox[i]->GetCarryRangeX() );
 					}
-					//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+					//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 					break;
 				}
 			}
@@ -3721,28 +3667,28 @@ void clsMain::SceneMain()
 		m_pPlayer->SetGroundFlg( bGroundFlg );
 	}
 
-	//----- ã‚´ãƒ¼ãƒ«åºŠ -----//.
+	//----- ƒS[ƒ‹° -----//.
 	if( !bCutGroundCheck ){
 		for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 			if( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1 ){
-				//å®ç®±.
+				//•ó” .
 				if( m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetTrBoxColPointer(),
 					bGroundFlg ) )
 				{
 					bCutGroundCheck = true;
-					//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+					//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 					break;
 				}
-				//åºŠåˆ¤å®š.
+				//°”»’è.
 				if( m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetFloorColPointer(),
 					bGroundFlg ) )
 				{
 					bCutGroundCheck = true;
-					//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+					//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 					break;
 				}
 			}
@@ -3752,26 +3698,26 @@ void clsMain::SceneMain()
 
 
 
-	//æ­»ã‚“ã ã‚‰æˆ»ã£ã¦ãã‚‹.
+	//€‚ñ‚¾‚ç–ß‚Á‚Ä‚­‚é.
 	if( m_pPlayer->GetDead() ){
-		//ã‚¿ã‚¤ãƒãƒ¼ã¨ã‚ã‚‹.
+		//ƒ^ƒCƒ}[‚Æ‚ß‚é.
 		m_smpUiManagar->SetTimerStop( true );
 		m_iRespawnTimer ++;
 		if( m_iRespawnTimer > iDEAD_TIME ){
-			//ã‚·ãƒ¼ãƒ³åˆæœŸåŒ–(ãƒªã‚¹ãƒãƒ¼ãƒ³).
+			//ƒV[ƒ“‰Šú‰»(ƒŠƒXƒ|[ƒ“).
 			if( m_pPlayer->GetHp() > 0 ){
 				if( m_smpUiManagar->GetBlackIdle() ){
-					//æš—è»¢;
+					//ˆÃ“];
 					m_smpUiManagar->BlackStart( fBLACK_SPD_FAST );
 				}
 				else if( m_smpUiManagar->GetBlackEnd() ){
 					InitMain();
 				}
 			}
-			//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼.
+			//ƒQ[ƒ€ƒI[ƒo[.
 			else{
 				if( m_smpUiManagar->GetBlackIdle() ){
-					//æš—è»¢;
+					//ˆÃ“];
 					m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW );
 				}
 				else if( m_smpUiManagar->GetBlackEnd() ){
@@ -3780,22 +3726,22 @@ void clsMain::SceneMain()
 			}
 		}
 	}
-	//ç”Ÿãã¦ã„ã‚‹æ™‚ã«.
+	//¶‚«‚Ä‚¢‚é‚É.
 	else{
-		//ç©´ã«è½ã¡ãŸã‚‰.
+		//ŒŠ‚É—‚¿‚½‚ç.
 		if( m_pPlayer->GetPositionY() < fDROP_DOWN_Y ){
 			m_pPlayer->Dead();
 //			m_pCollision->PlaySe( clsCollision::enSOUND_DROP_DOWN );
 		}
 
-		//ã‚´ãƒ¼ãƒ«.
+		//ƒS[ƒ‹.
 		if ( !m_vsmpGoalMgr.empty() )
 		{
 			if( m_vsmpGoalMgr[0]->GetBoxOpened() ){
 				InitResult();
-//				//æš—è»¢é–‹å§‹.
+//				//ˆÃ“]ŠJn.
 //				m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW, false );
-//				//æš—è»¢çµ‚äº†.
+//				//ˆÃ“]I—¹.
 //				if( m_smpUiManagar->GetBlackEnd() ){
 //					InitResult();
 //				}
@@ -3809,11 +3755,11 @@ void clsMain::SceneResult()
 
 	switch( m_enResultSceneMode )
 	{
-	case enRSM_SILENCE://é™ã‹ã«ãªã‚‹.
-		//ãƒªã‚¶ãƒ«ãƒˆBGMé€²è¡Œ.
+	case enRSM_SILENCE://Ã‚©‚É‚È‚é.
+		//ƒŠƒUƒ‹ƒgBGMis.
 		m_iResultTimer ++;
 		if( m_iResultTimer > iSILENCE_TIME ){
-			//ã‚¸ãƒ³ã‚°ãƒ«å†ç”Ÿ.
+			//ƒWƒ“ƒOƒ‹Ä¶.
 			m_pBgm[enBGM_RESULT]->SeekToStart();
 			m_pBgm[enBGM_RESULT]->Play( true );
 
@@ -3823,9 +3769,9 @@ void clsMain::SceneResult()
 		break;
 
 	case enRSM_JINGLE:
-		//ã‚¸ãƒ³ã‚°ãƒ«ãŒæ­¢ã¾ã£ãŸã‚‰.
+		//ƒWƒ“ƒOƒ‹‚ª~‚Ü‚Á‚½‚ç.
 		if( m_pBgm[enBGM_RESULT]->IsStopped() ){
-			//UIã®ç”¨ãŒçµ‚ã‚ã£ã¦ã„ãŸã‚‰.
+			//UI‚Ì—p‚ªI‚í‚Á‚Ä‚¢‚½‚ç.
 			if( m_smpUiManagar->isCanBgmRePlay() ){
 				m_pBgm[enBGM_RESULT]->Stop();
 				m_pBgm[enBGM_MAIN]->Play( true );
@@ -3835,7 +3781,7 @@ void clsMain::SceneResult()
 		break;
 
 	case enRSM_LOOP:
-		//ãƒ«ãƒ¼ãƒ—.
+		//ƒ‹[ƒv.
 		if( m_pBgm[enBGM_MAIN]->IsStopped() ){
 			m_pBgm[enBGM_MAIN]->SeekToStart();
 			m_pBgm[enBGM_MAIN]->Play( true );
@@ -3849,42 +3795,42 @@ void clsMain::SceneResult()
 
 	m_pPlayer->MoveResultScene();
 
-	//----- ï½¶ï¾’ï¾— -----//.
+	//----- ¶Ò× -----//.
 	CameraMgr();
 
-	//----- è€³ã®ä½ç½® -----//.
+	//----- ¨‚ÌˆÊ’u -----//.
 	SetEar( m_pPlayer->GetPositionZ(), m_Camera.vEye.z );
 
-	//----- ã‚´ãƒ¼ãƒ«ã®å£ã‚ãŸã‚Šåˆ¤å®šã¨å‹•ä½œ -----//.
+	//----- ƒS[ƒ‹‚Ì•Ç‚ ‚½‚è”»’è‚Æ“®ì -----//.
 	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 		m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetFloorColPointer() );
 		m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetTrBoxColPointer() );
 		m_vsmpGoalMgr[i]->Update( GetEar() );
 	}
-	//----- ã‚´ãƒ¼ãƒ«åºŠ -----//.
+	//----- ƒS[ƒ‹° -----//.
 	bool bGroundFlg = false;
-	bool bCutGroundCheck = false;	//åœ°é¢ã®ä¸Šã«ã„ã‚‹ãªã‚‰ãã‚Œä»¥ä¸Šã®ãƒã‚§ãƒƒã‚¯ã¯ã„ã‚‰ãªã„ã®ã§ã€ãã®ãŸã‚ã®ãƒ•ãƒ©ã‚°.
+	bool bCutGroundCheck = false;	//’n–Ê‚Ìã‚É‚¢‚é‚È‚ç‚»‚êˆÈã‚Ìƒ`ƒFƒbƒN‚Í‚¢‚ç‚È‚¢‚Ì‚ÅA‚»‚Ì‚½‚ß‚Ìƒtƒ‰ƒO.
 	if( !bCutGroundCheck ){
 		for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 			if( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1 ){
-				//å®ç®±.
+				//•ó” .
 				if( m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetTrBoxColPointer(),
 					bGroundFlg ) )
 				{
 					bCutGroundCheck = true;
-					//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+					//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 					break;
 				}
-				//åºŠåˆ¤å®š.
+				//°”»’è.
 				if( m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetFloorColPointer(),
 					bGroundFlg ) )
 				{
 					bCutGroundCheck = true;
-					//breakã—ãªã„ã¨åˆ¥ã®åºŠã®æƒ…å ±ã«ä¸Šæ›¸ãã•ã‚Œã‚‹.
+					//break‚µ‚È‚¢‚Æ•Ê‚Ì°‚Ìî•ñ‚Éã‘‚«‚³‚ê‚é.
 					break;
 				}
 			}
@@ -3893,7 +3839,7 @@ void clsMain::SceneResult()
 	}
 
 
-	//å®ç®±ã®ç”»é¢ä¸Šã®åº§æ¨™ã‚’å®çŸ³ã®å‡ºç¾ä½ç½®ã«ã™ã‚‹.
+	//•ó” ‚Ì‰æ–Êã‚ÌÀ•W‚ğ•óÎ‚ÌoŒ»ˆÊ’u‚É‚·‚é.
 	m_smpUiManagar->SetJewelAppPos(
 		ConvDimPos(
 			m_smpUiManagar->GetJewelAppPos(),
@@ -3902,40 +3848,40 @@ void clsMain::SceneResult()
 
 
 
-	//æ±ºå®šãƒœã‚¿ãƒ³.
+	//Œˆ’èƒ{ƒ^ƒ“.
 	bool bPushEnter = false;
 	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
 	if( m_smpUiManagar->GetBlackIdle() ){
-		//ã‚¹ã‚¿ãƒƒãƒ•ãƒ­ãƒ¼ãƒ«ã¸ã¸.
+		//ƒXƒ^ƒbƒtƒ[ƒ‹‚Ö‚Ö.
 		if( bPushEnter ){
-			//ãƒªã‚¶ãƒ«ãƒˆã®çµ‚äº†.
+			//ƒŠƒUƒ‹ƒg‚ÌI—¹.
 			if( m_smpUiManagar->isCanResEnd() ){
 				m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW );
 				m_pSe[enSe_EXIT]->SeekPlay();
 			}
-			//ãƒªã‚¶ãƒ«ãƒˆã‚’æœ€çµ‚çŠ¶æ…‹ã«.
+			//ƒŠƒUƒ‹ƒg‚ğÅIó‘Ô‚É.
 			else{
 				m_smpUiManagar->ResEndPos();
 			}
 		}
 	}
-	//æš—è»¢çµ‚äº†.
+	//ˆÃ“]I—¹.
 	else if( m_smpUiManagar->GetBlackEnd() ){
 		InitEndroll();
 	}
 }
 void clsMain::SceneEnding()
 {
-	//ãƒ«ãƒ¼ãƒ—.
+	//ƒ‹[ƒv.
 	if( m_pBgm[enBGM_ENDROLL]->IsStopped() ){
 		m_pBgm[enBGM_ENDROLL]->SeekToStart();
 		m_pBgm[enBGM_ENDROLL]->Play( true );
 	}
 
-	//ãƒ†ã‚¹ãƒˆ.
+	//ƒeƒXƒg.
 	if( GetAsyncKeyState( 'Y' ) & 0x8000 ) m_Camera.vLook.y += 0.05f;
 	if( GetAsyncKeyState( 'H' ) & 0x8000 ) m_Camera.vLook.y -= 0.05f;
 	if( GetAsyncKeyState( 'J' ) & 0x8000 ) m_Camera.vLook.x += 0.05f;
@@ -3968,34 +3914,34 @@ void clsMain::SceneEnding()
 
 	m_pEndEnemy->Update();
 
-	//çŸ­æŠ¼ã—.
+	//’Z‰Ÿ‚µ.
 	bool bPushEnterEnter = false;
 	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnterEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnterEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnterEnter = true;
 
-	//é•·æŠ¼ã—.
+	//’·‰Ÿ‚µ.
 	bool bPushEnterStay = false;
 	if( m_pXInput->IsPressStay( XINPUT_GAMEPAD_A ) )bPushEnterStay = true;
 	GETKEY_STAY( 'Z' ) bPushEnterStay = true;
 	GETKEY_STAY( 'A' ) bPushEnterStay = true;
 
 
-	//æš—è»¢ãŒå‹•ã„ã¦ã„ãªã„.
+	//ˆÃ“]‚ª“®‚¢‚Ä‚¢‚È‚¢.
 	if( m_smpUiManagar->GetBlackIdle() ){
-		//åŠ é€Ÿ.
+		//‰Á‘¬.
 		m_smpUiManagar->SetPushButtun( bPushEnterStay );
-		//ã‚¹ã‚¿ãƒƒãƒ•ãƒ­ãƒ¼ãƒ«ãŒçµ‚ã‚ã£ãŸã‚‰.
+		//ƒXƒ^ƒbƒtƒ[ƒ‹‚ªI‚í‚Á‚½‚ç.
 		if ( m_smpUiManagar->GetEndRollEnd() ){
-			//çµ‚äº†.
+			//I—¹.
 			if( bPushEnterEnter ){
-				//ã‚¿ã‚¤ãƒˆãƒ«ã¸.
+				//ƒ^ƒCƒgƒ‹‚Ö.
 				m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW, false );
 				m_pSe[enSe_ENTER]->SeekPlay();
 			}
 		}
 	}
-	//æš—è»¢çµ‚äº†.
+	//ˆÃ“]I—¹.
 	else if( m_smpUiManagar->GetBlackEnd() ){
 		InitTitle();
 	}
@@ -4011,14 +3957,14 @@ void clsMain::SceneOver()
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
 	if( m_smpUiManagar->GetBlackIdle() ){
-		//ã‚¿ã‚¤ãƒˆãƒ«ã¸.
+		//ƒ^ƒCƒgƒ‹‚Ö.
 		if( bPushEnter ){
 			//
 			m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW );
 			m_pSe[enSe_ENTER]->SeekPlay();
 		}
 	}
-	//æš—è»¢çµ‚äº†.
+	//ˆÃ“]I—¹.
 	else if( m_smpUiManagar->GetBlackEnd() ){
 		InitTitle();
 	}
@@ -4027,13 +3973,13 @@ void clsMain::SceneOver()
 //==========
 void clsMain::RenderTitle()
 {
-	//å£.
+	//•Ç.
 	if ( !m_vsmpWall.empty() ){
 		for ( int i=0; i<m_vsmpWall.size(); i++ ){
 			m_vsmpWall[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//åºŠ.
+	//°.
 	if ( !m_vsmpFloor.empty() ){
 		for ( int i=0; i<m_vsmpFloor.size(); i++ ){
 			m_vsmpFloor[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
@@ -4042,17 +3988,17 @@ void clsMain::RenderTitle()
 
 
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(ã‚¢ãƒ«ãƒ“ã‚¢)è¡¨ç¤º.
+	//ƒvƒŒƒCƒ„[(ƒAƒ‹ƒrƒA)•\¦.
 	m_pPlayer->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 
-	//ãƒ‰ã‚¢.
+	//ƒhƒA.
 	if ( !m_vsmpDoorMgr.empty() ){
 		for ( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
 			m_vsmpDoorMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ã‚·ãƒ¼ã‚¢.
+	//ƒGƒtƒFƒNƒV[ƒA.
 	m_pEffect->Render( m_mView, m_mProj, m_Camera.vEye );
 
 
@@ -4061,37 +4007,37 @@ void clsMain::RenderMain()
 {
 
 #ifdef Inoue
-	//å£.
+	//•Ç.
 	if ( !m_vsmpWall.empty() ){
 		for ( int i=0; i<m_vsmpWall.size(); i++ ){
 			m_vsmpWall[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//åºŠ.
+	//°.
 	if ( !m_vsmpFloor.empty() ){
 		for ( int i=0; i<m_vsmpFloor.size(); i++ ){
 			m_vsmpFloor[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//è¶³å ´ä¸¸å‹.
+	//‘«êŠÛŒ^.
 	if ( !m_vsmpStepCil.empty() ){
 		for ( int i=0; i<m_vsmpStepCil.size(); i++ ){
 			m_vsmpStepCil[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//è¶³å ´å››è§’å‹.
+	//‘«êlŠpŒ^.
 	if ( !m_vsmpStepBox.empty() ){
 		for ( int i=0; i<m_vsmpStepBox.size(); i++ ){
 			m_vsmpStepBox[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//è½ã¨ã—ç©´.
+	//—‚Æ‚µŒŠ.
 	if ( !m_vsmpCoverMgr.empty() ){
 		for ( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
 			m_vsmpCoverMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//ã‚´ãƒ¼ãƒ«.
+	//ƒS[ƒ‹.
 	if ( !m_vsmpGoalMgr.empty() ){
 		for ( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
 			m_vsmpGoalMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
@@ -4101,30 +4047,30 @@ void clsMain::RenderMain()
 #endif //#ifdef Inoue.
 
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(ã‚¢ãƒ«ãƒ“ã‚¢)è¡¨ç¤º.
+	//ƒvƒŒƒCƒ„[(ƒAƒ‹ƒrƒA)•\¦.
 	m_pPlayer->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 
 
 #ifdef Inoue
-	//æ•µ.
+	//“G.
 	if ( !m_vsmpEnemyMgr.empty() ){
 		for (int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
 			m_vsmpEnemyMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//åºŠæ§.
+	//°‘„.
 	if ( !m_vsmpSpiaFloorMgr.empty() ){
 		for ( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
 			m_vsmpSpiaFloorMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//å£æ§.
+	//•Ç‘„.
 	if ( !m_vsmpSpiaWallMgr.empty() ){
 		for ( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
 			m_vsmpSpiaWallMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
-	//å±‹æ ¹.
+	//‰®ª.
 	if ( !m_vsmpCeiling.empty() ){
 		for (int i = 0; i < m_vsmpCeiling.size(); i++ )
 		{
@@ -4132,25 +4078,25 @@ void clsMain::RenderMain()
 		}
 	}
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ã‚·ãƒ¼ã‚¢.
+	//ƒGƒtƒFƒNƒV[ƒA.
 	m_pEffect->Render( m_mView, m_mProj, m_Camera.vEye );
 
 
-	//ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ (é€†é †ãªã®ã¯é€éã®éƒ½åˆ).
+	//ƒyƒ“ƒfƒ…ƒ‰ƒ€(‹t‡‚È‚Ì‚Í“§‰ß‚Ì“s‡).
 	if ( !m_vsmpPend.empty() ){
 		for ( int i=m_vsmpPend.size()-1; i>=0; i-- ){
 			m_vsmpPend[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 			m_vsmpPend[i]->GetBonePos( PEND_BONE_NAME );
 		}
 	}
-	//ãƒ‰ã‚¢(é€†é †ãªã®ã¯é€éã®éƒ½åˆ).
+	//ƒhƒA(‹t‡‚È‚Ì‚Í“§‰ß‚Ì“s‡).
 	if ( !m_vsmpDoorMgr.empty() ){
 		for ( int i=m_vsmpDoorMgr.size()-1; i>=0; i-- ){
 			m_vsmpDoorMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 		}
 	}
 
-	//ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆæ–‡å­—.
+	//ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•¶š.
 	if( m_pCheck != nullptr ){
 		m_pCheck->Render( m_mView, m_mProj, m_Camera.vEye );
 	}
@@ -4168,44 +4114,44 @@ void clsMain::RenderMain()
 
 
 #ifdef _DEBUG
-	//å®šè¦.
+	//’è‹K.
 	for( int i=0; i<m_iBlkAryMax; i++ ){
 		m_ppBlkAry[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 	}
 
-	//ï¾šï½²ã®è¡¨ç¤º(å‚ç›´).
+	//Ú²‚Ì•\¦(‚’¼).
 	m_pRayV->m_Ray.vPos = m_pPlayer->GetPosition();
-	//å›è»¢å€¤ã‚’è‡ªæ©Ÿã«åˆã‚ã›ã‚‹.
+	//‰ñ“]’l‚ğ©‹@‚É‡‚í‚¹‚é.
 	m_pRayV->m_Ray.fYaw = m_pPlayer->GetRotationY();
 		m_pRayV->Render( m_mView, m_mProj );
 
-	//ï¾šï½²ã®è¡¨ç¤º(å‰å¾Œ).
+	//Ú²‚Ì•\¦(‘OŒã).
 	m_pRayFB->m_Ray.vPos = m_pPlayer->GetPosition();
-	//å›è»¢å€¤ã‚’è‡ªæ©Ÿã«åˆã‚ã›ã‚‹.
+	//‰ñ“]’l‚ğ©‹@‚É‡‚í‚¹‚é.
 	m_pRayFB->m_Ray.fYaw = m_pPlayer->GetRotationY();
 		m_pRayFB->Render( m_mView, m_mProj );
 
-	//ï¾šï½²ã®è¡¨ç¤º(å·¦å³).
+	//Ú²‚Ì•\¦(¶‰E).
 	m_pRayH->m_Ray.vPos = m_pPlayer->GetPosition();
-	//å›è»¢å€¤ã‚’è‡ªæ©Ÿã«åˆã‚ã›ã‚‹.
+	//‰ñ“]’l‚ğ©‹@‚É‡‚í‚¹‚é.
 	m_pRayH->m_Ray.fYaw = m_pPlayer->GetRotationY();
 		m_pRayH->Render( m_mView, m_mProj );
 
 
-//	//ï¾Šï¾Ÿï½°ï¾ƒï½¨ï½¸ï¾™ã®è¡¨ç¤º.
+//	//Êß°Ã¨¸Ù‚Ì•\¦.
 //	if( m_pParticle->m_bDispFlg ){
-//		SetDepth( false );	//Zï¾ƒï½½ï¾„:OFF.
-//		//â€»ï¾Šï¾Ÿï½°ï¾ƒï½¨ï½¸ï¾™1ç²’ã‚’ï¾ï¾Ÿï½²ï¾ï¾„ï½½ï¾Œï¾Ÿï¾—ï½²ï¾„1æšã¨ã—ã¦500æšæç”».
+//		SetDepth( false );	//ZÃ½Ä:OFF.
+//		//¦Êß°Ã¨¸Ù1—±‚ğÎß²İÄ½Ìß×²Ä1–‡‚Æ‚µ‚Ä500–‡•`‰æ.
 //		int particleMax = m_pParticle->GetMaxParticle();
 //		for( int i=0; i<particleMax; i++ ){
-//			//ç¾åœ¨ã®iç•ªç›®ã®ç²’ã®ä½ç½®ã‚’å–å¾—.
+//			//Œ»İ‚Ìi”Ô–Ú‚Ì—±‚ÌˆÊ’u‚ğæ“¾.
 //			D3DXVECTOR3 vParticlePos = m_pParticle->GetParticlePos( i );
-//			//iç•ªç›®ã®ç²’ã‚’è¡¨ç¤º.
+//			//i”Ô–Ú‚Ì—±‚ğ•\¦.
 //			m_pParticle->Render( m_mView, m_mProj, m_Camera.vEye, vParticlePos );
 //		}
-//		//ï¾Šï¾Ÿï½°ï¾ƒï½¨ï½¸ï¾™ã®ç§»å‹•å‡¦ç†.
+//		//Êß°Ã¨¸Ù‚ÌˆÚ“®ˆ—.
 //		m_pParticle->Run();
-//		SetDepth( true );	//Zï¾ƒï½½ï¾„:ON.
+//		SetDepth( true );	//ZÃ½Ä:ON.
 //	}
 
 
@@ -4219,22 +4165,22 @@ void clsMain::RenderMain()
 }
 void clsMain::RenderOver()
 {
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(ã‚¢ãƒ«ãƒ“ã‚¢)è¡¨ç¤º.
+	//ƒvƒŒƒCƒ„[(ƒAƒ‹ƒrƒA)•\¦.
 	m_pPlayer->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
-	//ã‚¨ãƒ•ã‚§ã‚¯ã‚·ãƒ¼ã‚¢.
+	//ƒGƒtƒFƒNƒV[ƒA.
 	m_pEffect->Render( m_mView, m_mProj, m_Camera.vEye );
 
 }
 void clsMain::RenderResult()
 {
 	RenderMain();
-	//ã‚¨ãƒ•ã‚§ã‚¯ã‚·ãƒ¼ã‚¢.
+	//ƒGƒtƒFƒNƒV[ƒA.
 	m_pEffect->Render( m_mView, m_mProj, m_Camera.vEye );
 
 }
 void clsMain::RenderEnding()
 {
-	//å£ã¨åºŠã¨å¤©äº•( ç©´ã®ç„¡ã„ãã‚Œã„ãªåºŠ ).
+	//•Ç‚Æ°‚Æ“Vˆä( ŒŠ‚Ì–³‚¢‚«‚ê‚¢‚È° ).
 	if ( !m_vsmpWall.empty() && !m_vsmpFloor.empty() && !m_vsmpCeiling.empty() ){
 		m_vsmpWall[0]->SetPosition( vENDING_INIT_STAGE_POS );
 		m_vsmpFloor[0]->SetPosition( vENDING_INIT_STAGE_POS );
@@ -4252,13 +4198,13 @@ void clsMain::RenderEnding()
 		}
 	}
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(ã‚¢ãƒ«ãƒ“ã‚¢)è¡¨ç¤º.
+	//ƒvƒŒƒCƒ„[(ƒAƒ‹ƒrƒA)•\¦.
 	m_pPlayer->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 
-	//è¿½ã£ã‹ã‘ã‚‹æ•µ.
+	//’Ç‚Á‚©‚¯‚é“G.
 	m_pEndEnemy->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ã‚·ãƒ¼ã‚¢.
+	//ƒGƒtƒFƒNƒV[ƒA.
 	m_pEffect->Render( m_mView, m_mProj, m_Camera.vEye );
 
 }
@@ -4268,7 +4214,7 @@ void clsMain::RenderDebugText()
 #if _DEBUG
 
 
-	//NULLï¾ï½ªï½¯ï½¸.
+	//NULLÁª¯¸.
 	if ( m_pText != nullptr ){
 		char strDbgTxt[256];
 		int dbgtxty = 50;
@@ -4293,7 +4239,7 @@ void clsMain::RenderDebugText()
 		m_pText->Render(strDbgTxt, 0, dbgtxty);
 		dbgtxty += 10;
 
-		//ã©ã¡ã‚‰ã‚’æ›´æ–°ã™ã‚‹?.
+		//‚Ç‚¿‚ç‚ğXV‚·‚é?.
 		sprintf_s(strDbgTxt, "Control Mode");
 		m_pText->Render(strDbgTxt, dbgtxty, dbgtxty);
 		dbgtxty += 10;
@@ -4307,7 +4253,7 @@ void clsMain::RenderDebugText()
 		m_pText->Render(strDbgTxt, dbgtxty, dbgtxty);
 		dbgtxty += 10;
 
-		//çŸ¢å°.
+		//–îˆó.
 		switch (ControlMode){
 			case 0:
 				break;
@@ -4374,22 +4320,22 @@ void clsMain::RenderDebugText()
 }
 
 #ifdef START_LOADING_DISPLAY
-//========/ ï¾›ï½°ï¾„ï¾ç”»é¢ /========//
+//========/ Û°ÄŞ‰æ–Ê /========//
 void clsMain::NowLoading()
 {
 	LoadSpriteInit();
-	//ï¾˜ï½¿ï½°ï½½ï½¸ï¾—ï½½.
+	//Ø¿°½¸×½.
 	m_pResource = clsResource::GetInstance();
 
 
 	//------------------------------
-	//	Effekseerï½¸ï¾—ï½½.
+	//	Effekseer¸×½.
 	//------------------------------
 	clsEffects::GetInstance()->Create( m_pDevice, m_pDeviceContext );
 	clsEffects::GetInstance()->LoadData();
 
 	m_pEffect = clsEffects::GetInstance();
-	//ã“ã‚Œå…¥ã‚Œãªã„ã¨ãªãœã‹åˆå›ã¯å†ç”Ÿã•ã‚Œãªã„.
+	//‚±‚ê“ü‚ê‚È‚¢‚Æ‚È‚º‚©‰‰ñ‚ÍÄ¶‚³‚ê‚È‚¢.
 	PlayEffKick( { 0.0f, 0.0f, 0.0f } );
 	m_pEffect->Stop( m_ehKickHit );
 
@@ -4414,141 +4360,141 @@ void clsMain::NowLoading()
 			m_pResource->CreateStaticModel(
 				"Data\\Test\\Test.x",
 				clsResource::enST_MODEL_Plane );
-			//é€šå¸¸å£.
+			//’Êí•Ç.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\kabe.X",
 				clsResource::enST_MODEL_WALL );
 
-			//å£é¢ç„¡ã—å£.
+			//•Ç–Ê–³‚µ•Ç.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\kabe_2.X",
 				clsResource::enST_MODEL_WALL_NOT_WALL );
 
-			//å£é¢ç„¡ã—é€šå¸¸åºŠ.
+			//•Ç–Ê–³‚µ’Êí°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_2.X",
 				clsResource::enST_MODEL_FLOOR_NOT_WALL_NORMAL );
 
-			//å£é¢ç„¡ã—å·¦ã®åŠåˆ†åºŠ.
+			//•Ç–Ê–³‚µ¶‚Ì”¼•ª°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_hanbun_L_2.X",
 				clsResource::enST_MODEL_FLOOR_NOT_WALL_HALF_L );
 
-			//å£é¢ç„¡ã—å³ã®åŠåˆ†åºŠ.
+			//•Ç–Ê–³‚µ‰E‚Ì”¼•ª°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_hanbun_R_2.X",
 				clsResource::enST_MODEL_FLOOR_NOT_WALL_HALF_R );
 
-			//å£é¢ç„¡ã—ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ åºŠ.
+			//•Ç–Ê–³‚µƒyƒ“ƒfƒ…ƒ‰ƒ€°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_kizu_2.X",
 				clsResource::enST_MODEL_FLOOR_NOT_WALL_PEND );
 
-			//é€šå¸¸åºŠ.
+			//’Êí°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka.X",
 				clsResource::enST_MODEL_FLOOR_NORMAL );
 
-			//å·¦ã®åŠåˆ†åºŠ.
+			//¶‚Ì”¼•ª°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_hanbun_L.X",
 				clsResource::enST_MODEL_FLOOR_HALF_L );
 
-			//å³ã®åŠåˆ†åºŠ.
+			//‰E‚Ì”¼•ª°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_hanbun_R.X",
 				clsResource::enST_MODEL_FLOOR_HALF_R );
-			//ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ åºŠ.
+			//ƒyƒ“ƒfƒ…ƒ‰ƒ€°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_kizu.X",
 				clsResource::enST_MODEL_FLOOR_PEND );
-			//ç¸¦ç§»å‹•åºŠ.
+			//cˆÚ“®°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\StepCylinder.X",
 				clsResource::enST_MODEL_STEP_CIL );
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\StepCylinder_Big.X",
 				clsResource::enST_MODEL_STEP_CIL_BIG );
-			//æ¨ªç§»å‹•åºŠ.
+			//‰¡ˆÚ“®°.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\StepBox.X",
 				clsResource::enST_MODEL_STEP_BOX );
 
-			//ãƒ‰ã‚¢ãƒ¢ãƒ‡ãƒ«ã‚’ç¢ºèªã™ã‚‹.
+			//ƒhƒAƒ‚ƒfƒ‹‚ğŠm”F‚·‚é.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\mon.X",
 				clsResource::enST_MODEL_MON);
 			LoadGage += 50;
 			break;
 		case 2:
-			//ã‚´ãƒ¼ãƒ«ãƒ¢ãƒ‡ãƒ«ã‚’ç¢ºèªã™ã‚‹.
+			//ƒS[ƒ‹ƒ‚ƒfƒ‹‚ğŠm”F‚·‚é.
 			m_pResource->CreateStaticModel(
 				"Data\\TrRoom\\gool.X",
 				clsResource::enST_MODEL_GOOL );
-			//å®ç®±ã®ã‚ãŸã‚Šåˆ¤å®š
+			//•ó” ‚Ì‚ ‚½‚è”»’è
 			m_pResource->CreateStaticModel(
 				"Data\\TrRoom\\TrBoxCol.X",
 				clsResource::enST_MODEL_TR_BOX_COL );
 
-			//æ™®é€šæ§.
+			//•’Ê‘„.
 			m_pResource->CreateStaticModel(
 				"Data\\Trap\\Spia.x",
 				clsResource::enST_MODEL_SPIA );
-			//å£æ§.
+			//•Ç‘„.
 			m_pResource->CreateStaticModel(
 				"Data\\Trap\\SpiaOfWall.x",
 				clsResource::enST_MODEL_SPIA_OF_WALL );
 
-			//æ§ã®æŸ±éƒ¨åˆ†ã®å£åˆ¤å®šç”¨.
+			//‘„‚Ì’Œ•”•ª‚Ì•Ç”»’è—p.
 			m_pResource->CreateStaticModel(
 				"Data\\Trap\\SpiaWallHit.x",
 				clsResource::enST_MODEL_SPIA_WALL );
 
-			//å·¦å´ã®è½ã¨ã—ç©´ã®è“‹.
+			//¶‘¤‚Ì—‚Æ‚µŒŠ‚ÌŠW.
 			m_pResource->CreateStaticModel(
 				"Data\\Trap\\otosiana_L.x",
 				clsResource::enST_MODEL_COVER_L );
 
-			//å³å´ã®è½ã¨ã—ç©´ã®è“‹.
+			//‰E‘¤‚Ì—‚Æ‚µŒŠ‚ÌŠW.
 			m_pResource->CreateStaticModel(
 				"Data\\Trap\\otosiana_R.x",
 				clsResource::enST_MODEL_COVER_R );
 
-			//å®šè¦ç”¨ã®ãƒ–ãƒ­ãƒƒã‚¯.
+			//’è‹K—p‚ÌƒuƒƒbƒN.
 			m_pResource->CreateStaticModel(
 				"Data\\Jikken\\1_1_1_kijyun.x",
 				clsResource::enST_MODEL_BLOCK );
 
-			//å¤©äº•.
+			//“Vˆä.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\Ceiling.X",
 				clsResource::enST_MODEL_CEILING );
 
-			//ãƒ†ã‚¹ãƒˆç”¨.
+			//ƒeƒXƒg—p.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\tobira.X",
 				clsResource::enST_MODEL_TEST );
 
 			//=====Skin Model=====.
-			//ã‚¢ãƒ«ãƒ“ã‚¢.
+			//ƒAƒ‹ƒrƒA.
 			m_pResource->CreateSkinModel(
 				"Data\\Player\\Arbia.X",
 				clsResource::enSK_MODEL_PLAYER );
 
-			//ãƒ‰ã‚¢.
+			//ƒhƒA.
 			m_pResource->CreateSkinModel(
 				"Data\\Stage\\tobira.X",
 				clsResource::enSK_MODEL_DOOR );
 
-			//æ•µ.
+			//“G.
 			m_pResource->CreateSkinModel(
 				"Data\\Enemy\\Enemy.X",
 				clsResource::enSK_MODEL_ENEMY );
-			//ãƒšãƒ³ãƒ‡ãƒ¥ãƒ©ãƒ .
+			//ƒyƒ“ƒfƒ…ƒ‰ƒ€.
 			m_pResource->CreateSkinModel(
 				"Data\\Trap\\Pendulum.X",
 				clsResource::enSK_MODEL_PENDULUM );
-			//å®ç®±.
+			//•ó” .
 			m_pResource->CreateSkinModel(
 				"Data\\TrRoom\\TrRoomBox.X",
 				clsResource::enSK_MODEL_TR_BOX );
@@ -4565,7 +4511,7 @@ void clsMain::NowLoading()
 			LoadGage += 10;
 			break;
 		case 6:
-			//ã‚¿ã‚¤ãƒˆãƒ«ç”¨ã®åˆæœŸåŒ–ã‚’å…¥ã‚Œã‚‹.
+			//ƒ^ƒCƒgƒ‹—p‚Ì‰Šú‰»‚ğ“ü‚ê‚é.
 			InitTitle();
 			m_pBgm[enBGM_START_UP]->Stop();
 			LoadGage += 10;
@@ -4576,7 +4522,7 @@ void clsMain::NowLoading()
 	}
 }
 
-// ï¾›ï½°ï¾„ï¾ç”»é¢åˆæœŸåŒ– //
+// Û°ÄŞ‰æ–Ê‰Šú‰» //
 void clsMain::LoadSpriteInit()
 {
 	m_pLoadBack = make_unique<clsSprite2D>();
@@ -4620,14 +4566,14 @@ void clsMain::LoadSpriteInit()
 	LoadGageUVTarget = 0.0f;
 }
 
-// ï¾›ï½°ï¾„ï¾ç”»é¢è¡¨ç¤º //
+// Û°ÄŞ‰æ–Ê•\¦ //
 void clsMain::LoadRender()
 {
-	//ç”»é¢ã®ï½¸ï¾˜ï½±.
-	float ClearColor[4] = { 0.0f, 0.0f, 1.0f, 1.0f };//ï½¸ï¾˜ï½±è‰²(RGBAé †:255ã®æ¯”ç‡ã§å‡ºã™)
-	//ï½¶ï¾—ï½°ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§.
+	//‰æ–Ê‚Ì¸Ø±.
+	float ClearColor[4] = { 0.0f, 0.0f, 1.0f, 1.0f };//¸Ø±F(RGBA‡:255‚Ì”ä—¦‚Åo‚·)
+	//¶×°ÊŞ¯¸ÊŞ¯Ì§.
 	m_pDeviceContext->ClearRenderTargetView(m_pBackBuffer_TexRTV, ClearColor);
-	//ï¾ƒï¾ï¾Œï¾Ÿï½½ï½½ï¾ƒï¾ï½¼ï¾™ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§.
+	//ÃŞÌß½½Ãİ¼ÙÊŞ¯¸ÊŞ¯Ì§.
 	m_pDeviceContext->ClearDepthStencilView(m_pBackBuffer_DSTexDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	SetDepth(false);
@@ -4641,7 +4587,7 @@ void clsMain::LoadRender()
 
 	SetDepth(true);
 
-	//ï¾šï¾ï¾€ï¾ï¾˜ï¾ï½¸ï¾ã•ã‚ŒãŸï½²ï¾’ï½°ï½¼ï¾ã‚’è¡¨ç¤º.
+	//ÚİÀŞØİ¸Ş‚³‚ê‚½²Ò°¼Ş‚ğ•\¦.
 	m_pSwapChain->Present(0, 0);
 }
 
@@ -4649,7 +4595,7 @@ void clsMain::LoadRender()
 
 
 
-//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿ.
+//ƒGƒtƒFƒNƒgÄ¶.
 void clsMain::PlayEffKick( D3DXVECTOR3 vPos )
 {
 //	if( !m_pEffect->PlayCheck( m_ehKickHit ) ){
@@ -4675,7 +4621,7 @@ void clsMain::PlayEffSlash( D3DXVECTOR3 vPos )
 
 
 #ifdef Tahara
-//ConvDimPosã®äº‹å‰æº–å‚™.
+//ConvDimPos‚Ì–‘O€”õ.
 void clsMain::SetViewPort10( D3D11_VIEWPORT* Vp )
 {
 	m_ViewPort.TopLeftX = Vp->TopLeftX;
@@ -4686,7 +4632,7 @@ void clsMain::SetViewPort10( D3D11_VIEWPORT* Vp )
 	m_ViewPort.Height = Vp->Height;
 };
 
-//3Dåº§æ¨™ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³( 2D )åº§æ¨™å¤‰æ›.dimensions(æ¬¡å…ƒ) conversion(å¤‰æ›)
+//3DÀ•W‚ÌƒXƒNƒŠ[ƒ“( 2D )À•W•ÏŠ·.dimensions(ŸŒ³) conversion(•ÏŠ·)
 D3DXVECTOR3 clsMain::ConvDimPos( D3DXVECTOR3 v2DPos, D3DXVECTOR3 v3DPos )
 {
 	D3DXMATRIX mWorld;

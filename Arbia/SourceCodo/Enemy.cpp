@@ -131,7 +131,7 @@ void clsEnemy::Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* 
 		m_ppSe != nullptr ||
 		m_pEffect != nullptr )
 	{
-
+		return;
 	}
 
 	//“–‚½‚è”»’è.

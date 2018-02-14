@@ -299,6 +299,8 @@ public:
 
 
 #endif //Inoue
+
+
 	enScene m_enScene;
 
 	//ƒ^ƒCƒgƒ‹‚Ìó‘Ô.
