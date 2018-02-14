@@ -13,11 +13,7 @@
 
 #include "SceneManager.h"
 
-
-
-
 using namespace std;
-
 
 class clsUiManagar
 {

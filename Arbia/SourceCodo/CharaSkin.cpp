@@ -11,7 +11,7 @@ clsCharaSkin::clsCharaSkin()
 
 	m_pShadow = nullptr;
 
-
+}
 
 
 clsCharaSkin::~clsCharaSkin()
