@@ -276,7 +276,7 @@ public:
 	vector<StagePatarunSet>			 m_vStageDataPatarnSet;	//配列1個でステージ１マス分
 	StagePatarunSet					 m_vStageDataMaxSet;	//Excelの一行目に最大数入力.
 	vector<unique_ptr<clsSprite2D>>  m_vsmpSpriteTest;
-	int	m_SpriteControlNum;
+	unsigned int	m_SpriteControlNum;
 
 	inline void StageSet();
 	inline void StageModelSet();
