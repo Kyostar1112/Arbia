@@ -1,8 +1,8 @@
 #include "Ray.h"
 
-//¼ª°ÀŞÌ§²Ù–¼(ÃŞ¨Ú¸ÄØ‚àŠÜ‚Ş)(\\).
+//ï½¼ï½ªï½°ï¾€ï¾ï¾Œï½§ï½²ï¾™å(ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ã‚‚å«ã‚€)(\\).
 const char SHADER_NAME[] = "Shader\\Ray.hlsl";
-//´İÄØ°Îß²İÄ–¼(ÃŞ¨Ú¸ÄØ‚àŠÜ‚Ş)(\\).
+//ï½´ï¾ï¾„ï¾˜ï½°ï¾ï¾Ÿï½²ï¾ï¾„å(ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ã‚‚å«ã‚€)(\\).
 const char ENT_VER_NAME[] = "VS";
 const char ENT_PIX_NAME[] = "PS";
 
@@ -28,7 +28,7 @@ clsRay::~clsRay()
 
 
 //============================================================
-//	‰Šú‰».
+//	åˆæœŸåŒ–.
 //============================================================
 HRESULT clsRay::Init( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 )
 {
@@ -47,48 +47,48 @@ HRESULT clsRay::Init( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 )
 
 
 //============================================================
-//•`‰æ.
+//æç”».
 //============================================================
 void clsRay::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj )
 {
-	//Ü°ÙÄŞs—ñ.
+	//ï¾œï½°ï¾™ï¾„ï¾è¡Œåˆ—.
 	D3DXMATRIX	mWorld;
 
-	//‰ñ“]s—ñAˆÚ“®s—ñ.
+	//å›è»¢è¡Œåˆ—ã€ç§»å‹•è¡Œåˆ—.
 	D3DXMATRIX mRot, mTran;
 
-//‰ñ“]s—ñì¬(¹Ş°ÑA½Ã°¼ŞŸ‘æ).
-D3DXMatrixRotationY( &mRot, m_Ray.fYaw );
+	//å›è»¢è¡Œåˆ—ä½œæˆ(ï½¹ï¾ï½°ï¾‘ã€ï½½ï¾ƒï½°ï½¼ï¾æ¬¡ç¬¬).
+	D3DXMatrixRotationY( &mRot, m_Ray.fYaw );
 
 
-	//•½sˆÚ“®ì¬.
+	//å¹³è¡Œç§»å‹•ä½œæˆ.
 	D3DXMatrixTranslation( &mTran,
 		m_Ray.vPos.x, m_Ray.vPos.y, m_Ray.vPos.z );
 
-	//Ü°ÙÄŞs—ñì¬.
+	//ï¾œï½°ï¾™ï¾„ï¾è¡Œåˆ—ä½œæˆ.
 	mWorld = mRot * mTran;
 
-	//g—p‚·‚é¼ª°ÀŞ‚Ì“o˜^.
+	//ä½¿ç”¨ã™ã‚‹ï½¼ï½ªï½°ï¾€ï¾ã®ç™»éŒ².
 	m_pDeviceContext11->VSSetShader( m_pVertexShader, NULL, 0 );
 	m_pDeviceContext11->PSSetShader( m_pPixelShader,  NULL, 0 );
 
 
-	//¼ª°ÀŞ‚Ìºİ½ÀİÄÊŞ¯Ì§‚ÉŠeíÃŞ°À‚ğ“n‚·.
+	//ï½¼ï½ªï½°ï¾€ï¾ã®ï½ºï¾ï½½ï¾€ï¾ï¾„ï¾Šï¾ï½¯ï¾Œï½§ã«å„ç¨®ï¾ƒï¾ï½°ï¾€ã‚’æ¸¡ã™.
 	D3D11_MAPPED_SUBRESOURCE pData;
-	SHADER_CONSTANT_BUFFER cd;	//ºİ½ÀİÄÊŞ¯Ì§.
-	//ÊŞ¯Ì§“à‚ÌÃŞ°À‚Ì‘‚«•ûŠJn‚Émap.
+	SHADER_CONSTANT_BUFFER cd;	//ï½ºï¾ï½½ï¾€ï¾ï¾„ï¾Šï¾ï½¯ï¾Œï½§.
+	//ï¾Šï¾ï½¯ï¾Œï½§å†…ã®ï¾ƒï¾ï½°ï¾€ã®æ›¸ãæ–¹é–‹å§‹æ™‚ã«map.
 	if( SUCCEEDED(
 		m_pDeviceContext11->Map(
 			m_pConstantBuffer, 0,
 			D3D11_MAP_WRITE_DISCARD, 0, &pData ) ) )
 	{
-		//Ü°ÙÄŞ,¶Ò×,ÌßÛ¼Şª¸¼®İs—ñ‚ğ“n‚·.
+		//ï¾œï½°ï¾™ï¾„ï¾,ï½¶ï¾’ï¾—,ï¾Œï¾Ÿï¾›ï½¼ï¾ï½ªï½¸ï½¼ï½®ï¾è¡Œåˆ—ã‚’æ¸¡ã™.
 		D3DXMATRIX m = mWorld * mView * mProj;
-		D3DXMatrixTranspose( &m, &m );	//s—ñ‚ğ“]’u‚·‚é.
-					//s—ñ‚ÌŒvZ•û–@‚ªDirectX‚ÆGPU‚ÅˆÙ‚È‚é‚½‚ß.
+		D3DXMatrixTranspose( &m, &m );	//è¡Œåˆ—ã‚’è»¢ç½®ã™ã‚‹.
+					//è¡Œåˆ—ã®è¨ˆç®—æ–¹æ³•ãŒDirectXã¨GPUã§ç•°ãªã‚‹ãŸã‚.
 		cd.mWVP = m;
 
-		//¶×°.
+		//ï½¶ï¾—ï½°.
 		cd.vColor = D3DXVECTOR4 ( 1.0f, 0.0f, 1.0f, 1.0f );
 
 
@@ -99,39 +99,39 @@ D3DXMatrixRotationY( &mRot, m_Ray.fYaw );
 		m_pDeviceContext11->Unmap( m_pConstantBuffer, 0 );
 	}
 
-	//‚±‚Ìºİ½ÀİÄÊŞ¯Ì§‚ğ‚Ç‚Ì¼ª°ÀŞ‚Åg‚¤‚©?.
+	//ã“ã®ï½ºï¾ï½½ï¾€ï¾ï¾„ï¾Šï¾ï½¯ï¾Œï½§ã‚’ã©ã®ï½¼ï½ªï½°ï¾€ï¾ã§ä½¿ã†ã‹?.
 	m_pDeviceContext11->VSSetConstantBuffers(
 		0, 1, &m_pConstantBuffer );
 	m_pDeviceContext11->PSSetConstantBuffers(
 		0, 1, &m_pConstantBuffer );
 
-	//’¸“_ÊŞ¯Ì§‚ğ¾¯Ä.
-	UINT stride = sizeof( MODEL_VERTEX );	//ÃŞ°À‚ÌŠÔŠu.
+	//é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ã‚’ï½¾ï½¯ï¾„.
+	UINT stride = sizeof( MODEL_VERTEX );	//ï¾ƒï¾ï½°ï¾€ã®é–“éš”.
 	UINT offset = 0;
 	m_pDeviceContext11->IASetVertexBuffers(
 		0, 1, &m_pVertexBuffer, &stride, &offset );
 
-	//’¸“_²İÌß¯ÄÚ²±³Ä‚ğ¾¯Ä.
+	//é ‚ç‚¹ï½²ï¾ï¾Œï¾Ÿï½¯ï¾„ï¾šï½²ï½±ï½³ï¾„ã‚’ï½¾ï½¯ï¾„.
 	m_pDeviceContext11->IASetInputLayout( m_pVertexLayout );
 
-	//ÌßØĞÃ¨ÌŞEÄÎßÛ¼Ş°‚ğ¾¯Ä.
+	//ï¾Œï¾Ÿï¾˜ï¾ï¾ƒï½¨ï¾Œï¾ãƒ»ï¾„ï¾ï¾Ÿï¾›ï½¼ï¾ï½°ã‚’ï½¾ï½¯ï¾„.
 	m_pDeviceContext11->IASetPrimitiveTopology(
 		D3D11_PRIMITIVE_TOPOLOGY_LINELIST );
 
-	//ÌßØĞÃ¨ÌŞ‚ğÚİÀŞØİ¸Ş.
+	//ï¾Œï¾Ÿï¾˜ï¾ï¾ƒï½¨ï¾Œï¾ã‚’ï¾šï¾ï¾€ï¾ï¾˜ï¾ï½¸ï¾.
 	m_pDeviceContext11->Draw( 2, 0 );
 
 }
 
 
 //============================================================
-//	HLSLÌ§²Ù‚ğ“Ç‚İ‚İ¼ª°ÀŞ‚ğì¬‚·‚é.
+//	HLSLï¾Œï½§ï½²ï¾™ã‚’èª­ã¿è¾¼ã¿ï½¼ï½ªï½°ï¾€ï¾ã‚’ä½œæˆã™ã‚‹.
 //	HLSL:HIGE-LEVEL-SHADER-LANGUAGE.
 //============================================================
 HRESULT clsRay::InitShader()
 {
-	ID3DBlob* pCompiledShader = NULL;
-	ID3DBlob* pErrors = NULL;
+	ID3DBlob* pCompiledShader = nullptr;
+	ID3DBlob* pErrors = nullptr;
 
 	UINT uCompileFlag = 0;
 
@@ -141,122 +141,122 @@ HRESULT clsRay::InitShader()
 #endif//#ifdef _DEBUG
 
 
-	//HLSL‚©‚çÊŞ°Ã¯¸½¼ª°ÀŞ‚ÌÌŞÛÌŞ‚ğì¬.
+	//HLSLã‹ã‚‰ï¾Šï¾ï½°ï¾ƒï½¯ï½¸ï½½ï½¼ï½ªï½°ï¾€ï¾ã®ï¾Œï¾ï¾›ï¾Œï¾ã‚’ä½œæˆ.
 	if( FAILED(
 		D3DX11CompileFromFile(
-			SHADER_NAME,	//¼ª°ÀŞÌ§²Ù–¼(HLSLÌ§²Ù).
-			NULL,			//Ï¸Û’è‹`‚Ì”z—ñ‚Ö‚ÌÎß²İÀ(–¢g—p).
-			NULL,			//²İ¸Ù°ÄŞÌ§²Ù‚ğˆµ‚¤²İÀ°Ìª°½‚Ö‚ÌÎß²İÀ(–¢g—p).
-			ENT_VER_NAME,		//¼ª°ÀŞ´İÄØ°Îß²İÄŠÖ”‚Ì–¼‘O.
-			"vs_5_0",		//¼ª°ÀŞ‚ÌÓÃŞÙ‚ğw’è‚·‚é•¶š—ñ(ÌßÛÌ§²Ù).
-			uCompileFlag,	//¼ª°ÀŞºİÊß²ÙÌ×¸Ş.
-			0,				//´Ìª¸ÄºİÊß²ÙÌ×¸Ş(–¢g—p).
-			NULL,			//½Ú¯ÄŞÎßİÌß²İÀ°Ìª°½‚Ö‚ÌÎß²İÀ(–¢g—p).
-			&pCompiledShader,//ÌŞÛÌŞ‚ğŠi”[‚·‚éÒÓØ‚Ö‚ÌÎß²İÀ.
-			&pErrors,		//´×°‚ÆŒxˆê——‚ğŠi”[‚·‚éÒÓØ‚Ö‚ÌÎß²İÀ.
-			NULL ) ) )		//–ß‚è’l‚Ö‚ÌÎß²İÀ(–¢g—p).
+			SHADER_NAME,	//ï½¼ï½ªï½°ï¾€ï¾ï¾Œï½§ï½²ï¾™å(HLSLï¾Œï½§ï½²ï¾™).
+			NULL,			//ï¾ï½¸ï¾›å®šç¾©ã®é…åˆ—ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€(æœªä½¿ç”¨).
+			NULL,			//ï½²ï¾ï½¸ï¾™ï½°ï¾„ï¾ï¾Œï½§ï½²ï¾™ã‚’æ‰±ã†ï½²ï¾ï¾€ï½°ï¾Œï½ªï½°ï½½ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€(æœªä½¿ç”¨).
+			ENT_VER_NAME,		//ï½¼ï½ªï½°ï¾€ï¾ï½´ï¾ï¾„ï¾˜ï½°ï¾ï¾Ÿï½²ï¾ï¾„é–¢æ•°ã®åå‰.
+			"vs_5_0",		//ï½¼ï½ªï½°ï¾€ï¾ã®ï¾“ï¾ƒï¾ï¾™ã‚’æŒ‡å®šã™ã‚‹æ–‡å­—åˆ—(ï¾Œï¾Ÿï¾›ï¾Œï½§ï½²ï¾™).
+			uCompileFlag,	//ï½¼ï½ªï½°ï¾€ï¾ï½ºï¾ï¾Šï¾Ÿï½²ï¾™ï¾Œï¾—ï½¸ï¾.
+			0,				//ï½´ï¾Œï½ªï½¸ï¾„ï½ºï¾ï¾Šï¾Ÿï½²ï¾™ï¾Œï¾—ï½¸ï¾(æœªä½¿ç”¨).
+			NULL,			//ï½½ï¾šï½¯ï¾„ï¾ï¾ï¾Ÿï¾ï¾Œï¾Ÿï½²ï¾ï¾€ï½°ï¾Œï½ªï½°ï½½ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€(æœªä½¿ç”¨).
+			&pCompiledShader,//ï¾Œï¾ï¾›ï¾Œï¾ã‚’æ ¼ç´ã™ã‚‹ï¾’ï¾“ï¾˜ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€.
+			&pErrors,		//ï½´ï¾—ï½°ã¨è­¦å‘Šä¸€è¦§ã‚’æ ¼ç´ã™ã‚‹ï¾’ï¾“ï¾˜ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€.
+			NULL ) ) )		//æˆ»ã‚Šå€¤ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€(æœªä½¿ç”¨).
 	{
-		MessageBox(NULL, "hlsl(vs)“Ç‚İ‚İ¸”s", "clsRay::InitShader", MB_OK );
+		MessageBox( NULL, "hlsl(vs)èª­ã¿è¾¼ã¿å¤±æ•—", "clsRay::InitShader", MB_OK );
 		return E_FAIL;
 	}
 	SAFE_RELEASE( pErrors );
 
-	//ã‹L‚Åì¬‚µ‚½ÌŞÛÌŞ‚©‚çuÊŞ°Ã¯¸½¼ª°ÀŞv‚ğì¬.
+	//ä¸Šè¨˜ã§ä½œæˆã—ãŸï¾Œï¾ï¾›ï¾Œï¾ã‹ã‚‰ã€Œï¾Šï¾ï½°ï¾ƒï½¯ï½¸ï½½ï½¼ï½ªï½°ï¾€ï¾ã€ã‚’ä½œæˆ.
 	if( FAILED(
 		m_pDevice11->CreateVertexShader(
 			pCompiledShader->GetBufferPointer(),
 			pCompiledShader->GetBufferSize(),
 			NULL,
-			&m_pVertexShader) ) )//(out)ÊŞ°Ã¯¸½¼ª°ÀŞ.
+			&m_pVertexShader) ) )//(out)ï¾Šï¾ï½°ï¾ƒï½¯ï½¸ï½½ï½¼ï½ªï½°ï¾€ï¾.
 	{
-		MessageBox( NULL, "vsì¬¸”s", "clsRay::InitShader", MB_OK );
+		MessageBox( NULL, "vsä½œæˆå¤±æ•—", "clsRay::InitShader", MB_OK );
 		return E_FAIL;
 	}
 
-	//’¸“_²İÌß¯ÄÚ²±³Ä‚ğ’è‹`.
+	//é ‚ç‚¹ï½²ï¾ï¾Œï¾Ÿï½¯ï¾„ï¾šï½²ï½±ï½³ï¾„ã‚’å®šç¾©.
 	D3D11_INPUT_ELEMENT_DESC layout[] = 
 	{
 		{
-			"POSITION",						//ˆÊ’u.
+			"POSITION",						//ä½ç½®.
 			0,
-			DXGI_FORMAT_R32G32B32_FLOAT,	//DXGI‚ÌÌ«°Ï¯Ä(32bit floatŒ^*3).
+			DXGI_FORMAT_R32G32B32_FLOAT,	//DXGIã®ï¾Œï½«ï½°ï¾ï½¯ï¾„(32bit floatå‹*3).
 			0,
-			0,								//ÃŞ°À‚ÌŠJnˆÊ’u.
+			0,								//ï¾ƒï¾ï½°ï¾€ã®é–‹å§‹ä½ç½®.
 			D3D11_INPUT_PER_VERTEX_DATA, 0
 		},
 	};
-	//’¸“_²İÌß¯ÄÚ²±³Ä‚Ì”z—ñ—v‘f”‚ğZo.
+	//é ‚ç‚¹ï½²ï¾ï¾Œï¾Ÿï½¯ï¾„ï¾šï½²ï½±ï½³ï¾„ã®é…åˆ—è¦ç´ æ•°ã‚’ç®—å‡º.
 	UINT numElements = sizeof( layout ) / sizeof( layout[0] );//.
 
-	//’¸“_²İÌß¯ÄÚ²±³Ä‚Ìì¬.
+	//é ‚ç‚¹ï½²ï¾ï¾Œï¾Ÿï½¯ï¾„ï¾šï½²ï½±ï½³ï¾„ã®ä½œæˆ.
 	if( FAILED(
 		m_pDevice11->CreateInputLayout(
 			layout,
 			numElements,
 			pCompiledShader->GetBufferPointer(),
 			pCompiledShader->GetBufferSize(),
-			&m_pVertexLayout ) ) )//(out)’¸“_²İÌß¯ÄÚ²±³Ä.
+			&m_pVertexLayout ) ) )//(out)é ‚ç‚¹ï½²ï¾ï¾Œï¾Ÿï½¯ï¾„ï¾šï½²ï½±ï½³ï¾„.
 	{
-		MessageBox(NULL, "’¸“_²İÌß¯ÄÚ²±³Äì¬¸”s", "clsRay::InitShader", MB_OK );
+		MessageBox( NULL, "é ‚ç‚¹ï½²ï¾ï¾Œï¾Ÿï½¯ï¾„ï¾šï½²ï½±ï½³ï¾„ä½œæˆå¤±æ•—", "clsRay::InitShader", MB_OK );
 		return E_FAIL;
 	}
 	SAFE_RELEASE( pCompiledShader );
 
 
 
-	//HLSL‚©‚çËß¸¾Ù¼ª°ÀŞ‚ÌÌŞÛÌŞ‚ğì¬.
+	//HLSLã‹ã‚‰ï¾‹ï¾Ÿï½¸ï½¾ï¾™ï½¼ï½ªï½°ï¾€ï¾ã®ï¾Œï¾ï¾›ï¾Œï¾ã‚’ä½œæˆ.
 	if( FAILED(
 		D3DX11CompileFromFile(
-			SHADER_NAME,	//¼ª°ÀŞÌ§²Ù–¼(HLSLÌ§²Ù).
+			SHADER_NAME,	//ï½¼ï½ªï½°ï¾€ï¾ï¾Œï½§ï½²ï¾™å(HLSLï¾Œï½§ï½²ï¾™).
 			NULL,
 			NULL,
-			ENT_PIX_NAME,		//¼ª°ÀŞ´İÄØ°Îß²İÄŠÖ”‚Ì–¼‘O.
-			"ps_5_0",		//¼ª°ÀŞ‚ÌÓÃŞÙ‚ğw’è‚·‚é•¶š—ñ(ÌßÛÌ§²Ù).
-			uCompileFlag,	//¼ª°ÀŞºİÊß²ÙÌ×¸Ş.
+			ENT_PIX_NAME,		//ï½¼ï½ªï½°ï¾€ï¾ï½´ï¾ï¾„ï¾˜ï½°ï¾ï¾Ÿï½²ï¾ï¾„é–¢æ•°ã®åå‰.
+			"ps_5_0",		//ï½¼ï½ªï½°ï¾€ï¾ã®ï¾“ï¾ƒï¾ï¾™ã‚’æŒ‡å®šã™ã‚‹æ–‡å­—åˆ—(ï¾Œï¾Ÿï¾›ï¾Œï½§ï½²ï¾™).
+			uCompileFlag,	//ï½¼ï½ªï½°ï¾€ï¾ï½ºï¾ï¾Šï¾Ÿï½²ï¾™ï¾Œï¾—ï½¸ï¾.
 			0,
 			NULL,
-			&pCompiledShader,//ÌŞÛÌŞ‚ğŠi”[‚·‚éÒÓØ‚Ö‚ÌÎß²İÀ.
+			&pCompiledShader,//ï¾Œï¾ï¾›ï¾Œï¾ã‚’æ ¼ç´ã™ã‚‹ï¾’ï¾“ï¾˜ã¸ã®ï¾ï¾Ÿï½²ï¾ï¾€.
 			&pErrors,
 			NULL ) ) )
 	{
-		MessageBox( NULL, "hlsl(ps)“Ç‚İ‚İ¸”s", "clsRay::InitShader", MB_OK );
+		MessageBox( NULL, "hlsl(ps)èª­ã¿è¾¼ã¿å¤±æ•—", "clsRay::InitShader", MB_OK );
 		return E_FAIL;
 	}
 	SAFE_RELEASE( pErrors );
 
-	//ã‹L‚Åì¬‚µ‚½ÌŞÛÌŞ‚©‚çuËß¸¾Ù¼ª°ÀŞv‚ğì¬.
+	//ä¸Šè¨˜ã§ä½œæˆã—ãŸï¾Œï¾ï¾›ï¾Œï¾ã‹ã‚‰ã€Œï¾‹ï¾Ÿï½¸ï½¾ï¾™ï½¼ï½ªï½°ï¾€ï¾ã€ã‚’ä½œæˆ.
 	if( FAILED(
 		m_pDevice11->CreatePixelShader(
 			pCompiledShader->GetBufferPointer(),
 			pCompiledShader->GetBufferSize(),
 			NULL,
-			&m_pPixelShader ) ) )//(out)Ëß¸¾Ù¼ª°ÀŞ.
+			&m_pPixelShader ) ) )//(out)ï¾‹ï¾Ÿï½¸ï½¾ï¾™ï½¼ï½ªï½°ï¾€ï¾.
 	{
-		MessageBox( NULL, "psì¬¸”s", "clsRay::InitShader", MB_OK );
+		MessageBox( NULL, "psä½œæˆå¤±æ•—", "clsRay::InitShader", MB_OK );
 		return E_FAIL;
 	}
-	SAFE_RELEASE( pCompiledShader );//ÌŞÛÌŞ‰ğ•ú.
+	SAFE_RELEASE( pCompiledShader );//ï¾Œï¾ï¾›ï¾Œï¾è§£æ”¾.
 
 
-	//ºİ½ÀİÄÊŞ¯Ì§(’è”)ÊŞ¯Ì§ì¬@¼ª°ÀŞ‚É“Á’è‚Ì”’l‚ğ‘—‚éÊŞ¯Ì§.
-	//‚±‚±‚Å‚Í•ÏŠ·s—ñ“n‚µ—p.
-	//¼ª°ÀŞ‚ÉWorld,View,Projections—ñ‚ğ“n‚·.
+	//ï½ºï¾ï½½ï¾€ï¾ï¾„ï¾Šï¾ï½¯ï¾Œï½§(å®šæ•°)ï¾Šï¾ï½¯ï¾Œï½§ä½œæˆã€€ï½¼ï½ªï½°ï¾€ï¾ã«ç‰¹å®šã®æ•°å€¤ã‚’é€ã‚‹ï¾Šï¾ï½¯ï¾Œï½§.
+	//ã“ã“ã§ã¯å¤‰æ›è¡Œåˆ—æ¸¡ã—ç”¨.
+	//ï½¼ï½ªï½°ï¾€ï¾ã«World,View,Projectionè¡Œåˆ—ã‚’æ¸¡ã™.
 	D3D11_BUFFER_DESC cb;
-	cb.BindFlags	= D3D11_BIND_CONSTANT_BUFFER;;			//ºİ½ÄÊŞ¯Ì§‚ğw’è.
-	cb.ByteWidth	= sizeof( SHADER_CONSTANT_BUFFER );//ºİ½ÀİÄÊŞ¯Ì§‚Ì»²½Ş.
-	cb.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;				//‘‚«‚İ‚Å±¸¾½.
-	cb.MiscFlags	= 0;					//‚»‚Ì‘¼‚ÌÌ×¸Ş(–¢g—p).
-	cb.StructureByteStride	= 0;			//\‘¢‘Ì‚Ì»²½Ş(–¢g—p)
-	cb.Usage		= D3D11_USAGE_DYNAMIC;	//g—p•û–@:’¼Ú‘‚«‚İ.
+	cb.BindFlags	= D3D11_BIND_CONSTANT_BUFFER;;			//ï½ºï¾ï½½ï¾„ï¾Šï¾ï½¯ï¾Œï½§ã‚’æŒ‡å®š.
+	cb.ByteWidth	= sizeof( SHADER_CONSTANT_BUFFER );//ï½ºï¾ï½½ï¾€ï¾ï¾„ï¾Šï¾ï½¯ï¾Œï½§ã®ï½»ï½²ï½½ï¾.
+	cb.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;				//æ›¸ãè¾¼ã¿ã§ï½±ï½¸ï½¾ï½½.
+	cb.MiscFlags	= 0;					//ãã®ä»–ã®ï¾Œï¾—ï½¸ï¾(æœªä½¿ç”¨).
+	cb.StructureByteStride	= 0;			//æ§‹é€ ä½“ã®ï½»ï½²ï½½ï¾(æœªä½¿ç”¨)
+	cb.Usage		= D3D11_USAGE_DYNAMIC;	//ä½¿ç”¨æ–¹æ³•:ç›´æ¥æ›¸ãè¾¼ã¿.
 
-	//ºİ½ÀİÄÊŞ¯Ì§ì¬.
+	//ï½ºï¾ï½½ï¾€ï¾ï¾„ï¾Šï¾ï½¯ï¾Œï½§ä½œæˆ.
 	if( FAILED(
 		m_pDevice11->CreateBuffer(
 			&cb,
 			NULL,
 			&m_pConstantBuffer ) ) )
 	{
-		MessageBox( NULL, "ºİ½ÀİÄÊŞ¯Ì§ì¬¸”s", "clsRay::InitShader", MB_OK );
+		MessageBox( NULL, "ï½ºï¾ï½½ï¾€ï¾ï¾„ï¾Šï¾ï½¯ï¾Œï½§ä½œæˆå¤±æ•—", "clsRay::InitShader", MB_OK );
 		return E_FAIL;
 	}
 
@@ -266,26 +266,26 @@ HRESULT clsRay::InitShader()
 
 
 //============================================================
-//	Ú²‰Šú‰».
+//	ï¾šï½²åˆæœŸåŒ–.
 //============================================================
 HRESULT clsRay::InitModel()
 {
-	//Ú²‚ÌÊŞ°Ã¯¸½ÊŞ¯Ì§ì¬.
+	//ï¾šï½²ã®ï¾Šï¾ï½°ï¾ƒï½¯ï½¸ï½½ï¾Šï¾ï½¯ï¾Œï½§ä½œæˆ.
 	D3D11_BUFFER_DESC	bd;
 	ZeroMemory( &bd, sizeof( bd ) );
 	bd.Usage		= D3D11_USAGE_DEFAULT;
-	bd.ByteWidth	= sizeof( MODEL_VERTEX ) * 2;//2“_•ª.
+	bd.ByteWidth	= sizeof( MODEL_VERTEX ) * 2;//2ç‚¹åˆ†.
 	bd.BindFlags	= D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = 0;
 	bd.MiscFlags	= 0;
 
 	D3D11_SUBRESOURCE_DATA InitData;
-	InitData.pSysMem = m_Ray.vPoint;//Ú²‚ÌÀ•W‚ğ¾¯Ä.
+	InitData.pSysMem = m_Ray.vPoint;//ï¾šï½²ã®åº§æ¨™ã‚’ï½¾ï½¯ï¾„.
 	if( FAILED(
 		m_pDevice11->CreateBuffer(
 			&bd, &InitData, &m_pVertexBuffer ) ) )
 	{
-		ERR_MSG( "’¸“_ÊŞ¯Ì§ì¬¸”s", "clsRay::InitLine" );
+		ERR_MSG( "é ‚ç‚¹ï¾Šï¾ï½¯ï¾Œï½§ä½œæˆå¤±æ•—", "clsRay::InitLine" );
 		return E_FAIL;
 	}
 

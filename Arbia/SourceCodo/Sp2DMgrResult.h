@@ -66,7 +66,7 @@ public:
 
 	void Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 );
 
-	void Init();
+	void InitSetPos();
 
 	//シーンのはじめの初期化.
 	void StartSet();
@@ -180,10 +180,10 @@ private:
 		enS_HIT = 0,
 		enS_OPEN,
 
-		enS_STEAL,
-		enS_OTHER,
+		enS_STEAL,//盗んだ成果.
+		enS_OTHER,//各項目の文字.
 
-		enS_LAST_JEWEL,
+		enS_LAST_JEWEL,//パーフェクトジングル.
 
 		enS_MAX,	//最大数.
 	};

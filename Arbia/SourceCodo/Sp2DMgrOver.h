@@ -10,8 +10,8 @@ public:
 	clsSp2dMgrOver();
 	~clsSp2dMgrOver();
 
-	void Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
-	void Init();
+	void Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+	void InitSetPos();
 	void Render();
 	void Release();
 

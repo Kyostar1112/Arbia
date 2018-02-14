@@ -6,6 +6,14 @@ clsCharaSkin::clsCharaSkin()
 	m_pAnimCtrl = nullptr;
 	m_pShadow = nullptr;
 	m_dAnimSpeed = 0.025;
+
+	//m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	//m_vRot = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	//m_fScale = 1.0f;
+	m_pShadow = nullptr;
+
+
+
 }
 
 clsCharaSkin::~clsCharaSkin()
@@ -71,7 +79,6 @@ void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 //============================================================
 void clsCharaSkin::DetatchModel()
 {
-
 	if( m_pModel != nullptr ){
 		m_pModel = nullptr;
 		if( m_pAnimCtrl != nullptr ){
@@ -209,6 +216,7 @@ void clsCharaSkin::UpdatePos()
 
 	//Z軸ﾍﾞｸﾄﾙを用意.
 	D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
+
 
 	//Z軸ﾍﾞｸﾄﾙそのものを回転状態により変換する.
 	D3DXVec3TransformCoord(

@@ -11,11 +11,11 @@ public:
 	clsJewerSet();
 	~clsJewerSet();
 
-	void Create( HWND hWnd,
+	void Create( HWND hWnd, 
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
-		int iNo );
+		int iNo ); 
 
-	void Move();
+	void Update();
 
 
 
@@ -38,9 +38,11 @@ public:
 		return m_bDown;
 	}
 
-	//----- ラップ -----//.
-	void Init(){
-		m_smpModel->Init();
+
+	//----- ���b�v -----//.
+	void InitSetPos(){
+		if( !m_smpModel ) return;
+		m_smpModel->InitSetPos();
 	};
 
 
@@ -78,16 +80,7 @@ public:
 		return m_bGet;
 	}
 
-//	//音の種類.
-//	enum enSound
-//	{
-//		enS_UP = 0,//宝石が上昇を始める.
-////		enS_SHINE,
-//
-//		enS_MAX,	//最大数.
-//	};
-
-	void PlaySe( /*clsJewerSet::enSound enSe*/ ){
+	void PlaySe(){
 		if( m_pSe == nullptr ) return;
 
 //		m_pSe[enSe]->Stop();
@@ -111,6 +104,7 @@ private:
 
 	//効果音.
 	clsSound*	m_pSe;
+
 	void SetSe( HWND hWnd, int iNo );
 
 

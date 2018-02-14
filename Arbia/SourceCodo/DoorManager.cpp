@@ -6,17 +6,17 @@ const float fMODEL_SCALE = 1.0f;
 const double fANIM_SPD = 0.01;
 
 
-//----- �� -----//.
+//----- 音 -----//.
 const char sALIAS_NAME[] = "DoorBreak";
 const char sFILE_PATH[] = "SE\\300Trap\\900GateBreak.wav";
-const int iVOL = 1000;
+const int iVOL = 600;
 
 
-//----- �R��ꔻ��p -----//.
+//----- 蹴られ判定用 -----//.
 const float fCOL_RANGE = 1.5f;
 const float fCOL_HEIGHT = 3.0f;
 
-//----- �ǂ̒��� -----//.
+//----- 壁の調整 -----//.
 const float fSTAGE_WIDTH = 10.0f;
 const float fSTAGE_WIDTH_HARF = fSTAGE_WIDTH / 2.0f;
 const float fWALL_HEIGHT = 6.0f;
@@ -24,31 +24,31 @@ const float fWALL_Z = -0.75f;
 
 const D3DXVECTOR3 vWALL_OFFSET = { -fSTAGE_WIDTH_HARF, fWALL_HEIGHT, fWALL_Z };
 
-//�������ǂꂾ����O�ɂ��邩Z.
+//復活時どれだけ手前にいるかZ.
 const float fRE_SPAWN_POS_Z = 1.5f;
 
-//----- ���� ------//
-//���ߋ��E��Z.
+//----- 透過 ------//
+//透過境界線Z.
 const float fALPHA_BORDER_Z = 0.5f;
 
-//���ߑ��x.
+//透過速度.
 const float fALPHA_SPD = 1.0f / 16.0f;
-//���߂�߂����x.
+//透過を戻す速度.
 const float fALPHA_SPD_BACK = 1.0f / 32.0f;
 
-//��Ԕ������Ă�.
+//一番薄くしても.
 const float fALPHA_LIMIT = 0.375f;
-//��ԔZ�����Ă�.
+//一番濃くしても.
 const float fALPHA_LIMIT_MAX = 2.0f;
 
 
 
-//�G�t�F�N�g.
-const float fEFFECT_Z_OFFSET = 12.0f;//���̒��n�ʒu.
+//エフェクト.
+const float fEFFECT_Z_OFFSET = 12.0f;//扉の着地位置.
 const float fEFFECT_SCALE = 0.5f;
 const D3DXVECTOR3 vEFFECT_SCALE = { fEFFECT_SCALE, fEFFECT_SCALE, fEFFECT_SCALE };
 const float fEFFECT_SPD = 1.0f;
-const int iEFFECT_PLAY_RAG = 20;//�R���Ă��甭������܂ł̃��O.
+const int iEFFECT_PLAY_RAG = 20;//蹴ってから発生するまでのラグ.
 
 
 
@@ -60,7 +60,6 @@ clsDoorMgr::clsDoorMgr()
 	m_pColWall = nullptr;
 
 	m_pSe = nullptr;
-
 	m_pEffect = nullptr;
 }
 
@@ -78,17 +77,17 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 		m_pColWall != nullptr ||
 		m_pSe != nullptr ||
 		m_pEffect != nullptr )
-	{	
-		return;
+	{
+	return;
 	}
 
-	//��.
+	//門.
 	m_pGate = new clsCharaStatic;
 	m_pGate->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_MON ) );
 
-	//��.
+	//扉.
 	m_pDoor = new clsCharaSkin;
 
 	CD3DXSKINMESH_INIT si;//skin_Init.
@@ -106,30 +105,30 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	m_pDoor->SetScale( fMODEL_SCALE );
 	m_pDoor->SetAnimSpeed( fANIM_SPD );
 
-	//�ǔ���.
+	//壁判定.
 	m_pColWall = new clsCharaStatic;
 	m_pColWall->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_SPIA_WALL ) );
 
-	//�R��ꔻ��p.
+	//蹴られ判定用.
 	ColState.fRange = fCOL_RANGE;
 	ColState.fHeight = fCOL_HEIGHT;
 
-	//���ʉ�.
+	//効果音.
 	m_pSe = new clsSound;
 	m_pSe->SetVolume( 0 );
-	//���O.
+	//名前.
 	char cAliasName[STR_BUFF_MAX] = "";
 	strcat_s( cAliasName, sizeof( cAliasName ), sALIAS_NAME );
-	//�ԍ�.
+	//番号.
 	char cNumber[] = "  ";
 	_itoa_s( iNo, cNumber, 10 );
-	//���O�Ɣԍ�����.
+	//名前と番号合体.
 	strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-	//�쐬.
+	//作成.
 	m_pSe->Open( sFILE_PATH, cAliasName, hWnd );
-	//�ő剹�ʐݒ�.
+	//最大音量設定.
 	m_pSe->SetMaxVolume( iVOL );
 
 
@@ -149,7 +148,7 @@ void clsDoorMgr::Init()
 	ChangeAnimMode( enANIM_IDLE );
 
 }
-//�������̏�����.
+//復活時の初期化.
 void clsDoorMgr::ReStart()
 {
 	m_fAlpha = fALPHA_LIMIT_MAX;
@@ -186,19 +185,20 @@ void clsDoorMgr::Release()
 	}
 }
 
-//�`��.
+//描画.
 void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
+	if( m_pDoor == nullptr || m_pGate == nullptr ) return;
 	//.
 //	m_pColWall->Render( mView, mProj, vLight, vEye );
 
 	if( m_pDoor != nullptr ){
-		//��.
+		//扉.
 		m_pDoor->Render( mView, mProj, vLight, vEye );
 	}
 	if( m_pGate != nullptr ){
-		//��.
+		//門.
 		m_pGate->Render( mView, mProj, vLight, vEye,
 			D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
 	}
@@ -207,9 +207,15 @@ void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 
 void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 {
+	if( m_pDoor == nullptr ||
+		m_pGate == nullptr ||
+		m_pColWall == nullptr ){
+		return;
+	}
+
 	m_vPos = vPos;
 
-	//�q��.
+	//子分.
 	if( m_pGate != nullptr )	m_pGate->SetPosition( m_vPos );
 	if( m_pDoor != nullptr )	m_pDoor->SetPosition( m_vPos );
 
@@ -222,13 +228,13 @@ void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 }
 
 
-void clsDoorMgr::Move( float fEarZ )
+void clsDoorMgr::Update( float fEarZ )
 {
 	m_fEarZ = fEarZ;
 	Animation();
 	SetAlpha();
 
-	//�G�t�F�N�g�Đ�.
+	//エフェクト再生.
 	if( m_bEffTimer ){
 		m_iEffTimer ++;
 		if( m_iEffTimer >= iEFFECT_PLAY_RAG ){
@@ -242,45 +248,45 @@ void clsDoorMgr::Move( float fEarZ )
 
 
 //============================================================
-//	���ߒl�̐ݒ�.
+//	透過値の設定.
 //============================================================
 void clsDoorMgr::SetAlphaFlg( float fPlayerZ )
 {
-	//���ߒ�.
+	//透過中.
 	if( m_bAlphaChange ){
-		//���߃t���OON.
+		//透過フラグON.
 		m_bAlpha = true;
-		//�v���C���[�����ɂ���Ȃ�.
+		//プレイヤーが奥にいるなら.
 		if( fPlayerZ > m_vPos.z + fALPHA_BORDER_Z ){
 			return;
 		}
-		//���̉��J�n.
+		//実体化開始.
 		m_bAlphaChange = false;
 	}
-	//���ߒ��ł͂Ȃ�.
+	//透過中ではない.
 	else{
-		//�v���C���[����O�ɂ���Ȃ�.
+		//プレイヤーが手前にいるなら.
 		if( fPlayerZ < m_vPos.z + fALPHA_BORDER_Z ){
 			return;
 		}
-		//���ߊJ�n.
+		//透過開始.
 		m_bAlphaChange = true;
 	}
 }
 
 //============================================================
-//	���ߒl�̐ݒ�.
+//	透過値の設定.
 //============================================================
 void clsDoorMgr::SetAlpha()
 {
-	//���ߒ�.
+	//透過中.
 	if( m_bAlphaChange ){
 		m_fAlpha -= fALPHA_SPD;
 		if( m_fAlpha < fALPHA_LIMIT ){
 			m_fAlpha = fALPHA_LIMIT;
 		}
 	}
-	//���̉���.
+	//実体化中.
 	else{
 		m_fAlpha += fALPHA_SPD_BACK;
 		if( m_fAlpha > fALPHA_LIMIT_MAX ){
@@ -292,7 +298,7 @@ void clsDoorMgr::SetAlpha()
 
 
 //============================================================
-//	�R��ꂽ�Ƃ�.
+//	蹴られたとき.
 //============================================================
 D3DXVECTOR3 clsDoorMgr::DoorBreak()
 {
@@ -305,14 +311,13 @@ D3DXVECTOR3 clsDoorMgr::DoorBreak()
 
 	ChangeAnimMode( enANIM_BREAK );
 
-
 	m_bEffTimer = true;
 
 	return vReSpawnPos;
 }
 
 //==================================================
-//	�����蔻��p.
+//	あたり判定用.
 //==================================================
 void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 {
@@ -321,7 +326,7 @@ void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 
 
 //==================================================
-//	���ʉ��Đ�.
+//	効果音再生.
 //==================================================
 void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 {
@@ -333,43 +338,44 @@ void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 }
 
 //============================================================
-//	�h�A�̃A�j��.
+//	ドアのアニメ.
 //============================================================
 void clsDoorMgr::Animation()
 {
 	if( m_pDoor == nullptr ) return;
 
-	//���[�v���Ȃ��A�j��.
+	//ループしないアニメ.
 	if( m_enAnimNo == enANIM_BREAK ){
 		m_dAnimTimer += m_pDoor->m_pModel->GetAnimSpeed();
 		
-		const double dRATE = 5.0;//���{��΂�?.
+		const double dRATE = 5.0;//何倍飛ばす?.
 
-		//���݂̃A�j���[�V�������I������.
+		//現在のアニメーションを終えたら.
 		if( m_pDoor->m_pModel->GetAnimPeriod( m_enAnimNo ) - ( dANIM_ONE_FRAME_OVER_SOLUTION * dRATE ) <= m_dAnimTimer ){
-			//�����Ȃ��Ȃ�.
+			//動かなくなる.
 			ChangeAnimMode( enANIM_DEAD );
 		}
 	}
 }
 
 //============================================================
-//	�A�j���[�V�������[�h��ύX.
+//	アニメーションモードを変更.
 //============================================================
 void clsDoorMgr::ChangeAnimMode( enAnimation anim )
 {
 	if( m_pDoor == nullptr ) return;
 
 	m_enAnimNo = anim;
-	m_pDoor->ChangeAnimSet( m_enAnimNo );//�A�j���Z�b�g.
+	m_pDoor->ChangeAnimSet( m_enAnimNo );//アニメセット.
 	m_dAnimTimer = 0.0;
 }
 
 
-//�G�t�F�N�g�Đ�.
+//エフェクト再生.
 void clsDoorMgr::PlayEff()
 {
 	if( m_pEffect == nullptr ) return;
+
 
 	if( !m_pEffect->PlayCheck( m_ehDust ) ){
 			D3DXVECTOR3 vEffPos = m_vPos;
