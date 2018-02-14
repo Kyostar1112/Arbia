@@ -2,32 +2,35 @@
 
 clsCharaSkin::clsCharaSkin()
 {
-	m_pModel = NULL;
-	m_pAnimCtrl = NULL;
+	m_pModel = nullptr;
+	m_pAnimCtrl = nullptr;
+	m_pShadow = nullptr;
 	m_dAnimSpeed = 0.025;
+
 	//m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	//m_vRot = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	//m_fScale = 1.0f;
 	m_pShadow = nullptr;
 
-
 }
 
 clsCharaSkin::~clsCharaSkin()
 {
-//	if( m_pModel != NULL ){
-//		delete m_pModel;
-//		m_pModel = NULL;
-//	}
+	if( m_pShadow != nullptr ){
+		delete m_pShadow;
+		m_pShadow = nullptr;
+	}
+
+	DetatchModel();
 }
 
 
 //============================================================
-//	Šeí’l‚ÌXV.
+//	ï¿½ï½½eï¿½ï½½ï¿½ï½½lï¿½ï½½ï¾Œæ›´ï¿½ï½½V.
 //============================================================
 void clsCharaSkin::UpDateModel()
 {
-	if( m_pModel == NULL ){
+	if( m_pModel == nullptr ){
 		return;
 	}
 
@@ -45,21 +48,21 @@ void clsCharaSkin::UpDateModel()
 
 
 //============================================================
-//	ÓÃŞÙÃŞ°À‚ÌŠÖ˜A•t‚¯.
+//	ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ï½°ï¿½ï½½ï¾Œé–¢é€£ï¿½ï½½tï¿½ï½½ï¿½ï½½.
 //============================================================
 void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 {
-	if( pModel == NULL ){
+	if( pModel == nullptr ){
 		return;
 	}
-	//ÓÃŞÙİ’è.
+	//ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾™è¨­æŠµï½¿ï½½.
 	m_pModel = pModel;
-	//±ÆÒ°¼®İ‘¬“x.
+	//ï¿½ï½½ï¿½ï½½ï¾’ï½°ï¿½ï½½ï¿½ï½½ï¾æ‰˜ï½¿ï½½ï¿½ï½½x.
 //	m_dAnimSpeed = m_pModel->GetAnimSpeed();
-	//½¹°Ùİ’è.
+	//ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾™è¨­æŠµï½¿ï½½.
 	m_fScale = m_pModel->m_vScale.x;
 
-	//±ÆÒ°¼®İºİÄÛ°×‚Ì¸Û°İì¬.
+	//ï¿½ï½½ï¿½ï½½ï¾’ï½°ï¿½ï½½ï¿½ï½½ï¾ï½ºï¿½ï½½ï¿½ï½½ï¾›ï½°ï¾—ã®ï½¸ï¾›ï½°ï¾ä½œæˆ.
 	LPD3DXANIMATIONCONTROLLER pAC
 		= m_pModel->GetAnimController();
 	pAC->CloneAnimationController(
@@ -67,20 +70,18 @@ void clsCharaSkin::AttachModel( clsD3DXSKINMESH* pModel )
 		pAC->GetMaxNumAnimationSets(),
 		pAC->GetMaxNumTracks(),
 		pAC->GetMaxNumEvents(),
-		&m_pAnimCtrl );	//(out)±ÆÒ°¼®İºİÄÛ°×.
+		&m_pAnimCtrl );	//(out)ï¿½ï½½ï¿½ï½½ï¾’ï½°ï¿½ï½½ï¿½ï½½ï¾ï½ºï¿½ï½½ï¿½ï½½ï¾›ï½°ï¿½ï½½.
 }
 //============================================================
-//	ÓÃŞÙÃŞ°ÀŠÖ˜A•t‚¯‰ğœ.
+//	ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ï½°ï¿½ï½½ï¾–é€£ï¿½ï½½tï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 //============================================================
 void clsCharaSkin::DetatchModel()
 {
-	if( m_pModel != NULL ){
-		m_pModel = NULL;
-
-	
-		if( m_pAnimCtrl != NULL ){
+	if( m_pModel != nullptr ){
+		m_pModel = nullptr;
+		if( m_pAnimCtrl != nullptr ){
 			m_pAnimCtrl->Release();
-			m_pAnimCtrl = NULL;
+			m_pAnimCtrl = nullptr;
 		}
 	}
 }
@@ -89,17 +90,17 @@ void clsCharaSkin::DetatchModel()
 
 
 //============================================================
-//	ÚİÀŞØİ¸Ş.
+//	ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ï½¸ï¿½ï½½.
 //============================================================
 void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 	D3DXVECTOR3& vLight, D3DXVECTOR3& vEye,
 	D3DXVECTOR4 &vColor, bool alphaFlg )
 {
-	if( m_pModel == NULL || m_pAnimCtrl == NULL ){
+	if( m_pModel == nullptr || m_pAnimCtrl == nullptr ){
 		return;
 	}
-	//‰e.
-	if( m_pShadow != NULL ){
+	//ï¿½ï½½e.
+	if( m_pShadow != nullptr ){
 		m_pShadow->Render( mView, mProj, vEye );
 	}
 
@@ -111,22 +112,22 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 }
 
 //============================================================
-//	±ÆÒ°¼®İÅ‘å”‚ğæ“¾‚·‚é.
+//	ï¿½ï½½ï¿½ï½½ï¾’ï½°ï¿½ï½½ï¿½ï½½ï¾æœ€å¤§æ•°ï¿½ï½½ï¿½ï½½è¬«ï½¾ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 //============================================================
 int clsCharaSkin::GetAnimSetMax()
 {
-	if( m_pAnimCtrl != NULL ){
+	if( m_pAnimCtrl ){
 		return (int)m_pAnimCtrl->GetMaxNumAnimationSets();
 	}
 	return -1;
 }
 
 //============================================================
-//	±ÆÒ°¼®İØ‘Ö.
+//	ï¿½ï½½ï¿½ï½½ï¾’ï½°ï¿½ï½½ï¿½ï½½ï¾åˆ‡æ‰˜ï½¿ï½½.
 //============================================================
 void clsCharaSkin::ChangeAnimSet( int index, double dStatPos )
 {
-	//±ÆÒ°¼®İ‚Ì”ÍˆÍŠO‚©Áª¯¸‚·‚é.
+	//ï¿½ï½½ï¿½ï½½ï¾’ï½°ï¿½ï½½ï¿½ï½½ï¾ã®ç¯„å›²å¤–ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 	if( index < 0 || index >= GetAnimSetMax() ){
 		return;
 	}
@@ -136,7 +137,7 @@ void clsCharaSkin::ChangeAnimSet( int index, double dStatPos )
 
 
 ////============================================================
-//	Šp“x”»’è.
+//	ï¿½ï½½pï¿½ï½½xï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 ////============================================================
 bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 	int iSarchTheta )
@@ -146,13 +147,13 @@ bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 	thetaSearchR = dMyTheta - d_thetaArea_h;
 	thetaSearchL = dMyTheta + d_thetaArea_h;
 
-	//Šp“x‚ª‡‚Á‚Ä‚¢‚½‚ç.
+	//ï¿½ï½½pï¿½ï½½xï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾„ã‚‘ï½¿ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 	if( thetaSearchL > dTargTheta &&
 		thetaSearchR < dTargTheta )
 	{
 		return true;
 	}
-	////ˆêü‘Îô(0‚Æ360‚Ì‹«–Ú).
+	////ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾æ¾ï½¿ï½½(0ï¿½ï½½ï¿½ï½½360ï¿½ï½½ï¾Œå…·ï½¿ï½½ï¿½ï½½ï¿½ï½½).
 	else{
 		if( dMyTheta < dTargTheta ){
 			dTargTheta -= M_PI * 2.0;
@@ -177,11 +178,11 @@ bool clsCharaSkin::ThetaCheck( double dMyTheta, double dTargTheta,
 
 
 //============================================================
-//	ˆêu‚ÅU‚èŒü‚©‚È‚¢(™X‚ÉU‚èŒü‚­).
+//	ï¿½ï½½ï¿½ï½½uï¿½ï½½ï¾…æŒ¯ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ˆã‚‘ï½¿ï½½(ï¿½ï½½ï¿½ï½½ï¿½ï½½Xï¿½ï½½ï¾‰æŒ¯ï¿½ï½½ï¿½ï½½ï¿½ï½½).
 //============================================================
 void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, float TurnStop )
 {
-	//360,0–â‘è‰ğŒˆ.
+	//360,0ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 	if( TarYaw - NowYaw > (float)M_PI ){
 		TarYaw -= (float)( M_PI * 2.0 );
 	}
@@ -189,7 +190,7 @@ void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, flo
 		TarYaw += (float)( M_PI * 2.0 );
 	}
 
-	//Šp“x‚ª‹ß‚Ã‚­.
+	//ï¿½ï½½pï¿½ï½½xï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾Ÿã¥ã‚‘ï½¿ï½½.
 	if( abs( TarYaw - NowYaw ) > TurnStop ){
 		if( NowYaw < TarYaw ){
 			NowYaw += TurnSpd;
@@ -203,33 +204,33 @@ void clsCharaSkin::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, flo
 
 
 //==================================================
-//	ˆÊ’uXVŠÖ”.
+//	ï¿½ï½½ï¾Šç½®ï¿½ï½½Xï¿½ï½½Vï¿½ï½½ï¾–æ’°ï½¿ï½½.
 //==================================================
 void clsCharaSkin::UpdatePos()
 {
 	D3DXMATRIX mYaw;
-	//‰ñ“].
-	D3DXMatrixRotationY( &mYaw, m_vRot.y );	//Y²‰ñ“].
+	//ï¿½ï½½ï¿½ï½½].
+	D3DXMatrixRotationY( &mYaw, m_vRot.y );	//Yï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½].
 
-	//Z²ÍŞ¸ÄÙ‚ğ—pˆÓ.
+	//Zï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾ï½¸ï¿½ï½½ï¾™ã‚‘ï½¿ï½½pï¿½ï½½ï¿½ï½½.
 	D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
 
-	//Z²ÍŞ¸ÄÙ‚»‚Ì‚à‚Ì‚ğ‰ñ“]ó‘Ô‚É‚æ‚è•ÏŠ·‚·‚é.
+	//Zè»¸ï¾ï¾ï½¸ï¾„ï¾™ãã®ã‚‚ã®ã‚’å›è»¢çŠ¶æ…‹ã«ã‚ˆã‚Šå¤‰æ›ã™ã‚‹.
 	D3DXVec3TransformCoord( 
 		&vecAxisZ,	//(out).
 		&vecAxisZ,	//.
-		&mYaw );	//Y²‰ñ“]s—ñ.
+		&mYaw );	//Yï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½]ï¿½ï½½sï¿½ï½½ï¿½ï½½.
 
-	//•ûŒü‚É‚æ‚Á‚Äis‚³‚¹‚é’l‚ğİ’è.
+	//ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾‰ã‚‘ï½¿ï½½ï¿½ï½½ï¾„é€²ï¿½ï½½sï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½lï¿½ï½½ï¿½ï½½ï¾æŠµï½¿ï½½.
 	switch( m_enDir )
 	{
 	case enDirection_Stop:
 		break;
-	case enDirection_Foward:	//‘Oi.
-		//Œü‚©‚¤•ûŒü*i‚ß‚é’l(0.1f).
+	case enDirection_Foward:	//ï¿½ï½½Oï¿½ï½½i.
+		//ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½*ï¿½ï½½iï¿½ï½½ï¾Ÿã‚‘ï½¿ï½½l(0.1f).
 		m_vPos -= vecAxisZ * 0.15f * m_fSpd;
 		break;
-	case enDirection_BackWard:	//Œã‘Ş.
+	case enDirection_BackWard:	//ï¿½ï½½ï¿½ï½½ï¿½ï½½.
 		m_vPos += vecAxisZ * 0.15f * m_fSpd;
 		break;
 	//case enDirection_LeftTurn:
@@ -239,12 +240,12 @@ void clsCharaSkin::UpdatePos()
 	//default:
 	//	break;
 	}
-	//m_enDir = enDirection_Stop;//’â~.
+	//m_enDir = enDirection_Stop;//ï¿½ï½½ï¿½ï½½~.
 	//==================================================
 
 }
 //==================================================
-//	‚ ‚½‚è”»’èî•ñXVŠÖ”.
+//	ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½é˜¡ï½»ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½Xï¿½ï½½Vï¿½ï½½ï¾–æ’°ï½¿ï½½.
 //==================================================
 void clsCharaSkin::UpdateColState()
 {
@@ -254,14 +255,14 @@ void clsCharaSkin::UpdateColState()
 
 
 //==================================================
-//	‚ ‚½‚è”»’è‚Ìî•ñ‚ÌƒAƒhƒŒƒXæ“¾.
+//	ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½é˜¡ï½»ï¿½ï½½ï¿½ï½½ï¾Œæ“¾ï½¿ï½½ï¿½ï½½ï¾Œã‚¢ï¿½ï½½hï¿½ï½½ï¿½ï½½ï¿½ï½½Xï¿½ï½½è¬«ï½¾.
 //==================================================
 COL_STATE* clsCharaSkin::GetPointerCol()
 {
 	return &ColState;
 }
 //==================================================
-//	‚ ‚½‚è”»’è—p.
+//	ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½é˜¡ï½»ï¿½ï½½ï¿½ï½½p.
 //==================================================
 void clsCharaSkin::SetColPos( D3DXVECTOR3* vPos, float fYaw )
 {

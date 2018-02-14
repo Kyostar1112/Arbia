@@ -6,17 +6,17 @@ const float fMODEL_SCALE = 1.0f;
 const double fANIM_SPD = 0.01;
 
 
-//----- �� -----//.
+//----- 髻ｳ -----//.
 const char sALIAS_NAME[] = "DoorBreak";
 const char sFILE_PATH[] = "SE\\300Trap\\900GateBreak.wav";
 const int iVOL = 600;
 
 
-//----- �R��ꔻ��p -----//.
+//----- 雹ｴ繧峨ｌ蛻､螳夂畑 -----//.
 const float fCOL_RANGE = 1.5f;
 const float fCOL_HEIGHT = 3.0f;
 
-//----- �ǂ̒��� -----//.
+//----- 螢√�隱ｿ謨ｴ -----//.
 const float fSTAGE_WIDTH = 10.0f;
 const float fSTAGE_WIDTH_HARF = fSTAGE_WIDTH / 2.0f;
 const float fWALL_HEIGHT = 6.0f;
@@ -24,31 +24,33 @@ const float fWALL_Z = -0.75f;
 
 const D3DXVECTOR3 vWALL_OFFSET = { -fSTAGE_WIDTH_HARF, fWALL_HEIGHT, fWALL_Z };
 
-//�������ǂꂾ����O�ɂ��邩Z.
+//蠕ｩ豢ｻ譎ゅ←繧後□縺第焔蜑阪↓縺�ｋ縺技.
 const float fRE_SPAWN_POS_Z = 1.5f;
 
-//----- ���� ------//
-//���ߋ��E��Z.
+//----- 騾城℃ ------//
+//騾城℃蠅�阜邱啝.
 const float fALPHA_BORDER_Z = 0.5f;
 
-//���ߑ��x.
+//騾城℃騾溷ｺｦ.
 const float fALPHA_SPD = 1.0f / 16.0f;
-//���߂�߂����x.
+//騾城℃繧呈綾縺咎溷ｺｦ.
 const float fALPHA_SPD_BACK = 1.0f / 32.0f;
 
-//��Ԕ������Ă�.
+//荳逡ｪ阮�￥縺励※繧.
 const float fALPHA_LIMIT = 0.375f;
-//��ԔZ�����Ă�.
+//荳逡ｪ豼�￥縺励※繧.
 const float fALPHA_LIMIT_MAX = 2.0f;
 
 
 
-//�G�t�F�N�g.
-const float fEFFECT_Z_OFFSET = 12.0f;//���̒��n�ʒu.
+//繧ｨ繝輔ぉ繧ｯ繝.
+const float fEFFECT_Z_OFFSET = 12.0f;//謇峨�逹蝨ｰ菴咲ｽｮ.
 const float fEFFECT_SCALE = 0.5f;
 const D3DXVECTOR3 vEFFECT_SCALE = { fEFFECT_SCALE, fEFFECT_SCALE, fEFFECT_SCALE };
 const float fEFFECT_SPD = 1.0f;
-const int iEFFECT_PLAY_RAG = 20;//�R���Ă��甭������܂ł̃��O.
+const int iEFFECT_PLAY_RAG = 20;//雹ｴ縺｣縺ｦ縺九ｉ逋ｺ逕溘☆繧九∪縺ｧ縺ｮ繝ｩ繧ｰ.
+
+
 
 
 clsDoorMgr::clsDoorMgr()
@@ -73,18 +75,19 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 		m_pDoor != nullptr ||
 		m_pColWall != nullptr ||
 		m_pSe != nullptr ||
-		m_pEffect )
+		m_pEffect != nullptr )
 	{
-		return;
+	return;
 	}
 
-	//��.
+
+	//門.
 	m_pGate = new clsCharaStatic;
 	m_pGate->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_MON ) );
 
-	//��.
+	//謇.
 	m_pDoor = new clsCharaSkin;
 
 	CD3DXSKINMESH_INIT si;//skin_Init.
@@ -102,32 +105,30 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	m_pDoor->SetScale( fMODEL_SCALE );
 	m_pDoor->SetAnimSpeed( fANIM_SPD );
 
-	//�ǔ���.
+	//螢∝愛螳.
 	m_pColWall = new clsCharaStatic;
 	m_pColWall->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_SPIA_WALL ) );
 
-
-
-	//�R��ꔻ��p.
+	//雹ｴ繧峨ｌ蛻､螳夂畑.
 	ColState.fRange = fCOL_RANGE;
 	ColState.fHeight = fCOL_HEIGHT;
 
-	//���ʉ�.
+	//蜉ｹ譫憺浹.
 	m_pSe = new clsSound;
 	m_pSe->SetVolume( 0 );
-	//���O.
+	//蜷榊燕.
 	char cAliasName[STR_BUFF_MAX] = "";
 	strcat_s( cAliasName, sizeof( cAliasName ), sALIAS_NAME );
-	//�ԍ�.
+	//逡ｪ蜿ｷ.
 	char cNumber[] = "  ";
 	_itoa_s( iNo, cNumber, 10 );
-	//���O�Ɣԍ�����.
+	//蜷榊燕縺ｨ逡ｪ蜿ｷ蜷井ｽ.
 	strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-	//�쐬.
+	//菴懈�.
 	m_pSe->Open( sFILE_PATH, cAliasName, hWnd );
-	//�ő剹�ʐݒ�.
+	//譛螟ｧ髻ｳ驥剰ｨｭ螳.
 	m_pSe->SetMaxVolume( iVOL );
 
 
@@ -137,6 +138,7 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 
 	Init();
 }
+
 void clsDoorMgr::Init()
 {
 	ReStart();
@@ -146,7 +148,7 @@ void clsDoorMgr::Init()
 	ChangeAnimMode( enANIM_IDLE );
 
 }
-//�������̏�����.
+//蠕ｩ豢ｻ譎ゅ�蛻晄悄蛹.
 void clsDoorMgr::ReStart()
 {
 	m_fAlpha = fALPHA_LIMIT_MAX;
@@ -183,19 +185,23 @@ void clsDoorMgr::Release()
 	}
 }
 
-//�`��.
+//謠冗判.
 void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
 	if( m_pDoor == nullptr || m_pGate == nullptr ) return;
 	//.
 //	m_pColWall->Render( mView, mProj, vLight, vEye );
-	//��.
-	m_pDoor->Render( mView, mProj, vLight, vEye );
-	//��.
-	m_pGate->Render( mView, mProj, vLight, vEye,
-		D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
 
+	if( m_pDoor != nullptr ){
+		//謇.
+		m_pDoor->Render( mView, mProj, vLight, vEye );
+	}
+	if( m_pGate != nullptr ){
+		//髢.
+		m_pGate->Render( mView, mProj, vLight, vEye,
+			D3DXVECTOR4( 1.0f, 1.0f, 1.0f, m_fAlpha ), m_bAlpha );
+	}
 }
 
 
@@ -209,12 +215,14 @@ void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 
 	m_vPos = vPos;
 
-	//�q��.
-	m_pGate->SetPosition( m_vPos );
-	m_pDoor->SetPosition( m_vPos );
+	//蟄仙�.
+	if( m_pGate != nullptr )	m_pGate->SetPosition( m_vPos );
+	if( m_pDoor != nullptr )	m_pDoor->SetPosition( m_vPos );
 
-	m_pColWall->SetPosition( m_vPos );
-	m_pColWall->AddPosition( vWALL_OFFSET );
+	if( m_pColWall != nullptr ){
+		m_pColWall->SetPosition( m_vPos );
+		m_pColWall->AddPosition( vWALL_OFFSET );
+	}
 
 	Init();
 }
@@ -226,7 +234,8 @@ void clsDoorMgr::Update( float fEarZ )
 	Animation();
 	SetAlpha();
 
-	//�G�t�F�N�g�Đ�.
+
+	//エフェクト再生.
 	if( m_bEffTimer ){
 		m_iEffTimer ++;
 		if( m_iEffTimer >= iEFFECT_PLAY_RAG ){
@@ -240,45 +249,45 @@ void clsDoorMgr::Update( float fEarZ )
 
 
 //============================================================
-//	���ߒl�̐ݒ�.
+//	騾城℃蛟､縺ｮ險ｭ螳.
 //============================================================
 void clsDoorMgr::SetAlphaFlg( float fPlayerZ )
 {
-	//���ߒ�.
+	//騾城℃荳ｭ.
 	if( m_bAlphaChange ){
-		//���߃t���OON.
+		//騾城℃繝輔Λ繧ｰON.
 		m_bAlpha = true;
-		//�v���C���[�����ɂ���Ȃ�.
+		//繝励Ξ繧､繝､繝ｼ縺悟･･縺ｫ縺�ｋ縺ｪ繧.
 		if( fPlayerZ > m_vPos.z + fALPHA_BORDER_Z ){
 			return;
 		}
-		//���̉��J�n.
+		//螳滉ｽ灘喧髢句ｧ.
 		m_bAlphaChange = false;
 	}
-	//���ߒ��ł͂Ȃ�.
+	//騾城℃荳ｭ縺ｧ縺ｯ縺ｪ縺.
 	else{
-		//�v���C���[����O�ɂ���Ȃ�.
+		//繝励Ξ繧､繝､繝ｼ縺梧焔蜑阪↓縺�ｋ縺ｪ繧.
 		if( fPlayerZ < m_vPos.z + fALPHA_BORDER_Z ){
 			return;
 		}
-		//���ߊJ�n.
+		//騾城℃髢句ｧ.
 		m_bAlphaChange = true;
 	}
 }
 
 //============================================================
-//	���ߒl�̐ݒ�.
+//	騾城℃蛟､縺ｮ險ｭ螳.
 //============================================================
 void clsDoorMgr::SetAlpha()
 {
-	//���ߒ�.
+	//騾城℃荳ｭ.
 	if( m_bAlphaChange ){
 		m_fAlpha -= fALPHA_SPD;
 		if( m_fAlpha < fALPHA_LIMIT ){
 			m_fAlpha = fALPHA_LIMIT;
 		}
 	}
-	//���̉���.
+	//螳滉ｽ灘喧荳ｭ.
 	else{
 		m_fAlpha += fALPHA_SPD_BACK;
 		if( m_fAlpha > fALPHA_LIMIT_MAX ){
@@ -290,7 +299,7 @@ void clsDoorMgr::SetAlpha()
 
 
 //============================================================
-//	�R��ꂽ�Ƃ�.
+//	雹ｴ繧峨ｌ縺溘→縺.
 //============================================================
 D3DXVECTOR3 clsDoorMgr::DoorBreak()
 {
@@ -309,7 +318,7 @@ D3DXVECTOR3 clsDoorMgr::DoorBreak()
 }
 
 //==================================================
-//	�����蔻��p.
+//	縺ゅ◆繧雁愛螳夂畑.
 //==================================================
 void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 {
@@ -318,7 +327,7 @@ void clsDoorMgr::SetColPos( D3DXVECTOR3 vPos )
 
 
 //==================================================
-//	���ʉ��Đ�.
+//	蜉ｹ譫憺浹蜀咲函.
 //==================================================
 void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 {
@@ -330,43 +339,44 @@ void clsDoorMgr::PlaySe(/* enSound enSe*/ )
 }
 
 //============================================================
-//	�h�A�̃A�j��.
+//	繝峨い縺ｮ繧｢繝九Γ.
 //============================================================
 void clsDoorMgr::Animation()
 {
 	if( m_pDoor == nullptr ) return;
 
-	//���[�v���Ȃ��A�j��.
+
+	//ループしないアニメ.
 	if( m_enAnimNo == enANIM_BREAK ){
 		m_dAnimTimer += m_pDoor->m_pModel->GetAnimSpeed();
 		
-		const double dRATE = 5.0;//���{��΂�?.
+		const double dRATE = 5.0;//菴募埼｣帙�縺?.
 
-		//���݂̃A�j���[�V�������I������.
+		//迴ｾ蝨ｨ縺ｮ繧｢繝九Γ繝ｼ繧ｷ繝ｧ繝ｳ繧堤ｵゅ∴縺溘ｉ.
 		if( m_pDoor->m_pModel->GetAnimPeriod( m_enAnimNo ) - ( dANIM_ONE_FRAME_OVER_SOLUTION * dRATE ) <= m_dAnimTimer ){
-			//�����Ȃ��Ȃ�.
+			//蜍輔°縺ｪ縺上↑繧.
 			ChangeAnimMode( enANIM_DEAD );
 		}
 	}
 }
 
 //============================================================
-//	�A�j���[�V�������[�h��ύX.
+//	繧｢繝九Γ繝ｼ繧ｷ繝ｧ繝ｳ繝｢繝ｼ繝峨ｒ螟画峩.
 //============================================================
 void clsDoorMgr::ChangeAnimMode( enAnimation anim )
 {
 	if( m_pDoor == nullptr ) return;
 
 	m_enAnimNo = anim;
-	m_pDoor->ChangeAnimSet( m_enAnimNo );//�A�j���Z�b�g.
+	m_pDoor->ChangeAnimSet( m_enAnimNo );//繧｢繝九Γ繧ｻ繝�ヨ.
 	m_dAnimTimer = 0.0;
 }
 
 
-//�G�t�F�N�g�Đ�.
+//繧ｨ繝輔ぉ繧ｯ繝亥�逕.
 void clsDoorMgr::PlayEff()
 {
-	if( m_pEffect ) return;
+	if( m_pEffect == nullptr ) return;
 
 	if( !m_pEffect->PlayCheck( m_ehDust ) ){
 			D3DXVECTOR3 vEffPos = m_vPos;

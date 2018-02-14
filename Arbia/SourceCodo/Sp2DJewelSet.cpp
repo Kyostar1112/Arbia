@@ -2,21 +2,23 @@
 
 #define sFILE_PATH_JEWEL "Data\\Image\\Jewel.png"
 
-//‰¹.
-//ã‚ª‚é.
+
+//éŸ³.
+//ä¸ŠãŒã‚‹.
 #define ALIAS_NAME_UP "UiResultJewelUp"
 #define  FILE_PATH_UP "SE\\600Result\\010JewelUp.wav"
 const int     iVOL_UP = 1000;
 
-//Œõ‚é(’…’n?).
+
+//å…‰ã‚‹(ç€åœ°?).
 #define ALIAS_NAME_SHINE "UiResultJewelShine"
 #define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"					
 const int     iVOL_SHINE = 1000;
 
-//MulDisp—p.
+//MulDispç”¨.
 const float fMUL_DISP_JEWEL = 1.0f;
 
-//‘å‚«‚³.
+//å¤§ãã•.
 const float fSCALE_MAX = 1.0f;
 const float fCHANGE_SCALE = fSCALE_MAX / 12.0f;
 
@@ -62,7 +64,6 @@ void clsJewerSet::Create( HWND hWnd,
 	SetSe( hWnd, iNo );
 }
 
-
 void clsJewerSet::Update()
 {
 	if( !m_smpModel ) return;
@@ -106,47 +107,47 @@ void clsJewerSet::SetSe( HWND hWnd, int iNo )
 	if( m_pSe != nullptr ) return;
 
 #if 0
-	//ƒTƒEƒ“ƒh\‘¢‘Ì.
+
+	//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
 	clsSound::SOUND_DATA tmpSData[enS_MAX] =
 	{
 		{ ALIAS_NAME_UP,	FILE_PATH_UP,	iVOL_UP	},
 //		{ ALIAS_NAME_SHINE,	FILE_PATH_SHINE,iVOL_SHINE },
 	};
-
-	//ƒTƒEƒ“ƒhƒNƒ‰ƒXì¬.
+	//ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹ä½œæˆ.
 	for( int i=0; i<enS_MAX; i++ ){
 		m_pSe[i] = new clsSound;
-		//–¼‘O.
+		//åå‰.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//”Ô†.
+		//ç•ªå·.
 		char cNumber[] = "  ";
 		_itoa_s( iNo, cNumber, 10 );
-		//–¼‘O‚Æ”Ô†‡‘Ì.
+		//åå‰ã¨ç•ªå·åˆä½“.
 		strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-		//ì¬.
+		//ä½œæˆ.
 		m_pSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//Œ»‰¹—Ê‰Šú‰».
+		//ç¾éŸ³é‡åˆæœŸåŒ–.
 		m_pSe[i]->SetVolume( tmpSData[i].iMaxVolume );
-		//Å‘å‰¹—Êİ’è.
+		//æœ€å¤§éŸ³é‡è¨­å®š.
 		m_pSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
 #else
 	m_pSe = new clsSound;
-	//–¼‘O.
+	//åå‰.
 	char cAliasName[STR_BUFF_MAX] = "";
 	strcat_s( cAliasName, sizeof( cAliasName ), ALIAS_NAME_UP );
-	//”Ô†.
+	//ç•ªå·.
 	char cNumber[] = "  ";
 	_itoa_s( iNo, cNumber, 10 );
-	//–¼‘O‚Æ”Ô†‡‘Ì.
+	//åå‰ã¨ç•ªå·åˆä½“.
 	strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-	//ì¬.
+	//ä½œæˆ.
 	m_pSe->Open( FILE_PATH_UP, cAliasName, hWnd );
-	//Œ»‰¹—Ê‰Šú‰».
+	//ç¾éŸ³é‡åˆæœŸåŒ–.
 	m_pSe->SetVolume( iVOL_UP );
-	//Å‘å‰¹—Êİ’è.
+	//æœ€å¤§éŸ³é‡è¨­å®š.
 	m_pSe->SetMaxVolume( iVOL_UP );
 #endif
-	//----- SE I—¹ -----//
+	//----- SE çµ‚äº† -----//
 }
