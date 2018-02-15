@@ -5,27 +5,27 @@ const float fMODEL_SCALE = 1.0f;
 const double fANIM_SPD = 0.01;
 
 
-//•ó” ‚ğŠJ‚¯‚é‰¹.
+//å®ç®±ã‚’é–‹ã‘ã‚‹éŸ³.
 #define ALIAS_NAME_OPEN "GoalBreak"
 #define  FILE_PATH_OPEN "SE\\300Trap\\400TrBox.wav"
 const int	  iVOL_OPEN = 1000;
 
-////ƒ`ƒF[ƒ“‰ó‚ê‚é.
+////ãƒã‚§ãƒ¼ãƒ³å£Šã‚Œã‚‹.
 //#define ALIAS_NAME_KEY "GoalKeyBreak"
 //#define  FILE_PATH_KEY "SE\\300Trap\\900GateBreak.wav"					
 //const int	  iVOL_KEY = 1000;
 
 
-//----- R‚ç‚ê”»’è—p -----//.
+//----- è¹´ã‚‰ã‚Œåˆ¤å®šç”¨ -----//.
 const float fCOL_RANGE = 1.5f;
 const float fCOL_HEIGHT = 1.0f;
 
 
-//•ó” ‚ª‚Ç‚ê‚¾‚¯‰œ‚É‚ ‚é‚©.
+//å®ç®±ãŒã©ã‚Œã ã‘å¥¥ã«ã‚ã‚‹ã‹.
 const float fTREASURE_Z = 22.0f;
 
 
-//ƒGƒtƒFƒNƒg.
+//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
 const D3DXVECTOR3 vEFF_SCALE = { 0.5f, 0.5f, 0.5f };
 
 
@@ -47,19 +47,27 @@ clsGoalMgr::~clsGoalMgr()
 
 void clsGoalMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext )
 {
-	//°.
+	if( m_pFloor != nullptr ||
+		m_pTreasurer != nullptr ||
+		m_pTrBoxCol != nullptr ||
+		m_ppSe != nullptr ||
+		m_pEffect != nullptr )
+	{
+		return;
+	}
+	//åºŠ.
 	m_pFloor = new clsCharaStatic;
 	m_pFloor->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_GOOL ) );
 
-	//•ó” ‚ ‚½‚è.
+	//å®ç®±ã‚ãŸã‚Š.
 	m_pTrBoxCol = new clsCharaStatic;
 	m_pTrBoxCol->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_TR_BOX_COL ) );
 
-	//•ó” .
+	//å®ç®±.
 	m_pTreasurer = new clsCharaSkin;
 
 	CD3DXSKINMESH_INIT si;//skin_Init.
@@ -78,35 +86,35 @@ void clsGoalMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	m_pTreasurer->SetAnimSpeed( fANIM_SPD );
 
 
-	//R‚ç‚ê”»’è—p.
+	//è¹´ã‚‰ã‚Œåˆ¤å®šç”¨.
 	ColState.fRange = fCOL_RANGE;
 	ColState.fHeight = fCOL_HEIGHT;
 
 	//----- SE -----//
-	//ƒTƒEƒ“ƒh\‘¢‘Ì.
+	//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
 	clsSound::SOUND_DATA tmpSData[] =
 	{
 		{ ALIAS_NAME_OPEN,	FILE_PATH_OPEN,	iVOL_OPEN	},
 	};
 	m_iSeMax = sizeof( tmpSData ) / sizeof( tmpSData[0] );
 
-	//ƒTƒEƒ“ƒhƒNƒ‰ƒXì¬.
+	//ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹ä½œæˆ.
 	m_ppSe = new clsSound*[m_iSeMax];
 	for( int i=0; i<m_iSeMax; i++ ){
 		m_ppSe[i] = new clsSound;
-		//Œ»‰¹—Ê‰Šú‰».
+		//ç¾éŸ³é‡åˆæœŸåŒ–.
 		m_ppSe[i]->SetVolume( 0 );
-		//–¼‘O.
+		//åå‰.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//ì¬.
+		//ä½œæˆ.
 		m_ppSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//Å‘å‰¹—Êİ’è.
+		//æœ€å¤§éŸ³é‡è¨­å®š.
 		m_ppSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
-	//----- SE I—¹ -----//
+	//----- SE çµ‚äº† -----//
 
-	//ƒGƒtƒFƒNƒg.
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
 	if( m_pEffect == nullptr ){
 		m_pEffect = clsEffects::GetInstance();
 	}
@@ -120,7 +128,8 @@ void clsGoalMgr::Init()
 	m_dAnimTimer = 0.0;
 	ChangeAnimMode( enANIM_IDLE );
 
-	//ƒGƒtƒFƒNƒg~‚ß‚é.
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæ­¢ã‚ã‚‹.
+	if( m_pEffect == nullptr ) return;
 	m_pEffect->Stop( m_ehOpen );
 	m_pEffect->Stop( m_ehLoop );
 }
@@ -158,7 +167,7 @@ void clsGoalMgr::Release()
 	}
 }
 
-//•`‰æ.
+//æç”».
 void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
@@ -166,9 +175,9 @@ void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 		return;
 	}
 
-	//°.
+	//åºŠ.
 	m_pFloor->Render( mView, mProj, vLight, vEye );
-	//” .
+	//ç®±.
 	m_pTreasurer->Render( mView, mProj, vLight, vEye );
 
 //	m_pTrBoxCol->Render( mView, mProj, vLight, vEye );
@@ -179,7 +188,7 @@ void clsGoalMgr::SetPosition( D3DXVECTOR3 vPos )
 {
 	m_vPos = vPos;
 
-	//q•ª.
+	//å­åˆ†.
 	if( m_pFloor != nullptr ){
 		m_pFloor->SetPosition( m_vPos );
 	}
@@ -203,11 +212,11 @@ void clsGoalMgr::Move( float fEarZ )
 //	m_fEarZ = fEarZ;
 	Animation();
 
-	//ƒGƒtƒFƒNƒg.
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
 	if( m_pEffect == nullptr ) return;
 
 	if( m_bOpen ){
-		//ŠJ‚­ƒGƒtƒFƒNƒg‚ªI‚í‚Á‚Ä‚é.
+		//é–‹ãã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒçµ‚ã‚ã£ã¦ã‚‹.
 		if( !m_pEffect->PlayCheck( m_ehOpen ) ){
 			m_ehLoop = m_pEffect->Play( clsEffects::enEfcType_TRB_LOOP, m_pTreasurer->GetPosition() );
 			m_pEffect->SetScale( m_ehLoop, vEFF_SCALE );
@@ -220,7 +229,7 @@ void clsGoalMgr::Move( float fEarZ )
 
 
 //============================================================
-//	R‚ç‚ê‚½‚Æ‚«.
+//	è¹´ã‚‰ã‚ŒãŸã¨ã.
 //============================================================
 void clsGoalMgr::BoxBreak()
 {
@@ -230,7 +239,7 @@ void clsGoalMgr::BoxBreak()
 
 	ChangeAnimMode( enANIM_OPEN );
 
-	//ƒGƒtƒFƒNƒgÄ¶.
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿ.
 	if( m_pEffect == nullptr ) return;
 
 	if( !m_pEffect->PlayCheck( m_ehOpen ) ){
@@ -246,14 +255,14 @@ void clsGoalMgr::BoxBreak()
 
 
 //============================================================
-//	Œø‰Ê‰¹Ä¶.
+//	åŠ¹æœéŸ³å†ç”Ÿ.
 //============================================================
 void clsGoalMgr::PlaySe( enSound enSe )
 {
 	if( m_ppSe == nullptr ) return;
 
 #if 0
-	//Ä¶‚·‚é‹——£‚È‚ç.
+	//å†ç”Ÿã™ã‚‹è·é›¢ãªã‚‰.
 	int vol = ChangeVolumeDistance( m_fEarZ, m_vPos.z );
 vol = 1;
 	if( vol ){
@@ -263,7 +272,7 @@ vol = 1;
 m_ppSe[enSe]->SetVolume( iVOL );
 		m_ppSe[enSe]->Play();
 	}
-	//Ä¶‚µ‚È‚¢‹——£‚È‚ç.
+	//å†ç”Ÿã—ãªã„è·é›¢ãªã‚‰.
 	else{
 		m_ppSe[enSe]->SetVolume( 0 );
 	}
@@ -276,7 +285,7 @@ m_ppSe[enSe]->SetVolume( iVOL );
 
 
 //==================================================
-//	‚ ‚½‚è”»’è—p.
+//	ã‚ãŸã‚Šåˆ¤å®šç”¨.
 //==================================================
 void clsGoalMgr::SetColPos( D3DXVECTOR3 vPos )
 {
@@ -285,34 +294,34 @@ void clsGoalMgr::SetColPos( D3DXVECTOR3 vPos )
 }
 
 //============================================================
-//	” ‚ÌƒAƒjƒ.
+//	ç®±ã®ã‚¢ãƒ‹ãƒ¡.
 //============================================================
 void clsGoalMgr::Animation()
 {
 	if( m_pTreasurer == nullptr ) return;
 
-	//ƒ‹[ƒv‚µ‚È‚¢ƒAƒjƒ.
+	//ãƒ«ãƒ¼ãƒ—ã—ãªã„ã‚¢ãƒ‹ãƒ¡.
 	if( m_enAnimNo == enANIM_OPEN ){
 		m_dAnimTimer += m_pTreasurer->m_pModel->GetAnimSpeed();
 		
-		const double dRATE = 5.0;//‰½”{”ò‚Î‚·?.
+		const double dRATE = 5.0;//ä½•å€é£›ã°ã™?.
 
-		//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğI‚¦‚½‚ç.
+		//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚ãˆãŸã‚‰.
 		if( m_pTreasurer->m_pModel->GetAnimPeriod( m_enAnimNo ) - ( dANIM_ONE_FRAME_OVER_SOLUTION * dRATE ) <= m_dAnimTimer ){
-			//“®‚©‚È‚­‚È‚é.
+			//å‹•ã‹ãªããªã‚‹.
 			ChangeAnimMode( enANIM_DEAD );
 		}
 	}
 }
 
 //============================================================
-//	ƒAƒjƒ[ƒVƒ‡ƒ“ƒ‚[ƒh‚ğ•ÏX.
+//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ¢ãƒ¼ãƒ‰ã‚’å¤‰æ›´.
 //============================================================
 void clsGoalMgr::ChangeAnimMode( enAnimation anim )
 {
 	if( m_pTreasurer == nullptr ) return;
 
 	m_enAnimNo = anim;
-	m_pTreasurer->ChangeAnimSet( m_enAnimNo );//ƒAƒjƒƒZƒbƒg.
+	m_pTreasurer->ChangeAnimSet( m_enAnimNo );//ã‚¢ãƒ‹ãƒ¡ã‚»ãƒƒãƒˆ.
 	m_dAnimTimer = 0.0;
 }

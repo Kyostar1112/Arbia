@@ -2,21 +2,20 @@
 
 #define sFILE_PATH_JEWEL "Data\\Image\\Jewel.png"
 
-//âπ.
-//è„Ç™ÇÈ.
+//Èü≥.
+//‰∏ä„Åå„Çã.
 #define ALIAS_NAME_UP "UiResultJewelUp"
 #define  FILE_PATH_UP "SE\\600Result\\010JewelUp.wav"
 const int     iVOL_UP = 1000;
 
-//åıÇÈ(íÖín?).
 #define ALIAS_NAME_SHINE "UiResultJewelShine"
 #define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"					
 const int     iVOL_SHINE = 1000;
 
-//MulDispóp.
+//MulDispÁî®.
 const float fMUL_DISP_JEWEL = 1.0f;
 
-//ëÂÇ´Ç≥.
+//Â§ß„Åç„Åï.
 const float fSCALE_MAX = 1.0f;
 const float fCHANGE_SCALE = fSCALE_MAX / 12.0f;
 
@@ -35,14 +34,12 @@ clsJewerSet::clsJewerSet()
 
 clsJewerSet::~clsJewerSet()
 {
-//	for( int i=0; i<enS_MAX; i++ ){
-		if( m_pSe != nullptr ){
-			m_pSe->Stop();
-			m_pSe->Close();
-			delete m_pSe;
-			m_pSe = nullptr;
-		}
-//	}
+	if( m_pSe != nullptr ){
+		m_pSe->Stop();
+		m_pSe->Close();
+		delete m_pSe;
+		m_pSe = nullptr;
+	}
 
 	m_smpModel.reset();
 }
@@ -106,47 +103,46 @@ void clsJewerSet::SetSe( HWND hWnd, int iNo )
 	if( m_pSe != nullptr ) return;
 
 #if 0
-	//ÉTÉEÉìÉhç\ë¢ëÃ.
+	//„Çµ„Ç¶„É≥„ÉâÊßãÈÄ†‰Ωì.
 	clsSound::SOUND_DATA tmpSData[enS_MAX] =
 	{
 		{ ALIAS_NAME_UP,	FILE_PATH_UP,	iVOL_UP	},
-//		{ ALIAS_NAME_SHINE,	FILE_PATH_SHINE,iVOL_SHINE },
 	};
 
-	//ÉTÉEÉìÉhÉNÉâÉXçÏê¨.
+	//„Çµ„Ç¶„É≥„Éâ„ÇØ„É©„Çπ‰ΩúÊàê.
 	for( int i=0; i<enS_MAX; i++ ){
 		m_pSe[i] = new clsSound;
-		//ñºëO.
+		//ÂêçÂâç.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//î‘çÜ.
+		//Áï™Âè∑.
 		char cNumber[] = "  ";
 		_itoa_s( iNo, cNumber, 10 );
-		//ñºëOÇ∆î‘çÜçáëÃ.
+		//ÂêçÂâç„Å®Áï™Âè∑Âêà‰Ωì.
 		strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-		//çÏê¨.
+		//‰ΩúÊàê.
 		m_pSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//åªâπó èâä˙âª.
+		//ÁèæÈü≥ÈáèÂàùÊúüÂåñ.
 		m_pSe[i]->SetVolume( tmpSData[i].iMaxVolume );
-		//ç≈ëÂâπó ê›íË.
+		//ÊúÄÂ§ßÈü≥ÈáèË®≠ÂÆö.
 		m_pSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
 #else
 	m_pSe = new clsSound;
-	//ñºëO.
+	//ÂêçÂâç.
 	char cAliasName[STR_BUFF_MAX] = "";
 	strcat_s( cAliasName, sizeof( cAliasName ), ALIAS_NAME_UP );
-	//î‘çÜ.
+	//Áï™Âè∑.
 	char cNumber[] = "  ";
 	_itoa_s( iNo, cNumber, 10 );
-	//ñºëOÇ∆î‘çÜçáëÃ.
+	//ÂêçÂâç„Å®Áï™Âè∑Âêà‰Ωì.
 	strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-	//çÏê¨.
+	//‰ΩúÊàê.
 	m_pSe->Open( FILE_PATH_UP, cAliasName, hWnd );
-	//åªâπó èâä˙âª.
+	//ÁèæÈü≥ÈáèÂàùÊúüÂåñ.
 	m_pSe->SetVolume( iVOL_UP );
-	//ç≈ëÂâπó ê›íË.
+	//ÊúÄÂ§ßÈü≥ÈáèË®≠ÂÆö.
 	m_pSe->SetMaxVolume( iVOL_UP );
 #endif
-	//----- SE èIóπ -----//
+	//----- SE ÁµÇ‰∫Ü -----//
 }
