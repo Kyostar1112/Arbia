@@ -65,6 +65,17 @@ public:
 	}
 
 private:
+	enum enSound
+	{
+		enSOUND_OPEN = 0,
+		enSOUND_CHAIN,
+
+		enSOUND_MAX,
+	};
+	//効果音.
+	void PlaySe( enSound enSe );
+	clsSound**	m_ppSe;
+	int			m_iSeMax;
 
 	//モデル.
 	clsCharaStatic*	m_pFloor;//床部分.
@@ -93,17 +104,6 @@ private:
 	double m_dAnimTimer;
 
 
-	enum enSound
-	{
-		enSOUND_OPEN = 0,
-		enSOUND_CHAIN,
-
-		enSOUND_MAX,
-	};
-	//効果音.
-	void PlaySe( enSound enSe );
-	clsSound**	m_ppSe;
-	int			m_iSeMax;
 
 	//エフェクト.
 	//名前省略用.

@@ -37,7 +37,7 @@ public:
 	void GoLeft();
 	//0:左, 1:右, 2:両方, それ以外:無効.
 	void GoDown( int iRight );
-	int	m_iTimer;
+	int		m_iTimer;
 
 
 	//ゲットシリーズ.
@@ -50,14 +50,18 @@ public:
 	clsCharaStatic*	GetWallPointer();
 
 	clsCharaStatic* GetWallLCol(){
-		if( m_pSpiaWall[0] == nullptr ) return nullptr;
 		return m_pSpiaWall[0];
 	}
 	clsCharaStatic* GetWallRCol(){
-		if( m_pSpiaWall[1] == nullptr ) return nullptr;
 		return m_pSpiaWall[1];
 	}
 
+	D3DXVECTOR3 GetTestL(){
+		return m_ppSpiaL[0]->GetTest();
+	}
+	D3DXVECTOR3 GetTestR(){
+		return m_ppSpiaR[0]->GetTest();
+	}
 
 private:
 

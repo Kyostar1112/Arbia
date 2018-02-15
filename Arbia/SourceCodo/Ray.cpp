@@ -8,13 +8,7 @@ const char ENT_PIX_NAME[] = "PS";
 
 clsRay::clsRay()
 {
-//	ZeroMemory( this, sizeof( clsRay ) );
-	m_pVertexShader = nullptr;	
-	m_pVertexLayout = nullptr;	
-	m_pPixelShader = nullptr;		
-	m_pConstantBuffer = nullptr;	
-
-	m_pVertexBuffer = nullptr;	
+	ZeroMemory( this, sizeof( clsRay ) );
 }
 
 clsRay::~clsRay()

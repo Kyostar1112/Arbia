@@ -10,8 +10,8 @@ public:
 	clsSp2dMgrEnding();
 	~clsSp2dMgrEnding();
 
-	void Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
-	void InitSetPos();
+	void Create(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+	void Init();
 	void Render();
 	void Release();
 
