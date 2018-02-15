@@ -9,7 +9,7 @@ const double fANIM_SPD = 0.01;
 //----- ‰¹ -----//.
 const char sALIAS_NAME[] = "DoorBreak";
 const char sFILE_PATH[] = "SE\\300Trap\\900GateBreak.wav";
-const int iVOL = 600;
+const int iVOL = 1000;
 
 
 //----- R‚ç‚ê”»’è—p -----//.
@@ -60,6 +60,7 @@ clsDoorMgr::clsDoorMgr()
 	m_pColWall = nullptr;
 
 	m_pSe = nullptr;
+
 	m_pEffect = nullptr;
 }
 
@@ -77,8 +78,8 @@ void clsDoorMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 		m_pColWall != nullptr ||
 		m_pSe != nullptr ||
 		m_pEffect != nullptr )
-	{
-	return;
+	{	
+		return;
 	}
 
 	//–å.
@@ -189,7 +190,6 @@ void clsDoorMgr::Release()
 void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
-	if( m_pDoor == nullptr || m_pGate == nullptr ) return;
 	//.
 //	m_pColWall->Render( mView, mProj, vLight, vEye );
 
@@ -207,12 +207,6 @@ void clsDoorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 
 void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 {
-	if( m_pDoor == nullptr ||
-		m_pGate == nullptr ||
-		m_pColWall == nullptr ){
-		return;
-	}
-
 	m_vPos = vPos;
 
 	//Žq•ª.
@@ -228,7 +222,7 @@ void clsDoorMgr::SetPosition( D3DXVECTOR3 vPos )
 }
 
 
-void clsDoorMgr::Update( float fEarZ )
+void clsDoorMgr::Move( float fEarZ )
 {
 	m_fEarZ = fEarZ;
 	Animation();
@@ -311,6 +305,7 @@ D3DXVECTOR3 clsDoorMgr::DoorBreak()
 
 	ChangeAnimMode( enANIM_BREAK );
 
+
 	m_bEffTimer = true;
 
 	return vReSpawnPos;
@@ -375,7 +370,6 @@ void clsDoorMgr::ChangeAnimMode( enAnimation anim )
 void clsDoorMgr::PlayEff()
 {
 	if( m_pEffect == nullptr ) return;
-
 
 	if( !m_pEffect->PlayCheck( m_ehDust ) ){
 			D3DXVECTOR3 vEffPos = m_vPos;

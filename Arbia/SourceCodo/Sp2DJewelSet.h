@@ -15,15 +15,17 @@ public:
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
 		int iNo ); 
 
-	void Update();
+	void Move();
 
 
 
+//止まるだけ.
 	void Stop(){
 		m_vMove = { 0.0f, 0.0f, 0.0f };
 		m_fAcc = 0.0f;
 	};
 
+	//再スタート前に.
 	void ReSet();
 
 
@@ -36,7 +38,7 @@ public:
 		return m_bDown;
 	}
 
-
+	//----- ラップ -----//.
 	void InitSetPos(){
 		if( !m_smpModel ) return;
 		m_smpModel->InitSetPos();
@@ -77,7 +79,16 @@ public:
 		return m_bGet;
 	}
 
-	void PlaySe(){
+//	//音の種類.
+//	enum enSound
+//	{
+//		enS_UP = 0,//宝石が上昇を始める.
+////		enS_SHINE,
+//
+//		enS_MAX,	//最大数.
+//	};
+
+	void PlaySe( /*clsJewerSet::enSound enSe*/ ){
 		if( m_pSe == nullptr ) return;
 
 		m_pSe->SeekToStart();
@@ -87,19 +98,16 @@ public:
 private:
 
 	unique_ptr<clsJewel> m_smpModel;
-	bool m_bDown;
+	bool m_bDown;//降下中.
 	bool m_bEnd;
 	D3DXVECTOR3 m_vMove;
 	float		m_fAcc;
-	bool		m_bGet;
-
+	bool		m_bGet;//手に入れられる?.
 
 	float m_fScale;
 
-
-
-	clsSound*	m_pSe;
-
+	//効果音.
+	clsSound*	m_pSe;	
 	void SetSe( HWND hWnd, int iNo );
 
 

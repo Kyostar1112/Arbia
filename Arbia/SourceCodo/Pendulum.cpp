@@ -138,7 +138,7 @@ void clsPend::Init()
 //============================================================
 //	U‚èq“®‚«.
 //============================================================
-void clsPend::Update( float fEarZ )
+void clsPend::Move( float fEarZ )
 {
 	//U‚ê‚é.
 	m_vRot.z += m_fMovePower;

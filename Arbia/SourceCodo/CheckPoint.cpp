@@ -141,7 +141,6 @@ void clsCheckPoint::Init()
 }
 
 
-//この動きはマネージャより個別に持ったほうが考えやすかった.
 bool clsCheckPoint::Stay()
 {
 	//戻り値.

@@ -29,7 +29,7 @@ private:
 
 	clsCheckPoint** m_ppModel;
 
-	clsSound*	m_pSe;
+	clsSound**	m_ppSe;
 
 };
 

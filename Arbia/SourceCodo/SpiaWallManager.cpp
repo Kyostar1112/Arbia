@@ -233,7 +233,7 @@ void clsSpiaWallMgr::Release()
 }
 
 
-void clsSpiaWallMgr::Update( float fEarZ )
+void clsSpiaWallMgr::Move( float fEarZ )
 {
 	if( m_ppSpiaR == nullptr || m_ppSpiaL == nullptr || m_pSpiaWall[0] == nullptr || m_pSpiaWall[1] == nullptr ){
 		return;
@@ -268,7 +268,7 @@ void clsSpiaWallMgr::Update( float fEarZ )
 	//飛び出し効果音用.
 	bool bSpiaUpSound = false;
 	for( int i=0; i<m_iSpiaMax; i++ ){
-		bSpiaUpSound = m_ppSpiaL[i]->Update();
+		bSpiaUpSound = m_ppSpiaL[i]->Move();
 	}
 	//飛び出す音.
 	if( bSpiaUpSound ){
@@ -276,7 +276,7 @@ void clsSpiaWallMgr::Update( float fEarZ )
 	}
 
 	for( int i=0; i<m_iSpiaMax; i++ ){
-		bSpiaUpSound = m_ppSpiaR[i]->Update();
+		bSpiaUpSound = m_ppSpiaR[i]->Move();
 	}
 	//飛び出す音.
 	if( bSpiaUpSound ){

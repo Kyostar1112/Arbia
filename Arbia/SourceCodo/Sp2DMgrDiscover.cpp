@@ -10,9 +10,6 @@ namespace MainSceneDisc{
 	const WHSIZE_FLOAT CENTER_POS = { WND_W / 2, WND_H / 2 };
 }
 
-//ƒAƒCƒRƒ“‚ÌUV.
-const float fICON_UV_W = 1.0f;
-const float fICON_UV_W_MAX = 2.0f;
 
 clsDiscover::clsDiscover()
 {
@@ -36,11 +33,10 @@ void clsDiscover::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext
 		m_smpIcon->GetSs().Base.h,
 		m_smpIcon->GetSs().Disp.w,
 		m_smpIcon->GetSs().Disp.h,
-		fICON_UV_W_MAX );
+		2 );
 
 	m_smpIcon->UpDateSpriteSs();
 
-	m_smpIcon->SetPatarnU( fICON_UV_W );
 
 	m_smpLives = make_unique<clsNumGrp>();
 	m_smpLives->Create( pDevice11, pContext11 );

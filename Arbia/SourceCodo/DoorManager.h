@@ -31,7 +31,7 @@ public:
 	virtual void SetPosition( D3DXVECTOR3 vPos );
 
 
-	void Update( float fEarZ );
+	void Move( float fEarZ );
 
 	//蹴られたとき.
 	//戻り値はプレイヤーの初期化位置の更新座標.

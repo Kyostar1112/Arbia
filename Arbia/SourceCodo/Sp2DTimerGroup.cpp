@@ -11,9 +11,9 @@ const	  int iVOL = 1000;
 
 
 //タイマーの数.
-const char cTIMEER_NUM = cTIMER_GROUP_TIMER_NUM;
+const char cTIMEER_NUM = 3;
 //コロンの数.
-const char cCOLON_NUM = cTIMER_GROUP_COLON_NUM;
+const char cCOLON_NUM = cTIMEER_NUM - 1;
 //数字の幅高さ.
 const float fNUM_DISP = 64.0f;
 //コロンの幅高さ.
@@ -31,36 +31,36 @@ const int iTIMER_NUM_MAX = 59;
 clsTimerGrp::clsTimerGrp()
 {
 	for( char i=0; i<cTIMEER_NUM; i++ ){
-		m_Timer[i] = nullptr;
+		m_Timer[i] = NULL;
 	}
 	for( char i=0; i<cCOLON_NUM; i++ ){
-		m_Colon[i] = nullptr;
+		m_Colon[i] = NULL;
 	}
-	m_pSe = nullptr;
+	m_pSe = NULL;
 }
 
 clsTimerGrp::~clsTimerGrp()
 {
-	if( m_pSe != nullptr ){
+	if( m_pSe != NULL ){
 		m_pSe->Stop();
 		m_pSe->Close();
 		delete m_pSe;
-		m_pSe = nullptr;
+		m_pSe = NULL;
 	}
 
-	if( m_Colon != nullptr ){
+	if( m_Colon != NULL ){
 		for( char i=0; i<cCOLON_NUM; i++ ){
-			if( m_Colon[i] != nullptr ){
+			if( m_Colon[i] != NULL ){
 				delete m_Colon[i];
-				m_Colon[i] = nullptr;
+				m_Colon[i] = NULL;
 			}
 		}
 	}
-	if( m_Timer != nullptr ){
+	if( m_Timer != NULL ){
 		for( char i=0; i<cTIMEER_NUM; i++ ){
-			if( m_Timer[i] != nullptr ){
+			if( m_Timer[i] != NULL ){
 				delete m_Timer[i];
-				m_Timer[i] = nullptr;
+				m_Timer[i] = NULL;
 			}
 		}
 	}
@@ -148,7 +148,7 @@ void clsTimerGrp::AddPosY( float fPos )
 }
 
 
-void clsTimerGrp::Update()
+void clsTimerGrp::Move()
 {
 	//カウント.
 	if( !m_bRimitFlg && !m_bStop ){
@@ -176,7 +176,7 @@ void clsTimerGrp::Update()
 				}
 			}
 		}
-		m_Timer[i]->Update();
+		m_Timer[i]->Move();
 	}
 }
 

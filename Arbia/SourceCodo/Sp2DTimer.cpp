@@ -63,6 +63,8 @@ void clsTimer::ReSet()
 	m_bCarrying = false;
 }
 
+
+
 //”‚ğ‘‚â‚·.
 void clsTimer::PlusNum()
 {
@@ -74,6 +76,8 @@ void clsTimer::PlusNum()
 	}
 }
 
+
+
 void clsTimer::AddPosX( float fMove )
 {
 	for( char i=0; i<cNUM_MAX; i++ ){
@@ -82,15 +86,19 @@ void clsTimer::AddPosX( float fMove )
 
 }
 
+
+
+
 //Œ…ã‚ª‚è( ŒJ‚èã‚ª‚è )Šm”F.
-bool clsTimer::Carrying()
-{
+bool clsTimer::Carrying(){
 	if( m_bCarrying ){
 		m_bCarrying = false;
 		return true;
 	}
 	return false;
 }
+
+
 
 //ãŒÀİ’è—p.
 void clsTimer::Rimit(){

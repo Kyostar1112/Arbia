@@ -15,6 +15,14 @@ clsShadow::clsShadow()
 	m_vPos = { 0.0f, 0.0f, 0.0f };
 	m_bDispFlg = true;
 
+	m_pVertexShader = NULL;	
+	m_pVertexLayout = NULL;	
+	m_pPixelShader = NULL;		
+	m_pConstantBuffer = NULL;	
+	m_pVertexBuffer = NULL;	
+	m_pTexture = NULL;		
+	m_pSampleLinear = NULL;
+
 	m_fScale = fDEFAULT_SHADOW_SCALE;
 }
 
@@ -23,6 +31,9 @@ clsShadow::clsShadow()
 //============================================================
 clsShadow::~clsShadow()
 {
+	//‚±‚±‚Å‚Í‰ð•ú‚µ‚È‚¢.
+	m_pDevice11 = NULL;
+	m_pDeviceContext11 = NULL;
 }
 
 

@@ -180,10 +180,10 @@ private:
 		enS_HIT = 0,
 		enS_OPEN,
 
-		enS_STEAL,//盗んだ成果.
-		enS_OTHER,//各項目の文字.
+		enS_STEAL,
+		enS_OTHER,
 
-		enS_LAST_JEWEL,//パーフェクトジングル.
+		enS_LAST_JEWEL,
 
 		enS_MAX,	//最大数.
 	};

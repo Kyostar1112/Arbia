@@ -42,7 +42,7 @@ void clsStepCyl::Init()
 }
 
 //ìÆçÏ.
-void clsStepCyl::Update()
+void clsStepCyl::Move()
 {
 	//ñkÇ÷GO.
 	if( m_bNorthFlg ){
