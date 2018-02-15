@@ -27,13 +27,13 @@ public:
 		enSOUND_VIB = 0,
 		enSOUND_UP,
 		enSOUND_DOWN,
-		  
+
 		enSOUND_MAX,	//Å‘å”.
 	};
 
 	virtual void Init( bool bFlg = false );//true = ‚‚¢‚â‚Â.
 
-	enSound Move();
+	enSound Update();
 
 	enSpeaFloorMode GetMode(){
 		return m_Mode;

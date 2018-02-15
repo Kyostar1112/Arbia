@@ -5,27 +5,27 @@ const float fMODEL_SCALE = 1.0f;
 const double fANIM_SPD = 0.01;
 
 
-//å®ç®±ã‚’é–‹ã‘ã‚‹éŸ³.
+//•ó” ‚ğŠJ‚¯‚é‰¹.
 #define ALIAS_NAME_OPEN "GoalBreak"
 #define  FILE_PATH_OPEN "SE\\300Trap\\400TrBox.wav"
 const int	  iVOL_OPEN = 1000;
 
-////ãƒã‚§ãƒ¼ãƒ³å£Šã‚Œã‚‹.
+////ƒ`ƒF[ƒ“‰ó‚ê‚é.
 //#define ALIAS_NAME_KEY "GoalKeyBreak"
 //#define  FILE_PATH_KEY "SE\\300Trap\\900GateBreak.wav"					
 //const int	  iVOL_KEY = 1000;
 
 
-//----- è¹´ã‚‰ã‚Œåˆ¤å®šç”¨ -----//.
+//----- R‚ç‚ê”»’è—p -----//.
 const float fCOL_RANGE = 1.5f;
 const float fCOL_HEIGHT = 1.0f;
 
 
-//å®ç®±ãŒã©ã‚Œã ã‘å¥¥ã«ã‚ã‚‹ã‹.
+//•ó” ‚ª‚Ç‚ê‚¾‚¯‰œ‚É‚ ‚é‚©.
 const float fTREASURE_Z = 22.0f;
 
 
-//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+//ƒGƒtƒFƒNƒg.
 const D3DXVECTOR3 vEFF_SCALE = { 0.5f, 0.5f, 0.5f };
 
 
@@ -55,19 +55,19 @@ void clsGoalMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	{
 		return;
 	}
-	//åºŠ.
+	//°.
 	m_pFloor = new clsCharaStatic;
 	m_pFloor->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_GOOL ) );
 
-	//å®ç®±ã‚ãŸã‚Š.
+	//•ó” ‚ ‚½‚è.
 	m_pTrBoxCol = new clsCharaStatic;
 	m_pTrBoxCol->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_TR_BOX_COL ) );
 
-	//å®ç®±.
+	//•ó” .
 	m_pTreasurer = new clsCharaSkin;
 
 	CD3DXSKINMESH_INIT si;//skin_Init.
@@ -86,35 +86,35 @@ void clsGoalMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	m_pTreasurer->SetAnimSpeed( fANIM_SPD );
 
 
-	//è¹´ã‚‰ã‚Œåˆ¤å®šç”¨.
+	//R‚ç‚ê”»’è—p.
 	ColState.fRange = fCOL_RANGE;
 	ColState.fHeight = fCOL_HEIGHT;
 
 	//----- SE -----//
-	//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
+	//ƒTƒEƒ“ƒh\‘¢‘Ì.
 	clsSound::SOUND_DATA tmpSData[] =
 	{
 		{ ALIAS_NAME_OPEN,	FILE_PATH_OPEN,	iVOL_OPEN	},
 	};
 	m_iSeMax = sizeof( tmpSData ) / sizeof( tmpSData[0] );
 
-	//ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹ä½œæˆ.
+	//ƒTƒEƒ“ƒhƒNƒ‰ƒXì¬.
 	m_ppSe = new clsSound*[m_iSeMax];
 	for( int i=0; i<m_iSeMax; i++ ){
 		m_ppSe[i] = new clsSound;
-		//ç¾éŸ³é‡åˆæœŸåŒ–.
+		//Œ»‰¹—Ê‰Šú‰».
 		m_ppSe[i]->SetVolume( 0 );
-		//åå‰.
+		//–¼‘O.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//ä½œæˆ.
+		//ì¬.
 		m_ppSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//æœ€å¤§éŸ³é‡è¨­å®š.
+		//Å‘å‰¹—Êİ’è.
 		m_ppSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
-	//----- SE çµ‚äº† -----//
+	//----- SE I—¹ -----//
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+	//ƒGƒtƒFƒNƒg.
 	if( m_pEffect == nullptr ){
 		m_pEffect = clsEffects::GetInstance();
 	}
@@ -128,7 +128,7 @@ void clsGoalMgr::Init()
 	m_dAnimTimer = 0.0;
 	ChangeAnimMode( enANIM_IDLE );
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæ­¢ã‚ã‚‹.
+	//ƒGƒtƒFƒNƒg~‚ß‚é.
 	if( m_pEffect == nullptr ) return;
 	m_pEffect->Stop( m_ehOpen );
 	m_pEffect->Stop( m_ehLoop );
@@ -167,7 +167,7 @@ void clsGoalMgr::Release()
 	}
 }
 
-//æç”».
+//•`‰æ.
 void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
@@ -175,9 +175,9 @@ void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 		return;
 	}
 
-	//åºŠ.
+	//°.
 	m_pFloor->Render( mView, mProj, vLight, vEye );
-	//ç®±.
+	//” .
 	m_pTreasurer->Render( mView, mProj, vLight, vEye );
 
 //	m_pTrBoxCol->Render( mView, mProj, vLight, vEye );
@@ -188,7 +188,7 @@ void clsGoalMgr::SetPosition( D3DXVECTOR3 vPos )
 {
 	m_vPos = vPos;
 
-	//å­åˆ†.
+	//q•ª.
 	if( m_pFloor != nullptr ){
 		m_pFloor->SetPosition( m_vPos );
 	}
@@ -212,11 +212,11 @@ void clsGoalMgr::Move( float fEarZ )
 //	m_fEarZ = fEarZ;
 	Animation();
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ.
+	//ƒGƒtƒFƒNƒg.
 	if( m_pEffect == nullptr ) return;
 
 	if( m_bOpen ){
-		//é–‹ãã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒçµ‚ã‚ã£ã¦ã‚‹.
+		//ŠJ‚­ƒGƒtƒFƒNƒg‚ªI‚í‚Á‚Ä‚é.
 		if( !m_pEffect->PlayCheck( m_ehOpen ) ){
 			m_ehLoop = m_pEffect->Play( clsEffects::enEfcType_TRB_LOOP, m_pTreasurer->GetPosition() );
 			m_pEffect->SetScale( m_ehLoop, vEFF_SCALE );
@@ -229,7 +229,7 @@ void clsGoalMgr::Move( float fEarZ )
 
 
 //============================================================
-//	è¹´ã‚‰ã‚ŒãŸã¨ã.
+//	R‚ç‚ê‚½‚Æ‚«.
 //============================================================
 void clsGoalMgr::BoxBreak()
 {
@@ -239,7 +239,7 @@ void clsGoalMgr::BoxBreak()
 
 	ChangeAnimMode( enANIM_OPEN );
 
-	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿ.
+	//ƒGƒtƒFƒNƒgÄ¶.
 	if( m_pEffect == nullptr ) return;
 
 	if( !m_pEffect->PlayCheck( m_ehOpen ) ){
@@ -255,14 +255,14 @@ void clsGoalMgr::BoxBreak()
 
 
 //============================================================
-//	åŠ¹æœéŸ³å†ç”Ÿ.
+//	Œø‰Ê‰¹Ä¶.
 //============================================================
 void clsGoalMgr::PlaySe( enSound enSe )
 {
 	if( m_ppSe == nullptr ) return;
 
 #if 0
-	//å†ç”Ÿã™ã‚‹è·é›¢ãªã‚‰.
+	//Ä¶‚·‚é‹——£‚È‚ç.
 	int vol = ChangeVolumeDistance( m_fEarZ, m_vPos.z );
 vol = 1;
 	if( vol ){
@@ -272,7 +272,7 @@ vol = 1;
 m_ppSe[enSe]->SetVolume( iVOL );
 		m_ppSe[enSe]->Play();
 	}
-	//å†ç”Ÿã—ãªã„è·é›¢ãªã‚‰.
+	//Ä¶‚µ‚È‚¢‹——£‚È‚ç.
 	else{
 		m_ppSe[enSe]->SetVolume( 0 );
 	}
@@ -285,7 +285,7 @@ m_ppSe[enSe]->SetVolume( iVOL );
 
 
 //==================================================
-//	ã‚ãŸã‚Šåˆ¤å®šç”¨.
+//	‚ ‚½‚è”»’è—p.
 //==================================================
 void clsGoalMgr::SetColPos( D3DXVECTOR3 vPos )
 {
@@ -294,34 +294,34 @@ void clsGoalMgr::SetColPos( D3DXVECTOR3 vPos )
 }
 
 //============================================================
-//	ç®±ã®ã‚¢ãƒ‹ãƒ¡.
+//	” ‚ÌƒAƒjƒ.
 //============================================================
 void clsGoalMgr::Animation()
 {
 	if( m_pTreasurer == nullptr ) return;
 
-	//ãƒ«ãƒ¼ãƒ—ã—ãªã„ã‚¢ãƒ‹ãƒ¡.
+	//ƒ‹[ƒv‚µ‚È‚¢ƒAƒjƒ.
 	if( m_enAnimNo == enANIM_OPEN ){
 		m_dAnimTimer += m_pTreasurer->m_pModel->GetAnimSpeed();
 		
-		const double dRATE = 5.0;//ä½•å€é£›ã°ã™?.
+		const double dRATE = 5.0;//‰½”{”ò‚Î‚·?.
 
-		//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚ãˆãŸã‚‰.
+		//Œ»İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğI‚¦‚½‚ç.
 		if( m_pTreasurer->m_pModel->GetAnimPeriod( m_enAnimNo ) - ( dANIM_ONE_FRAME_OVER_SOLUTION * dRATE ) <= m_dAnimTimer ){
-			//å‹•ã‹ãªããªã‚‹.
+			//“®‚©‚È‚­‚È‚é.
 			ChangeAnimMode( enANIM_DEAD );
 		}
 	}
 }
 
 //============================================================
-//	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ¢ãƒ¼ãƒ‰ã‚’å¤‰æ›´.
+//	ƒAƒjƒ[ƒVƒ‡ƒ“ƒ‚[ƒh‚ğ•ÏX.
 //============================================================
 void clsGoalMgr::ChangeAnimMode( enAnimation anim )
 {
 	if( m_pTreasurer == nullptr ) return;
 
 	m_enAnimNo = anim;
-	m_pTreasurer->ChangeAnimSet( m_enAnimNo );//ã‚¢ãƒ‹ãƒ¡ã‚»ãƒƒãƒˆ.
+	m_pTreasurer->ChangeAnimSet( m_enAnimNo );//ƒAƒjƒƒZƒbƒg.
 	m_dAnimTimer = 0.0;
 }

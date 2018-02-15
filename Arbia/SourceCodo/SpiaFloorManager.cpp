@@ -2,33 +2,33 @@
 #include "SpiaFloorManager.h"
 
 
-//éŸ³.
-//æŒ¯å‹•.
+//‰¹.
+//U“®.
 #define ALIAS_NAME_VIB "SpiaFloorVib"
 #define FILE_PATH_VIB "SE\\300Trap\\100SpiaVib.wav"
 const int iVOL_VIB = 1000;
 
-//ä¸ŠãŒã‚‹.
+//ã‚ª‚é.
 #define ALIAS_NAME_UP "SpiaFloorTop"
 #define FILE_PATH_UP "SE\\300Trap\\110SpiaTop.wav"					
 const int iVOL_UP = 1000;
 
-//ä¸‹ãŒã‚‹.
+//‰º‚ª‚é.
 #define ALIAS_NAME_DOWN "SpiaFloorDown"
 #define FILE_PATH_DOWN "SE\\300Trap\\130SpiaClose.wav"					
 const int iVOL_DOWN = 1000;
 
 
 
-//ã‚¹ãƒ†ãƒ¼ã‚¸æ¨ªå¹….
+//ƒXƒe[ƒW‰¡•.
 const float STAGE_WIDHT = 10.0f;
-//å£ãŒæ§ã®å…ˆç«¯ã‹ã‚‰ã©ã‚Œã ã‘ãšã‚‰ã™ã‹.
+//•Ç‚ª‘„‚Ìæ’[‚©‚ç‚Ç‚ê‚¾‚¯‚¸‚ç‚·‚©.
 const float WALL_OFFSET_Y = 0.4375f;
 
-const int iFLOOR_MAX = 20;	//åºŠæ§ã®æ•°.
-const float fFLOOR_W_OFFSET = 0.5f;		//æ§ã¨æ§ã®æ¨ªã®é–“éš”.
-const float fFLOOR_H_OFFSET = 0.0625f;		//å¥‡æ•°ç•ªç›®ã‚’åºŠã‹ã‚‰ã©ã‚Œã ã‘ä¸Šã’ã‚‹ã‹.
-const float fFLOOR_H_OFFSET_SECOND = 0.25f;	//å¶æ•°ç•ªç›®ã‚’åºŠã‹ã‚‰ã©ã‚Œã ã‘ä¸Šã’ã‚‹ã‹.
+const int iFLOOR_MAX = 20;	//°‘„‚Ì”.
+const float fFLOOR_W_OFFSET = 0.5f;		//‘„‚Æ‘„‚Ì‰¡‚ÌŠÔŠu.
+const float fFLOOR_H_OFFSET = 0.0625f;		//Šï””Ô–Ú‚ğ°‚©‚ç‚Ç‚ê‚¾‚¯ã‚°‚é‚©.
+const float fFLOOR_H_OFFSET_SECOND = 0.25f;	//‹ô””Ô–Ú‚ğ°‚©‚ç‚Ç‚ê‚¾‚¯ã‚°‚é‚©.
 
 
 clsSpiaFlorMgr::clsSpiaFlorMgr()
@@ -48,7 +48,7 @@ clsSpiaFlorMgr::~clsSpiaFlorMgr()
 
 void clsSpiaFlorMgr::Release()
 {
-	//éŸ³.
+	//‰¹.
 	if( m_ppSe != nullptr ){
 		for( int i=0; i<clsSpiaFloor::enSOUND_MAX; i++ ){
 			m_ppSe[i]->Stop();
@@ -59,7 +59,7 @@ void clsSpiaFlorMgr::Release()
 		delete[] m_ppSe;
 		m_ppSe = nullptr;
 	}
-	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ.
+	//ƒIƒuƒWƒFƒNƒg.
 	if( m_ppSpia != nullptr ){
 		for( int i=0; i<m_iSpiaMax; i++ ){
 			m_ppSpia[i]->DetatchModel();
@@ -81,8 +81,8 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 {
 	if( m_ppSpia != nullptr || m_iSpiaMax ) return;
 
-	//----- ãƒ¢ãƒ‡ãƒ« -----//
-	//æ§.
+	//----- ƒ‚ƒfƒ‹ -----//
+	//‘„.
 	m_iSpiaMax = iFLOOR_MAX;
 	m_ppSpia = new clsSpiaFloor*[m_iSpiaMax];
 	for( int i=0; i<m_iSpiaMax; i++ ){
@@ -93,18 +93,18 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 				clsResource::enST_MODEL_SPIA ) );
 	}
 
-	//æ§å£.
+	//‘„•Ç.
 	if( m_pSpiaWall != nullptr ) return;
 	m_pSpiaWall = new clsCharaStatic;
 	m_pSpiaWall->AttachModel(
 		clsResource::GetInstance()->GetStaticModels( 
 			clsResource::enST_MODEL_SPIA_WALL ) );
-	//----- ãƒ¢ãƒ‡ãƒ« çµ‚äº† -----//
+	//----- ƒ‚ƒfƒ‹ I—¹ -----//
 
 
 	if( m_ppSe != nullptr ) return;
 	//----- SE -----//
-	//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
+	//ƒTƒEƒ“ƒh\‘¢‘Ì.
 	clsSound::SOUND_DATA tmpSData[clsSpiaFloor::enSOUND_MAX] =
 	{
 		{ ALIAS_NAME_VIB,	FILE_PATH_VIB,	iVOL_VIB	},
@@ -112,26 +112,26 @@ void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 		{ ALIAS_NAME_DOWN,	FILE_PATH_DOWN,	iVOL_DOWN	},
 	};
 
-	//ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹ä½œæˆ.
+	//ƒTƒEƒ“ƒhƒNƒ‰ƒXì¬.
 	m_ppSe = new clsSound*[clsSpiaFloor::enSOUND_MAX];
 	for( int i=0; i<clsSpiaFloor::enSOUND_MAX; i++ ){
 		m_ppSe[i] = new clsSound;
-		//ç¾éŸ³é‡åˆæœŸåŒ–.
+		//Œ»‰¹—Ê‰Šú‰».
 		m_ppSe[i]->SetVolume( 0 );
-		//åå‰.
+		//–¼‘O.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//ç•ªå·.
+		//”Ô†.
 		char cNumber[] = "  ";
 		_itoa_s( iNo, cNumber, 10 );
-		//åå‰ã¨ç•ªå·åˆä½“.
+		//–¼‘O‚Æ”Ô†‡‘Ì.
 		strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-		//ä½œæˆ.
+		//ì¬.
 		m_ppSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//æœ€å¤§éŸ³é‡è¨­å®š.
+		//Å‘å‰¹—Êİ’è.
 		m_ppSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
-	//----- SE çµ‚äº† -----//
+	//----- SE I—¹ -----//
 
 
 	Init();
@@ -141,12 +141,12 @@ void clsSpiaFlorMgr::Init()
 {
 	if( m_ppSpia == nullptr ) return;
 
-	//æ§.
+	//‘„.
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		float fOffset = fFLOOR_H_OFFSET;
 		bool bFlg = false;
 		if( i % 2 != 0 ){
-			//é«˜ã„ã‚„ã¤.
+			//‚‚¢‚â‚Â.
 			fOffset = fFLOOR_H_OFFSET_SECOND;
 			bFlg = true;
 		}
@@ -160,7 +160,7 @@ void clsSpiaFlorMgr::Init()
 	}
 
 	if( m_pSpiaWall == nullptr ) return;
-	//æ§å£åº§æ¨™.
+	//‘„•ÇÀ•W.
 	m_pSpiaWall->SetPosition( GetPosition() );
 	m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
 	m_pSpiaWall->AddPositionX( -STAGE_WIDHT / 2.0f );
@@ -171,29 +171,29 @@ void clsSpiaFlorMgr::Move( float fEarZ )
 {
 	if( m_ppSpia == nullptr || m_ppSe == nullptr || m_pSpiaWall == nullptr ) return;
 
-	//ã©ã®éŸ³ã‚’é³´ã‚‰ã™ã‹ã®ãƒ•ãƒ©ã‚°.
+	//‚Ç‚Ì‰¹‚ğ–Â‚ç‚·‚©‚Ìƒtƒ‰ƒO.
 	clsSpiaFloor::enSound enSoundFlg;
 
-	//å‹•ã.
+	//“®‚«.
 	for( int i=0; i<m_iSpiaMax; i++ ){
-		//å‹•ãã«åˆã‚ã›ã¦ãƒ•ãƒ©ã‚°ã‚’æ›´æ–°.
+		//“®‚«‚É‡‚í‚¹‚Äƒtƒ‰ƒO‚ğXV.
 		enSoundFlg = m_ppSpia[i]->Update();
 	}
 
-	//åŠ¹æœéŸ³å†ç”Ÿï¼ˆMAXã¯SpiaFloorå†…ã®åˆæœŸåŒ–ä½¿ã£ã¦ã„ã‚‹ã®ã§ãã‚Œä»¥ä¸Šã§ã¯é³´ã‚‰ã•ãªã„ï¼‰.
+	//Œø‰Ê‰¹Ä¶iMAX‚ÍSpiaFloor“à‚Ì‰Šú‰»g‚Á‚Ä‚¢‚é‚Ì‚Å‚»‚êˆÈã‚Å‚Í–Â‚ç‚³‚È‚¢j.
 	if( enSoundFlg < clsSpiaFloor::enSOUND_MAX ){
-		//é£›ã³å‡ºã—ãŸã‚‰ãã—ãã—éŸ³ã‚’æ­¢ã‚ã‚‹.
+		//”ò‚Ño‚µ‚½‚ç‚¬‚µ‚¬‚µ‰¹‚ğ~‚ß‚é.
 		if( enSoundFlg == clsSpiaFloor::enSOUND_UP ){
 			m_ppSe[clsSpiaFloor::enSOUND_VIB]->Stop();
 		}
-		//å†ç”Ÿ.
+		//Ä¶.
 		PlaySe( enSoundFlg, fEarZ );
 	}
 
-	//æ§å£åº§æ¨™.
+	//‘„•ÇÀ•W.
 	m_pSpiaWall->SetPositionY( m_ppSpia[0]->GetPositionY() );
-	//ä¸ŠãŒã£ã¦ã‚‹æ™‚ã¯.åˆºã•ã‚Šã‚„ã™ã
-	//ä¸‹ãŒã£ã¦ã„ã‚‹æ™‚ã¯åˆºã•ã‚Šã«ãã.
+	//ã‚ª‚Á‚Ä‚é‚Í.h‚³‚è‚â‚·‚­
+	//‰º‚ª‚Á‚Ä‚¢‚é‚Íh‚³‚è‚É‚­‚­.
 	if( m_ppSpia[0]->GetMode() == clsSpiaFloor::enSFM_UNDER ||
 		m_ppSpia[0]->GetMode() == clsSpiaFloor::enSFM_DOWN ){
 		m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
@@ -212,7 +212,7 @@ void clsSpiaFlorMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 		m_ppSpia[i]->Render( mView, mProj, vLight, vEye );
 	}
 
-//	//å£.
+//	//•Ç.
 //	m_pSpiaWall->Render( mView, mProj, vLight, vEye );
 
 }
@@ -223,7 +223,7 @@ void clsSpiaFlorMgr::SetPosition( D3DXVECTOR3 vPos )
 
 	m_vPos = vPos;
 
-	//å­åˆ†ã®åº§æ¨™.
+	//q•ª‚ÌÀ•W.
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		m_ppSpia[i]->SetPosition( 
 			D3DXVECTOR3( 
@@ -232,20 +232,20 @@ void clsSpiaFlorMgr::SetPosition( D3DXVECTOR3 vPos )
 				GetPositionZ() ) );
 	}
 
-	//æ§å£åº§æ¨™.
+	//‘„•ÇÀ•W.
 	m_pSpiaWall->SetPosition( GetPosition() );
 	m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
 	m_pSpiaWall->AddPositionX( -STAGE_WIDHT / 2.0f );
 }
 
-//æ§ã®ã‚ãŸã‚Šåˆ¤å®šæƒ…å ±è¿”ã™.
+//‘„‚Ì‚ ‚½‚è”»’èî•ñ•Ô‚·.
 COL_STATE* clsSpiaFlorMgr::GetPointerSpiaCol( int i )
 {
 	if( m_ppSpia == nullptr ) return nullptr;
 	return m_ppSpia[i]->GetPointerCol();
 }
 
-//æ§ã®æœ€å¤§æ•°.
+//‘„‚ÌÅ‘å”.
 int clsSpiaFlorMgr::GetSpiaMax()
 {
 	return m_iSpiaMax;
@@ -258,13 +258,13 @@ clsCharaStatic*	clsSpiaFlorMgr::GetWallPointer()
 
 
 //============================================================
-//	åŠ¹æœéŸ³.
+//	Œø‰Ê‰¹.
 //============================================================
 void clsSpiaFlorMgr::PlaySe( clsSpiaFloor::enSound enSe, float fEarZ )
 {
 	if( m_ppSe == nullptr ) return;
 
-	//å†ç”Ÿã™ã‚‹è·é›¢ãªã‚‰.
+	//Ä¶‚·‚é‹——£‚È‚ç.
 	int vol = ChangeVolumeDistance( fEarZ, m_vPos.z );
 	if( vol ){
 		m_ppSe[enSe]->GetMaxVolRate( vol );
@@ -272,7 +272,7 @@ void clsSpiaFlorMgr::PlaySe( clsSpiaFloor::enSound enSe, float fEarZ )
 		m_ppSe[enSe]->SetVolume( vol );
 		m_ppSe[enSe]->Play();
 	}
-	//å†ç”Ÿã—ãªã„è·é›¢ãªã‚‰.
+	//Ä¶‚µ‚È‚¢‹——£‚È‚ç.
 	else{
 		m_ppSe[enSe]->SetVolume( 0 );
 	}

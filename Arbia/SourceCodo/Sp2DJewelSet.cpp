@@ -2,8 +2,8 @@
 
 #define sFILE_PATH_JEWEL "Data\\Image\\Jewel.png"
 
-//éŸ³.
-//ä¸ŠãŒã‚‹.
+//‰¹.
+//ã‚ª‚é.
 #define ALIAS_NAME_UP "UiResultJewelUp"
 #define  FILE_PATH_UP "SE\\600Result\\010JewelUp.wav"
 const int     iVOL_UP = 1000;
@@ -12,10 +12,10 @@ const int     iVOL_UP = 1000;
 #define  FILE_PATH_SHINE "SE\\600Result\\020JewelShine.wav"					
 const int     iVOL_SHINE = 1000;
 
-//MulDispç”¨.
+//MulDisp—p.
 const float fMUL_DISP_JEWEL = 1.0f;
 
-//å¤§ãã•.
+//‘å‚«‚³.
 const float fSCALE_MAX = 1.0f;
 const float fCHANGE_SCALE = fSCALE_MAX / 12.0f;
 
@@ -103,46 +103,46 @@ void clsJewerSet::SetSe( HWND hWnd, int iNo )
 	if( m_pSe != nullptr ) return;
 
 #if 0
-	//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
+	//ƒTƒEƒ“ƒh\‘¢‘Ì.
 	clsSound::SOUND_DATA tmpSData[enS_MAX] =
 	{
 		{ ALIAS_NAME_UP,	FILE_PATH_UP,	iVOL_UP	},
 	};
 
-	//ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹ä½œæˆ.
+	//ƒTƒEƒ“ƒhƒNƒ‰ƒXì¬.
 	for( int i=0; i<enS_MAX; i++ ){
 		m_pSe[i] = new clsSound;
-		//åå‰.
+		//–¼‘O.
 		char cAliasName[STR_BUFF_MAX] = "";
 		strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-		//ç•ªå·.
+		//”Ô†.
 		char cNumber[] = "  ";
 		_itoa_s( iNo, cNumber, 10 );
-		//åå‰ã¨ç•ªå·åˆä½“.
+		//–¼‘O‚Æ”Ô†‡‘Ì.
 		strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-		//ä½œæˆ.
+		//ì¬.
 		m_pSe[i]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-		//ç¾éŸ³é‡åˆæœŸåŒ–.
+		//Œ»‰¹—Ê‰Šú‰».
 		m_pSe[i]->SetVolume( tmpSData[i].iMaxVolume );
-		//æœ€å¤§éŸ³é‡è¨­å®š.
+		//Å‘å‰¹—Êİ’è.
 		m_pSe[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 	}
 #else
 	m_pSe = new clsSound;
-	//åå‰.
+	//–¼‘O.
 	char cAliasName[STR_BUFF_MAX] = "";
 	strcat_s( cAliasName, sizeof( cAliasName ), ALIAS_NAME_UP );
-	//ç•ªå·.
+	//”Ô†.
 	char cNumber[] = "  ";
 	_itoa_s( iNo, cNumber, 10 );
-	//åå‰ã¨ç•ªå·åˆä½“.
+	//–¼‘O‚Æ”Ô†‡‘Ì.
 	strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-	//ä½œæˆ.
+	//ì¬.
 	m_pSe->Open( FILE_PATH_UP, cAliasName, hWnd );
-	//ç¾éŸ³é‡åˆæœŸåŒ–.
+	//Œ»‰¹—Ê‰Šú‰».
 	m_pSe->SetVolume( iVOL_UP );
-	//æœ€å¤§éŸ³é‡è¨­å®š.
+	//Å‘å‰¹—Êİ’è.
 	m_pSe->SetMaxVolume( iVOL_UP );
 #endif
-	//----- SE çµ‚äº† -----//
+	//----- SE I—¹ -----//
 }
