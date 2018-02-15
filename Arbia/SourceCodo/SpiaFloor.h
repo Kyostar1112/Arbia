@@ -5,6 +5,7 @@
 
 
 
+
 class clsSpiaFloor
 	: public clsCharaStatic
 {
@@ -33,7 +34,7 @@ public:
 
 	virtual void Init( bool bFlg = false );//true = çÇÇ¢Ç‚Ç¬.
 
-	enSound Update();
+	enSound Move();
 
 	enSpeaFloorMode GetMode(){
 		return m_Mode;

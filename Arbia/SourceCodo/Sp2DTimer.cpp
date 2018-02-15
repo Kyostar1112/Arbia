@@ -31,24 +31,18 @@ void clsTimer::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 
 	for( char i=0; i<cNUM_MAX; i++ ){
 		NumImage[i] = new clsSprite2D;
 	}
-	NumImage[0]->Init( pDevice11, pContext11, FILE_PATH_TEN );
-	NumImage[1]->Init( pDevice11, pContext11, FILE_PATH_SIX );
+	NumImage[0]->Create( pDevice11, pContext11, FILE_PATH_TEN ,1.0f, iTEN_DECIMAL);
+	NumImage[1]->Create( pDevice11, pContext11, FILE_PATH_SIX ,1.0f, iSIX_DECIMAL );
 
 	NumImage[0]->SetSs(
 		NumImage[0]->GetSs().Base.w,
 		NumImage[0]->GetSs().Base.h,
-		NUMSIZE.w, NUMSIZE.h,
-		1.0f, iTEN_DECIMAL );
+		NUMSIZE.w, NUMSIZE.h);
 
 	NumImage[1]->SetSs(
 		NumImage[1]->GetSs().Base.w,
 		NumImage[1]->GetSs().Base.h,
-		NUMSIZE.w, NUMSIZE.h,
-		1.0f, iSIX_DECIMAL );
-
-	for( char i=0; i<cNUM_MAX; i++ ){
-		NumImage[i]->UpDateSpriteSs();
-	}
+		NUMSIZE.w, NUMSIZE.h);
 
 	//最大値.
 	m_iMax = iMAX;
@@ -63,6 +57,8 @@ void clsTimer::ReSet()
 	m_bCarrying = false;
 }
 
+
+
 //数を増やす.
 void clsTimer::PlusNum()
 {
@@ -74,6 +70,8 @@ void clsTimer::PlusNum()
 	}
 }
 
+
+
 void clsTimer::AddPosX( float fMove )
 {
 	for( char i=0; i<cNUM_MAX; i++ ){
@@ -82,15 +80,19 @@ void clsTimer::AddPosX( float fMove )
 
 }
 
+
+
+
 //桁上がり( 繰り上がり )確認.
-bool clsTimer::Carrying()
-{
+bool clsTimer::Carrying(){
 	if( m_bCarrying ){
 		m_bCarrying = false;
 		return true;
 	}
 	return false;
 }
+
+
 
 //上限設定用.
 void clsTimer::Rimit(){

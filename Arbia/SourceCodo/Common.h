@@ -2,40 +2,39 @@
 #define _C_COMMON_H_
 
 
-//ｲﾝｸﾙｰﾄﾞ.
+//�ݸٰ��.
 #include "Global.h"
 
-//頂点の構造体.
+//���_�̍\����.
 struct SpriteVertex
 {
-	D3DXVECTOR3 vPos;	//位置.
-	D3DXVECTOR2 vTex;	//ﾃｸｽﾁｬ座標.
+	D3DXVECTOR3 vPos;	//�ʒu.
+	D3DXVECTOR2 vTex;	//ø������W.
 };
 
-//幅高さ構造体.
+//�������\����.
 struct WHSIZE_FLOAT
 {
 	float w;
 	float h;
 };
 
-//共通ｸﾗｽ(親ｸﾗｽ).
+//���ʸ׽(�e�׽).
 class clsCommon
 {
 public:
-	clsCommon();
-	virtual ~clsCommon();
+	clsCommon(){};
+	virtual ~clsCommon(){};
 
-
-	//透過(ｱﾙﾌｧﾌﾞﾚﾝﾄﾞ)設定の切り替え.
+	//����(��̧������)�ݒ�̐؂�ւ�.
 	void SetBlend( bool flg );
 
 
-	//↓ｱﾌﾟﾘに一つ.
-	ID3D11Device*			m_pDevice11;		//ﾃﾞﾊﾞｲｽｵﾌﾞｼﾞｪｸﾄ.
-	ID3D11DeviceContext*	m_pDeviceContext11;	//ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
+	//�����؂Ɉ��.
+	ID3D11Device*			m_pDevice11;		//���޲���޼ު��.
+	ID3D11DeviceContext*	m_pDeviceContext11;	//���޲���÷��.
 
-	ID3D11BlendState*		m_pBlendState;	//ﾌﾞﾚﾝﾄﾞｽﾃｰﾄ.
+	ID3D11BlendState*		m_pBlendState;	//�����޽ð�.
 
 
 private:

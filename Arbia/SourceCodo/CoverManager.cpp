@@ -2,46 +2,43 @@
 #include "CoverManager.h"
 
 
-//éŸ³.
-//è»‹ã¿.
+//‰¹.
+//ça‚İ.
 #define ALIAS_NAME_VIB "CoverVib"
 #define FILE_PATH_VIB "SE\\300Trap\\310CoverVib.wav"
 const int iVOL_VIB = 1000;
 
-//ã±ã‹ã£.
+//‚Ï‚©‚Á.
 #define ALIAS_NAME_OPEN "CoverOpen"
-#define FILE_PATH_OPEN "SE\\300Trap\\300Cover.wav"
+#define FILE_PATH_OPEN "SE\\300Trap\\300Cover.wav"					
 const int iVOL_OPEN = 1000;
 
 
 
 
-//å¥¥è¡Œã®é•·ã•ï¼ˆéŸ³ã®ç™ºç”Ÿä½ç½®ã‚’ã©çœŸã‚“ä¸­ã«ã™ã‚‹ãŸã‚ã«å¿…è¦ï¼‰.
-const float fOBJ_Z_LONG = 12.0f;
+//‰œs‚Ì’·‚³i‰¹‚Ì”­¶ˆÊ’u‚ğ‚Ç^‚ñ’†‚É‚·‚é‚½‚ß‚É•K—vj.
+const float OBJ_Z_LONG = 12.0f;
 
-//ã‚¹ãƒ†ãƒ¼ã‚¸ã®ä¸­å¿ƒã‹ã‚‰ã©ã‚Œã ã‘ãšã‚‰ã™ã‹åŠã³ãã®ãŸã‚ã®ç¨®.
-const float fSTAGE_WIDHT = 10.0f;
-const float fOFFSET_X = fSTAGE_WIDHT / 2.0f;
+const float STAGE_WIDHT = 10.0f;
+const float fOFFSET_X = STAGE_WIDHT / 2.0f;
 
-const float fSPD_OPEN = 0.125f;		//é–‹ãã¨ãã®é€Ÿåº¦.
-const float fSPD_CLOSE = 0.1875f;	//é–‰ã˜ã‚‹ã¨ãã®é€Ÿåº¦.
+const float fSPD_OPEN = 0.125f;		//.
+const float fSPD_CLOSE = 0.1875f;	//.
 
-const int iVIB_DISTANCE = 8;	//é–‹ãã‹ã‘æ™‚ã€ã€Œä½•ãƒ•ãƒ¬ãƒ¼ãƒ ã«ä¸€å›ã€è§’åº¦ã‚’å‹•ã‹ã™?.
-const int iVIB_TIME = 60 * 1.75;//é–‹ãã‹ã‘æ™‚é–“.
-const int iHOLL_TIME = 90;	//ç©´ã¨ã—ã¦ã®æ™‚é–“.
+const int iVIB_DISTANCE = 8;	//ŠJ‚«‚©‚¯Au‰½ƒtƒŒ[ƒ€‚Éˆê‰ñvŠp“x‚ğ“®‚©‚·?.
+const int iVIB_TIME = 60 * 1.75;//ŠJ‚«‚©‚¯ŠÔ.
+const int iHOLL_TIME = 90;	//ŒŠ‚Æ‚µ‚Ä‚ÌŠÔ.
 
-const float fOPEN_THETA = (float)( M_PI_2 - ( M_PI_4 / 16.0) );//ä¸€æ°—ã«é–‹ãè§’åº¦ã¯ã“ã“ã¾ã§.
-const float fVIB_THETA = (float)( M_PI_4 / 128.0 );//ã‚†ã£ãã‚Šé–‹ãè§’åº¦ã¯ã“ã“ã¾ã§.
+const float fOPEN_THETA = (float)( M_PI_2 - ( M_PI_4 / 16.0) );//ˆê‹C‚ÉŠJ‚­Šp“x.
+const float fVIB_THETA = (float)( M_PI_4 / 128.0 );//‚ä‚Á‚­‚èŠJ‚­Šp“x.
 
 
-//Seç™ºä¿¡ç®‡æ‰€ã®æ•°.
+//Se”­M‰ÓŠ‚Ì”.
 const char cSE_NUM_MAX = 2;
 
 
 clsCoverMgr::clsCoverMgr()
 {
-	m_ppCover = nullptr;
-	m_pppSe = nullptr;
 }
 
 clsCoverMgr::~clsCoverMgr()
@@ -51,65 +48,60 @@ clsCoverMgr::~clsCoverMgr()
 
 void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 {
-
-	if( m_ppCover != nullptr ) return; 
-
-	//----- ãƒ¢ãƒ‡ãƒ« -----//
-	//å…¨ä½“.
+	//----- ƒ‚ƒfƒ‹ -----//
+	//‘S‘Ì.
 	m_ppCover = new clsCharaStatic*[cCOVER_MAX];
-	//å·¦.
+	//¶.
 	m_ppCover[0] = new clsCharaStatic;
 	m_ppCover[0]->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_COVER_L ) );
-	//å³.
+	//‰E.
 	m_ppCover[1] = new clsCharaStatic;
 	m_ppCover[1]->AttachModel(
 		clsResource::GetInstance()->GetStaticModels(
 			clsResource::enST_MODEL_COVER_R ) );
-	//----- ãƒ¢ãƒ‡ãƒ« çµ‚äº† -----//
+	//----- ƒ‚ƒfƒ‹ I—¹ -----//
 
 
 
-
-	if( m_pppSe != nullptr ) return;
 
 	//----- SE -----//
-	//ã‚µã‚¦ãƒ³ãƒ‰æ§‹é€ ä½“.
-	clsSound::SOUND_DATA tmpSData[enSOUND_MAX] =
+	//ƒTƒEƒ“ƒh\‘¢‘Ì.
+	clsSound::SOUND_DATA tmpSData[enSOUND_MAX] = 
 	{
 		{ ALIAS_NAME_VIB,	FILE_PATH_VIB,	iVOL_VIB	},
 		{ ALIAS_NAME_OPEN,	FILE_PATH_OPEN,	iVOL_OPEN	},
 	};
 
-	//ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹ä½œæˆ.
+	//ƒTƒEƒ“ƒhƒNƒ‰ƒXì¬.
 	m_pppSe = new clsSound**[enSOUND_MAX];
 	for( int i=0; i<enSOUND_MAX; i++ ){
-		m_pppSe[i] = new clsSound*[enSOUND_MAX];//SEã®æ•°åˆ†ä½œã‚‹.
+		m_pppSe[i] = new clsSound*[enSOUND_MAX];//SE‚Ì”•ªì‚é.
 		for( int j=0; j<cSE_NUM_MAX; j++ ){
-			m_pppSe[i][j] = new clsSound;//SEã‚’äºŒã¤ã«åˆ†èº«.
-			//ç¾éŸ³é‡åˆæœŸåŒ–.
+			m_pppSe[i][j] = new clsSound;//SE‚ğ“ñ‚Â‚É•ªg.
+			//Œ»‰¹—Ê‰Šú‰».
 			m_pppSe[i][j]->SetVolume( 0 );
-			//åå‰.
+			//–¼‘O.
 			char cAliasName[STR_BUFF_MAX] = "";
 			strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
-			//ç•ªå·.
+			//”Ô†.
 			char cNumber[] = "  ";
 			_itoa_s( iNo, cNumber, 10 );
-			//åå‰ã¨ç•ªå·åˆä½“.
+			//–¼‘O‚Æ”Ô†‡‘Ì.
 			strcat_s( cAliasName, sizeof( cAliasName ), cNumber );
-			//ç™ºä¿¡ç®‡æ‰€ç•ªå·.
+			//”­M‰ÓŠ”Ô†.
 			char cSeNumber[] = "  ";
 			_itoa_s( j, cSeNumber, 10 );
-			//åå‰ã¨ç•ªå·åˆä½“.
+			//–¼‘O‚Æ”Ô†‡‘Ì.
 			strcat_s( cAliasName, sizeof( cAliasName ), cSeNumber );
-			//ä½œæˆ.
+			//ì¬.
 			m_pppSe[i][j]->Open( tmpSData[i].sPath, cAliasName, hWnd );
-			//æœ€å¤§éŸ³é‡è¨­å®š.
+			//Å‘å‰¹—Êİ’è.
 			m_pppSe[i][j]->SetMaxVolume( tmpSData[i].iMaxVolume );
 		}
 	}
-	//----- SE çµ‚äº† -----//
+	//----- SE I—¹ -----//
 
 
 
@@ -118,8 +110,6 @@ void clsCoverMgr::CreateCover( HWND hWnd, int iNo )
 
 void clsCoverMgr::Init()
 {
-	if( m_ppCover == nullptr ) return;
-
 	m_enMove = enCM_FLOOR;
 	m_iTimer = 0;
 	for( char i=0; i<cCOVER_MAX; i++ ){
@@ -135,54 +125,53 @@ void clsCoverMgr::Init()
 
 void clsCoverMgr::Release()
 {
-	if( m_pppSe != nullptr ){
+	if( m_pppSe != NULL ){
 		for( int i=0; i<enSOUND_MAX; i++ ){
 			for( int j=0; j<cSE_NUM_MAX; j++ ){
 				m_pppSe[i][j]->Stop();
 				m_pppSe[i][j]->Close();
 				delete m_pppSe[i][j];
-				m_pppSe[i][j] = nullptr;
+				m_pppSe[i][j] = NULL;
 			}
 			delete[] m_pppSe[i];
-			m_pppSe[i] = nullptr;
+			m_pppSe[i] = NULL;
 		}
 		delete[] m_pppSe;
-		m_pppSe = nullptr;
+		m_pppSe = NULL;
 	}
 
-	if( m_ppCover != nullptr ){
+	if( m_ppCover != NULL ){
 		for( char i=0; i<cCOVER_MAX; i++ ){
 			m_ppCover[i]->DetatchModel();
 			delete m_ppCover[i];
-			m_ppCover[i] = nullptr;
+			m_ppCover[i] = NULL;
 		}
 		delete[] m_ppCover;
-		m_ppCover = nullptr;
+		m_ppCover = NULL;
 	}
 }
 
 
 
-//å‹•ã.
-void clsCoverMgr::Update( float fEarZ )
+//“®‚«.
+void clsCoverMgr::Move( float fEarZ )
 {
-	if( m_ppCover == nullptr ||  m_pppSe == nullptr ) return;
 	switch( m_enMove )
 	{
 	case enCM_FLOOR:
 		break;
 	case enCM_VIB:
 		m_iTimer ++;
-		//å¾ã€…ã«é–‹ã.
+		//™X‚ÉŠJ‚­.
 		if( m_iTimer % iVIB_DISTANCE == 0 ){
 			m_ppCover[0]->AddRotationZ( -fVIB_THETA );
 			m_ppCover[1]->AddRotationZ(  fVIB_THETA );
 		}
-		//é–‹ã.
+		//ŠJ‚­.
 		if( m_iTimer > iVIB_TIME ){
 			m_iTimer = 0;
 			m_enMove = enCM_OPEN;
-			//ãã—ãã—ã‚¹ãƒˆãƒƒãƒ—.
+			//‚¬‚µ‚¬‚µƒXƒgƒbƒv.
 			for( int j=0; j<cSE_NUM_MAX; j++ ){
 				m_pppSe[enSOUND_VIB][j]->Stop();
 			}
@@ -223,7 +212,7 @@ void clsCoverMgr::Update( float fEarZ )
 	}
 }
 
-//è¸ã‚€.
+//“¥‚Ş.
 void clsCoverMgr::StmpCovor( float fEarZ )
 {
 	if( m_enMove == enCM_FLOOR ){
@@ -233,16 +222,14 @@ void clsCoverMgr::StmpCovor( float fEarZ )
 	}
 }
 
-//å¼·ãè¸ã‚€.
+//‹­‚­“¥‚Ş.
 void clsCoverMgr::StmpCovorStrong( float fEarZ )
 {
-	if( m_pppSe == nullptr ) return;
-
 	if( m_enMove == enCM_FLOOR ||
 		m_enMove == enCM_VIB ){
 		m_iTimer = 0;
 		m_enMove = enCM_OPEN;
-		//ãã—ãã—ã‚¹ãƒˆãƒƒãƒ—.
+		//‚¬‚µ‚¬‚µƒXƒgƒbƒv.
 		for( int j=0; j<cSE_NUM_MAX; j++ ){
 			m_pppSe[enSOUND_VIB][j]->Stop();
 		}
@@ -253,8 +240,6 @@ void clsCoverMgr::StmpCovorStrong( float fEarZ )
 void clsCoverMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
-	if( m_ppCover == nullptr ) return;
-
 	for( char i=0; i<cCOVER_MAX; i++ ){
 		m_ppCover[i]->Render( mView, mProj, vLight, vEye );
 	}
@@ -264,30 +249,29 @@ void clsCoverMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 
 
 //============================================================
-//	åŠ¹æœéŸ³.
+//	Œø‰Ê‰¹.
 //============================================================
 void clsCoverMgr::PlaySe( enSound enSe, float fEarZ )
 {
-	if( m_pppSe == nullptr ) return;
-	//è€³ã‚’æ‰‹å‰ã¨ã—ã¦è€ƒãˆã•ã›ã‚‹(ã©çœŸã‚“ä¸­ã‹ã‚‰éŸ³ã‚’å‡ºã™).
+	//¨‚ğè‘O‚Æ‚µ‚Äl‚¦‚³‚¹‚é(‚Ç^‚ñ’†‚©‚ç‰¹‚ğo‚·).
 //	fEarZ -= OBJ_Z_LONG / 2.0f;
 
 	for( int j=0; j<cSE_NUM_MAX; j++ ){
-		//éŸ³ãŒé³´ã‚‹è·é›¢ã‹å¦ã‹.
+		//‰¹‚ª–Â‚é‹——£‚©”Û‚©.
 		int vol = ChangeVolumeDistance( fEarZ, m_vPos.z );
-		//å†ç”Ÿã™ã‚‹è·é›¢ãªã‚‰.
+		//Ä¶‚·‚é‹——£‚È‚ç.
 		if( vol ){
 			m_pppSe[enSe][j]->GetMaxVolRate( vol );
 			m_pppSe[enSe][j]->SeekToStart();
 			m_pppSe[enSe][j]->SetVolume( vol );
 			m_pppSe[enSe][j]->Play();
 		}
-		//å†ç”Ÿã—ãªã„è·é›¢ãªã‚‰.
+		//Ä¶‚µ‚È‚¢‹——£‚È‚ç.
 		else{
 			m_pppSe[enSe][j]->SetVolume( 0 );
 		}
 
-		//0ã¯æ‰‹å‰ã€1ã¯å¥¥.
-		fEarZ -= fOBJ_Z_LONG;
+		//0‚Íè‘OA1‚Í‰œ.
+		fEarZ -= OBJ_Z_LONG;
 	}
 }

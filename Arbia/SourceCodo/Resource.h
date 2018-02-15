@@ -125,7 +125,7 @@ private:
 	bool IsRangeSkinModel( enSkinModel enModel );
 
 
-	char m_FilePath[255];
+	char m_FilePath[256];
 
 
 };
