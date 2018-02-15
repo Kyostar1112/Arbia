@@ -218,6 +218,9 @@
     <ClCompile Include="SourceCodo\Sp2DMgrPushButn.cpp">
       <Filter>060Sprite2D</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrLives.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
     <ClCompile Include="SourceCodo\UiManager.cpp">
       <Filter>060Sprite2D</Filter>
     </ClCompile>
@@ -228,6 +231,9 @@
       <Filter>060Sprite2D</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodo\Sp2DJewelSet.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrDiscover.cpp">
       <Filter>060Sprite2D</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodo\CheckPointMgr.cpp">
@@ -244,12 +250,6 @@
     </ClCompile>
     <ClCompile Include="SourceCodo\EndEnemyMgr.cpp">
       <Filter>150Charactor\Ending</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodo\Sp2DMgrDiscover.cpp">
-      <Filter>060Sprite2D\NumUI</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodo\Sp2DMgrLives.cpp">
-      <Filter>060Sprite2D\NumUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -400,6 +400,9 @@
     <ClInclude Include="SourceCodo\Sp2DMgrPushButn.h">
       <Filter>060Sprite2D</Filter>
     </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrLives.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
     <ClInclude Include="SourceCodo\UiManager.h">
       <Filter>060Sprite2D</Filter>
     </ClInclude>
@@ -410,6 +413,9 @@
       <Filter>060Sprite2D</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodo\Sp2DJewelSet.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrDiscover.h">
       <Filter>060Sprite2D</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodo\CheckPointMgr.h">
@@ -426,12 +432,6 @@
     </ClInclude>
     <ClInclude Include="SourceCodo\EndEnemyMgr.h">
       <Filter>150Charactor\Ending</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodo\Sp2DMgrDiscover.h">
-      <Filter>060Sprite2D\NumUI</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodo\Sp2DMgrLives.h">
-      <Filter>060Sprite2D\NumUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
