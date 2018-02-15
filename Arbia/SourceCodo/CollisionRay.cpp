@@ -1,8 +1,8 @@
 #include "CollisionRay.h"
 
 
-const float WALL_HIT	= 1.01f;	//•Ç‚Æ‚ÌÕ“Ë‹——£.//0.8f.
-const float WALL_SPACE	= WALL_HIT;	//•Ç‚Æ‚Ì•Ç‚ÆŠJ‚¯‚é‹——£.//0.8f.
+const float WALL_HIT	= 1.01f;	//•Ç‚Æ‚ÌÕ“Ë‹——£.
+const float WALL_SPACE	= WALL_HIT;	//•Ç‚Æ‚Ì•Ç‚ÆŠJ‚¯‚é‹——£.
 
 
 

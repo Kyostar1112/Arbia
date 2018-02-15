@@ -24,8 +24,8 @@ public:
 	clsSp2dMgrMain();
 	~clsSp2dMgrMain();
 
-	void Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
-	void Init();
+	void Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+	void InitSetPos();
 	void Render();
 	void ActTxtMove();
 	void ActTxtMoveIn();

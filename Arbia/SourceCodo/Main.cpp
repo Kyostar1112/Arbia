@@ -8,7 +8,7 @@
 
 
 //ｸﾞﾛｰﾊﾞﾙ変数.
-clsMain* g_pClsMain = NULL;
+clsMain* g_pClsMain = nullptr;
 
 
 //-----振動-----//.
@@ -194,7 +194,7 @@ INT WINAPI WinMain(
 	g_pClsMain = new clsMain;	//初期化&ｸﾗｽの宣言.
 
 	//ｸﾗｽが存在しているかﾁｪｯｸ.
-	if( g_pClsMain != NULL ){
+	if( g_pClsMain != nullptr ){
 		//ｳｨﾝﾄﾞｳ作成成功.
 		if( SUCCEEDED(
 			g_pClsMain->InitWindow(
@@ -506,7 +506,7 @@ void clsMain::AppMain()
 			else if (m_pTestData->GetExtension() == png)
 			{
 				m_vsmpSpriteTest.push_back(make_unique<clsSprite2D>());
-				m_vsmpSpriteTest[g_iPngNum]->Create(m_pDevice, m_pDeviceContext, (LPSTR)m_pTestData->GetFilePath().c_str());
+				m_vsmpSpriteTest[g_iPngNum]->Init(m_pDevice, m_pDeviceContext, (LPSTR)m_pTestData->GetFilePath().c_str());
 				m_vsmpSpriteTest[g_iPngNum]->SetPos(WND_W / 2 - m_vsmpSpriteTest[g_iPngNum]->GetSs().Disp.w / 2, WND_H / 2 - m_vsmpSpriteTest[g_iPngNum]->GetSs().Disp.h / 2);
 				g_iPngNum++;
 			}
@@ -615,17 +615,19 @@ void clsMain::AppMain()
 		//スプライト移動、拡縮.
 		if (!m_vsmpSpriteTest.empty())
 		{
-			GETKEY_STAY('A'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(-5.0f); }
-			GETKEY_STAY('D'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(5.0f);	}
-			GETKEY_STAY('W'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(-5.0f); }
-			GETKEY_STAY('S'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(5.0f);	}
+			GETKEY_STAY('A'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(-5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
+			GETKEY_STAY('D'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
+			GETKEY_STAY('W'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(-5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
+			GETKEY_STAY('S'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
 			GETKEY_STAY('Q'){
 				m_fAlphaPoint-=0.01f;
 				m_vsmpSpriteTest[m_SpriteControlNum]->MulDisp(m_fAlphaPoint);
+				m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs();
 			}
 			GETKEY_STAY('E'){
 				m_fAlphaPoint+=0.01f;
 				m_vsmpSpriteTest[m_SpriteControlNum]->MulDisp(m_fAlphaPoint);
+				m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs();
 			}
 			GETKEY_DOWN('N'){
 				if (m_SpriteControlNum < m_vsmpSpriteTest.size() - 1){
@@ -1705,6 +1707,7 @@ bool clsMain::Intersect(
 	}
 	return false;
 }
+
 //============================================================
 //	交差位置のﾎﾟﾘｺﾞﾝの頂点を見つける.
 //		※頂点座標はﾛｰｶﾙ座標.
@@ -2442,7 +2445,7 @@ void clsMain::CameraLookSet()
 
 	m_Camera.vLook = m_vLookTarget;
 }
- float clsMain::CameraLengthComp( float Attker, float Target )
+float clsMain::CameraLengthComp( float Attker, float Target )
  {
 	float Langth = Target - Attker;
 
@@ -3025,7 +3028,7 @@ void clsMain::SceneTitle()
 
 
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
@@ -3855,7 +3858,7 @@ void clsMain::SceneResult()
 
 	//決定ボタン.
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
@@ -3921,13 +3924,13 @@ void clsMain::SceneEnding()
 
 	//短押し.
 	bool bPushEnterEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnterEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnterEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnterEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnterEnter = true;
 
 	//長押し.
 	bool bPushEnterStay = false;
-	if( m_pXInput->IsPressStay( XINPUT_GAMEPAD_A ) )bPushEnterStay = true;
+	if( m_pXInput->IsPressStay( XINPUT_A ) )bPushEnterStay = true;
 	GETKEY_STAY( 'Z' ) bPushEnterStay = true;
 	GETKEY_STAY( 'A' ) bPushEnterStay = true;
 
@@ -3957,7 +3960,7 @@ void clsMain::SceneOver()
 
 
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
+	if( m_pXInput->IsPressEnter( XINPUT_A ) )bPushEnter = true;
 	GETKEY_DOWN( 'Z' ) bPushEnter = true;
 	GETKEY_DOWN( 'A' ) bPushEnter = true;
 
@@ -4563,16 +4566,17 @@ void clsMain::NowLoading()
 void clsMain::LoadSpriteInit()
 {
 	m_pLoadBack = make_unique<clsSprite2D>();
-	m_pLoadBack->Create(m_pDevice, m_pDeviceContext, "Data\\Load\\Black.png");
+	m_pLoadBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\Black.png");
 	m_pLoadBack->SetPos( D3DXVECTOR3 (0.0f, 0.0f, 0.0f) );
 	m_pLoadBack->SetPatarnU( 0.0f );
 	m_pLoadBack->SetPatarnV( 0.0f );
 	m_pLoadBack->SetAlpha( 1.0f );
 
 	m_pLoadTxt = new clsSprite2D;
-	m_pLoadTxt->Create(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadBack.png");
+	m_pLoadTxt->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadBack.png");
 	m_pLoadTxt->SetDispW(m_pLoadTxt->GetSs().Base.w/2);
 	m_pLoadTxt->SetDispH(m_pLoadTxt->GetSs().Base.h/2);
+	m_pLoadTxt->UpDateSpriteSs();
 	m_pLoadTxt->SetPos( WND_W/2-m_pLoadTxt->GetSs().Disp.w/2 , m_pLoadTxt->GetSs().Disp.h );
 
 	m_pLoadTxt->SetPatarnU( 0.0f );
@@ -4591,9 +4595,10 @@ void clsMain::LoadSpriteInit()
 	m_pLoadGage->SetAlpha( 1.0f );
 
 	m_pLoadGageBack = make_unique<clsSprite2D>();
-	m_pLoadGageBack->Create(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGargeType.png");
+	m_pLoadGageBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGargeType.png");
 	m_pLoadGageBack->SetDispW(960.0f);
 	m_pLoadGageBack->SetDispH(50.0f);
+	m_pLoadGageBack->UpDateSpriteSs();
 	m_pLoadGageBack->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f), 453.0f , -2.0f) );
 	m_pLoadGageBack->SetAlpha( 1.0f );
 
