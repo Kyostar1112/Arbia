@@ -66,3 +66,5 @@
     name = "Keep ours merge"
     driver = true
 /.gitignore merge=ours
+/Arbia/SourceCodo/Sp2DMgrMain.h merge=ours
+
