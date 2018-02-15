@@ -163,7 +163,7 @@ private:
 	float	m_fChangePoint;
 	bool	m_bColor;
 
-	void Init();
+	void InitPos();
 
 
 	unique_ptr<clsSprite2D> m_smpBlack;	//ˆÃ“]—p.

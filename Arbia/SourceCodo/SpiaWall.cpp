@@ -15,18 +15,15 @@ const int iVIB_INTER_TIME = 4;//Vibration Intervar何フレームに一回揺れる?.
 
 //速度.
 const float fUP_SPD = 0.75f;
-const float fDOWN_YAW = 0.1f;
+const float fDOWN_YAW = 0.1f;//回転速度.
 const float fDOWN_SPD = -0.05f;
 
 //長さ(動きの).
-const float fVIB_RANGE = 0.25f;
-const float fSPIA_TOP = 3.5f;
+const float fVIB_RANGE = 0.25f;//がたがた距離.
+const float fSPIA_TOP = 3.5f;//最大距離.
 
 clsSpiaWall::clsSpiaWall()
 {
-//	m_enMode = enSWM_ROAD;
-//	m_iTimer = 0;
-//	m_fChangeRange = 0.0f;
 }
 
 clsSpiaWall::~clsSpiaWall()
@@ -176,11 +173,4 @@ void clsSpiaWall::Vibration()
 void clsSpiaWall::UpdateColState()
 {
 	ColState.vPos = m_vPos;
-//	if( m_bRight ){
-//		ColState.vPos.x -= ColState.vRangeHalf.x / 2.0f;
-//	}
-//	else{
-//		ColState.vPos.x += ColState.vRangeHalf.x / 2.0f;
-//	}
-
 }

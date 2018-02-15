@@ -31,18 +31,24 @@ void clsTimer::Create( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 
 	for( char i=0; i<cNUM_MAX; i++ ){
 		NumImage[i] = new clsSprite2D;
 	}
-	NumImage[0]->Create( pDevice11, pContext11, FILE_PATH_TEN ,1.0f, iTEN_DECIMAL);
-	NumImage[1]->Create( pDevice11, pContext11, FILE_PATH_SIX ,1.0f, iSIX_DECIMAL );
+	NumImage[0]->Init( pDevice11, pContext11, FILE_PATH_TEN );
+	NumImage[1]->Init( pDevice11, pContext11, FILE_PATH_SIX );
 
 	NumImage[0]->SetSs(
 		NumImage[0]->GetSs().Base.w,
 		NumImage[0]->GetSs().Base.h,
-		NUMSIZE.w, NUMSIZE.h);
+		NUMSIZE.w, NUMSIZE.h,
+		1.0f, iTEN_DECIMAL );
 
 	NumImage[1]->SetSs(
 		NumImage[1]->GetSs().Base.w,
 		NumImage[1]->GetSs().Base.h,
-		NUMSIZE.w, NUMSIZE.h);
+		NUMSIZE.w, NUMSIZE.h,
+		1.0f, iSIX_DECIMAL );
+
+	for( char i=0; i<cNUM_MAX; i++ ){
+		NumImage[i]->UpDateSpriteSs();
+	}
 
 	//ç≈ëÂíl.
 	m_iMax = iMAX;
