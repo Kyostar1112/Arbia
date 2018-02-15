@@ -11,9 +11,9 @@ public:
 	clsJewerSet();
 	~clsJewerSet();
 
-	void Create( HWND hWnd,
+	void Create( HWND hWnd, 
 		ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11,
-		int iNo );
+		int iNo ); 
 
 	void Move();
 
@@ -39,12 +39,14 @@ public:
 	}
 
 	//----- ƒ‰ƒbƒv -----//.
-	void Init(){
-		m_smpModel->Init();
+	void InitSetPos(){
+		if( !m_smpModel ) return;
+		m_smpModel->InitSetPos();
 	};
 
 
 	void SetScale( float fScale ){
+		if( !m_smpModel ) return;
 		m_fScale = fScale;
 		m_smpModel->m_fScale = m_fScale;
 	}
@@ -52,17 +54,21 @@ public:
 	void AddScale( float fScale );
 
 	void Render(){
+		if( !m_smpModel ) return;
 		m_smpModel->Render();
 	};
 
 	void SetPos( D3DXVECTOR3 vPos ){
+		if( !m_smpModel ) return;
 		m_smpModel->SetPos( vPos );
 	};
 	D3DXVECTOR3 GetPos(){
+		if( !m_smpModel ) return { -100.0f, -100.0f, -100.0f };
 		return m_smpModel->GetPos();
 	}
 
 	void SetPosX( float fX ){
+		if( !m_smpModel ) return;
 		m_smpModel->SetPosX( fX );
 	}
 
@@ -83,6 +89,8 @@ public:
 //	};
 
 	void PlaySe( /*clsJewerSet::enSound enSe*/ ){
+		if( m_pSe == nullptr ) return;
+
 //		m_pSe[enSe]->Stop();
 		m_pSe->SeekToStart();
 		m_pSe->Play();
@@ -103,7 +111,7 @@ private:
 
 
 	//Œø‰Ê‰¹.
-	clsSound*	m_pSe;
+	clsSound*	m_pSe;	
 	void SetSe( HWND hWnd, int iNo );
 
 
