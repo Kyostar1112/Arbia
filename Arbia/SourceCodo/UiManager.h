@@ -25,7 +25,7 @@ public:
 	clsUiManagar();
 	~clsUiManagar();
 
-	void Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+	void Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
 	void Delete();
 
 	void ChangeTitleInit();
@@ -163,7 +163,7 @@ private:
 	float	m_fChangePoint;
 	bool	m_bColor;
 
-	void InitPos();
+	void Init();
 
 
 	unique_ptr<clsSprite2D> m_smpBlack;	//ˆÃ“]—p.

@@ -7,11 +7,13 @@
 clsSound::clsSound()
 {
 	ZeroMemory( this, sizeof( clsSound ) );
+	m_hWnd = nullptr;
 }
 
 //ÃŞ½Ä×¸À.
 clsSound::~clsSound()
 {
+	m_hWnd = nullptr;
 }
 
 
@@ -37,10 +39,12 @@ bool clsSound::Open( LPCTSTR sFName, const char *sAlias, HWND hWnd )
 //‰¹ºÌ§²Ù‚ğ•Â‚¶‚é.
 bool clsSound::Close()
 {
+	m_hWnd = nullptr;
+
 	//ºÏİÄŞ.
 	char command[STR_BUFF_MAX] = "close ";
 	strcat_s( command, sizeof( command ), m_sAlias );	//´²Ø±½‚ğŒ‹‡.
-													//´²Ø±½(Æ¯¸È°Ñ‚Ì‚æ‚¤‚È‚à‚Ì).
+														//´²Ø±½(Æ¯¸È°Ñ‚Ì‚æ‚¤‚È‚à‚Ì).
 	if( mciSendString( command, NULL, 0, m_hWnd ) == 0 ){
 		return true;
 	}
@@ -211,11 +215,18 @@ bool clsSound::SetVolume( int ivolume )
 //============================================================
 //‰Šúİ’è.
 //============================================================
-void clsSound::SetInitParam( const char *sAlias, HWND hWnd )
+HRESULT clsSound::SetInitParam( const char *sAlias, HWND hWnd )
 {
+	if( m_hWnd != nullptr ){
+		return E_FAIL;
+	}
+
 	//³¨İÄŞ³ÊİÄŞÙ³¨İÄŞ³ÊİÄŞÙ‚ğ“n‚·.
 	m_hWnd = hWnd;
 
 	//´²Ø±½.
 	strcpy_s( m_sAlias, sizeof( m_sAlias ), sAlias );
+	
+
+	return S_OK;
 }

@@ -21,9 +21,9 @@ const int iVOL_DOWN = 1000;
 
 
 //ステージ横幅.
-const float STAGE_WIDHT = 10.0f;
+const float fSTAGE_WIDHT = 10.0f;
 //壁が槍の先端からどれだけずらすか.
-const float WALL_OFFSET_Y = 0.4375f;
+const float fWALL_OFFSET_Y = 0.4375f;
 
 const int iFLOOR_MAX = 20;	//床槍の数.
 const float fFLOOR_W_OFFSET = 0.5f;		//槍と槍の横の間隔.
@@ -80,6 +80,8 @@ void clsSpiaFlorMgr::Release()
 void clsSpiaFlorMgr::CreateSpia( HWND hWnd, int iNo )
 {
 	if( m_ppSpia != nullptr || m_iSpiaMax ) return;
+	if( m_pSpiaWall != nullptr ) return;
+	if( m_ppSe != nullptr ) return;
 
 	//----- モデル -----//
 	//槍.
@@ -153,7 +155,7 @@ void clsSpiaFlorMgr::Init()
 
 		m_ppSpia[i]->SetPosition( 
 		D3DXVECTOR3( 
-			GetPositionX() - STAGE_WIDHT/2.0f + (float)i * fFLOOR_W_OFFSET + fFLOOR_W_OFFSET / 2.0f,
+			GetPositionX() - fSTAGE_WIDHT/2.0f + (float)i * fFLOOR_W_OFFSET + fFLOOR_W_OFFSET / 2.0f,
 			GetPositionY() + fOffset, 
 			GetPositionZ() ) );
 		m_ppSpia[i]->Init( bFlg );
@@ -162,12 +164,12 @@ void clsSpiaFlorMgr::Init()
 	if( m_pSpiaWall == nullptr ) return;
 	//槍壁座標.
 	m_pSpiaWall->SetPosition( GetPosition() );
-	m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
-	m_pSpiaWall->AddPositionX( -STAGE_WIDHT / 2.0f );
+	m_pSpiaWall->AddPositionY( fWALL_OFFSET_Y );
+	m_pSpiaWall->AddPositionX( -fSTAGE_WIDHT / 2.0f );
 }
 
 
-void clsSpiaFlorMgr::Move( float fEarZ )
+void clsSpiaFlorMgr::Update( float fEarZ )
 {
 	if( m_ppSpia == nullptr || m_ppSe == nullptr || m_pSpiaWall == nullptr ) return;
 
@@ -177,7 +179,7 @@ void clsSpiaFlorMgr::Move( float fEarZ )
 	//動き.
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		//動きに合わせてフラグを更新.
-		enSoundFlg = m_ppSpia[i]->Move();
+		enSoundFlg = m_ppSpia[i]->Update();
 	}
 
 	//効果音再生（MAXはSpiaFloor内の初期化使っているのでそれ以上では鳴らさない）.
@@ -196,7 +198,7 @@ void clsSpiaFlorMgr::Move( float fEarZ )
 	//下がっている時は刺さりにくく.
 	if( m_ppSpia[0]->GetMode() == clsSpiaFloor::enSFM_UNDER ||
 		m_ppSpia[0]->GetMode() == clsSpiaFloor::enSFM_DOWN ){
-		m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
+		m_pSpiaWall->AddPositionY( fWALL_OFFSET_Y );
 	}
 	
 }
@@ -227,15 +229,15 @@ void clsSpiaFlorMgr::SetPosition( D3DXVECTOR3 vPos )
 	for( int i=0; i<m_iSpiaMax; i++ ){
 		m_ppSpia[i]->SetPosition( 
 			D3DXVECTOR3( 
-				GetPositionX() - STAGE_WIDHT/2.0f + (float)i * fFLOOR_W_OFFSET,
+				GetPositionX() - fSTAGE_WIDHT/2.0f + (float)i * fFLOOR_W_OFFSET,
 				GetPositionY(), 
 				GetPositionZ() ) );
 	}
 
 	//槍壁座標.
 	m_pSpiaWall->SetPosition( GetPosition() );
-	m_pSpiaWall->AddPositionY( WALL_OFFSET_Y );
-	m_pSpiaWall->AddPositionX( -STAGE_WIDHT / 2.0f );
+	m_pSpiaWall->AddPositionY( fWALL_OFFSET_Y );
+	m_pSpiaWall->AddPositionX( -fSTAGE_WIDHT / 2.0f );
 }
 
 //槍のあたり判定情報返す.

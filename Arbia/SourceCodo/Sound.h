@@ -87,7 +87,7 @@ public:
 
 private:
 	//‰Šúİ’è.
-	void	SetInitParam( const char *sAlias, HWND hWnd );
+	HRESULT	SetInitParam( const char *sAlias, HWND hWnd );
 
 	HWND	m_hWnd;					//³¨İÄŞ³ÊİÄŞÙ.
 	char	m_sAlias[STR_BUFF_MAX];	//´²Ø±½.

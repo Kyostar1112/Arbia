@@ -49,7 +49,7 @@ const	  int iVOL_DROP_DOWN = 250;//250.
 const float fMODEL_BACK_TURN = (float)M_PI;//TestPlusTheta
 
 //âÒì]ílÇÃè„å¿.
-#define THETA_MAX (float)( M_PI * 2.0 )
+#define THETA_MAX static_cast<float>( M_PI * 2.0 )
 
 
 

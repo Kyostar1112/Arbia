@@ -7,10 +7,24 @@ clsCharaSkin::clsCharaSkin()
 	m_pShadow = nullptr;
 	m_dAnimSpeed = 0.025;
 
+	//m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	//m_vRot = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	//m_fScale = 1.0f;
+	m_pShadow = nullptr;
+
+	m_pDevice = nullptr;
+	m_pContext = nullptr;
+	m_pDepthStencilState = nullptr;
+
+
 }
 
 clsCharaSkin::~clsCharaSkin()
 {
+	m_pDepthStencilState = nullptr;
+	m_pContext = nullptr;
+	m_pDevice = nullptr;
+
 	if( m_pShadow != nullptr ){
 		delete m_pShadow;
 		m_pShadow = nullptr;
@@ -96,7 +110,9 @@ void clsCharaSkin::Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
 	}
 	//‰e.
 	if( m_pShadow != nullptr ){
+		SetDepth( false );
 		m_pShadow->Render( mView, mProj, vEye );
+		SetDepth( true );
 	}
 
 	UpDateModel();
@@ -210,8 +226,9 @@ void clsCharaSkin::UpdatePos()
 	//ZŽ²ÍÞ¸ÄÙ‚ð—pˆÓ.
 	D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
 
+
 	//ZŽ²ÍÞ¸ÄÙ‚»‚Ì‚à‚Ì‚ð‰ñ“]ó‘Ô‚É‚æ‚è•ÏŠ·‚·‚é.
-	D3DXVec3TransformCoord( 
+	D3DXVec3TransformCoord(
 		&vecAxisZ,	//(out).
 		&vecAxisZ,	//.
 		&mYaw );	//YŽ²‰ñ“]s—ñ.
@@ -278,3 +295,24 @@ void clsCharaSkin::SetDropoutFlg( bool flg )
 
 
 
+//ZƒeƒXƒg.
+HRESULT clsCharaSkin::SetDepth( bool bDepth )
+{
+	if( m_pDevice == nullptr ||
+		m_pContext == nullptr )
+	{
+		return E_FAIL;
+	}
+
+	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
+	ZeroMemory( &depthStencilDesc,
+		sizeof( D3D11_DEPTH_STENCIL_DESC ) );
+	depthStencilDesc.DepthEnable = bDepth;
+
+	m_pDevice->CreateDepthStencilState(
+		&depthStencilDesc, &m_pDepthStencilState );
+	m_pContext->OMSetDepthStencilState(
+		m_pDepthStencilState, 1 );
+
+	return S_OK;
+}

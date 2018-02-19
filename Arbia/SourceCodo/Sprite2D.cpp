@@ -13,13 +13,13 @@ clsSprite2D::clsSprite2D()
 	, m_AnimCount( 0 )
 	, m_bDispFlg( false )
 	, m_fAlpha( 1.0f )
-	, m_pTexture( NULL )
-	, m_pVertexShader( NULL )
-	, m_pVertexLayout( NULL )
-	, m_pPixelShader( NULL )
-	, m_pConstantBuffer( NULL )
-	, m_pVertexBuffer( NULL )
-	, m_pSampleLinear( NULL )
+	, m_pTexture( nullptr )
+	, m_pVertexShader( nullptr )
+	, m_pVertexLayout( nullptr )
+	, m_pPixelShader( nullptr )
+	, m_pConstantBuffer( nullptr )
+	, m_pVertexBuffer( nullptr )
+	, m_pSampleLinear( nullptr )
 {
 //	ZeroMemory( this, sizeof( clsSprite2D ) );
 //	m_fAlpha = 1.0f;
@@ -47,13 +47,18 @@ clsSprite2D::~clsSprite2D()
 //============================================================
 //	初期化.
 //============================================================
-HRESULT clsSprite2D::Init( ID3D11Device* pDevice11,
+HRESULT clsSprite2D::Create( ID3D11Device* pDevice11,
 	ID3D11DeviceContext* pContext11,
-	LPSTR fileName )
+	LPSTR fileName,
+	float SetStrideW,
+	float SetStrideH)
 {
 	m_sFileName = fileName;
 	m_pDevice11 = pDevice11;
 	m_pDeviceContext11 = pContext11;
+
+	m_SState.Stride.w = SetStrideW;
+	m_SState.Stride.h = SetStrideH;
 
 	SetPos( -WND_W, -WND_H );
 
@@ -86,8 +91,8 @@ HRESULT clsSprite2D::Init( ID3D11Device* pDevice11,
 //============================================================
 HRESULT clsSprite2D::InitShader()
 {
-	ID3DBlob* pCompiledShader = NULL;
-	ID3DBlob* pErrors = NULL;
+	ID3DBlob* pCompiledShader = nullptr;
+	ID3DBlob* pErrors = nullptr;
 
 	UINT uCompileFlag = 0;
 
@@ -323,9 +328,9 @@ HRESULT clsSprite2D::CreateTexture( LPSTR fileName,
 		D3DX11CreateShaderResourceViewFromFile(
 			m_pDevice11,		//ﾘｿｰｽを使用するﾃﾞﾊﾞｲｽへのﾎﾟｲﾝﾀ.
 			fileName,	//ﾌｧｲﾙ名(ﾊﾟｽも必要).
-			NULL, NULL,
+			nullptr, nullptr,
 			pTex,	//(out)ﾃｸｽﾁｬ.
-			NULL ) ) )
+			nullptr ) ) )
 	{
 		ERR_MSG( fileName, "clsSprite2D::CreateTexture" );
 		return E_FAIL;
@@ -345,15 +350,28 @@ void clsSprite2D::Render()
 	//ﾜｰﾙﾄﾞ変換(表示位置を設定する).
 	D3DXMatrixIdentity( &mWorld );	//初期化:単位行列作成.
 
-//	D3DXMatrixScaling();
+	D3DXMATRIX mScale;
+	//拡縮.
+	{
+		D3DXMatrixIdentity( &mScale );	//初期化:単位行列作成.
+		float x = (m_SState.Disp.w/m_SState.Base.w);
+		float y = (m_SState.Disp.h/m_SState.Base.h);
+		D3DXMatrixScaling( &mScale, x, y, 1.0f );
+
+	}
 
 	//平行移動.
-	D3DXMatrixTranslation( &mWorld,
+	D3DXMATRIX mTrans;
+	D3DXMatrixIdentity( &mTrans );	//初期化:単位行列作成.
+	D3DXMatrixTranslation( &mTrans,
 		m_vPos.x, m_vPos.y, m_vPos.z );
 
+	//Matrix合算.
+	mWorld = mScale * mTrans;
+
 	//使用するｼｪｰﾀﾞの登録.
-	m_pDeviceContext11->VSSetShader( m_pVertexShader, NULL, 0 );
-	m_pDeviceContext11->PSSetShader( m_pPixelShader,  NULL, 0 );
+	m_pDeviceContext11->VSSetShader( m_pVertexShader, nullptr, 0 );
+	m_pDeviceContext11->PSSetShader( m_pPixelShader,  nullptr, 0 );
 
 	//ｼｪｰﾀﾞのｺﾝｽﾀﾝﾄﾊﾞｯﾌｧに各種ﾃﾞｰﾀを渡す.
 	D3D11_MAPPED_SUBRESOURCE pData;
@@ -428,48 +446,6 @@ void clsSprite2D::Render()
 
 }
 
-void clsSprite2D::UpDateSpriteSs()
-{
-	SPRITE_STATE ss = m_SState;
-	float fW = ss.Disp.w;	//表示ｽﾌﾟﾗｲﾄ幅.
-	float fH = ss.Disp.h;	//表示ｽﾌﾟﾗｲﾄ高さ.
-	float fU = (ss.Base.w / ss.Stride.w)/ss.Base.w;	//一ｺﾏあたりの幅.
-	float fV = (ss.Base.h / ss.Stride.h)/ss.Base.h;	//一ｺﾏあたりの高さ.
-
-	//板ﾎﾟﾘ(四角形)の頂点を作成.
-	Sprite2DVertex vertices[] =
-	{
-		//頂点座標(x,y,z).					//UV座標( u, v ).
-		D3DXVECTOR3( 0.0f,   fH, 0.0f ),	D3DXVECTOR2( 0.0f,	 fV ),	//頂点1(左下).
-		D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),	D3DXVECTOR2( 0.0f, 0.0f ),	//頂点2(左上).
-		D3DXVECTOR3(   fW,	 fH, 0.0f ),	D3DXVECTOR2(   fU,	 fV ),	//頂点3(右下).
-		D3DXVECTOR3(   fW, 0.0f, 0.0f ),	D3DXVECTOR2(   fU, 0.0f )	//頂点4(右上).
-	};
-	//最大要素数を算出する.
-	UINT uVerMax = sizeof(vertices) / sizeof(vertices[0]);
-
-	//ﾊﾞｯﾌｧ構造体.
-	D3D11_BUFFER_DESC bd;
-	bd.Usage			= D3D11_USAGE_DEFAULT;		//使用法(ﾃﾞﾌｫﾙﾄ).
-	bd.ByteWidth		= sizeof( Sprite2DVertex ) * uVerMax;//頂点ｻｲｽﾞ(頂点*4).
-	bd.BindFlags		= D3D11_BIND_VERTEX_BUFFER;	//頂点ﾊﾞｯﾌｧとして扱う.
-	bd.CPUAccessFlags	= 0;						//CPUからはｱｸｾｽしない.
-	bd.MiscFlags		= 0;						//その他のﾌﾗｸﾞ(未使用).
-	bd.StructureByteStride	= 0;					//構造体ｻｲｽﾞ(未使用).
-
-	//ｻﾌﾞﾘｿｰｽﾃﾞｰﾀ構造体.
-	D3D11_SUBRESOURCE_DATA InitData;
-	InitData.pSysMem	= vertices;	//板ﾎﾟﾘの頂点をｾｯﾄ.
-
-	//頂点ﾊﾞｯﾌｧの作成.
-	if( FAILED(
-		m_pDevice11->CreateBuffer(
-			&bd, &InitData, &m_pVertexBuffer ) ) )
-	{
-		MessageBox( NULL, "頂点ﾊﾞｯﾌｧ作成失敗,", "clsSprite2D::InitModel", MB_OK );
-	}
-}
-
 void clsSprite2D::Flashing( float ChaAmo )
 {
 	if (m_fAlpha > 1)
@@ -503,8 +479,8 @@ bool clsSprite2D::Release()
 
 	SAFE_RELEASE( m_pConstantBuffer );
 
-	m_pDeviceContext11 = NULL;
-	m_pDevice11 = NULL;
+	m_pDeviceContext11 = nullptr;
+	m_pDevice11 = nullptr;
 
 	return true;
 }

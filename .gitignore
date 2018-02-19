@@ -7,9 +7,6 @@
 *.sln.docstates
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
 x64/
 build/
 bld/
@@ -65,8 +62,23 @@ ipch/
 *.aps
 *.ncb
 *.opensdf
-*.sdf
 *.cachefile
+*.suo
+*.sdf
+/Debug
+/Release
+*.xlsm
+*.vcxproj.user
+*.exe
+*.cso
+*.idb
+*.tlog
+[Dd]ebug/Data/
+[Dd]ebug/Shader/
+[Dd]ebugPublic/Data/
+[Dd]ebugPublic/Shader/
+[Rr]elease/Data/
+[Rr]elease/Shader/
 
 # Visual Studio profiler
 *.psess

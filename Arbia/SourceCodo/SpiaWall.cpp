@@ -2,9 +2,9 @@
 
 
 ////===== あたり判定 =====//.
-const float COL_SPIA_BOX_X = 1.0f;//2.3
-const float COL_SPIA_BOX_Y = 0.5f;//1.
-const float COL_SPIA_BOX_Z = COL_SPIA_BOX_Y;
+const float fCOL_SPIA_BOX_X = 1.0f;//2.3
+const float fCOL_SPIA_BOX_Y = 0.5f;//1.
+const float fCOL_SPIA_BOX_Z = fCOL_SPIA_BOX_Y;
 ////===== あたり判定 終わり =====//.
 
 
@@ -43,9 +43,9 @@ void clsSpiaWall::Create( bool bRightFlg, int iNo )
 	}
 
 	//Box用あたり判定.
-	ColState.vRangeHalf.x = COL_SPIA_BOX_X;
-	ColState.vRangeHalf.y = COL_SPIA_BOX_Y;
-	ColState.vRangeHalf.z = COL_SPIA_BOX_Z;
+	ColState.vRangeHalf.x = fCOL_SPIA_BOX_X;
+	ColState.vRangeHalf.y = fCOL_SPIA_BOX_Y;
+	ColState.vRangeHalf.z = fCOL_SPIA_BOX_Z;
 	ColState.fCenterY = ColState.vRangeHalf.y / 2.0f;
 	ColState.fCenterY = 0.0f;
 	if( bRightFlg ){
@@ -70,7 +70,7 @@ void clsSpiaWall::Init( D3DXVECTOR3 vInitPos, bool bRightFlg )
 	m_vInitPos = vInitPos;
 }
 
-bool clsSpiaWall::Move()
+bool clsSpiaWall::Update()
 {
 	bool bSoundTop = false;//飛び出し音フラグ.
 	switch( m_enMode )

@@ -5,15 +5,15 @@
 //‰¹.
 const char ALIAS_NAME[] = "PendSe";
 const char FILE_PATH[] = "SE\\300Trap\\200Pendulum.wav";
-const int VOL = 1000;
+const int iVOL = 1000;
 
 
 //===== ‚ ‚½‚è”»’è =====//.
 //===== Box =====//.
-const float COL_PEND_BOX_X = 6.0f / 2.0f;
-const float COL_PEND_BOX_Y = 4.0f / 2.0f;
-const float COL_PEND_BOX_Z = 0.875f / 2.0f;
-const float COL_PEND_BOX_CENTER_Y = 0.0f;
+const float fCOL_PEND_BOX_X = 6.0f / 2.0f;
+const float fCOL_PEND_BOX_Y = 4.0f / 2.0f;
+const float fCOL_PEND_BOX_Z = 0.875f / 2.0f;
+const float fCOL_PEND_BOX_CENTER_Y = 0.0f;
 //===== ‚ ‚½‚è”»’è I‚í‚è =====//.
 
 
@@ -74,10 +74,10 @@ void clsPend::Create( HWND hWnd, int iNo, int iPower  )
 	float initPos = -100.0f;
 	ColState.vPos = { initPos, initPos, initPos };
 	//Box—p.
-	ColState.vRangeHalf.x = COL_PEND_BOX_X;
-	ColState.vRangeHalf.y = COL_PEND_BOX_Y;
-	ColState.vRangeHalf.z = COL_PEND_BOX_Z;
-	ColState.fCenterY = COL_PEND_BOX_CENTER_Y;
+	ColState.vRangeHalf.x = fCOL_PEND_BOX_X;
+	ColState.vRangeHalf.y = fCOL_PEND_BOX_Y;
+	ColState.vRangeHalf.z = fCOL_PEND_BOX_Z;
+	ColState.fCenterY = fCOL_PEND_BOX_CENTER_Y;
 	ColState.fCenterX = 0.0f;
 
 	if( m_pSe == nullptr ){
@@ -96,7 +96,7 @@ void clsPend::Create( HWND hWnd, int iNo, int iPower  )
 		//ì¬.
 		m_pSe->Open( FILE_PATH, cAliasName, hWnd );
 		//Å‘å‰¹—Êİ’è.
-		m_pSe->SetMaxVolume( VOL );
+		m_pSe->SetMaxVolume( iVOL );
 	}
 
 
@@ -138,7 +138,7 @@ void clsPend::Init()
 //============================================================
 //	U‚èq“®‚«.
 //============================================================
-void clsPend::Move( float fEarZ )
+void clsPend::Update( float fEarZ )
 {
 	//U‚ê‚é.
 	m_vRot.z += m_fMovePower;

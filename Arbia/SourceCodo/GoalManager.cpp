@@ -36,6 +36,8 @@ clsGoalMgr::clsGoalMgr()
 	m_pTreasurer = nullptr;
 	m_pTrBoxCol = nullptr;
 
+	
+
 	m_ppSe = nullptr;
 	m_pEffect = nullptr;
 }
@@ -47,6 +49,15 @@ clsGoalMgr::~clsGoalMgr()
 
 void clsGoalMgr::Create( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext )
 {
+	if( m_pFloor != nullptr ||
+		m_pTreasurer != nullptr ||
+		m_pTrBoxCol != nullptr ||
+		m_ppSe != nullptr ||
+		m_pEffect != nullptr )
+	{
+		return;
+	}
+
 	//床.
 	m_pFloor = new clsCharaStatic;
 	m_pFloor->AttachModel(
@@ -121,6 +132,7 @@ void clsGoalMgr::Init()
 	ChangeAnimMode( enANIM_IDLE );
 
 	//エフェクト止める.
+	if( m_pEffect == nullptr ) return;
 	m_pEffect->Stop( m_ehOpen );
 	m_pEffect->Stop( m_ehLoop );
 }
@@ -162,9 +174,7 @@ void clsGoalMgr::Release()
 void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 	D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye )
 {
-	if( m_pFloor == nullptr || m_pTreasurer == nullptr ){
-		return;
-	}
+	if( m_pFloor == nullptr || m_pTreasurer == nullptr ) return;
 
 	//床.
 	m_pFloor->Render( mView, mProj, vLight, vEye );
@@ -177,6 +187,13 @@ void clsGoalMgr::Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
 
 void clsGoalMgr::SetPosition( D3DXVECTOR3 vPos )
 {
+	if( m_pFloor == nullptr ||
+		m_pTreasurer == nullptr ||
+		m_pTrBoxCol == nullptr )
+	{
+		return;
+	}
+
 	m_vPos = vPos;
 
 	//子分.
@@ -198,8 +215,10 @@ void clsGoalMgr::SetPosition( D3DXVECTOR3 vPos )
 }
 
 
-void clsGoalMgr::Move( float fEarZ )
+void clsGoalMgr::Update( float fEarZ )
 {
+	if( m_pEffect == nullptr ) return;
+
 //	m_fEarZ = fEarZ;
 	Animation();
 
@@ -224,6 +243,8 @@ void clsGoalMgr::Move( float fEarZ )
 //============================================================
 void clsGoalMgr::BoxBreak()
 {
+	if( m_pEffect == nullptr ) return;
+
 	m_bOpen = true;
 
 	PlaySe( enSOUND_OPEN );
