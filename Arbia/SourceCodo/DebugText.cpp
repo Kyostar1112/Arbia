@@ -25,7 +25,7 @@ clsDebugText::clsDebugText()
 	m_pSampleLinear = nullptr;//Ã¸½Á¬‚Ì»İÌß×°:/Ã¸½Á¬‚ÉŠeíÌ¨ÙÀ‚ğ‚©‚¯‚é.
 
 	m_pBlendState = nullptr;	//ÌŞÚİÄŞ½Ã°Ä.
-	
+
 	m_fScale = 1.0f;
 }
 
@@ -343,7 +343,7 @@ void clsDebugText::Render( char* text, int x, int y )
 
 	SetBlend( true );
 	//•¶š”•ªÙ°Ìß.
-	for( int i=0; i<strlen( text ); i++ ){
+	for( UINT i=0; i<strlen( text ); i++ ){
 		char font = text[i];
 		int index = font - 32;	//Ì«İÄ²İÃŞ¯¸½ì¬.
 
